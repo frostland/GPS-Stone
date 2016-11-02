@@ -1,0 +1,1020 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="buttons.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient4953">
+      <stop
+         style="stop-color:#292929;stop-opacity:1;"
+         offset="0"
+         id="stop4955" />
+      <stop
+         id="stop4959"
+         offset="0.5"
+         style="stop-color:#616161;stop-opacity:1;" />
+      <stop
+         style="stop-color:#292929;stop-opacity:1;"
+         offset="1"
+         id="stop4957" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3208">
+      <stop
+         id="stop3210"
+         offset="0"
+         style="stop-color:#616161;stop-opacity:1;" />
+      <stop
+         id="stop3212"
+         offset="1"
+         style="stop-color:#292929;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3874">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop3876" />
+      <stop
+         style="stop-color:#f5f5f5;stop-opacity:1;"
+         offset="1"
+         id="stop3878" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3757">
+      <stop
+         style="stop-color:#bec9d6;stop-opacity:1;"
+         offset="0"
+         id="stop3759" />
+      <stop
+         style="stop-color:#42608a;stop-opacity:1;"
+         offset="1"
+         id="stop3761" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="6.123234e-14 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective2464"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3684"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <filter
+       inkscape:collect="always"
+       id="filter3829">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.2623099"
+         id="feGaussianBlur3831" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter4012">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.5187643"
+         id="feGaussianBlur4014" />
+    </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3757"
+       id="radialGradient4020"
+       gradientUnits="userSpaceOnUse"
+       cx="212.13203"
+       cy="470.4133"
+       fx="212.13203"
+       fy="470.4133"
+       r="53.740116" />
+    <filter
+       inkscape:collect="always"
+       id="filter4090">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.6122035"
+         id="feGaussianBlur4092" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3874"
+       id="linearGradient3188"
+       gradientUnits="userSpaceOnUse"
+       x1="389.04318"
+       y1="251.9241"
+       x2="371.58917"
+       y2="296.93619" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3757"
+       id="radialGradient3190"
+       gradientUnits="userSpaceOnUse"
+       cx="212.13203"
+       cy="470.4133"
+       fx="212.13203"
+       fy="470.4133"
+       r="53.740116" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3874"
+       id="linearGradient3192"
+       gradientUnits="userSpaceOnUse"
+       x1="351.53311"
+       y1="298.28329"
+       x2="400.52548"
+       y2="249.29091" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3874"
+       id="linearGradient3206"
+       gradientUnits="userSpaceOnUse"
+       x1="389.04318"
+       y1="251.9241"
+       x2="371.58917"
+       y2="296.93619" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3874"
+       id="linearGradient3214"
+       gradientUnits="userSpaceOnUse"
+       x1="351.53311"
+       y1="298.28329"
+       x2="431.06021"
+       y2="218.7562" />
+    <inkscape:perspective
+       id="perspective3280"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3874"
+       id="linearGradient3294"
+       gradientUnits="userSpaceOnUse"
+       x1="351.53311"
+       y1="298.28329"
+       x2="431.06021"
+       y2="218.7562" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="radialGradient3296"
+       gradientUnits="userSpaceOnUse"
+       cx="212.13203"
+       cy="470.4133"
+       fx="212.13203"
+       fy="470.4133"
+       r="53.740116" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3874"
+       id="linearGradient3298"
+       gradientUnits="userSpaceOnUse"
+       x1="389.04318"
+       y1="251.9241"
+       x2="371.58917"
+       y2="296.93619" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3874"
+       id="linearGradient2431"
+       gradientUnits="userSpaceOnUse"
+       x1="351.53311"
+       y1="298.28329"
+       x2="431.06021"
+       y2="218.7562" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3874"
+       id="linearGradient3211"
+       x1="562.32355"
+       y1="544.03864"
+       x2="631.5"
+       y2="474.86218"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3874"
+       id="linearGradient3293"
+       gradientUnits="userSpaceOnUse"
+       x1="603.2157"
+       y1="551.28796"
+       x2="603.2157"
+       y2="455.77029" />
+    <filter
+       inkscape:collect="always"
+       id="filter3326">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.4797894"
+         id="feGaussianBlur3328" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter4947">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.84"
+         id="feGaussianBlur4949" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient4961"
+       x1="158.39192"
+       y1="470.4133"
+       x2="265.87216"
+       y2="470.4133"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient4967"
+       gradientUnits="userSpaceOnUse"
+       x1="158.39192"
+       y1="470.4133"
+       x2="265.87216"
+       y2="470.4133" />
+    <inkscape:perspective
+       id="perspective4976"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient5012"
+       x1="577"
+       y1="529.36218"
+       x2="633"
+       y2="473.36218"
+       gradientUnits="userSpaceOnUse" />
+    <inkscape:perspective
+       id="perspective5033"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3874"
+       id="linearGradient5047"
+       gradientUnits="userSpaceOnUse"
+       x1="351.53311"
+       y1="298.28329"
+       x2="431.06021"
+       y2="218.7562" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient5049"
+       gradientUnits="userSpaceOnUse"
+       x1="158.39192"
+       y1="470.4133"
+       x2="265.87216"
+       y2="470.4133" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient5143"
+       gradientUnits="userSpaceOnUse"
+       x1="577"
+       y1="529.36218"
+       x2="633"
+       y2="473.36218" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient5145"
+       gradientUnits="userSpaceOnUse"
+       x1="577"
+       y1="529.36218"
+       x2="633"
+       y2="473.36218" />
+    <inkscape:perspective
+       id="perspective5158"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3874"
+       id="linearGradient5172"
+       gradientUnits="userSpaceOnUse"
+       x1="351.53311"
+       y1="298.28329"
+       x2="431.06021"
+       y2="218.7562" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient5174"
+       gradientUnits="userSpaceOnUse"
+       x1="158.39192"
+       y1="470.4133"
+       x2="265.87216"
+       y2="470.4133" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient5176"
+       gradientUnits="userSpaceOnUse"
+       x1="577"
+       y1="529.36218"
+       x2="633"
+       y2="473.36218" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient5180"
+       gradientUnits="userSpaceOnUse"
+       x1="577"
+       y1="529.36218"
+       x2="633"
+       y2="473.36218" />
+    <filter
+       inkscape:collect="always"
+       id="filter5510"
+       x="-0.108"
+       width="1.216"
+       y="-0.108"
+       height="1.216">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.52"
+         id="feGaussianBlur5512" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5514"
+       x="-0.108"
+       width="1.216"
+       y="-0.108"
+       height="1.216">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.52"
+         id="feGaussianBlur5516" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient5522"
+       gradientUnits="userSpaceOnUse"
+       x1="577"
+       y1="529.36218"
+       x2="633"
+       y2="473.36218" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient5536"
+       gradientUnits="userSpaceOnUse"
+       x1="577"
+       y1="529.36218"
+       x2="633"
+       y2="473.36218"
+       gradientTransform="translate(97.250001,2.125)" />
+    <filter
+       inkscape:collect="always"
+       id="filter5546"
+       x="-0.054824007"
+       width="1.109648"
+       y="-0.17955451"
+       height="1.359109">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.6801375"
+         id="feGaussianBlur5548" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5550">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.2401615"
+         id="feGaussianBlur5552" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient5562"
+       gradientUnits="userSpaceOnUse"
+       x1="577"
+       y1="529.36218"
+       x2="633"
+       y2="473.36218" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient5564"
+       gradientUnits="userSpaceOnUse"
+       x1="577"
+       y1="529.36218"
+       x2="633"
+       y2="473.36218" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient5572"
+       gradientUnits="userSpaceOnUse"
+       x1="577"
+       y1="529.36218"
+       x2="633"
+       y2="473.36218" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient5574"
+       gradientUnits="userSpaceOnUse"
+       x1="577"
+       y1="529.36218"
+       x2="633"
+       y2="473.36218" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient5586"
+       gradientUnits="userSpaceOnUse"
+       x1="577"
+       y1="529.36218"
+       x2="633"
+       y2="473.36218" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient5588"
+       gradientUnits="userSpaceOnUse"
+       x1="577"
+       y1="529.36218"
+       x2="633"
+       y2="473.36218" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient5596"
+       gradientUnits="userSpaceOnUse"
+       x1="577"
+       y1="529.36218"
+       x2="633"
+       y2="473.36218" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3208"
+       id="linearGradient5598"
+       gradientUnits="userSpaceOnUse"
+       x1="577"
+       y1="529.36218"
+       x2="633"
+       y2="473.36218" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.70710677"
+     inkscape:cx="527.16281"
+     inkscape:cy="240.18791"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1051"
+     inkscape:window-height="828"
+     inkscape:window-x="228"
+     inkscape:window-y="98"
+     showguides="true"
+     inkscape:guide-bbox="true" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:1;fill:#272727;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4016"
+       width="449.71991"
+       height="226.27417"
+       x="-286.56812"
+       y="693.64984" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#linearGradient3192);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path4022"
+       sodipodi:cx="376.0293"
+       sodipodi:cy="273.78711"
+       sodipodi:rx="24.496199"
+       sodipodi:ry="24.496199"
+       d="M 400.5255,273.78711 A 24.496199,24.496199 0 1 1 351.5331,273.78711 A 24.496199,24.496199 0 1 1 400.5255,273.78711 z"
+       transform="matrix(2.4726787,0,0,2.4726787,-846.43253,-68.891954)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button.png"
+       inkscape:export-xdpi="37.150002"
+       inkscape:export-ydpi="37.150002" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#radialGradient3190);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4090)"
+       id="path3755"
+       sodipodi:cx="212.13203"
+       sodipodi:cy="470.4133"
+       sodipodi:rx="53.740116"
+       sodipodi:ry="53.740116"
+       d="M 265.87215,470.4133 A 53.740116,53.740116 0 1 1 158.39192,470.4133 A 53.740116,53.740116 0 1 1 265.87215,470.4133 z"
+       transform="matrix(1.0778607,0,0,1.0778607,-145.28168,101.05559)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button.png"
+       inkscape:export-xdpi="37.150002"
+       inkscape:export-ydpi="37.150002" />
+    <image
+       y="210.29688"
+       x="151.51562"
+       id="image3686"
+       height="124"
+       width="200"
+       sodipodi:absref="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/aluminum_texture.jpg"
+       xlink:href="aluminum_texture.jpg" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#linearGradient3188);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3840"
+       sodipodi:cx="376.0293"
+       sodipodi:cy="273.78711"
+       sodipodi:rx="24.496199"
+       sodipodi:ry="24.496199"
+       d="M 400.5255,273.78711 A 24.496199,24.496199 0 1 1 351.5331,273.78711 A 24.496199,24.496199 0 1 1 400.5255,273.78711 z"
+       transform="matrix(1.1663536,0,0,1.1663536,-355.21602,288.76302)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button.png"
+       inkscape:export-xdpi="37.150002"
+       inkscape:export-ydpi="37.150002" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#d00000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4012)"
+       id="path3767"
+       sodipodi:cx="376.0293"
+       sodipodi:cy="273.78711"
+       sodipodi:rx="24.496199"
+       sodipodi:ry="24.496199"
+       d="M 400.5255,273.78711 A 24.496199,24.496199 0 1 1 351.5331,273.78711 A 24.496199,24.496199 0 1 1 400.5255,273.78711 z"
+       transform="matrix(1.1310138,0,0,1.1310138,-341.92722,298.4386)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button.png"
+       inkscape:export-xdpi="37.150002"
+       inkscape:export-ydpi="37.150002" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#d00000;fill-opacity:1;fill-rule:nonzero;stroke:#aa0000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3829)"
+       id="path3833"
+       sodipodi:cx="376.0293"
+       sodipodi:cy="273.78711"
+       sodipodi:rx="24.496199"
+       sodipodi:ry="24.496199"
+       d="M 400.5255,273.78711 A 24.496199,24.496199 0 1 1 351.5331,273.78711 A 24.496199,24.496199 0 1 1 400.5255,273.78711 z"
+       transform="matrix(1.1918539,0,0,1.1918539,-198.94594,-53.517551)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:2.40671945;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 62.028394,148.57485 L 62.028394,397.0185 L 436.4237,397.0185 L 436.4237,148.57485 L 62.028394,148.57485 z M 249.20098,212.10222 C 282.70617,212.1022 309.92051,239.31655 309.92051,272.82175 C 309.92051,306.32694 282.70617,333.49113 249.20098,333.49113 C 215.69578,333.49115 188.53159,306.32694 188.53159,272.82175 C 188.53159,239.31655 215.69578,212.10222 249.20098,212.10222 z"
+       id="rect3835" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3747"
+       width="419.49893"
+       height="29.682875"
+       x="40.889854"
+       y="131.21368" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3749"
+       width="40.91423"
+       height="277.36078"
+       x="33.830956"
+       y="132.68053" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3751"
+       width="439.49387"
+       height="30.133253"
+       x="37.281799"
+       y="383.43951" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3753"
+       width="60.97023"
+       height="282.47311"
+       x="404.09433"
+       y="129.36731" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#linearGradient3214);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3194"
+       sodipodi:cx="376.0293"
+       sodipodi:cy="273.78711"
+       sodipodi:rx="24.496199"
+       sodipodi:ry="24.496199"
+       d="M 400.5255,273.78711 A 24.496199,24.496199 0 1 1 351.5331,273.78711 A 24.496199,24.496199 0 1 1 400.5255,273.78711 z"
+       transform="matrix(2.4726787,0,0,2.4726787,-514.79967,-11.625407)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#linearGradient4961);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4090)"
+       id="path3196"
+       sodipodi:cx="212.13203"
+       sodipodi:cy="470.4133"
+       sodipodi:rx="53.740116"
+       sodipodi:ry="53.740116"
+       d="M 265.87215,470.4133 A 53.740116,53.740116 0 1 1 158.39192,470.4133 A 53.740116,53.740116 0 1 1 265.87215,470.4133 z"
+       transform="matrix(0.5113367,-0.9488511,0.9488511,0.5113367,-139.8231,626.10426)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#linearGradient3206);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3198"
+       sodipodi:cx="376.0293"
+       sodipodi:cy="273.78711"
+       sodipodi:rx="24.496199"
+       sodipodi:ry="24.496199"
+       d="M 400.5255,273.78711 A 24.496199,24.496199 0 1 1 351.5331,273.78711 A 24.496199,24.496199 0 1 1 400.5255,273.78711 z"
+       transform="matrix(-1.1663536,0,0,-1.1663536,853.58313,984.69476)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#d00000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4012)"
+       id="path3200"
+       sodipodi:cx="376.0293"
+       sodipodi:cy="273.78711"
+       sodipodi:rx="24.496199"
+       sodipodi:ry="24.496199"
+       d="M 400.5255,273.78711 A 24.496199,24.496199 0 1 1 351.5331,273.78711 A 24.496199,24.496199 0 1 1 400.5255,273.78711 z"
+       transform="matrix(1.1310138,0,0,1.1310138,-10.294319,355.70518)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#linearGradient2431);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path2423"
+       sodipodi:cx="376.0293"
+       sodipodi:cy="273.78711"
+       sodipodi:rx="24.496199"
+       sodipodi:ry="24.496199"
+       d="M 400.5255,273.78711 A 24.496199,24.496199 0 1 1 351.5331,273.78711 A 24.496199,24.496199 0 1 1 400.5255,273.78711 z"
+       transform="matrix(2.4726787,0,0,2.4726787,-338.47867,-139.19641)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#linearGradient4967);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4090)"
+       id="path4965"
+       sodipodi:cx="212.13203"
+       sodipodi:cy="470.4133"
+       sodipodi:rx="53.740116"
+       sodipodi:ry="53.740116"
+       d="M 265.87215,470.4133 A 53.740116,53.740116 0 1 1 158.39192,470.4133 A 53.740116,53.740116 0 1 1 265.87215,470.4133 z"
+       transform="matrix(0.5113367,-0.9488511,0.9488511,0.5113367,36.497834,498.53324)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43" />
+    <rect
+       style="opacity:1;fill:url(#linearGradient5012);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.50000000000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4947)"
+       id="rect5004"
+       width="56"
+       height="56"
+       x="577"
+       y="473.36218"
+       ry="0"
+       transform="matrix(-0.8306199,0,0,-0.8306199,1093.8461,954.23258)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43" />
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4947)"
+       id="rect3370"
+       width="56"
+       height="56"
+       x="577"
+       y="473.36218"
+       ry="0"
+       transform="matrix(0.7962724,0,0,0.7962724,109.57621,138.57031)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="282.5"
+       y="573.86218"
+       id="text4996"><tspan
+         sodipodi:role="line"
+         id="tspan4998"
+         x="282.5"
+         y="573.86218">To highlight, make a symmetry</tspan><tspan
+         sodipodi:role="line"
+         x="282.5"
+         y="588.86218"
+         id="tspan5000">of the two circle of the Bg</tspan></text>
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#linearGradient5047);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path5039"
+       sodipodi:cx="376.0293"
+       sodipodi:cy="273.78711"
+       sodipodi:rx="24.496199"
+       sodipodi:ry="24.496199"
+       d="M 400.5255,273.78711 A 24.496199,24.496199 0 1 1 351.5331,273.78711 A 24.496199,24.496199 0 1 1 400.5255,273.78711 z"
+       transform="matrix(2.4726787,0,0,2.4726787,-253.64457,13.811393)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/pause_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#linearGradient5049);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4090)"
+       id="path5041"
+       sodipodi:cx="212.13203"
+       sodipodi:cy="470.4133"
+       sodipodi:rx="53.740116"
+       sodipodi:ry="53.740116"
+       d="M 265.87215,470.4133 A 53.740116,53.740116 0 1 1 158.39192,470.4133 A 53.740116,53.740116 0 1 1 265.87215,470.4133 z"
+       transform="matrix(0.5113367,-0.9488511,0.9488511,0.5113367,121.33203,651.54103)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/pause_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43" />
+    <rect
+       style="fill:url(#linearGradient5143);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4947)"
+       id="rect5043"
+       width="56"
+       height="56"
+       x="577"
+       y="473.36218"
+       ry="0"
+       transform="matrix(-0.3105306,0,0,-0.8306199,848.46359,1107.2404)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/pause_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4947)"
+       id="rect5045"
+       width="56"
+       height="56"
+       x="577"
+       y="473.36218"
+       ry="0"
+       transform="matrix(0.2761786,0,0,0.7962724,493.50452,291.57813)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/pause_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43" />
+    <rect
+       style="fill:url(#linearGradient5145);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4947)"
+       id="rect5131"
+       width="56"
+       height="56"
+       x="577"
+       y="473.36218"
+       ry="0"
+       transform="matrix(-0.3105306,0,0,-0.8306199,879.58859,1107.2404)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/pause_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4947)"
+       id="rect5133"
+       width="56"
+       height="56"
+       x="577"
+       y="473.36218"
+       ry="0"
+       transform="matrix(0.2761786,0,0,0.7962724,524.62952,291.57813)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/pause_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#linearGradient5172);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path5164"
+       sodipodi:cx="376.0293"
+       sodipodi:cy="273.78711"
+       sodipodi:rx="24.496199"
+       sodipodi:ry="24.496199"
+       d="M 400.5255,273.78711 A 24.496199,24.496199 0 1 1 351.5331,273.78711 A 24.496199,24.496199 0 1 1 400.5255,273.78711 z"
+       transform="matrix(2.4726787,0,0,2.4726787,-408.66197,142.73649)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/recList_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#linearGradient5174);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4090)"
+       id="path5166"
+       sodipodi:cx="212.13203"
+       sodipodi:cy="470.4133"
+       sodipodi:rx="53.740116"
+       sodipodi:ry="53.740116"
+       d="M 265.87215,470.4133 A 53.740116,53.740116 0 1 1 158.39192,470.4133 A 53.740116,53.740116 0 1 1 265.87215,470.4133 z"
+       transform="matrix(0.5113367,-0.9488511,0.9488511,0.5113367,-33.685466,780.46612)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/recList_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43" />
+    <g
+       id="g5590"
+       transform="translate(0.2932815,-1.1617688e-5)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/recList_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43">
+      <rect
+         inkscape:export-ydpi="33.43"
+         inkscape:export-xdpi="33.43"
+         inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button_t.png"
+         transform="matrix(-0.1966913,0,0,-0.1966913,622.38601,900.58768)"
+         ry="0"
+         y="473.36218"
+         x="577"
+         height="56"
+         width="56"
+         id="rect5168"
+         style="opacity:1;fill:url(#linearGradient5596);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter5510)" />
+      <rect
+         inkscape:export-ydpi="33.43"
+         inkscape:export-xdpi="33.43"
+         inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button_t.png"
+         transform="matrix(0.1623393,0,0,0.1623393,405.1725,720.58331)"
+         ry="0"
+         y="473.36218"
+         x="577"
+         height="56"
+         width="56"
+         id="rect5170"
+         style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter5514)" />
+      <rect
+         inkscape:export-ydpi="33.43"
+         inkscape:export-xdpi="33.43"
+         inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button_t.png"
+         transform="matrix(-0.5660283,0,0,-0.1966913,870.40687,900.58768)"
+         ry="0"
+         y="473.36218"
+         x="577"
+         height="56"
+         width="56"
+         id="rect5518"
+         style="opacity:1;fill:url(#linearGradient5598);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter5550)" />
+      <rect
+         y="797.42859"
+         x="513.07275"
+         height="9.0909996"
+         width="29.774"
+         id="rect5524"
+         style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter5546)" />
+    </g>
+    <g
+       id="g5566"
+       transform="translate(0.2932815,-0.8750116)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/recList_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43">
+      <rect
+         inkscape:export-ydpi="33.43"
+         inkscape:export-xdpi="33.43"
+         inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button_t.png"
+         transform="matrix(-0.1966913,0,0,-0.1966913,622.38601,919.21268)"
+         ry="0"
+         y="473.36218"
+         x="577"
+         height="56"
+         width="56"
+         id="rect5554"
+         style="opacity:1;fill:url(#linearGradient5572);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter5510)" />
+      <rect
+         inkscape:export-ydpi="33.43"
+         inkscape:export-xdpi="33.43"
+         inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button_t.png"
+         transform="matrix(0.1623393,0,0,0.1623393,405.1725,739.20831)"
+         ry="0"
+         y="473.36218"
+         x="577"
+         height="56"
+         width="56"
+         id="rect5556"
+         style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter5514)" />
+      <rect
+         inkscape:export-ydpi="33.43"
+         inkscape:export-xdpi="33.43"
+         inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button_t.png"
+         transform="matrix(-0.5660283,0,0,-0.1966913,870.40687,919.21268)"
+         ry="0"
+         y="473.36218"
+         x="577"
+         height="56"
+         width="56"
+         id="rect5558"
+         style="opacity:1;fill:url(#linearGradient5574);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter5550)" />
+      <rect
+         y="816.05359"
+         x="513.07275"
+         height="9.0909996"
+         width="29.774"
+         id="rect5560"
+         style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter5546)" />
+    </g>
+    <g
+       id="g5576"
+       transform="translate(0.2932815,16.874988)"
+       inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/recList_button_t.png"
+       inkscape:export-xdpi="33.43"
+       inkscape:export-ydpi="33.43">
+      <rect
+         inkscape:export-ydpi="33.43"
+         inkscape:export-xdpi="33.43"
+         inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button_t.png"
+         transform="matrix(-0.1966913,0,0,-0.1966913,622.38601,919.21268)"
+         ry="0"
+         y="473.36218"
+         x="577"
+         height="56"
+         width="56"
+         id="rect5578"
+         style="opacity:1;fill:url(#linearGradient5586);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter5510)" />
+      <rect
+         inkscape:export-ydpi="33.43"
+         inkscape:export-xdpi="33.43"
+         inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button_t.png"
+         transform="matrix(0.1623393,0,0,0.1623393,405.1725,739.20831)"
+         ry="0"
+         y="473.36218"
+         x="577"
+         height="56"
+         width="56"
+         id="rect5580"
+         style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter5514)" />
+      <rect
+         inkscape:export-ydpi="33.43"
+         inkscape:export-xdpi="33.43"
+         inkscape:export-filename="/Users/francois/Programmation/_en_cours/iPhone Apps/GPS Recorder/UI Resources/record_button_t.png"
+         transform="matrix(-0.5660283,0,0,-0.1966913,870.40687,919.21268)"
+         ry="0"
+         y="473.36218"
+         x="577"
+         height="56"
+         width="56"
+         id="rect5582"
+         style="opacity:1;fill:url(#linearGradient5588);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter5550)" />
+      <rect
+         y="816.05359"
+         x="513.07275"
+         height="9.0909996"
+         width="29.774"
+         id="rect5584"
+         style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter5546)" />
+    </g>
+  </g>
+</svg>

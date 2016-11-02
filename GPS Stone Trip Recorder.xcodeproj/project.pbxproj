@@ -1,0 +1,682 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0F13A60F102AE7E800D1C9BE /* VSOInfoGenericController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F13A60E102AE7E800D1C9BE /* VSOInfoGenericController.m */; };
+		0F2B5EF01028362200FC0595 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F2B5EEF1028362200FC0595 /* Localizable.strings */; };
+		0F2B6089102842F300FC0595 /* VSORecordingDetailViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2B6087102842F300FC0595 /* VSORecordingDetailViewCtrl.m */; };
+		0F2B608A102842F300FC0595 /* VSORecordingDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F2B6088102842F300FC0595 /* VSORecordingDetailView.xib */; };
+		0F34802B10089A9700E88124 /* VSOMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F34802910089A9700E88124 /* VSOMapViewController.m */; };
+		0F34802C10089A9700E88124 /* VSOMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F34802A10089A9700E88124 /* VSOMapViewController.xib */; };
+		0F3480DC1008A77B00E88124 /* VSOInfoViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3480DA1008A77B00E88124 /* VSOInfoViewCtrl.m */; };
+		0F3480DD1008A77B00E88124 /* VSOInfoViewCtrl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3480DB1008A77B00E88124 /* VSOInfoViewCtrl.xib */; };
+		0F3480F91008A83B00E88124 /* VSODetailsViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3480F71008A83B00E88124 /* VSODetailsViewCtrl.m */; };
+		0F3480FA1008A83B00E88124 /* VSODetailsViewCtrl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3480F81008A83B00E88124 /* VSODetailsViewCtrl.xib */; };
+		0F34811C1008A93A00E88124 /* VSOScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F34811B1008A93A00E88124 /* VSOScrollView.m */; };
+		0F3774D6103D7F68009B7FAE /* VSOBlankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3774D5103D7F68009B7FAE /* VSOBlankView.m */; };
+		0F48CE5E1029AD88008C524D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F48CE5D1029AD88008C524D /* AddressBookUI.framework */; };
+		0F48CE7D1029AF9D008C524D /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F48CE7C1029AF9D008C524D /* AddressBook.framework */; };
+		0F4BD3D1103B01DA004570AA /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F4BD3CE103B01DA004570AA /* icon.png */; };
+		0F4BD3D2103B01DA004570AA /* Icon-Settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F4BD3CF103B01DA004570AA /* Icon-Settings.png */; };
+		0F4BD3D3103B01DA004570AA /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F4BD3D0103B01DA004570AA /* Icon-Small.png */; };
+		0F577FCD1020811300067838 /* GPXgpxType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F577FCC1020811300067838 /* GPXgpxType.m */; };
+		0F577FD01020816D00067838 /* XMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F577FCF1020816D00067838 /* XMLElement.m */; };
+		0F57809A1020925100067838 /* GPXmetadataType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5780991020925100067838 /* GPXmetadataType.m */; };
+		0F5780B51020939900067838 /* XMLStringElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5780B41020939900067838 /* XMLStringElement.m */; };
+		0F5780DF102095E000067838 /* XMLDateElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5780DE102095E000067838 /* XMLDateElement.m */; };
+		0F5780E51020988800067838 /* GPXwptType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5780E41020988800067838 /* GPXwptType.m */; };
+		0F656070100B4FC5004D16D7 /* VSORecordingsListViewCtlr.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F65606E100B4FC5004D16D7 /* VSORecordingsListViewCtlr.xib */; };
+		0F6A06E1100C49C90034A949 /* stop_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A06E0100C49C90034A949 /* stop_button.png */; };
+		0F6A06EA100C4A470034A949 /* stop_button_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A06E9100C4A470034A949 /* stop_button_highlighted.png */; };
+		0F6A06ED100C4D3C0034A949 /* pause_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A06EC100C4D3C0034A949 /* pause_button.png */; };
+		0F6A06EF100C4DA10034A949 /* pause_button_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A06EE100C4DA10034A949 /* pause_button_highlighted.png */; };
+		0F6A06F4100C51380034A949 /* recList_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A06F3100C51380034A949 /* recList_button.png */; };
+		0F6A06F6100C51910034A949 /* recList_button_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A06F5100C51910034A949 /* recList_button_highlighted.png */; };
+		0F79F6A010203DAE00AF7FF1 /* VSOUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */; };
+		0F852ED4103C2945008895AD /* road.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F852ED3103C2945008895AD /* road.jpg */; };
+		0F852FFA103C4C9E008895AD /* vso-logo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0F852FF9103C4C9E008895AD /* vso-logo.pdf */; };
+		0F853027103C555E008895AD /* vso-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F853026103C555E008895AD /* vso-logo.png */; };
+		0F85304C103C56AE008895AD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F85304B103C56AE008895AD /* Default.png */; };
+		0F87BA4E103D4651007CFAAA /* road_fabrice_info_view.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F87BA4D103D4651007CFAAA /* road_fabrice_info_view.png */; };
+		0FA3D1DD10302ED80098760F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA3D1DC10302ED80098760F /* MessageUI.framework */; };
+		0FB4B0FC10074B20005292C4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB4B0FB10074B20005292C4 /* MapKit.framework */; };
+		0FB4B20410076704005292C4 /* record_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FB4B20310076704005292C4 /* record_button.png */; };
+		0FB4B2B81007A0D5005292C4 /* record_button_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FB4B2B71007A0D5005292C4 /* record_button_highlighted.png */; };
+		0FBBCBA9100A9F67003679A8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FBBCBA8100A9F67003679A8 /* CoreLocation.framework */; };
+		0FC907BE1023107F009EA1B1 /* VSORecordingsListViewCtlr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC907BC1023107F009EA1B1 /* VSORecordingsListViewCtlr.m */; };
+		0FD0628E102C6FCE0047414B /* VSOPathAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD0628D102C6FCE0047414B /* VSOPathAnnotationView.m */; };
+		0FE8B0DA10218740009A321A /* XMLDecimalElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B0D910218740009A321A /* XMLDecimalElement.m */; };
+		0FE8B11610218965009A321A /* GPXrteType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B11510218965009A321A /* GPXrteType.m */; };
+		0FE8B12C10218AFA009A321A /* XMLIntegerElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B12B10218AFA009A321A /* XMLIntegerElement.m */; };
+		0FE8B14710218BAE009A321A /* GPXtrkType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B14610218BAE009A321A /* GPXtrkType.m */; };
+		0FE8B15810218E04009A321A /* GPXextensionsType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B15710218E04009A321A /* GPXextensionsType.m */; };
+		0FE8B15B10218EC6009A321A /* GPXtrksegType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B15A10218EC6009A321A /* GPXtrksegType.m */; };
+		0FE8B15E10218EFC009A321A /* GPXcopyrightType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B15D10218EFC009A321A /* GPXcopyrightType.m */; };
+		0FE8B18F10219251009A321A /* GPXlinkType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B18E10219251009A321A /* GPXlinkType.m */; };
+		0FE8B192102192FC009A321A /* GPXemailType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B191102192FC009A321A /* GPXemailType.m */; };
+		0FE8B1BB10219391009A321A /* GPXpersonType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B1BA10219391009A321A /* GPXpersonType.m */; };
+		0FE8B1BE102193FF009A321A /* GPXptType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B1BD102193FF009A321A /* GPXptType.m */; };
+		0FE8B1C1102195E6009A321A /* GPXptsegType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B1C0102195E6009A321A /* GPXptsegType.m */; };
+		0FE8B1C41021964F009A321A /* GPXboundsType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B1C31021964F009A321A /* GPXboundsType.m */; };
+		0FF1B2B01031A21100C89E55 /* north.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF1B2AF1031A21100C89E55 /* north.png */; };
+		1D3623260D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.m */; };
+		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		280E754D0DD40C5E005A515E /* VSOSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E754A0DD40C5E005A515E /* VSOSettingsView.xib */; };
+		280E754E0DD40C5E005A515E /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E754B0DD40C5E005A515E /* MainView.xib */; };
+		280E754F0DD40C5E005A515E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E754C0DD40C5E005A515E /* MainWindow.xib */; };
+		288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765580DF743DE002DB57D /* CoreGraphics.framework */; };
+		289233A60DB2D0840083E9F9 /* VSOSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A30DB2D0840083E9F9 /* VSOSettingsView.m */; };
+		289233A70DB2D0840083E9F9 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A50DB2D0840083E9F9 /* MainView.m */; };
+		289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A90DB2D0DB0083E9F9 /* MainViewController.m */; };
+		289233B00DB2D0DB0083E9F9 /* VSOSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AD0DB2D0DB0083E9F9 /* VSOSettingsViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0F13A60D102AE7E800D1C9BE /* VSOInfoGenericController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOInfoGenericController.h; sourceTree = "<group>"; };
+		0F13A60E102AE7E800D1C9BE /* VSOInfoGenericController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOInfoGenericController.m; sourceTree = "<group>"; };
+		0F2B6086102842F300FC0595 /* VSORecordingDetailViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSORecordingDetailViewCtrl.h; sourceTree = "<group>"; };
+		0F2B6087102842F300FC0595 /* VSORecordingDetailViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSORecordingDetailViewCtrl.m; sourceTree = "<group>"; };
+		0F2B6088102842F300FC0595 /* VSORecordingDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VSORecordingDetailView.xib; sourceTree = "<group>"; };
+		0F2EE638102330820002BB25 /* Dev Notes.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Dev Notes.rtf"; sourceTree = "<group>"; };
+		0F34802810089A9700E88124 /* VSOMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOMapViewController.h; sourceTree = "<group>"; };
+		0F34802910089A9700E88124 /* VSOMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOMapViewController.m; sourceTree = "<group>"; };
+		0F34802A10089A9700E88124 /* VSOMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VSOMapViewController.xib; sourceTree = "<group>"; };
+		0F3480D91008A77B00E88124 /* VSOInfoViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOInfoViewCtrl.h; sourceTree = "<group>"; };
+		0F3480DA1008A77B00E88124 /* VSOInfoViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOInfoViewCtrl.m; sourceTree = "<group>"; };
+		0F3480DB1008A77B00E88124 /* VSOInfoViewCtrl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VSOInfoViewCtrl.xib; sourceTree = "<group>"; };
+		0F3480F61008A83B00E88124 /* VSODetailsViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSODetailsViewCtrl.h; sourceTree = "<group>"; };
+		0F3480F71008A83B00E88124 /* VSODetailsViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSODetailsViewCtrl.m; sourceTree = "<group>"; };
+		0F3480F81008A83B00E88124 /* VSODetailsViewCtrl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VSODetailsViewCtrl.xib; sourceTree = "<group>"; };
+		0F34811A1008A93A00E88124 /* VSOScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOScrollView.h; sourceTree = "<group>"; };
+		0F34811B1008A93A00E88124 /* VSOScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOScrollView.m; sourceTree = "<group>"; };
+		0F3774D4103D7F68009B7FAE /* VSOBlankView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOBlankView.h; sourceTree = "<group>"; };
+		0F3774D5103D7F68009B7FAE /* VSOBlankView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOBlankView.m; sourceTree = "<group>"; };
+		0F48CE5D1029AD88008C524D /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		0F48CE7C1029AF9D008C524D /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		0F4BD3CE103B01DA004570AA /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = "UI Resources/Datas/icon/icon.png"; sourceTree = "<group>"; };
+		0F4BD3CF103B01DA004570AA /* Icon-Settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Settings.png"; path = "UI Resources/Datas/icon/Icon-Settings.png"; sourceTree = "<group>"; };
+		0F4BD3D0103B01DA004570AA /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "UI Resources/Datas/icon/Icon-Small.png"; sourceTree = "<group>"; };
+		0F577FCB1020811300067838 /* GPXgpxType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXgpxType.h; sourceTree = "<group>"; };
+		0F577FCC1020811300067838 /* GPXgpxType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXgpxType.m; sourceTree = "<group>"; };
+		0F577FCE1020816D00067838 /* XMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLElement.h; sourceTree = "<group>"; };
+		0F577FCF1020816D00067838 /* XMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLElement.m; sourceTree = "<group>"; };
+		0F5780981020925100067838 /* GPXmetadataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXmetadataType.h; sourceTree = "<group>"; };
+		0F5780991020925100067838 /* GPXmetadataType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXmetadataType.m; sourceTree = "<group>"; };
+		0F5780B31020939900067838 /* XMLStringElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLStringElement.h; sourceTree = "<group>"; };
+		0F5780B41020939900067838 /* XMLStringElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLStringElement.m; sourceTree = "<group>"; };
+		0F5780DD102095E000067838 /* XMLDateElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLDateElement.h; sourceTree = "<group>"; };
+		0F5780DE102095E000067838 /* XMLDateElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLDateElement.m; sourceTree = "<group>"; };
+		0F5780E31020988800067838 /* GPXwptType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXwptType.h; sourceTree = "<group>"; };
+		0F5780E41020988800067838 /* GPXwptType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXwptType.m; sourceTree = "<group>"; };
+		0F65606E100B4FC5004D16D7 /* VSORecordingsListViewCtlr.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VSORecordingsListViewCtlr.xib; sourceTree = "<group>"; };
+		0F6A06E0100C49C90034A949 /* stop_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stop_button.png; path = "UI Resources/stop_button.png"; sourceTree = "<group>"; };
+		0F6A06E9100C4A470034A949 /* stop_button_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stop_button_highlighted.png; path = "UI Resources/stop_button_highlighted.png"; sourceTree = "<group>"; };
+		0F6A06EC100C4D3C0034A949 /* pause_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause_button.png; path = "UI Resources/pause_button.png"; sourceTree = "<group>"; };
+		0F6A06EE100C4DA10034A949 /* pause_button_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause_button_highlighted.png; path = "UI Resources/pause_button_highlighted.png"; sourceTree = "<group>"; };
+		0F6A06F3100C51380034A949 /* recList_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recList_button.png; path = "UI Resources/recList_button.png"; sourceTree = "<group>"; };
+		0F6A06F5100C51910034A949 /* recList_button_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recList_button_highlighted.png; path = "UI Resources/recList_button_highlighted.png"; sourceTree = "<group>"; };
+		0F79F69E10203DAE00AF7FF1 /* VSOUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOUtils.h; sourceTree = "<group>"; };
+		0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOUtils.m; sourceTree = "<group>"; };
+		0F852ED3103C2945008895AD /* road.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = road.jpg; path = "UI Resources/Datas/icon/road.jpg"; sourceTree = "<group>"; };
+		0F852FF9103C4C9E008895AD /* vso-logo.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "vso-logo.pdf"; sourceTree = "<group>"; };
+		0F853026103C555E008895AD /* vso-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vso-logo.png"; sourceTree = "<group>"; };
+		0F85304B103C56AE008895AD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		0F87BA4D103D4651007CFAAA /* road_fabrice_info_view.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = road_fabrice_info_view.png; path = "UI Resources/Datas/icon/road_fabrice_info_view.png"; sourceTree = "<group>"; };
+		0FA3D1DC10302ED80098760F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		0FB4B0FB10074B20005292C4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		0FB4B20310076704005292C4 /* record_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = record_button.png; path = "UI Resources/record_button.png"; sourceTree = "<group>"; };
+		0FB4B2B71007A0D5005292C4 /* record_button_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = record_button_highlighted.png; path = "UI Resources/record_button_highlighted.png"; sourceTree = "<group>"; };
+		0FBBCBA8100A9F67003679A8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		0FBBCBC6100A9FDD003679A8 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		0FC907BC1023107F009EA1B1 /* VSORecordingsListViewCtlr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSORecordingsListViewCtlr.m; sourceTree = "<group>"; };
+		0FC907BD1023107F009EA1B1 /* VSORecordingsListViewCtlr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSORecordingsListViewCtlr.h; sourceTree = "<group>"; };
+		0FCA6FBE1026EBA30029C3F5 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0FD0628C102C6FCE0047414B /* VSOPathAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOPathAnnotationView.h; sourceTree = "<group>"; };
+		0FD0628D102C6FCE0047414B /* VSOPathAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOPathAnnotationView.m; sourceTree = "<group>"; };
+		0FE8B0D810218740009A321A /* XMLDecimalElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLDecimalElement.h; sourceTree = "<group>"; };
+		0FE8B0D910218740009A321A /* XMLDecimalElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLDecimalElement.m; sourceTree = "<group>"; };
+		0FE8B11410218965009A321A /* GPXrteType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXrteType.h; sourceTree = "<group>"; };
+		0FE8B11510218965009A321A /* GPXrteType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXrteType.m; sourceTree = "<group>"; };
+		0FE8B12A10218AFA009A321A /* XMLIntegerElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLIntegerElement.h; sourceTree = "<group>"; };
+		0FE8B12B10218AFA009A321A /* XMLIntegerElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLIntegerElement.m; sourceTree = "<group>"; };
+		0FE8B14510218BAE009A321A /* GPXtrkType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXtrkType.h; sourceTree = "<group>"; };
+		0FE8B14610218BAE009A321A /* GPXtrkType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXtrkType.m; sourceTree = "<group>"; };
+		0FE8B15610218E04009A321A /* GPXextensionsType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXextensionsType.h; sourceTree = "<group>"; };
+		0FE8B15710218E04009A321A /* GPXextensionsType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXextensionsType.m; sourceTree = "<group>"; };
+		0FE8B15910218EC6009A321A /* GPXtrksegType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXtrksegType.h; sourceTree = "<group>"; };
+		0FE8B15A10218EC6009A321A /* GPXtrksegType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXtrksegType.m; sourceTree = "<group>"; };
+		0FE8B15C10218EFC009A321A /* GPXcopyrightType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXcopyrightType.h; sourceTree = "<group>"; };
+		0FE8B15D10218EFC009A321A /* GPXcopyrightType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXcopyrightType.m; sourceTree = "<group>"; };
+		0FE8B18D10219251009A321A /* GPXlinkType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXlinkType.h; sourceTree = "<group>"; };
+		0FE8B18E10219251009A321A /* GPXlinkType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXlinkType.m; sourceTree = "<group>"; };
+		0FE8B190102192FC009A321A /* GPXemailType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXemailType.h; sourceTree = "<group>"; };
+		0FE8B191102192FC009A321A /* GPXemailType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXemailType.m; sourceTree = "<group>"; };
+		0FE8B1B910219391009A321A /* GPXpersonType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXpersonType.h; sourceTree = "<group>"; };
+		0FE8B1BA10219391009A321A /* GPXpersonType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXpersonType.m; sourceTree = "<group>"; };
+		0FE8B1BC102193FF009A321A /* GPXptType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXptType.h; sourceTree = "<group>"; };
+		0FE8B1BD102193FF009A321A /* GPXptType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXptType.m; sourceTree = "<group>"; };
+		0FE8B1BF102195E6009A321A /* GPXptsegType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXptsegType.h; sourceTree = "<group>"; };
+		0FE8B1C0102195E6009A321A /* GPXptsegType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXptsegType.m; sourceTree = "<group>"; };
+		0FE8B1C21021964F009A321A /* GPXboundsType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXboundsType.h; sourceTree = "<group>"; };
+		0FE8B1C31021964F009A321A /* GPXboundsType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXboundsType.m; sourceTree = "<group>"; };
+		0FF1B2AF1031A21100C89E55 /* north.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = north.png; path = "UI Resources/north.png"; sourceTree = "<group>"; };
+		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1D3623240D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSStoneTripRecorderAppDelegate.h; sourceTree = "<group>"; };
+		1D3623250D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSStoneTripRecorderAppDelegate.m; sourceTree = "<group>"; };
+		1D6058910D05DD3D006BFB54 /* GPS Stone Trip Recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GPS Stone Trip Recorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		280E754A0DD40C5E005A515E /* VSOSettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VSOSettingsView.xib; sourceTree = "<group>"; };
+		280E754B0DD40C5E005A515E /* MainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainView.xib; sourceTree = "<group>"; };
+		280E754C0DD40C5E005A515E /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		288765580DF743DE002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		289233A20DB2D0840083E9F9 /* VSOSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VSOSettingsView.h; path = Classes/VSOSettingsView.h; sourceTree = "<group>"; };
+		289233A30DB2D0840083E9F9 /* VSOSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VSOSettingsView.m; path = Classes/VSOSettingsView.m; sourceTree = "<group>"; };
+		289233A40DB2D0840083E9F9 /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainView.h; path = Classes/MainView.h; sourceTree = "<group>"; };
+		289233A50DB2D0840083E9F9 /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainView.m; path = Classes/MainView.m; sourceTree = "<group>"; };
+		289233A80DB2D0DB0083E9F9 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = Classes/MainViewController.h; sourceTree = "<group>"; };
+		289233A90DB2D0DB0083E9F9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = Classes/MainViewController.m; sourceTree = "<group>"; };
+		289233AC0DB2D0DB0083E9F9 /* VSOSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VSOSettingsViewController.h; path = Classes/VSOSettingsViewController.h; sourceTree = "<group>"; };
+		289233AD0DB2D0DB0083E9F9 /* VSOSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VSOSettingsViewController.m; path = Classes/VSOSettingsViewController.m; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* GPS_Stone_Trip_Recorder.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPS_Stone_Trip_Recorder.pch; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* GPS_Stone_Trip_Recorder-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GPS_Stone_Trip_Recorder-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */,
+				0FB4B0FC10074B20005292C4 /* MapKit.framework in Frameworks */,
+				0FBBCBA9100A9F67003679A8 /* CoreLocation.framework in Frameworks */,
+				0F48CE5E1029AD88008C524D /* AddressBookUI.framework in Frameworks */,
+				0F48CE7D1029AF9D008C524D /* AddressBook.framework in Frameworks */,
+				0FA3D1DD10302ED80098760F /* MessageUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Application Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				1D3623240D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.h */,
+				1D3623250D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.m */,
+			);
+			name = "Application Delegate";
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		0F2B6084102842C500FC0595 /* Recording List */ = {
+			isa = PBXGroup;
+			children = (
+				0FC907BC1023107F009EA1B1 /* VSORecordingsListViewCtlr.m */,
+				0FC907BD1023107F009EA1B1 /* VSORecordingsListViewCtlr.h */,
+				0F2B6086102842F300FC0595 /* VSORecordingDetailViewCtrl.h */,
+				0F2B6087102842F300FC0595 /* VSORecordingDetailViewCtrl.m */,
+			);
+			name = "Recording List";
+			sourceTree = "<group>";
+		};
+		0F3480261008996800E88124 /* PageControl Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0F34802810089A9700E88124 /* VSOMapViewController.h */,
+				0F34802910089A9700E88124 /* VSOMapViewController.m */,
+				0F3480D91008A77B00E88124 /* VSOInfoViewCtrl.h */,
+				0F3480DA1008A77B00E88124 /* VSOInfoViewCtrl.m */,
+				0F3480F61008A83B00E88124 /* VSODetailsViewCtrl.h */,
+				0F3480F71008A83B00E88124 /* VSODetailsViewCtrl.m */,
+				0F13A60D102AE7E800D1C9BE /* VSOInfoGenericController.h */,
+				0F13A60E102AE7E800D1C9BE /* VSOInfoGenericController.m */,
+			);
+			name = "PageControl Controllers";
+			sourceTree = "<group>";
+		};
+		0F3481191008A92200E88124 /* UI Elements */ = {
+			isa = PBXGroup;
+			children = (
+				0FD0628C102C6FCE0047414B /* VSOPathAnnotationView.h */,
+				0FD0628D102C6FCE0047414B /* VSOPathAnnotationView.m */,
+				0F34811A1008A93A00E88124 /* VSOScrollView.h */,
+				0F34811B1008A93A00E88124 /* VSOScrollView.m */,
+			);
+			name = "UI Elements";
+			sourceTree = "<group>";
+		};
+		0F577FC910207FBF00067838 /* GPX 1.1 Tree */ = {
+			isa = PBXGroup;
+			children = (
+				0F577FCB1020811300067838 /* GPXgpxType.h */,
+				0F577FCC1020811300067838 /* GPXgpxType.m */,
+				0F5780981020925100067838 /* GPXmetadataType.h */,
+				0F5780991020925100067838 /* GPXmetadataType.m */,
+				0F5780E31020988800067838 /* GPXwptType.h */,
+				0F5780E41020988800067838 /* GPXwptType.m */,
+				0FE8B11410218965009A321A /* GPXrteType.h */,
+				0FE8B11510218965009A321A /* GPXrteType.m */,
+				0FE8B14510218BAE009A321A /* GPXtrkType.h */,
+				0FE8B14610218BAE009A321A /* GPXtrkType.m */,
+				0FE8B15610218E04009A321A /* GPXextensionsType.h */,
+				0FE8B15710218E04009A321A /* GPXextensionsType.m */,
+				0FE8B15910218EC6009A321A /* GPXtrksegType.h */,
+				0FE8B15A10218EC6009A321A /* GPXtrksegType.m */,
+				0FE8B15C10218EFC009A321A /* GPXcopyrightType.h */,
+				0FE8B15D10218EFC009A321A /* GPXcopyrightType.m */,
+				0FE8B18D10219251009A321A /* GPXlinkType.h */,
+				0FE8B18E10219251009A321A /* GPXlinkType.m */,
+				0FE8B190102192FC009A321A /* GPXemailType.h */,
+				0FE8B191102192FC009A321A /* GPXemailType.m */,
+				0FE8B1B910219391009A321A /* GPXpersonType.h */,
+				0FE8B1BA10219391009A321A /* GPXpersonType.m */,
+				0FE8B1BC102193FF009A321A /* GPXptType.h */,
+				0FE8B1BD102193FF009A321A /* GPXptType.m */,
+				0FE8B1BF102195E6009A321A /* GPXptsegType.h */,
+				0FE8B1C0102195E6009A321A /* GPXptsegType.m */,
+				0FE8B1C21021964F009A321A /* GPXboundsType.h */,
+				0FE8B1C31021964F009A321A /* GPXboundsType.m */,
+			);
+			name = "GPX 1.1 Tree";
+			sourceTree = "<group>";
+		};
+		0F6560BD100B646B004D16D7 /* Page Control */ = {
+			isa = PBXGroup;
+			children = (
+				0F34802A10089A9700E88124 /* VSOMapViewController.xib */,
+				0F3480DB1008A77B00E88124 /* VSOInfoViewCtrl.xib */,
+				0F3480F81008A83B00E88124 /* VSODetailsViewCtrl.xib */,
+			);
+			name = "Page Control";
+			sourceTree = "<group>";
+		};
+		0F6A06E2100C49CF0034A949 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				0F6A06F5100C51910034A949 /* recList_button_highlighted.png */,
+				0F6A06F3100C51380034A949 /* recList_button.png */,
+				0F6A06EE100C4DA10034A949 /* pause_button_highlighted.png */,
+				0F6A06EC100C4D3C0034A949 /* pause_button.png */,
+				0F6A06E9100C4A470034A949 /* stop_button_highlighted.png */,
+				0F6A06E0100C49C90034A949 /* stop_button.png */,
+				0FB4B2B71007A0D5005292C4 /* record_button_highlighted.png */,
+				0FB4B20310076704005292C4 /* record_button.png */,
+			);
+			name = Buttons;
+			sourceTree = "<group>";
+		};
+		0F6F2FF410175F33006C7495 /* XML */ = {
+			isa = PBXGroup;
+			children = (
+				0F577FCE1020816D00067838 /* XMLElement.h */,
+				0F577FCF1020816D00067838 /* XMLElement.m */,
+				0F5780DD102095E000067838 /* XMLDateElement.h */,
+				0F5780DE102095E000067838 /* XMLDateElement.m */,
+				0F5780B31020939900067838 /* XMLStringElement.h */,
+				0F5780B41020939900067838 /* XMLStringElement.m */,
+				0FE8B12A10218AFA009A321A /* XMLIntegerElement.h */,
+				0FE8B12B10218AFA009A321A /* XMLIntegerElement.m */,
+				0FE8B0D810218740009A321A /* XMLDecimalElement.h */,
+				0FE8B0D910218740009A321A /* XMLDecimalElement.m */,
+				0F577FC910207FBF00067838 /* GPX 1.1 Tree */,
+			);
+			name = XML;
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* GPS Stone Trip Recorder.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		281C6CD70DB2D82200F60ACC /* Settings View */ = {
+			isa = PBXGroup;
+			children = (
+				289233A20DB2D0840083E9F9 /* VSOSettingsView.h */,
+				289233A30DB2D0840083E9F9 /* VSOSettingsView.m */,
+				289233AC0DB2D0DB0083E9F9 /* VSOSettingsViewController.h */,
+				289233AD0DB2D0DB0083E9F9 /* VSOSettingsViewController.m */,
+			);
+			name = "Settings View";
+			sourceTree = "<group>";
+		};
+		289233A00DB2D0730083E9F9 /* Main View */ = {
+			isa = PBXGroup;
+			children = (
+				0F2B6084102842C500FC0595 /* Recording List */,
+				0F3480261008996800E88124 /* PageControl Controllers */,
+				289233A40DB2D0840083E9F9 /* MainView.h */,
+				289233A50DB2D0840083E9F9 /* MainView.m */,
+				289233A80DB2D0DB0083E9F9 /* MainViewController.h */,
+				289233A90DB2D0DB0083E9F9 /* MainViewController.m */,
+				0F3774D4103D7F68009B7FAE /* VSOBlankView.h */,
+				0F3774D5103D7F68009B7FAE /* VSOBlankView.m */,
+			);
+			name = "Main View";
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				0F2EE638102330820002BB25 /* Dev Notes.rtf */,
+				0F6F2FF410175F33006C7495 /* XML */,
+				0F3481191008A92200E88124 /* UI Elements */,
+				289233A00DB2D0730083E9F9 /* Main View */,
+				281C6CD70DB2D82200F60ACC /* Settings View */,
+				080E96DDFE201D6D7F000001 /* Application Delegate */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				0F79F69E10203DAE00AF7FF1 /* VSOUtils.h */,
+				0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */,
+				0FBBCBC6100A9FDD003679A8 /* Constants.h */,
+				32CA4F630368D1EE00C91783 /* GPS_Stone_Trip_Recorder.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0F87BA4D103D4651007CFAAA /* road_fabrice_info_view.png */,
+				0F853026103C555E008895AD /* vso-logo.png */,
+				0F852FF9103C4C9E008895AD /* vso-logo.pdf */,
+				0F852ED3103C2945008895AD /* road.jpg */,
+				0F4BD3CE103B01DA004570AA /* icon.png */,
+				0F4BD3CF103B01DA004570AA /* Icon-Settings.png */,
+				0F4BD3D0103B01DA004570AA /* Icon-Small.png */,
+				0FF1B2AF1031A21100C89E55 /* north.png */,
+				0F2B6088102842F300FC0595 /* VSORecordingDetailView.xib */,
+				0F2B5EEF1028362200FC0595 /* Localizable.strings */,
+				0F6A06E2100C49CF0034A949 /* Buttons */,
+				0F6560BD100B646B004D16D7 /* Page Control */,
+				0F65606E100B4FC5004D16D7 /* VSORecordingsListViewCtlr.xib */,
+				280E754A0DD40C5E005A515E /* VSOSettingsView.xib */,
+				280E754B0DD40C5E005A515E /* MainView.xib */,
+				280E754C0DD40C5E005A515E /* MainWindow.xib */,
+				8D1107310486CEB800E47090 /* GPS_Stone_Trip_Recorder-Info.plist */,
+				0F85304B103C56AE008895AD /* Default.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0FA3D1DC10302ED80098760F /* MessageUI.framework */,
+				0F48CE7C1029AF9D008C524D /* AddressBook.framework */,
+				0F48CE5D1029AD88008C524D /* AddressBookUI.framework */,
+				0FBBCBA8100A9F67003679A8 /* CoreLocation.framework */,
+				0FB4B0FB10074B20005292C4 /* MapKit.framework */,
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				288765580DF743DE002DB57D /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* GPS Recorder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "GPS Recorder" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "GPS Recorder";
+			productName = "GPS Recorder";
+			productReference = 1D6058910D05DD3D006BFB54 /* GPS Stone Trip Recorder.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "GPS Stone Trip Recorder" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+				en,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* GPS Recorder */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				280E754D0DD40C5E005A515E /* VSOSettingsView.xib in Resources */,
+				280E754E0DD40C5E005A515E /* MainView.xib in Resources */,
+				280E754F0DD40C5E005A515E /* MainWindow.xib in Resources */,
+				0FB4B20410076704005292C4 /* record_button.png in Resources */,
+				0FB4B2B81007A0D5005292C4 /* record_button_highlighted.png in Resources */,
+				0F34802C10089A9700E88124 /* VSOMapViewController.xib in Resources */,
+				0F3480DD1008A77B00E88124 /* VSOInfoViewCtrl.xib in Resources */,
+				0F3480FA1008A83B00E88124 /* VSODetailsViewCtrl.xib in Resources */,
+				0F656070100B4FC5004D16D7 /* VSORecordingsListViewCtlr.xib in Resources */,
+				0F6A06E1100C49C90034A949 /* stop_button.png in Resources */,
+				0F6A06EA100C4A470034A949 /* stop_button_highlighted.png in Resources */,
+				0F6A06ED100C4D3C0034A949 /* pause_button.png in Resources */,
+				0F6A06EF100C4DA10034A949 /* pause_button_highlighted.png in Resources */,
+				0F6A06F4100C51380034A949 /* recList_button.png in Resources */,
+				0F6A06F6100C51910034A949 /* recList_button_highlighted.png in Resources */,
+				0F2B5EF01028362200FC0595 /* Localizable.strings in Resources */,
+				0F2B608A102842F300FC0595 /* VSORecordingDetailView.xib in Resources */,
+				0FF1B2B01031A21100C89E55 /* north.png in Resources */,
+				0F4BD3D1103B01DA004570AA /* icon.png in Resources */,
+				0F4BD3D2103B01DA004570AA /* Icon-Settings.png in Resources */,
+				0F4BD3D3103B01DA004570AA /* Icon-Small.png in Resources */,
+				0F852ED4103C2945008895AD /* road.jpg in Resources */,
+				0F852FFA103C4C9E008895AD /* vso-logo.pdf in Resources */,
+				0F853027103C555E008895AD /* vso-logo.png in Resources */,
+				0F85304C103C56AE008895AD /* Default.png in Resources */,
+				0F87BA4E103D4651007CFAAA /* road_fabrice_info_view.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				1D3623260D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.m in Sources */,
+				289233A60DB2D0840083E9F9 /* VSOSettingsView.m in Sources */,
+				289233A70DB2D0840083E9F9 /* MainView.m in Sources */,
+				289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */,
+				289233B00DB2D0DB0083E9F9 /* VSOSettingsViewController.m in Sources */,
+				0F34802B10089A9700E88124 /* VSOMapViewController.m in Sources */,
+				0F3480DC1008A77B00E88124 /* VSOInfoViewCtrl.m in Sources */,
+				0F3480F91008A83B00E88124 /* VSODetailsViewCtrl.m in Sources */,
+				0F34811C1008A93A00E88124 /* VSOScrollView.m in Sources */,
+				0F79F6A010203DAE00AF7FF1 /* VSOUtils.m in Sources */,
+				0F577FCD1020811300067838 /* GPXgpxType.m in Sources */,
+				0F577FD01020816D00067838 /* XMLElement.m in Sources */,
+				0F57809A1020925100067838 /* GPXmetadataType.m in Sources */,
+				0F5780B51020939900067838 /* XMLStringElement.m in Sources */,
+				0F5780DF102095E000067838 /* XMLDateElement.m in Sources */,
+				0F5780E51020988800067838 /* GPXwptType.m in Sources */,
+				0FE8B0DA10218740009A321A /* XMLDecimalElement.m in Sources */,
+				0FE8B11610218965009A321A /* GPXrteType.m in Sources */,
+				0FE8B12C10218AFA009A321A /* XMLIntegerElement.m in Sources */,
+				0FE8B14710218BAE009A321A /* GPXtrkType.m in Sources */,
+				0FE8B15810218E04009A321A /* GPXextensionsType.m in Sources */,
+				0FE8B15B10218EC6009A321A /* GPXtrksegType.m in Sources */,
+				0FE8B15E10218EFC009A321A /* GPXcopyrightType.m in Sources */,
+				0FE8B18F10219251009A321A /* GPXlinkType.m in Sources */,
+				0FE8B192102192FC009A321A /* GPXemailType.m in Sources */,
+				0FE8B1BB10219391009A321A /* GPXpersonType.m in Sources */,
+				0FE8B1BE102193FF009A321A /* GPXptType.m in Sources */,
+				0FE8B1C1102195E6009A321A /* GPXptsegType.m in Sources */,
+				0FE8B1C41021964F009A321A /* GPXboundsType.m in Sources */,
+				0FC907BE1023107F009EA1B1 /* VSORecordingsListViewCtlr.m in Sources */,
+				0F2B6089102842F300FC0595 /* VSORecordingDetailViewCtrl.m in Sources */,
+				0F13A60F102AE7E800D1C9BE /* VSOInfoGenericController.m in Sources */,
+				0FD0628E102C6FCE0047414B /* VSOPathAnnotationView.m in Sources */,
+				0F3774D6103D7F68009B7FAE /* VSOBlankView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		0F2B5EEF1028362200FC0595 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0FCA6FBE1026EBA30029C3F5 /* English */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0F87BAA1103D51B2007CFAAA /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos3.0;
+			};
+			name = Distribution;
+		};
+		0F87BAA2103D51B2007CFAAA /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = GPS_Stone_Trip_Recorder.pch;
+				INFOPLIST_FILE = "GPS_Stone_Trip_Recorder-Info.plist";
+				PRODUCT_NAME = "GPS Stone Trip Recorder";
+			};
+			name = Distribution;
+		};
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = GPS_Stone_Trip_Recorder.pch;
+				INFOPLIST_FILE = "GPS_Stone_Trip_Recorder-Info.plist";
+				PRODUCT_NAME = "GPS Stone Trip Recorder";
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = GPS_Stone_Trip_Recorder.pch;
+				INFOPLIST_FILE = "GPS_Stone_Trip_Recorder-Info.plist";
+				PRODUCT_NAME = "GPS Stone Trip Recorder";
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos3.0;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "GPS Recorder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+				0F87BAA2103D51B2007CFAAA /* Distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "GPS Stone Trip Recorder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+				0F87BAA1103D51B2007CFAAA /* Distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
