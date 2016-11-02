@@ -61,8 +61,6 @@
 	self.mainViewController = aController;
 	
 	[UIApplication.sharedApplication setStatusBarStyle:VSO_APPLICATION_STATUS_BAR_STYLE animated:NO];
-	window.rootViewController = mainViewController;
-	[window makeKeyAndVisible];
 	
 	if ([fm fileExistsAtPath:VSO_PATH_TO_NICE_EXIT_WITNESS]) {
 		NSLog(@"Last exit was forced");

@@ -40,7 +40,6 @@
 		0F852ED4103C2945008895AD /* road.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F852ED3103C2945008895AD /* road.jpg */; };
 		0F852FFA103C4C9E008895AD /* vso-logo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0F852FF9103C4C9E008895AD /* vso-logo.pdf */; };
 		0F853027103C555E008895AD /* vso-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F853026103C555E008895AD /* vso-logo.png */; };
-		0F85304C103C56AE008895AD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F85304B103C56AE008895AD /* Default.png */; };
 		0F87BA4E103D4651007CFAAA /* road_fabrice_info_view.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F87BA4D103D4651007CFAAA /* road_fabrice_info_view.png */; };
 		0FA3D1DD10302ED80098760F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA3D1DC10302ED80098760F /* MessageUI.framework */; };
 		0FB4B0FC10074B20005292C4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB4B0FB10074B20005292C4 /* MapKit.framework */; };
@@ -69,13 +68,14 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		280E754D0DD40C5E005A515E /* VSOSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E754A0DD40C5E005A515E /* VSOSettingsView.xib */; };
 		280E754E0DD40C5E005A515E /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E754B0DD40C5E005A515E /* MainView.xib */; };
-		280E754F0DD40C5E005A515E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E754C0DD40C5E005A515E /* MainWindow.xib */; };
 		288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765580DF743DE002DB57D /* CoreGraphics.framework */; };
 		289233A60DB2D0840083E9F9 /* VSOSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A30DB2D0840083E9F9 /* VSOSettingsView.m */; };
 		289233A70DB2D0840083E9F9 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A50DB2D0840083E9F9 /* MainView.m */; };
 		289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A90DB2D0DB0083E9F9 /* MainViewController.m */; };
 		289233B00DB2D0DB0083E9F9 /* VSOSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AD0DB2D0DB0083E9F9 /* VSOSettingsViewController.m */; };
 		7B482CE11DCA8ADD007B5ABC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CDF1DCA8ADD007B5ABC /* Localizable.strings */; };
+		7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */; };
+		7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE81DCA975F007B5ABC /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -127,7 +127,6 @@
 		0F852ED3103C2945008895AD /* road.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = road.jpg; path = "UI Resources/Datas/icon/road.jpg"; sourceTree = "<group>"; };
 		0F852FF9103C4C9E008895AD /* vso-logo.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "vso-logo.pdf"; sourceTree = "<group>"; };
 		0F853026103C555E008895AD /* vso-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vso-logo.png"; sourceTree = "<group>"; };
-		0F85304B103C56AE008895AD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		0F87BA4D103D4651007CFAAA /* road_fabrice_info_view.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = road_fabrice_info_view.png; path = "UI Resources/Datas/icon/road_fabrice_info_view.png"; sourceTree = "<group>"; };
 		0FA3D1DC10302ED80098760F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		0FB4B0FB10074B20005292C4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -173,7 +172,6 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		280E754A0DD40C5E005A515E /* VSOSettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VSOSettingsView.xib; sourceTree = "<group>"; };
 		280E754B0DD40C5E005A515E /* MainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainView.xib; sourceTree = "<group>"; };
-		280E754C0DD40C5E005A515E /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		288765580DF743DE002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		289233A20DB2D0840083E9F9 /* VSOSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VSOSettingsView.h; path = Classes/VSOSettingsView.h; sourceTree = "<group>"; };
 		289233A30DB2D0840083E9F9 /* VSOSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VSOSettingsView.m; path = Classes/VSOSettingsView.m; sourceTree = "<group>"; };
@@ -186,6 +184,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* GPS_Stone_Trip_Recorder.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPS_Stone_Trip_Recorder.pch; sourceTree = "<group>"; };
 		7B482CE01DCA8ADD007B5ABC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7B482CE91DCA976E007B5ABC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* GPS_Stone_Trip_Recorder-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GPS_Stone_Trip_Recorder-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -414,9 +414,9 @@
 				0F65606E100B4FC5004D16D7 /* VSORecordingsListViewCtlr.xib */,
 				280E754A0DD40C5E005A515E /* VSOSettingsView.xib */,
 				280E754B0DD40C5E005A515E /* MainView.xib */,
-				280E754C0DD40C5E005A515E /* MainWindow.xib */,
+				7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */,
+				7B482CE81DCA975F007B5ABC /* Main.storyboard */,
 				8D1107310486CEB800E47090 /* GPS_Stone_Trip_Recorder-Info.plist */,
-				0F85304B103C56AE008895AD /* Default.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -463,6 +463,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0810;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = DVL8GW97S8;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "GPS Stone Trip Recorder" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -470,6 +475,7 @@
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
@@ -487,10 +493,10 @@
 			files = (
 				280E754D0DD40C5E005A515E /* VSOSettingsView.xib in Resources */,
 				280E754E0DD40C5E005A515E /* MainView.xib in Resources */,
-				280E754F0DD40C5E005A515E /* MainWindow.xib in Resources */,
 				0FB4B20410076704005292C4 /* record_button.png in Resources */,
 				0FB4B2B81007A0D5005292C4 /* record_button_highlighted.png in Resources */,
 				0F34802C10089A9700E88124 /* VSOMapViewController.xib in Resources */,
+				7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */,
 				0F3480DD1008A77B00E88124 /* VSOInfoViewCtrl.xib in Resources */,
 				0F3480FA1008A83B00E88124 /* VSODetailsViewCtrl.xib in Resources */,
 				0F656070100B4FC5004D16D7 /* VSORecordingsListViewCtlr.xib in Resources */,
@@ -509,7 +515,7 @@
 				0F852ED4103C2945008895AD /* road.jpg in Resources */,
 				0F852FFA103C4C9E008895AD /* vso-logo.pdf in Resources */,
 				0F853027103C555E008895AD /* vso-logo.png in Resources */,
-				0F85304C103C56AE008895AD /* Default.png in Resources */,
+				7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */,
 				0F87BA4E103D4651007CFAAA /* road_fabrice_info_view.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -570,6 +576,14 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
+		7B482CE81DCA975F007B5ABC /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7B482CE91DCA976E007B5ABC /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -598,6 +612,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
@@ -609,6 +624,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = DVL8GW97S8;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GPS_Stone_Trip_Recorder.pch;
 				INFOPLIST_FILE = "GPS_Stone_Trip_Recorder-Info.plist";
@@ -622,6 +638,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = DVL8GW97S8;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -637,6 +654,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = DVL8GW97S8;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GPS_Stone_Trip_Recorder.pch;
 				INFOPLIST_FILE = "GPS_Stone_Trip_Recorder-Info.plist";
@@ -670,6 +688,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
@@ -701,6 +720,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
 			};
