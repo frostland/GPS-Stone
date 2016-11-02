@@ -61,7 +61,7 @@
 	
 	[[UIApplication sharedApplication] setStatusBarStyle:VSO_APPLICATION_STATUS_BAR_STYLE animated:NO];
 	mainViewController.view.frame = [UIScreen mainScreen].applicationFrame;
-	[window addSubview:[mainViewController view]];
+	window.rootViewController = mainViewController;
 	[window makeKeyAndVisible];
 	
 	if ([fm fileExistsAtPath:VSO_PATH_TO_NICE_EXIT_WITNESS]) {

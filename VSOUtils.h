@@ -13,17 +13,17 @@
 #include <stdlib.h>
 
 #ifndef NDEBUG
-#define NSDLog(format...) NSLog(format)
+# define NSDLog(format...) NSLog(format)
 #else
-#define NSDLog(format...) (void)NULL
+# define NSDLog(format...) (void)NULL
 #endif
 
 /* One day, the XML log may be a file...
  * For now, replace 0 with 1 to have the XML logs! */
 #if 1
-#define NSXMLLog(format...) NSLog(format)
+# define NSXMLLog(format...) NSLog(format)
 #else
-#define NSXMLLog(format...) (void)NULL
+# define NSXMLLog(format...) (void)NULL
 #endif
 
 NSString *fullPathFromRelativeForGPXFile(NSString *relativePath);
