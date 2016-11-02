@@ -1,16 +1,18 @@
-//
-//  VSOMapViewController.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François on 7/11/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * VSOMapViewController.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François on 7/11/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "VSOMapViewController.h"
 
 #import "VSOUtils.h"
 #import "Constants.h"
 #import "MainViewController.h"
+
+
 
 @implementation VSOAnnotation
 
@@ -19,7 +21,6 @@
 - (void)dealloc
 {
 	NSDLog(@"Deallocing a VSOAnnotation");
-	[super dealloc];
 }
 
 @end
@@ -27,6 +28,8 @@
 #define DEFAULT_SPAN 3000.
 #define PERCENT_FOR_MAP_BORDER 15
 #define N_POINTS_BUFFER_INCREMENT 500
+
+
 
 @interface VSOMapViewController (Private)
 
@@ -187,7 +190,7 @@
 	
 	for (GPXtrksegType *curTrackSeg in [[currentGPX firstTrack] trackSegments])
 		for (GPXwptType *curPt in [curTrackSeg trackPoints])
-			[self addPointToDraw:[[[CLLocation alloc] initWithLatitude:curPt.coords.latitude longitude:curPt.coords.longitude] autorelease]
+			[self addPointToDraw:[[CLLocation alloc] initWithLatitude:curPt.coords.latitude longitude:curPt.coords.longitude]
 								 draw:NO];
 	
 	NSDLog(@"bounds: {{%g, %g}, {%g, %g}}", bounds.center.latitude, bounds.center.longitude, bounds.span.latitudeDelta, bounds.span.longitudeDelta);
@@ -265,8 +268,7 @@ end:
 {
 	if (ann == curLocAnnotation) {
 		// Try to dequeue an existing loc annotation view first
-		[curLocAnnotationView release];
-		curLocAnnotationView = (VSOCurLocationAnnotationView *)[[mpV dequeueReusableAnnotationViewWithIdentifier:@"CurLocAnnotation"] retain];
+		curLocAnnotationView = (VSOCurLocationAnnotationView *)[mpV dequeueReusableAnnotationViewWithIdentifier:@"CurLocAnnotation"];
 		
 		if (!curLocAnnotationView) curLocAnnotationView = [[VSOCurLocationAnnotationView alloc] initWithAnnotation:curLocAnnotation reuseIdentifier:@"CurLocAnnotation"];
 		else                       curLocAnnotationView.annotation = curLocAnnotation;
@@ -274,8 +276,7 @@ end:
 		return curLocAnnotationView;
 	} else if (ann == pathAnnotation) {
 		// Try to dequeue an existing path annotation view first
-		[pathAnnotationView release];
-		pathAnnotationView = (VSOPathAnnotationView *)[[mpV dequeueReusableAnnotationViewWithIdentifier:@"PathAnnotation"] retain];
+		pathAnnotationView = (VSOPathAnnotationView *)[mpV dequeueReusableAnnotationViewWithIdentifier:@"PathAnnotation"];
 		
 		if (!pathAnnotationView) pathAnnotationView = [[VSOPathAnnotationView alloc] initWithAnnotation:pathAnnotation reuseIdentifier:@"PathAnnotation"];
 		else                     pathAnnotationView.annotation = pathAnnotation;
@@ -318,8 +319,8 @@ end:
 	}
 	
 	settingMapViewRegionByProg = NO;
-	[timerToForceFollowUL invalidate]; [timerToForceFollowUL release];
-	timerToForceFollowUL = [[NSTimer scheduledTimerWithTimeInterval:10. target:self selector:@selector(centerMapOnCurLoc:) userInfo:NULL repeats:NO] retain];
+	[timerToForceFollowUL invalidate];
+	timerToForceFollowUL = [NSTimer scheduledTimerWithTimeInterval:10. target:self selector:@selector(centerMapOnCurLoc:) userInfo:NULL repeats:NO];
 }
 
 - (NSData *)state
@@ -390,7 +391,7 @@ end:
 
 - (IBAction)centerMapOnCurLoc:(id)sender
 {
-	[timerToForceFollowUL invalidate]; [timerToForceFollowUL release]; timerToForceFollowUL = nil;
+	[timerToForceFollowUL invalidate]; timerToForceFollowUL = nil;
 	
 	followingUserLoc = YES;
 	settingMapViewRegionByProg = YES;
@@ -450,21 +451,16 @@ end:
 
 - (void)dealloc
 {
-	NSDLog(@"Deallocing a VSOMapViewController. mapView retainCount is: %d", [mapView retainCount]);
+	NSDLog(@"Deallocing a VSOMapViewController. mapView retainCount is: <<inaccessible>>");
 	/* Note: mapView seems to be never dealloced. I don't know why. */
 	
 	[self freePointsInfos];
-	[timerToForceFollowUL invalidate]; [timerToForceFollowUL release]; timerToForceFollowUL = nil;
+	[timerToForceFollowUL invalidate]; timerToForceFollowUL = nil;
 	
 	if (curLocAnnotation != nil) [mapView removeAnnotation:curLocAnnotation];
-	[curLocAnnotation release]; [curLocAnnotationView release];
 	if (pathAnnotation != nil) [mapView removeAnnotation:pathAnnotation];
-	[pathAnnotation release]; [pathAnnotationView release];
 	
 	mapView.delegate = nil;
-	[mapView release];
-	
-	[super dealloc];
 }
 
 @end

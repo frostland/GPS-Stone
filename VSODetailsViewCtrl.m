@@ -1,15 +1,17 @@
-//
-//  VSODetailsViewCtrl.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François on 7/11/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * VSODetailsViewCtrl.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François on 7/11/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "VSODetailsViewCtrl.h"
 
 #import "VSOUtils.h"
 #import "Constants.h"
+
+
 
 @implementation VSODetailsViewCtrl
 
@@ -102,7 +104,6 @@
 	[self refreshInfos];
 }
 
-
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
@@ -115,19 +116,6 @@
 	else                                                                                                              [buttonRecord setAlpha:0.];
 	
 	[self settingsChanged:nil];
-}
-
-- (void)dealloc
-{
-	[labelLat release]; [labelLong release];
-	[labelSpeed release]; [labelAverageSpeed release]; [labelMaxSpeed release];
-	[labelHorizontalAccuracy release]; [labelVerticalAccuracy release];
-	[labelAltitude release];
-	[labelNumberOfPoints release]; [labelTotalDistance release];
-	
-	[viewWithTrackInfos release];
-	
-	[super dealloc];
 }
 
 @end

@@ -1,12 +1,14 @@
-//
-//  XMLDateElement.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 7/29/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * XMLDateElement.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 7/29/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "XMLDateElement.h"
+
+
 
 @implementation XMLDateElement
 
@@ -41,9 +43,8 @@
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
-	[buf autorelease];
 	if (!buf) buf = string;
-	else      buf = [[buf stringByAppendingString:string] retain];
+	else      buf = [buf stringByAppendingString:string];
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
@@ -110,9 +111,6 @@ err:
 	if (!errWhenDecoding) self.date = [gregorian dateFromComponents:comps];
 	else                  NSXMLLog(@"Cannot read date: %@", buf);
 	
-	[comps release];
-	[gregorian release];
-	
 	[super parser:parser didEndElement:elementName namespaceURI:namespaceURI qualifiedName:qName];
 }
 
@@ -120,7 +118,6 @@ err:
 {
 	NSDateFormatter *formater = [NSDateFormatter new];
 	[formater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
-	[formater autorelease];
 	return [[formater stringFromDate:self.date] dataUsingEncoding:VSO_XML_ENCODING];
 }
 
@@ -129,16 +126,9 @@ err:
 	return [NSString stringWithFormat:@"%@ object; date value = \"%@\"", self.elementName, self.date];
 }
 
-- (void)dealloc
-{
-	[buf release];
-	[date release];
-	
-	[super dealloc];
-}
-
-
 @end
+
+
 
 @implementation XMLYearElement
 
@@ -146,7 +136,6 @@ err:
 {
 	NSCalendar *cal = [NSCalendar new];
 	NSInteger year = [[cal components:NSYearCalendarUnit fromDate:self.date] year];
-	[cal release];
 	
 	return year;
 }

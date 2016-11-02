@@ -1,10 +1,10 @@
-//
-//  MainViewController.h
-//  GPS Stone Trip Recorder
-//
-//  Created by François on 7/10/09.
-//  Copyright VSO-Software 2009. All rights reserved.
-//
+/*
+ * MainViewController.h
+ * GPS Stone Trip Recorder
+ *
+ * Created by François on 7/10/09.
+ * Copyright VSO-Software 2009. All rights reserved.
+ */
 
 #import "VSOSettingsViewController.h"
 #import "VSORecordingsListViewCtlr.h"
@@ -17,6 +17,8 @@
 
 #import "GPXgpxType.h"
 #import "Constants.h"
+
+
 
 /* Note: The code to manage the pages is found in the sample codes of Apple (sample named PageControl) */
 

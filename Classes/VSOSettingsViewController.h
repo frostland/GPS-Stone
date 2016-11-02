@@ -1,10 +1,12 @@
-//
-//  VSOSettingsViewController.h
-//  GPS Stone Trip Recorder
-//
-//  Created by François on 7/10/09.
-//  Copyright VSO-Software 2009. All rights reserved.
-//
+/*
+ * VSOSettingsViewController.h
+ * GPS Stone Trip Recorder
+ *
+ * Created by François on 7/10/09.
+ * Copyright VSO-Software 2009. All rights reserved.
+ */
+
+
 
 @protocol VSOSettingsViewControllerDelegate;
 
@@ -18,10 +20,10 @@
 	
 	IBOutlet UIView *viewWithSettings;
 	IBOutlet UIScrollView *scrollView;
-	
-	id <VSOSettingsViewControllerDelegate> delegate;
 }
-@property (nonatomic, assign) id <VSOSettingsViewControllerDelegate> delegate;
+
+@property (nonatomic, weak) id <VSOSettingsViewControllerDelegate> delegate;
+
 - (IBAction)done;
 
 - (IBAction)mapTypeChanged:(id)sender;

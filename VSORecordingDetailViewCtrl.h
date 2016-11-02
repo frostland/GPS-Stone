@@ -1,10 +1,10 @@
-//
-//  VSORecordingDetailViewCtrl.h
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 8/4/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * VSORecordingDetailViewCtrl.h
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 8/4/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
@@ -13,6 +13,8 @@
 
 #import "VSOMapViewController.h"
 #import "GPXgpxType.h"
+
+
 
 @protocol VSORecordingDetailViewCtrlDelegate;
 
@@ -38,12 +40,12 @@
 	NSMutableDictionary *recordingInfos;
 	GPXgpxType *gpx;
 	
-	id <VSORecordingDetailViewCtrlDelegate> delegate;
-	
 	NSURLConnection *urlConnection;
 }
-@property(nonatomic, assign) id <VSORecordingDetailViewCtrlDelegate> delegate;
+
+@property(nonatomic, weak) id <VSORecordingDetailViewCtrlDelegate> delegate;
 @property(nonatomic, retain) NSMutableDictionary *recordingInfos;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil recording:(NSDictionary *)recInfos;
 
 - (IBAction)done:(id)sender;
@@ -57,6 +59,8 @@
 - (IBAction)addMailToDestFromAdressBook:(id)sender;
 
 @end
+
+
 
 @protocol VSORecordingDetailViewCtrlDelegate
 

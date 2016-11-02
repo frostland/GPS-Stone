@@ -1,10 +1,10 @@
-//
-//  rte.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 7/30/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * rte.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 7/30/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "GPXrteType.h"
 
@@ -13,6 +13,8 @@
 #import "GPXwptType.h"
 #import "GPXlinkType.h"
 #import "GPXextensionsType.h"
+
+
 
 @implementation GPXrteType
 

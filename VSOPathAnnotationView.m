@@ -1,10 +1,10 @@
-//
-//  VSOPathAnnotationView.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 8/7/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * VSOPathAnnotationView.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 8/7/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import <QuartzCore/CALayer.h>
 
@@ -13,7 +13,9 @@
 #import "VSOUtils.h"
 #import "Constants.h"
 
+
 #define USER_LOCATION_VIEW_CENTER_DOT_SIZE 10.
+
 
 @implementation VSOCurLocationAnnotationView
 
@@ -76,6 +78,8 @@
 
 @end
 
+
+
 #define VSO_BUFF_IMG_OFFSET 10
 #define VSO_MAX_CACHE_IMAGE_SIDE 430
 /*#define VSO_MAX_CACHE_IMAGE_SIDE 50*/
@@ -92,6 +96,8 @@
 
 @end
 
+
+
 @implementation VSOPathAnnotationView (Private)
 
 - (void)setFrameRefreshingAnnotationCoordinate:(CGRect)newFrame
@@ -99,8 +105,8 @@
 	/* When changing the annotation.coordinate only, the view position is not changed!
 	 * BUT, if we don't change the annotation.coordinate, when the map is scrolled, the frame is resetted so that
 	 * the view is centered on annotation.coordinate */
-	self.annotation.coordinate = [map convertPoint:CGPointMake(newFrame.origin.x + newFrame.size.width/2.,
-																				  newFrame.origin.y + newFrame.size.height/2.)
+	self.annotation.coordinate = [self.map convertPoint:CGPointMake(newFrame.origin.x + newFrame.size.width/2.,
+																						 newFrame.origin.y + newFrame.size.height/2.)
 									  toCoordinateFromView:self.superview];
 	self.frame = newFrame;
 }
@@ -182,6 +188,8 @@
 
 @end
 
+
+
 @implementation VSOPathAnnotationView
 
 @synthesize map;
@@ -195,7 +203,7 @@
 		self.backgroundColor = [UIColor clearColor];
 		self.clearsContextBeforeDrawing = YES;
 		
-		self.image = [[UIImage new] autorelease];
+		self.image = [UIImage new];
 		firstPointAdded = NO;
 	}
 	return self;
@@ -216,7 +224,7 @@
 - (void)clearDrawnPoints
 {
 	firstPointAdded = NO;
-	self.image = [[UIImage new] autorelease];
+	self.image = [UIImage new];
 	[self setNeedsDisplay];
 }
 
@@ -310,8 +318,6 @@
 	
 	self.image = nil;
 	/* map not release: assigned */
-	
-	[super dealloc];
 }
 
 @end

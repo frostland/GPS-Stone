@@ -1,14 +1,16 @@
-//
-//  link.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 7/30/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * link.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 7/30/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "GPXlinkType.h"
 
 #import "XMLStringElement.h"
+
+
 
 @implementation GPXlinkType
 
@@ -36,13 +38,5 @@
 {
 	return [[NSString stringWithFormat:@" href=\"%@\"", href] dataUsingEncoding:VSO_XML_ENCODING];
 }
-
-- (void)dealloc
-{
-	[href release];
-	
-	[super dealloc];
-}
-
 
 @end

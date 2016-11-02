@@ -1,10 +1,10 @@
-//
-//  GPSRecorderAppDelegate.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François on 7/10/09.
-//  Copyright VSO-Software 2009. All rights reserved.
-//
+/*
+ * GPSRecorderAppDelegate.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François on 7/10/09.
+ * Copyright VSO-Software 2009. All rights reserved.
+ */
 
 #import <MapKit/MKTypes.h>
 
@@ -12,6 +12,8 @@
 #import "MainViewController.h"
 
 #import "VSOUtils.h"
+
+
 
 @implementation GPSStoneTripRecorderAppDelegate
 
@@ -51,16 +53,14 @@
 	NSFileManager *fm = [NSFileManager defaultManager];
 	/* Creating data dir */
 	if (![fm createDirectoryAtPath:VSO_PATH_TO_FOLDER_WITH_GPX_FILES withIntermediateDirectories:YES attributes:nil error:NULL]) {
-		[[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"internal error", nil) message:[NSString stringWithFormat:NSLocalizedString(@"please contact developer error code #", nil), 1] delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] autorelease] show];
+		[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"internal error", nil) message:[NSString stringWithFormat:NSLocalizedString(@"please contact developer error code #", nil), 1] delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] show];
 		return;
 	}
 	
 	MainViewController *aController = [[MainViewController alloc] initWithNibName:@"MainView" bundle:nil];
 	self.mainViewController = aController;
-	[aController release];
 	
-	[[UIApplication sharedApplication] setStatusBarStyle:VSO_APPLICATION_STATUS_BAR_STYLE animated:NO];
-	mainViewController.view.frame = [UIScreen mainScreen].applicationFrame;
+	[UIApplication.sharedApplication setStatusBarStyle:VSO_APPLICATION_STATUS_BAR_STYLE animated:NO];
 	window.rootViewController = mainViewController;
 	[window makeKeyAndVisible];
 	
@@ -75,12 +75,6 @@
 {
 	[mainViewController saveRecordingListStoppingGPX:YES];
 	[[NSFileManager defaultManager] removeItemAtPath:VSO_PATH_TO_NICE_EXIT_WITNESS error:NULL];
-}
-
-- (void)dealloc {
-	[mainViewController release];
-	[window release];
-	[super dealloc];
 }
 
 @end

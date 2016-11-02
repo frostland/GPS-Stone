@@ -1,14 +1,16 @@
-//
-//  ptseg.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 7/30/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * ptseg.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 7/30/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "GPXptsegType.h"
 
 #import "GPXptType.h"
+
+
 
 @implementation GPXptsegType
 

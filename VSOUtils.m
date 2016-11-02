@@ -50,7 +50,7 @@ NSString *NSStringFromDirection(CLLocationDirection d) {
 }
 
 NSString *NSStringFromDate(NSDate *date) {
-	NSDateFormatter *formater = [[NSDateFormatter new] autorelease];
+	NSDateFormatter *formater = [NSDateFormatter new];
 	[formater setDateFormat:NSLocalizedString(@"read date format", nil)];
 	
 	return [formater stringFromDate:date];

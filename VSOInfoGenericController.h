@@ -1,16 +1,18 @@
-//
-//  VSOInfoGenericController.h
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 8/6/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
-//
+/*
+ * VSOInfoGenericController.h
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 8/6/09.
+ * Copyright 2009 __MyCompanyName__. All rights reserved.
+ */
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
 #import "Constants.h"
 #import "GPXgpxType.h"
+
+
 
 @protocol VSOInfoGenericControllerDelegate
 
@@ -26,14 +28,13 @@
 	CLHeading *currentHeading;
 	CLLocation *currentLocation;
 	NSDictionary *currentRecordingInfo;
-	
-	id <VSOInfoGenericControllerDelegate> delegate;
 }
+
 @property(nonatomic, retain) GPXgpxType *currentGPX;
 @property(nonatomic, retain) NSDictionary *currentRecordingInfo; /* Won't refresh UI when changed */
 @property(nonatomic, retain) CLHeading *currentHeading; /* Won't refresh UI when changed */
 @property(nonatomic, retain) CLLocation *currentLocation; /* Won't refresh UI when changed */
-@property(nonatomic, assign) id <VSOInfoGenericControllerDelegate> delegate;
+@property(nonatomic, weak) id <VSOInfoGenericControllerDelegate> delegate;
 
 /* Explanation of the property below:
  * Subclasses of VSOInfoGenericController are instanciated and dealloced on the fly, at the demand of the front end user.

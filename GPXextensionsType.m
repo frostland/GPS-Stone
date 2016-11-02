@@ -1,12 +1,14 @@
-//
-//  extensions.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 7/30/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * extensions.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 7/30/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "GPXextensionsType.h"
+
+
 
 @implementation GPXextensionsType
 

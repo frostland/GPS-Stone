@@ -1,12 +1,14 @@
-//
-//  XMLDecimalElement.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 7/30/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * XMLDecimalElement.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 7/30/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "XMLDecimalElement.h"
+
+
 
 @implementation XMLDecimalElement
 
@@ -19,14 +21,13 @@
 	e.value = v;
 	e->containsText = YES;
 	
-	return [e autorelease];
+	return e;
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
-	[buf autorelease];
 	if (!buf) buf = string;
-	else      buf = [[buf stringByAppendingString:string] retain];
+	else      buf = [buf stringByAppendingString:string];
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
@@ -45,13 +46,6 @@
 - (NSString *)description
 {
 	return [NSString stringWithFormat:@"%@ object; decimal value = \"%g\"", self.elementName, self.value];
-}
-
-- (void)dealloc
-{
-	[buf release];
-	
-	[super dealloc];
 }
 
 @end

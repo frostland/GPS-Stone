@@ -1,12 +1,14 @@
-//
-//  VSOInfoViewCtrl.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François on 7/11/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * VSOInfoViewCtrl.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François on 7/11/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "VSOInfoViewCtrl.h"
+
+
 
 @implementation VSOInfoViewCtrl
 
@@ -45,11 +47,6 @@
 {
 	if ([[currentRecordingInfo valueForKey:VSO_REC_LIST_RECORD_STATE_KEY] unsignedIntValue] == VSORecordStateStopped) [buttonRecord setAlpha:1.];
 	else                                                                                                              [buttonRecord setAlpha:0.];
-}
-
-- (void)dealloc
-{
-	[super dealloc];
 }
 
 @end

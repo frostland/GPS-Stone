@@ -1,10 +1,10 @@
-//
-//  trk.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 7/30/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * trk.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 7/30/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "GPXtrkType.h"
 
@@ -12,6 +12,8 @@
 #import "XMLStringElement.h"
 #import "GPXlinkType.h"
 #import "GPXextensionsType.h"
+
+
 
 @implementation GPXtrkType
 
@@ -56,7 +58,6 @@
 	if (cachedSegments && !childrenChanged) return cachedSegments;
 	
 	childrenChanged = NO;
-	[cachedSegments release];
 	return (cachedSegments = [[self childrenWithElementName:@"trkseg"] copy]);
 }
 
@@ -69,13 +70,5 @@
 {
 	return [self addChild:[GPXtrksegType xmlElementWithElementName:@"trkseg"]];
 }
-
-- (void)dealloc
-{
-	[cachedSegments release];
-	
-	[super dealloc];
-}
-
 
 @end

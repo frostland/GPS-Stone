@@ -1,15 +1,17 @@
-//
-//  VSOSettingsViewController.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François on 7/10/09.
-//  Copyright VSO-Software 2009. All rights reserved.
-//
+/*
+ * VSOSettingsViewController.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François on 7/10/09.
+ * Copyright VSO-Software 2009. All rights reserved.
+ */
 
 #import <MapKit/MKTypes.h>
 
 #import "VSOSettingsViewController.h"
 #import "Constants.h"
+
+
 
 @implementation VSOSettingsViewController
 
@@ -147,20 +149,6 @@
 }
 
 - (void)viewDidUnload {
-}
-
-- (void)dealloc {
-	[segmentedCtrlMapType release];
-	[textFieldMinDist release];
-	[textFieldMinTime release];
-	[textFieldTurnOffScreen release];
-	[switchSkip release];
-	[switchMetricMeasures release];
-	
-	[viewWithSettings release];
-	[scrollView release];
-	
-	[super dealloc];
 }
 
 @end

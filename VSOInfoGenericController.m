@@ -1,12 +1,14 @@
-//
-//  VSOInfoGenericController.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 8/6/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
-//
+/*
+ * VSOInfoGenericController.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 8/6/09.
+ * Copyright 2009 __MyCompanyName__. All rights reserved.
+ */
 
 #import "VSOInfoGenericController.h"
+
+
 
 @implementation VSOInfoGenericController
 
@@ -56,15 +58,6 @@
 - (void)restoreStateFrom:(NSData *)dta
 {
 	/* Subclasses do it */
-}
-
-- (void)dealloc
-{
-	[currentGPX release];
-	[currentLocation release];
-	[currentRecordingInfo release];
-	
-	[super dealloc];
 }
 
 @end

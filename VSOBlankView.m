@@ -1,14 +1,16 @@
-//
-//  VSOBlankView.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 8/20/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * VSOBlankView.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 8/20/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "VSOBlankView.h"
 
 #define ANIM_TIME 5.
+
+
 
 @implementation VSOBlankView
 
@@ -53,14 +55,5 @@
 	[[UIApplication sharedApplication] setStatusBarHidden:NO];
 	[self removeFromSuperview];
 }
-
-
-- (void)dealloc
-{
-	[labelBlankScreen release];
-	
-	[super dealloc];
-}
-
 
 @end

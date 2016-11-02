@@ -1,14 +1,16 @@
-//
-//  VSORecordingsListViewCtlr.h
-//  GPS Stone Trip Recorder
-//
-//  Created by François on 7/13/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * VSORecordingsListViewCtlr.h
+ * GPS Stone Trip Recorder
+ *
+ * Created by François on 7/13/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import <UIKit/UIKit.h>
 
 #import "VSORecordingDetailViewCtrl.h"
+
+
 
 @protocol VSORecordingsListViewControllerDelegate;
 
@@ -18,11 +20,10 @@
 	IBOutlet UIBarButtonItem *buttonDone;
 	
 	NSMutableArray *recordingList;
-	
-	id <VSORecordingsListViewControllerDelegate> delegate;
 }
+
 @property(nonatomic, retain) NSMutableArray *recordingList;
-@property(nonatomic, assign) id <VSORecordingsListViewControllerDelegate> delegate;
+@property(nonatomic, weak) id <VSORecordingsListViewControllerDelegate> delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil recordingList:(NSMutableArray *)recs;
 
@@ -30,6 +31,8 @@
 - (IBAction)done:(id)sender;
 
 @end
+
+
 
 @protocol VSORecordingsListViewControllerDelegate
 

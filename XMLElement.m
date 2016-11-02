@@ -1,12 +1,14 @@
-//
-//  XMLElement.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 7/29/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * XMLElement.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 7/29/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "XMLElement.h"
+
+
 
 @implementation XMLElement
 
@@ -17,7 +19,7 @@
 	XMLElement *newElement = [self new];
 	newElement.elementName = en;
 	
-	return [newElement autorelease];
+	return newElement;
 }
 
 + (NSMutableDictionary *)elementToClassRelations;
@@ -100,7 +102,7 @@
 	
 	for (XMLElement *child in children) [dta appendData:[child XMLOutput:indent+1]];
 	
-	return [[dta copy] autorelease];
+	return [dta copy];
 }
 
 - (NSData *)XMLOutputForTagOpening:(NSUInteger)indent
@@ -139,7 +141,7 @@
 	[dta appendData:[self dataForStuffBetweenTags:indent]];
 	[dta appendData:[self XMLOutputForTagClosing:indent]];
 	
-	return [[dta copy] autorelease];
+	return [dta copy];
 }
 
 - (NSArray *)childrenWithElementName:(NSString *)en
@@ -149,7 +151,7 @@
 		if ([curElement.elementName isEqualToString:en])
 			[cp addObject:curElement];
 	
-	return [[[cp autorelease] copy] autorelease];
+	return [cp copy];
 }
 
 - (id)lastChildWithElementName:(NSString *)en
@@ -210,14 +212,6 @@
 - (NSString *)description
 {
 	return [NSString stringWithFormat:@"\"%@\" object; children = \"%@\"", self.elementName, self.children];
-}
-
-- (void)dealloc
-{
-	[elmntName release];
-	[children release];
-	
-	[super dealloc];
 }
 
 @end

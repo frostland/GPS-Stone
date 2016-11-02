@@ -1,14 +1,16 @@
-//
-//  VSODetailsViewCtrl.h
-//  GPS Stone Trip Recorder
-//
-//  Created by François on 7/11/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * VSODetailsViewCtrl.h
+ * GPS Stone Trip Recorder
+ *
+ * Created by François on 7/11/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import <UIKit/UIKit.h>
 
 #import "VSOInfoGenericController.h"
+
+
 
 @interface VSODetailsViewCtrl : VSOInfoGenericController {
 	IBOutlet UILabel *labelLat, *labelLong;

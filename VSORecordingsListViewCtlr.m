@@ -1,15 +1,17 @@
-//
-//  VSORecordingsListViewCtlr.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François on 7/13/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * VSORecordingsListViewCtlr.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François on 7/13/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "VSORecordingsListViewCtlr.h"
 
 #import "Constants.h"
 #import "VSOUtils.h"
+
+
 
 @implementation VSORecordingsListViewCtlr
 
@@ -96,7 +98,7 @@
 	
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 	
@@ -119,7 +121,6 @@
 	VSORecordingDetailViewCtrl *controller = [[VSORecordingDetailViewCtrl alloc] initWithNibName:@"VSORecordingDetailView" bundle:nil recording:rec];
 	controller.delegate = self;
 	[self.navigationController pushViewController:controller animated:YES];
-	[controller release];
 	
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -138,7 +139,7 @@
 		
 		NSFileManager *fm = [NSFileManager defaultManager];
 		if (![fm removeItemAtPath:fullPathFromRelativeForGPXFile([[recordingList objectAtIndex:i] valueForKey:VSO_REC_LIST_PATH_KEY]) error:NULL]) {
-			[[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"internal error", nil) message:[NSString stringWithFormat:NSLocalizedString(@"cannot delete recording. please contact developer error code #", nil), 2] delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] autorelease] show];
+			[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"internal error", nil) message:[NSString stringWithFormat:NSLocalizedString(@"cannot delete recording. please contact developer error code #", nil), 2] delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] show];
 			NSLog(@"Can't delete relative path \"%@\" (full path is: \"%@\")", [[recordingList objectAtIndex:i] valueForKey:VSO_REC_LIST_PATH_KEY], fullPathFromRelativeForGPXFile([[recordingList objectAtIndex:i] valueForKey:VSO_REC_LIST_PATH_KEY]));
 			return;
 		}
@@ -175,10 +176,6 @@
 - (void)dealloc
 {
 	NSDLog(@"Releasing a VSORecordingListViewCtrl");
-	
-	[recordingList release];
-	
-	[super dealloc];
 }
 
 @end

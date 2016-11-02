@@ -1,10 +1,10 @@
-//
-//  VSORecordingDetailViewCtrl.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 8/4/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * VSORecordingDetailViewCtrl.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 8/4/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "VSORecordingDetailViewCtrl.h"
 
@@ -13,11 +13,14 @@
 
 #define VSO_URL_TO_SEND_MAIL @"http://www.vso-software.fr/products/atomgps/iphone-mail.php"
 
+
+
 @interface VSORecordingDetailViewCtrl (GPXExport)
 
 - (void)sendMailWithVSO:(BOOL)useVSO;
 
 @end
+
 
 
 @implementation VSORecordingDetailViewCtrl (GPXExport)
@@ -42,7 +45,7 @@
 	 5: No attachement file with name "GPXFile"
 	 */
 	NSString *errMsg = nil;
-	NSUInteger err = [[[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease] intValue];
+	NSUInteger err = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] intValue];
 	switch (err) {
 		case 0: /* No Err */ break;
 		case 1:
@@ -54,7 +57,7 @@
 	}
 	
 	[self removeSendingMailView];
-	if (errMsg != nil) [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"cannot send mail", nil) message:errMsg delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] autorelease] show];
+	if (errMsg != nil) [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"cannot send mail", nil) message:errMsg delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] show];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
@@ -64,7 +67,7 @@
 	NSString *errMsg = [NSString stringWithFormat:NSLocalizedString(@"reason: %@", nil), [error localizedDescription]];
 	
 	[self removeSendingMailView];
-	[[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"cannot send mail", nil) message:errMsg delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] autorelease] show];
+	[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"cannot send mail", nil) message:errMsg delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] show];
 }
 
 - (void)sendMailWithVSO:(BOOL)useVSO
@@ -108,7 +111,7 @@
 	
 	[body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
 	[body appendData:[@"Content-Disposition: form-data; name=\"deviceID\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[[NSString stringWithFormat:@"%@\n", [[UIDevice currentDevice] uniqueIdentifier]] dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData:[[NSString stringWithFormat:@"%@\n", @"uniqueIdentifier is not accessible anymore on iOS!"] dataUsingEncoding:NSUTF8StringEncoding]];
 	
 	[body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
 	[body appendData:[[NSString stringWithFormat:@"Content-Disposition: file; name=\"GPXFile\"; filename=\"%@.gpx\"\r\n", [recordingInfos valueForKey:VSO_REC_LIST_NAME_KEY]] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -121,6 +124,8 @@
 }
 
 @end
+
+
 
 @implementation VSORecordingDetailViewCtrl
 
@@ -145,7 +150,6 @@
 		NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:[NSData dataWithContentsOfFile:path]];
 		[xmlParser setDelegate:self];
 		[xmlParser parse];
-		[xmlParser release];
 	}
 	return self;
 }
@@ -257,7 +261,7 @@
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
 {
 	CFTypeRef emails = ABRecordCopyValue(person, kABPersonEmailProperty);
-	NSString *email = (NSString *)ABMultiValueCopyValueAtIndex(emails, ABMultiValueGetIndexForIdentifier(emails, identifier));
+	NSString *email = (NSString *)CFBridgingRelease(ABMultiValueCopyValueAtIndex(emails, ABMultiValueGetIndexForIdentifier(emails, identifier)));
 	
 	if (peoplePickerIsForFromField) {
 		[textFieldYourEmail setText:email];
@@ -284,8 +288,6 @@
 							mimeType:@"application/octet-stream" fileName:[NSString stringWithFormat:@"%@.gpx", [recordingInfos valueForKey:VSO_REC_LIST_NAME_KEY]]];
 		
 		[self presentModalViewController:ctrl animated:YES];
-		
-		[ctrl release];
 	} else {
 		sentWithiPhone = NO;
 		
@@ -298,8 +300,6 @@
 		
 		chooseMailCtrl.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
 		[self presentModalViewController:chooseMailCtrl animated:YES];
-		
-		[chooseMailCtrl release];
 	}
 }
 
@@ -338,8 +338,6 @@
 	
 	ctrl.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
 	[chooseMailCtrl presentModalViewController:ctrl animated:YES];
-	
-	[ctrl release];
 }
 
 - (IBAction)setYourMailFromAdressBook:(id)sender
@@ -364,14 +362,6 @@
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
-}
-
-
-- (void)dealloc
-{
-	[recordingInfos release];
-	
-	[super dealloc];
 }
 
 @end

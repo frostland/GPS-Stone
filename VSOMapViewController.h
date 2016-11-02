@@ -1,10 +1,10 @@
-//
-//  VSOMapViewController.h
-//  GPS Stone Trip Recorder
-//
-//  Created by François on 7/11/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * VSOMapViewController.h
+ * GPS Stone Trip Recorder
+ *
+ * Created by François on 7/11/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import <MapKit/MapKit.h>
 #import <UIKit/UIKit.h>
@@ -13,6 +13,8 @@
 
 #import "VSOInfoGenericController.h"
 
+
+
 @interface VSOAnnotation : NSObject <MKMutableAnnotation> {
 	CLLocationCoordinate2D coordinate;
 }
@@ -20,12 +22,16 @@
 
 @end
 
+
+
 typedef struct VSOArrayOfPointsDescr {
 	NSUInteger realNumberOfPoints;
 	NSUInteger bufferNumberOfPoints;
 	
 	MKCoordinateRegion bounds;
 } VSOArrayOfPointsDescr;
+
+
 
 @interface VSOMapViewController : VSOInfoGenericController <MKMapViewDelegate> {
 	IBOutlet UIButton *buttonCenterMapOnCurLoc;

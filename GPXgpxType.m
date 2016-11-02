@@ -1,10 +1,10 @@
-//
-//  gpx.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 7/29/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * gpx.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 7/29/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "GPXgpxType.h"
 
@@ -12,6 +12,8 @@
 #import "GPXwptType.h"
 #import "GPXrteType.h"
 #import "GPXextensionsType.h"
+
+
 
 @implementation GPXgpxType
 
@@ -57,7 +59,6 @@
 	if (cachedTracks && !childrenChanged) return cachedTracks;
 	
 	childrenChanged = NO;
-	[cachedTracks release];
 	return (cachedTracks = [[self childrenWithElementName:@"trk"] copy]);
 }
 
@@ -70,15 +71,5 @@
 {
 	return [NSString stringWithFormat:@"gpx object; creator = \"%@\"; version = \"%@\"; children = \"%@\"", creator, version, self.children];
 }
-
-- (void)dealloc
-{
-	[cachedTracks release];
-	[creator release];
-	[version release];
-	
-	[super dealloc];
-}
-
 
 @end

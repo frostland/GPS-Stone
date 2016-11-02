@@ -1,19 +1,20 @@
-//
-//  XMLElement.h
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 7/29/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * XMLElement.h
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 7/29/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import <Foundation/Foundation.h>
 
 #import "VSOUtils.h"
 
+
 #define VSO_XML_ENCODING NSUTF8StringEncoding
 
+
 @interface XMLElement : NSObject {
-	XMLElement *parent;
 	NSMutableArray *children;
 	
 	NSString *elmntName;
@@ -23,7 +24,8 @@
 	/* Gives the opportunity to subclasses to manage caches. When a child is added (or deleted), the following var is set to YES */
 	BOOL childrenChanged;
 }
-@property(nonatomic, assign) XMLElement *parent;
+
+@property(nonatomic, weak) XMLElement *parent;
 @property(nonatomic, retain, getter=elementName, setter=setElementName:) NSString *elmntName;
 @property(nonatomic, retain) NSMutableArray *children;
 

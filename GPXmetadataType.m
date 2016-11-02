@@ -1,10 +1,10 @@
-//
-//  metadata.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 7/29/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * metadata.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 7/29/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "GPXmetadataType.h"
 
@@ -15,6 +15,8 @@
 #import "GPXlinkType.h"
 #import "GPXboundsType.h"
 #import "GPXextensionsType.h"
+
+
 
 @implementation GPXmetadataType
 

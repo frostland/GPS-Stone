@@ -1,10 +1,10 @@
-//
-//  wpt.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 7/29/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * wpt.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 7/29/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "GPXwptType.h"
 
@@ -16,6 +16,8 @@
 #import "XMLDecimalElement.h"
 #import "GPXlinkType.h"
 #import "GPXextensionsType.h"
+
+
 
 @implementation GPXwptType
 
@@ -64,7 +66,7 @@
 		[newWayPoint addChild:[XMLDecimalElement decimalElementWithElementName:@"vdop" value:vPrecision]];
 	}
 	
-	return [newWayPoint autorelease];
+	return newWayPoint;
 }
 
 - (id)initWithAttributes:(NSDictionary *)dic elementName:(NSString *)en

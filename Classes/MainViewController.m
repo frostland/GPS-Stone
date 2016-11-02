@@ -1,10 +1,10 @@
-//
-//  MainViewController.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François on 7/10/09.
-//  Copyright VSO-Software 2009. All rights reserved.
-//
+/*
+ * MainViewController.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François on 7/10/09.
+ * Copyright VSO-Software 2009. All rights reserved.
+ */
 
 #import "MainViewController.h"
 #import "MainView.h"
@@ -12,6 +12,8 @@
 #import "VSOUtils.h"
 
 #define VSO_TIME_BEFORE_RELEASE_OF_UNUSED_CTRLS 15.
+
+
 
 @interface MainViewController (Private)
 
@@ -44,6 +46,8 @@
 
 @end
 
+
+
 @interface MainViewController (DoThings)
 
 - (void)addCurrentLocationToCurrentTrack;
@@ -52,6 +56,8 @@
 - (void)stopRecording;
 
 @end
+
+
 
 #pragma mark -
 @implementation MainViewController (Private)
@@ -62,12 +68,11 @@
 	
 	assert(recordState == VSORecordStateStopped);
 	
-	[recordingList release];
 	if (![fm fileExistsAtPath:VSO_PATH_TO_GPX_LIST]) {
 		recordingList = [NSMutableArray new];
 		return;
 	}
-	recordingList = [[NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:VSO_PATH_TO_GPX_LIST]] retain];
+	recordingList = [NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:VSO_PATH_TO_GPX_LIST]];
 	if ([recordingList count] == 0) {
 		assert(![fm fileExistsAtPath:VSO_PATH_TO_PAUSED_REC_WITNESS]);
 		return;
@@ -75,12 +80,10 @@
 	
 	if ([fm fileExistsAtPath:VSO_PATH_TO_PAUSED_REC_WITNESS]) {
 		NSString *path = fullPathFromRelativeForGPXFile([[recordingList objectAtIndex:0] valueForKey:VSO_REC_LIST_PATH_KEY]);
-		[currentRecordingInfo release];
-		currentRecordingInfo = [[recordingList objectAtIndex:0] retain];
+		currentRecordingInfo = [recordingList objectAtIndex:0];
 		[recordingList removeObjectAtIndex:0];
 		
-		[viewControllersStates release];
-		viewControllersStates = [[NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:VSO_PATH_TO_PAUSED_REC_WITNESS]] retain];
+		viewControllersStates = [NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:VSO_PATH_TO_PAUSED_REC_WITNESS]];
 		for (NSUInteger i = 0; i<[viewControllers count]; i++) {
 			VSOInfoGenericController *curCtrl = [viewControllers objectAtIndex:i];
 			if ((NSNull *)curCtrl != [NSNull null])
@@ -88,7 +91,6 @@
 		}
 		[fm removeItemAtPath:VSO_PATH_TO_PAUSED_REC_WITNESS error:NULL];
 		
-		[currentGpx release];
 		currentGpx = [[GPXgpxType alloc] initWithAttributes:[NSDictionary dictionaryWithObjects:[NSArray array] forKeys:[NSArray array]] elementName:@"gpx"];
 		[currentGpx addTrack];
 		[[currentGpx firstTrack] addTrackSegment];
@@ -97,7 +99,7 @@
 		assert(currentGpxOutput == nil);
 		assert(currentGpxOutputPath == nil);
 		currentGpxOutputPath = [path copy];
-		currentGpxOutput = [[NSFileHandle fileHandleForWritingAtPath:path] retain];
+		currentGpxOutput = [NSFileHandle fileHandleForWritingAtPath:path];
 		[currentGpxOutput seekToEndOfFile];
 		if ([[currentRecordingInfo valueForKey:VSO_REC_LIST_RECORD_STATE_KEY] unsignedIntValue] != VSORecordStatePaused)
 			[currentGpxOutput writeData:[currentTracksegment XMLOutputForTagClosing:2]];
@@ -214,7 +216,6 @@
 		[viewControllers replaceObjectAtIndex:page withObject:controller];
 		[controller setCurrentRecordingInfo:currentRecordingInfo];
 		controller.delegate = self;
-		[controller release];
 	}
 	
 	// add the controller's view to the scroll view
@@ -375,7 +376,7 @@
 
 - (void)showBlankScreen:(NSTimer *)t
 {
-	[timerToTurnOffScreen invalidate]; [timerToTurnOffScreen release]; timerToTurnOffScreen = nil;
+	[timerToTurnOffScreen invalidate]; timerToTurnOffScreen = nil;
 	
 	if (viewBlankScreen.superview != nil || ![UIDevice currentDevice].proximityMonitoringEnabled) {
 		/* The screen is blanked, or the proximity monitoring is disabled. We have nothing to do. */
@@ -409,8 +410,8 @@
 	}
 	if (ti == 0) return;
 	
-	[timerToTurnOffScreen invalidate]; [timerToTurnOffScreen release];
-	timerToTurnOffScreen = [[NSTimer scheduledTimerWithTimeInterval:ti target:self selector:@selector(showBlankScreen:) userInfo:NULL repeats:NO] retain];
+	[timerToTurnOffScreen invalidate];
+	timerToTurnOffScreen = [NSTimer scheduledTimerWithTimeInterval:ti target:self selector:@selector(showBlankScreen:) userInfo:NULL repeats:NO];
 }
 
 - (void)screenLockNotification:(NSNotification *)n
@@ -472,9 +473,6 @@
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 	controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
 	[self presentModalViewController:navCtrl animated:YES];
-	
-	[navCtrl release];
-	[controller release];
 }
 
 - (void)pauseRecording
@@ -485,8 +483,8 @@
 	NSTimeInterval totalRecordTime = [[currentRecordingInfo valueForKey:VSO_REC_LIST_TOTAL_REC_TIME_BEFORE_LAST_PAUSE_KEY] doubleValue];
 	[currentRecordingInfo setValue:[NSNumber numberWithDouble:totalRecordTime+(-[dateRecordStart timeIntervalSinceNow])] forKey:VSO_REC_LIST_TOTAL_REC_TIME_BEFORE_LAST_PAUSE_KEY];
 	
-	[timerToRefreshTimes invalidate]; [timerToRefreshTimes release]; timerToRefreshTimes = nil;
-	[dateRecordStart release]; dateRecordStart = nil;
+	[timerToRefreshTimes invalidate]; timerToRefreshTimes = nil;
+	dateRecordStart = nil;
 	
 	if (recordState != VSORecordStateWaitingGPS) [self setRecordState:VSORecordStatePaused];
 	[currentGpxOutput writeData:[currentTracksegment XMLOutputForTagClosing:2]];
@@ -506,9 +504,9 @@
 	[self setRecordState:VSORecordStateStopped];
 	[self saveRecordingListStoppingGPX:YES];
 	
-	[currentGpx release]; currentGpx = nil;
-	[currentRecordingInfo release]; currentRecordingInfo = nil;
-	[currentGpxOutput closeFile]; [currentGpxOutput release]; currentGpxOutput = nil;
+	currentGpx = nil;
+	currentRecordingInfo = nil;
+	[currentGpxOutput closeFile]; currentGpxOutput = nil;
 	
 	[self setCurrentGPXOfControllers];
 	[self setCurrentRecordingInfosOfControllers];
@@ -517,6 +515,8 @@
 }
 
 @end
+
+
 
 #pragma mark -
 @implementation MainViewController
@@ -533,7 +533,7 @@
 		locationManager = [[CLLocationManager alloc] init];
 		locationManager.delegate = self;
 		
-		ctrlClassesForPages = [[NSArray arrayWithObjects:[VSOInfoViewCtrl class], [VSODetailsViewCtrl class], [VSOMapViewController class], nil] retain];
+		ctrlClassesForPages = [NSArray arrayWithObjects:VSOInfoViewCtrl.class, VSODetailsViewCtrl.class, VSOMapViewController.class, nil];
 	}
 	return self;
 }
@@ -550,24 +550,23 @@
 	/***************** Pages *****************/
 	// view controllers are created lazily
 	// in the meantime, load the array with placeholders which will be replaced on demand
-	[viewControllers release]; [viewControllersStates release];
 	viewControllers = [[NSMutableArray alloc] init];
 	viewControllersStates = [[NSMutableArray alloc] init];
 	for (NSInteger i = 0; i < [pageControl numberOfPages]; i++) {
-		[viewControllers addObject:[NSNull null]];
-		[viewControllersStates addObject:[NSNull null]];
+		[viewControllers addObject:NSNull.null];
+		[viewControllersStates addObject:NSNull.null];
 	}
 	
 	pagesView.pagingEnabled = YES;
 	pagesView.bounces = YES;
-	pagesView.contentSize = CGSizeMake(pagesView.frame.size.width * [pageControl numberOfPages], pagesView.frame.size.height);
+	pagesView.contentSize = CGSizeMake(pagesView.frame.size.width * pageControl.numberOfPages, pagesView.frame.size.height);
 	pagesView.showsHorizontalScrollIndicator = NO;
 	pagesView.showsVerticalScrollIndicator = NO;
 	pagesView.scrollsToTop = NO;
 	pagesView.delayScroll = NO;
 	pagesView.delegate = self;
 	
-	selPage = [[NSUserDefaults standardUserDefaults] integerForKey:VSO_UDK_SELECTED_PAGE];
+	selPage = [NSUserDefaults.standardUserDefaults integerForKey:VSO_UDK_SELECTED_PAGE];
 	[self selectPage:selPage animated:NO];
 	
 	/***************** Custom buttons *****************/
@@ -620,34 +619,32 @@
 		NSFileManager *fm = [NSFileManager defaultManager];
 		
 		NSUInteger i = 1;
-		[currentGpxOutputPath release];
 		while ([fm fileExistsAtPath:(currentGpxOutputPath = [VSO_BASE_PATH_TO_GPX stringByAppendingFormat:@"%d.gpx", i++])]);
 		
-		[currentGpxOutputPath retain];
 		[[NSData data] writeToFile:currentGpxOutputPath atomically:NO];
-		currentGpxOutput = [[NSFileHandle fileHandleForWritingAtPath:currentGpxOutputPath] retain];
+		currentGpxOutput = [NSFileHandle fileHandleForWritingAtPath:currentGpxOutputPath];
 		
 		currentGpx = [[GPXgpxType alloc] initWithAttributes:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:NSLocalizedString(@"gpx creator tag", nil), @"1.1", nil] forKeys:[NSArray arrayWithObjects:@"creator", @"version", nil]] elementName:@"gpx"];
 		[currentGpx addTrack];
 		
-		currentRecordingInfo = [[NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
-																			relativePathFromFullForGPXFile(currentGpxOutputPath),
-																			[NSNumber numberWithDouble:0.],
-																			[NSNumber numberWithDouble:0.],
-																			[NSNumber numberWithDouble:0.],
-																			[NSNumber numberWithDouble:0.],
-																			[NSNumber numberWithDouble:0.],
-																			[NSNumber numberWithInt:0],
-																			NSStringFromDate([NSDate dateWithTimeIntervalSinceNow:0]), nil]
-																   forKeys:[NSArray arrayWithObjects:
-																			VSO_REC_LIST_PATH_KEY,
-																			VSO_REC_LIST_TOTAL_REC_TIME_KEY,
-																			VSO_REC_LIST_TOTAL_REC_TIME_BEFORE_LAST_PAUSE_KEY,
-																			VSO_REC_LIST_TOTAL_REC_DISTANCE_KEY,
-																			VSO_REC_LIST_MAX_SPEED_KEY,
-																			VSO_REC_LIST_AVERAGE_SPEED_KEY,
-																			VSO_REC_LIST_N_REG_POINTS_KEY,
-																			VSO_REC_LIST_NAME_KEY, nil]] retain];
+		currentRecordingInfo = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
+																								 relativePathFromFullForGPXFile(currentGpxOutputPath),
+																								 [NSNumber numberWithDouble:0.],
+																								 [NSNumber numberWithDouble:0.],
+																								 [NSNumber numberWithDouble:0.],
+																								 [NSNumber numberWithDouble:0.],
+																								 [NSNumber numberWithDouble:0.],
+																								 [NSNumber numberWithInt:0],
+																								 NSStringFromDate([NSDate dateWithTimeIntervalSinceNow:0]), nil]
+																					 forKeys:[NSArray arrayWithObjects:
+																								 VSO_REC_LIST_PATH_KEY,
+																								 VSO_REC_LIST_TOTAL_REC_TIME_KEY,
+																								 VSO_REC_LIST_TOTAL_REC_TIME_BEFORE_LAST_PAUSE_KEY,
+																								 VSO_REC_LIST_TOTAL_REC_DISTANCE_KEY,
+																								 VSO_REC_LIST_MAX_SPEED_KEY,
+																								 VSO_REC_LIST_AVERAGE_SPEED_KEY,
+																								 VSO_REC_LIST_N_REG_POINTS_KEY,
+																								 VSO_REC_LIST_NAME_KEY, nil]];
 		[currentGpxOutput writeData:[currentGpx XMLOutputForTagOpening:0]];
 		[currentGpxOutput writeData:[[currentGpx firstTrack] XMLOutputForTagOpening:1]];
 		
@@ -659,7 +656,7 @@
 	currentTracksegment = [[currentGpx firstTrack] lastTrackSegment];
 	[currentGpxOutput writeData:[currentTracksegment XMLOutputForTagOpening:2]];
 	
-	timerToRefreshTimes = [[NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(refreshTimes:) userInfo:nil repeats:YES] retain];
+	timerToRefreshTimes = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(refreshTimes:) userInfo:nil repeats:YES];
 	[self setRecordState:VSORecordStateWaitingGPS];
 	[self saveRecordingListStoppingGPX:NO];
 	
@@ -737,8 +734,8 @@
 		[self loadScrollViewWithPage:selPage + 1];
 		[self loadScrollViewWithPage:selPage - 1];
 	}
-	[timerToUnloadUnusedPages invalidate]; [timerToUnloadUnusedPages release];
-	timerToUnloadUnusedPages = [[NSTimer scheduledTimerWithTimeInterval:VSO_TIME_BEFORE_RELEASE_OF_UNUSED_CTRLS target:self selector:@selector(fireUnloadAllUnusedScrollViewPageController:) userInfo:NULL repeats:NO] retain];
+	[timerToUnloadUnusedPages invalidate];
+	timerToUnloadUnusedPages = [NSTimer scheduledTimerWithTimeInterval:VSO_TIME_BEFORE_RELEASE_OF_UNUSED_CTRLS target:self selector:@selector(fireUnloadAllUnusedScrollViewPageController:) userInfo:NULL repeats:NO];
 	
 	// We don't want a "feedback loop" between the UIPageControl and the scroll delegate in
 	// which a scroll event generated from the user hitting the page control triggers updates from
@@ -755,7 +752,6 @@
 
 - (void)fireUnloadAllUnusedScrollViewPageController:(NSTimer *)timer
 {
-	[timerToUnloadUnusedPages release];
 	timerToUnloadUnusedPages = nil;
 	
 	[self unloadAllUnusedScrollViewPageController];
@@ -787,14 +783,19 @@
 	/* Negative accuracy means the location was not found */
 	if (signbit(newLocation.horizontalAccuracy)) return;
 	
+	void (^end)() = ^{
+		[self setCurrentLocationOfControllers:(recordState == VSORecordStateRecording && pointAdded)];
+		[self refreshInfos];
+	};
+	
 	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-	[currentLocation release]; currentLocation = [newLocation retain];
-	if (recordState != VSORecordStateRecording && recordState != VSORecordStateWaitingGPS) goto end;
-	if ([ud boolForKey:VSO_UDK_SKIP_NON_ACCURATE_POINTS] && newLocation.horizontalAccuracy > VSO_MAX_ACCURACY_TO_RECORD_POINT) goto end;
+	currentLocation = newLocation;
+	if (recordState != VSORecordStateRecording && recordState != VSORecordStateWaitingGPS) {end(); return;}
+	if ([ud boolForKey:VSO_UDK_SKIP_NON_ACCURATE_POINTS] && newLocation.horizontalAccuracy > VSO_MAX_ACCURACY_TO_RECORD_POINT) {end(); return;}
 	
 	assert(dateRecordStart != nil || recordState != VSORecordStateRecording);
 	if (dateRecordStart == nil && recordState != VSORecordStateRecording) {
-		dateRecordStart = [[NSDate dateWithTimeIntervalSinceNow:0] retain];
+		dateRecordStart = [NSDate dateWithTimeIntervalSinceNow:0];
 		[self setRecordState:VSORecordStateRecording];
 		[self updateUI];
 	}
@@ -805,10 +806,10 @@
 	GPXwptType *lastTrackPoint = [currentTracksegment lastTrackPoint];
 	CLLocationDistance d = 0.;
 	if (lastTrackPoint != nil) {
-		CLLocation *lastPoint = [[[CLLocation alloc] initWithLatitude:lastTrackPoint.coords.latitude longitude:lastTrackPoint.coords.longitude] autorelease];
+		CLLocation *lastPoint = [[CLLocation alloc] initWithLatitude:lastTrackPoint.coords.latitude longitude:lastTrackPoint.coords.longitude];
 		d = [lastPoint getDistanceFrom:newLocation];
-		if (d < minDist) goto end;
-		if ([lastTrackPoint hasDate] && (-[[lastTrackPoint date] timeIntervalSinceNow] < minTimeInterval)) goto end;
+		if (d < minDist) {end(); return;}
+		if ([lastTrackPoint hasDate] && (-[[lastTrackPoint date] timeIntervalSinceNow] < minTimeInterval)) {end(); return;}
 	}
 	
 	CLLocationDistance totalRecordDistance = [[currentRecordingInfo valueForKey:VSO_REC_LIST_TOTAL_REC_DISTANCE_KEY] doubleValue];
@@ -816,9 +817,7 @@
 	[self addCurrentLocationToCurrentTrack];
 	pointAdded = YES;
 	
-end:
-	[self setCurrentLocationOfControllers:(recordState == VSORecordStateRecording && pointAdded)];
-	[self refreshInfos];
+	end();
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -859,8 +858,6 @@ end:
 	
 	controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 	[self presentModalViewController:controller animated:YES];
-	
-	[controller release];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -952,45 +949,14 @@ end:
 {
 	[locationManager stopUpdatingLocation];
 	[locationManager stopUpdatingHeading];
-	[locationManager release];
-	[currentLocation release];
 #ifdef SIMULATOR_CODE
 	[t invalidate];
-	[t release];
 	t = nil;
 #endif
 	
-	[currentRecordingInfo release];
-	[dateRecordStart release];
-	[recordingList release];
-	
-	[ctrlClassesForPages release];
-	[viewControllers release];
-	[viewControllersStates release];
-	
-	[pagesView release];
-	[pageControl release];
-	
-	[buttonRecord release];
-	[buttonInfoDark release];
-	[buttonInfoLight release];
-	[buttonListOfRecordings release];
-	
-	[viewMiniInfos release];
-	[labelMiniInfosDistance release];
-	[labelMiniInfosRecordTime release];
-	[labelMiniInfosRecordingState release];
-	
-	[currentGpx release];
-	[currentTracksegment release];
-	
-	[viewBlankScreen release];
-	
-	[timerToUnloadUnusedPages invalidate]; [timerToUnloadUnusedPages release];
-	[timerToTurnOffScreen invalidate]; [timerToTurnOffScreen release];
-	[timerToRefreshTimes invalidate]; [timerToRefreshTimes release];
-	
-	[super dealloc];
+	[timerToUnloadUnusedPages invalidate];
+	[timerToTurnOffScreen invalidate];
+	[timerToRefreshTimes invalidate];
 }
 
 @end

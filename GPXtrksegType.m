@@ -1,14 +1,16 @@
-//
-//  trkseg.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 7/30/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * trkseg.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 7/30/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "GPXtrksegType.h"
 
 #import "GPXextensionsType.h"
+
+
 
 @implementation GPXtrksegType
 
@@ -45,7 +47,6 @@
 	if (cachedPoints && !childrenChanged) return cachedPoints;
 	
 	childrenChanged = NO;
-	[cachedPoints release];
 	return (cachedPoints = [[self childrenWithElementName:@"trkpt"] copy]);
 }
 
@@ -64,13 +65,5 @@
 																	elevation:elevation vAccuracy:vPrecision
 																	  heading:heading date:date]];
 }
-
-- (void)dealloc
-{
-	[cachedPoints release];
-	
-	[super dealloc];
-}
-
 
 @end

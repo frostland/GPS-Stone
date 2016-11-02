@@ -1,12 +1,14 @@
-//
-//  XMLIntegerElement.m
-//  GPS Stone Trip Recorder
-//
-//  Created by François Lamboley on 7/30/09.
-//  Copyright 2009 VSO-Software. All rights reserved.
-//
+/*
+ * XMLIntegerElement.m
+ * GPS Stone Trip Recorder
+ *
+ * Created by François Lamboley on 7/30/09.
+ * Copyright 2009 VSO-Software. All rights reserved.
+ */
 
 #import "XMLIntegerElement.h"
+
+
 
 @implementation XMLIntegerElement
 
@@ -14,9 +16,8 @@
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
-	[buf autorelease];
 	if (!buf) buf = string;
-	else      buf = [[buf stringByAppendingString:string] retain];
+	else      buf = [buf stringByAppendingString:string];
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
@@ -35,13 +36,6 @@
 - (NSString *)description
 {
 	return [NSString stringWithFormat:@"%@ object; integer value = \"%d\"", self.elementName, self.value];
-}
-
-- (void)dealloc
-{
-	[buf release];
-	
-	[super dealloc];
 }
 
 @end
