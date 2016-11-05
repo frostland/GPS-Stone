@@ -20,9 +20,6 @@
 		0F3774D6103D7F68009B7FAE /* VSOBlankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3774D5103D7F68009B7FAE /* VSOBlankView.m */; };
 		0F48CE5E1029AD88008C524D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F48CE5D1029AD88008C524D /* AddressBookUI.framework */; };
 		0F48CE7D1029AF9D008C524D /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F48CE7C1029AF9D008C524D /* AddressBook.framework */; };
-		0F4BD3D1103B01DA004570AA /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F4BD3CE103B01DA004570AA /* icon.png */; };
-		0F4BD3D2103B01DA004570AA /* Icon-Settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F4BD3CF103B01DA004570AA /* Icon-Settings.png */; };
-		0F4BD3D3103B01DA004570AA /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F4BD3D0103B01DA004570AA /* Icon-Small.png */; };
 		0F577FCD1020811300067838 /* GPXgpxType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F577FCC1020811300067838 /* GPXgpxType.m */; };
 		0F577FD01020816D00067838 /* XMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F577FCF1020816D00067838 /* XMLElement.m */; };
 		0F57809A1020925100067838 /* GPXmetadataType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5780991020925100067838 /* GPXmetadataType.m */; };
@@ -30,21 +27,9 @@
 		0F5780DF102095E000067838 /* XMLDateElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5780DE102095E000067838 /* XMLDateElement.m */; };
 		0F5780E51020988800067838 /* GPXwptType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5780E41020988800067838 /* GPXwptType.m */; };
 		0F656070100B4FC5004D16D7 /* VSORecordingsListViewCtlr.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F65606E100B4FC5004D16D7 /* VSORecordingsListViewCtlr.xib */; };
-		0F6A06E1100C49C90034A949 /* stop_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A06E0100C49C90034A949 /* stop_button.png */; };
-		0F6A06EA100C4A470034A949 /* stop_button_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A06E9100C4A470034A949 /* stop_button_highlighted.png */; };
-		0F6A06ED100C4D3C0034A949 /* pause_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A06EC100C4D3C0034A949 /* pause_button.png */; };
-		0F6A06EF100C4DA10034A949 /* pause_button_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A06EE100C4DA10034A949 /* pause_button_highlighted.png */; };
-		0F6A06F4100C51380034A949 /* recList_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A06F3100C51380034A949 /* recList_button.png */; };
-		0F6A06F6100C51910034A949 /* recList_button_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A06F5100C51910034A949 /* recList_button_highlighted.png */; };
 		0F79F6A010203DAE00AF7FF1 /* VSOUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */; };
-		0F852ED4103C2945008895AD /* road.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F852ED3103C2945008895AD /* road.jpg */; };
-		0F852FFA103C4C9E008895AD /* vso-logo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0F852FF9103C4C9E008895AD /* vso-logo.pdf */; };
-		0F853027103C555E008895AD /* vso-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F853026103C555E008895AD /* vso-logo.png */; };
-		0F87BA4E103D4651007CFAAA /* road_fabrice_info_view.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F87BA4D103D4651007CFAAA /* road_fabrice_info_view.png */; };
 		0FA3D1DD10302ED80098760F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA3D1DC10302ED80098760F /* MessageUI.framework */; };
 		0FB4B0FC10074B20005292C4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB4B0FB10074B20005292C4 /* MapKit.framework */; };
-		0FB4B20410076704005292C4 /* record_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FB4B20310076704005292C4 /* record_button.png */; };
-		0FB4B2B81007A0D5005292C4 /* record_button_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FB4B2B71007A0D5005292C4 /* record_button_highlighted.png */; };
 		0FBBCBA9100A9F67003679A8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FBBCBA8100A9F67003679A8 /* CoreLocation.framework */; };
 		0FC907BE1023107F009EA1B1 /* VSORecordingsListViewCtlr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC907BC1023107F009EA1B1 /* VSORecordingsListViewCtlr.m */; };
 		0FD0628E102C6FCE0047414B /* VSOPathAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD0628D102C6FCE0047414B /* VSOPathAnnotationView.m */; };
@@ -61,7 +46,6 @@
 		0FE8B1BE102193FF009A321A /* GPXptType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B1BD102193FF009A321A /* GPXptType.m */; };
 		0FE8B1C1102195E6009A321A /* GPXptsegType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B1C0102195E6009A321A /* GPXptsegType.m */; };
 		0FE8B1C41021964F009A321A /* GPXboundsType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B1C31021964F009A321A /* GPXboundsType.m */; };
-		0FF1B2B01031A21100C89E55 /* north.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FF1B2AF1031A21100C89E55 /* north.png */; };
 		1D3623260D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -73,6 +57,7 @@
 		289233A70DB2D0840083E9F9 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A50DB2D0840083E9F9 /* MainView.m */; };
 		289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A90DB2D0DB0083E9F9 /* MainViewController.m */; };
 		289233B00DB2D0DB0083E9F9 /* VSOSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AD0DB2D0DB0083E9F9 /* VSOSettingsViewController.m */; };
+		7B27B9291DCDF6B1006F44B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */; };
 		7B482CE11DCA8ADD007B5ABC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CDF1DCA8ADD007B5ABC /* Localizable.strings */; };
 		7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */; };
 		7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE81DCA975F007B5ABC /* Main.storyboard */; };
@@ -100,9 +85,6 @@
 		0F3774D5103D7F68009B7FAE /* VSOBlankView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOBlankView.m; sourceTree = "<group>"; };
 		0F48CE5D1029AD88008C524D /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		0F48CE7C1029AF9D008C524D /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
-		0F4BD3CE103B01DA004570AA /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = "UI Resources/Datas/icon/icon.png"; sourceTree = "<group>"; };
-		0F4BD3CF103B01DA004570AA /* Icon-Settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Settings.png"; path = "UI Resources/Datas/icon/Icon-Settings.png"; sourceTree = "<group>"; };
-		0F4BD3D0103B01DA004570AA /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "UI Resources/Datas/icon/Icon-Small.png"; sourceTree = "<group>"; };
 		0F577FCB1020811300067838 /* GPXgpxType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXgpxType.h; sourceTree = "<group>"; };
 		0F577FCC1020811300067838 /* GPXgpxType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXgpxType.m; sourceTree = "<group>"; };
 		0F577FCE1020816D00067838 /* XMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLElement.h; sourceTree = "<group>"; };
@@ -116,22 +98,10 @@
 		0F5780E31020988800067838 /* GPXwptType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXwptType.h; sourceTree = "<group>"; };
 		0F5780E41020988800067838 /* GPXwptType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXwptType.m; sourceTree = "<group>"; };
 		0F65606E100B4FC5004D16D7 /* VSORecordingsListViewCtlr.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VSORecordingsListViewCtlr.xib; sourceTree = "<group>"; };
-		0F6A06E0100C49C90034A949 /* stop_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stop_button.png; path = "UI Resources/stop_button.png"; sourceTree = "<group>"; };
-		0F6A06E9100C4A470034A949 /* stop_button_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stop_button_highlighted.png; path = "UI Resources/stop_button_highlighted.png"; sourceTree = "<group>"; };
-		0F6A06EC100C4D3C0034A949 /* pause_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause_button.png; path = "UI Resources/pause_button.png"; sourceTree = "<group>"; };
-		0F6A06EE100C4DA10034A949 /* pause_button_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause_button_highlighted.png; path = "UI Resources/pause_button_highlighted.png"; sourceTree = "<group>"; };
-		0F6A06F3100C51380034A949 /* recList_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recList_button.png; path = "UI Resources/recList_button.png"; sourceTree = "<group>"; };
-		0F6A06F5100C51910034A949 /* recList_button_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recList_button_highlighted.png; path = "UI Resources/recList_button_highlighted.png"; sourceTree = "<group>"; };
 		0F79F69E10203DAE00AF7FF1 /* VSOUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOUtils.h; sourceTree = "<group>"; };
 		0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOUtils.m; sourceTree = "<group>"; };
-		0F852ED3103C2945008895AD /* road.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = road.jpg; path = "UI Resources/Datas/icon/road.jpg"; sourceTree = "<group>"; };
-		0F852FF9103C4C9E008895AD /* vso-logo.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "vso-logo.pdf"; sourceTree = "<group>"; };
-		0F853026103C555E008895AD /* vso-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vso-logo.png"; sourceTree = "<group>"; };
-		0F87BA4D103D4651007CFAAA /* road_fabrice_info_view.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = road_fabrice_info_view.png; path = "UI Resources/Datas/icon/road_fabrice_info_view.png"; sourceTree = "<group>"; };
 		0FA3D1DC10302ED80098760F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		0FB4B0FB10074B20005292C4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		0FB4B20310076704005292C4 /* record_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = record_button.png; path = "UI Resources/record_button.png"; sourceTree = "<group>"; };
-		0FB4B2B71007A0D5005292C4 /* record_button_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = record_button_highlighted.png; path = "UI Resources/record_button_highlighted.png"; sourceTree = "<group>"; };
 		0FBBCBA8100A9F67003679A8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0FBBCBC6100A9FDD003679A8 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		0FC907BC1023107F009EA1B1 /* VSORecordingsListViewCtlr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSORecordingsListViewCtlr.m; sourceTree = "<group>"; };
@@ -164,7 +134,6 @@
 		0FE8B1C0102195E6009A321A /* GPXptsegType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXptsegType.m; sourceTree = "<group>"; };
 		0FE8B1C21021964F009A321A /* GPXboundsType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXboundsType.h; sourceTree = "<group>"; };
 		0FE8B1C31021964F009A321A /* GPXboundsType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXboundsType.m; sourceTree = "<group>"; };
-		0FF1B2AF1031A21100C89E55 /* north.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = north.png; path = "UI Resources/north.png"; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSStoneTripRecorderAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSStoneTripRecorderAppDelegate.m; sourceTree = "<group>"; };
@@ -183,6 +152,7 @@
 		289233AD0DB2D0DB0083E9F9 /* VSOSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VSOSettingsViewController.m; path = Classes/VSOSettingsViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* GPS_Stone_Trip_Recorder.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPS_Stone_Trip_Recorder.pch; sourceTree = "<group>"; };
+		7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B482CE01DCA8ADD007B5ABC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B482CE91DCA976E007B5ABC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -194,14 +164,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
-				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
-				288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */,
-				0FB4B0FC10074B20005292C4 /* MapKit.framework in Frameworks */,
-				0FBBCBA9100A9F67003679A8 /* CoreLocation.framework in Frameworks */,
-				0F48CE5E1029AD88008C524D /* AddressBookUI.framework in Frameworks */,
 				0F48CE7D1029AF9D008C524D /* AddressBook.framework in Frameworks */,
+				0F48CE5E1029AD88008C524D /* AddressBookUI.framework in Frameworks */,
+				288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */,
+				0FBBCBA9100A9F67003679A8 /* CoreLocation.framework in Frameworks */,
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				0FB4B0FC10074B20005292C4 /* MapKit.framework in Frameworks */,
 				0FA3D1DD10302ED80098760F /* MessageUI.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,21 +270,6 @@
 			name = "Page Control";
 			sourceTree = "<group>";
 		};
-		0F6A06E2100C49CF0034A949 /* Buttons */ = {
-			isa = PBXGroup;
-			children = (
-				0F6A06F5100C51910034A949 /* recList_button_highlighted.png */,
-				0F6A06F3100C51380034A949 /* recList_button.png */,
-				0F6A06EE100C4DA10034A949 /* pause_button_highlighted.png */,
-				0F6A06EC100C4D3C0034A949 /* pause_button.png */,
-				0F6A06E9100C4A470034A949 /* stop_button_highlighted.png */,
-				0F6A06E0100C49C90034A949 /* stop_button.png */,
-				0FB4B2B71007A0D5005292C4 /* record_button_highlighted.png */,
-				0FB4B20310076704005292C4 /* record_button.png */,
-			);
-			name = Buttons;
-			sourceTree = "<group>";
-		};
 		0F6F2FF410175F33006C7495 /* XML */ = {
 			isa = PBXGroup;
 			children = (
@@ -399,17 +354,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0F87BA4D103D4651007CFAAA /* road_fabrice_info_view.png */,
-				0F853026103C555E008895AD /* vso-logo.png */,
-				0F852FF9103C4C9E008895AD /* vso-logo.pdf */,
-				0F852ED3103C2945008895AD /* road.jpg */,
-				0F4BD3CE103B01DA004570AA /* icon.png */,
-				0F4BD3CF103B01DA004570AA /* Icon-Settings.png */,
-				0F4BD3D0103B01DA004570AA /* Icon-Small.png */,
-				0FF1B2AF1031A21100C89E55 /* north.png */,
+				7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */,
 				0F2B6088102842F300FC0595 /* VSORecordingDetailView.xib */,
 				7B482CDF1DCA8ADD007B5ABC /* Localizable.strings */,
-				0F6A06E2100C49CF0034A949 /* Buttons */,
 				0F6560BD100B646B004D16D7 /* Page Control */,
 				0F65606E100B4FC5004D16D7 /* VSORecordingsListViewCtlr.xib */,
 				280E754A0DD40C5E005A515E /* VSOSettingsView.xib */,
@@ -493,30 +440,15 @@
 			files = (
 				280E754D0DD40C5E005A515E /* VSOSettingsView.xib in Resources */,
 				280E754E0DD40C5E005A515E /* MainView.xib in Resources */,
-				0FB4B20410076704005292C4 /* record_button.png in Resources */,
-				0FB4B2B81007A0D5005292C4 /* record_button_highlighted.png in Resources */,
 				0F34802C10089A9700E88124 /* VSOMapViewController.xib in Resources */,
 				7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */,
 				0F3480DD1008A77B00E88124 /* VSOInfoViewCtrl.xib in Resources */,
 				0F3480FA1008A83B00E88124 /* VSODetailsViewCtrl.xib in Resources */,
 				0F656070100B4FC5004D16D7 /* VSORecordingsListViewCtlr.xib in Resources */,
 				7B482CE11DCA8ADD007B5ABC /* Localizable.strings in Resources */,
-				0F6A06E1100C49C90034A949 /* stop_button.png in Resources */,
-				0F6A06EA100C4A470034A949 /* stop_button_highlighted.png in Resources */,
-				0F6A06ED100C4D3C0034A949 /* pause_button.png in Resources */,
-				0F6A06EF100C4DA10034A949 /* pause_button_highlighted.png in Resources */,
-				0F6A06F4100C51380034A949 /* recList_button.png in Resources */,
-				0F6A06F6100C51910034A949 /* recList_button_highlighted.png in Resources */,
 				0F2B608A102842F300FC0595 /* VSORecordingDetailView.xib in Resources */,
-				0FF1B2B01031A21100C89E55 /* north.png in Resources */,
-				0F4BD3D1103B01DA004570AA /* icon.png in Resources */,
-				0F4BD3D2103B01DA004570AA /* Icon-Settings.png in Resources */,
-				0F4BD3D3103B01DA004570AA /* Icon-Small.png in Resources */,
-				0F852ED4103C2945008895AD /* road.jpg in Resources */,
-				0F852FFA103C4C9E008895AD /* vso-logo.pdf in Resources */,
-				0F853027103C555E008895AD /* vso-logo.png in Resources */,
 				7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */,
-				0F87BA4E103D4651007CFAAA /* road_fabrice_info_view.png in Resources */,
+				7B27B9291DCDF6B1006F44B7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,6 +555,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = DVL8GW97S8;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -637,6 +570,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = DVL8GW97S8;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -653,6 +587,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = DVL8GW97S8;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
