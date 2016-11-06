@@ -57,9 +57,6 @@
 		return;
 	}
 	
-	MainViewController *aController = [[MainViewController alloc] initWithNibName:@"MainView" bundle:nil];
-	self.mainViewController = aController;
-	
 	[UIApplication.sharedApplication setStatusBarStyle:VSO_APPLICATION_STATUS_BAR_STYLE animated:NO];
 	
 	if ([fm fileExistsAtPath:VSO_PATH_TO_NICE_EXIT_WITNESS]) {

@@ -523,9 +523,9 @@
 
 @synthesize selPage; /* Setter overwritten */
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+	if ((self = [super initWithCoder:aDecoder]) != nil) {
 		currentGpx = nil;
 		currentTracksegment = nil;
 		[self setRecordState:VSORecordStateStopped];
