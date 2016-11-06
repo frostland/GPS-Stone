@@ -56,7 +56,6 @@ typedef enum VSODistanceUnit {
 #define VSO_PAGE_NUMBER_WITH_GENERAL_INFOS 0
 #define VSO_PAGE_NUMBER_WITH_DETAILED_INFOS 1
 #define VSO_DELAY_BEFORE_ALLOWING_SCROLL 0.20 /* Seconds */
-#define VSO_APPLICATION_STATUS_BAR_STYLE UIStatusBarStyleDefault
 #define VSO_ANIM_TIME 0.3
 
 /* Constants for user defaults */

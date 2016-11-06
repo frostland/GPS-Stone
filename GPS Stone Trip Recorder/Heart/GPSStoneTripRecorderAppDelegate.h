@@ -13,12 +13,8 @@
 @class MainViewController;
 
 @interface GPSStoneTripRecorderAppDelegate : NSObject <UIApplicationDelegate> {
-	UIWindow *window;
-	MainViewController *mainViewController;
-	
+	MainViewController *rootViewController;
 	GPXgpxType *gpxElement;
 }
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) MainViewController *mainViewController;
 
 @end

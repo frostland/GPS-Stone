@@ -694,7 +694,6 @@
 - (void)recordingsListViewControllerDidFinish:(VSORecordingsListViewCtlr *)controller
 {
 	[UIDevice currentDevice].proximityMonitoringEnabled = YES;
-	[[UIApplication sharedApplication] setStatusBarStyle:VSO_APPLICATION_STATUS_BAR_STYLE animated:YES];
 	[self dismissModalViewControllerAnimated:YES];
 }
 
@@ -933,7 +932,7 @@
 - (void)recoverFromCrash
 {
 	NSDLog(@"Recovering GPS Stone from crash");
-	if ([recordingList count] == 0) return;
+	if (recordingList.count == 0) return;
 	
 	NSDictionary *recInfos = [recordingList objectAtIndex:0];
 	if ([recInfos valueForKey:VSO_REC_LIST_RECORD_STATE_KEY] != nil) {
