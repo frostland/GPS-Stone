@@ -13,10 +13,8 @@
 
 
 
-@interface GPXboundsType : XMLElement {
-	CLLocationCoordinate2D minCoords;
-	CLLocationCoordinate2D maxCoords;
-}
+@interface GPXboundsType : XMLElement
+
 @property(nonatomic, assign) CLLocationCoordinate2D minCoords;
 @property(nonatomic, assign) CLLocationCoordinate2D maxCoords;
 

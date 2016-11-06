@@ -12,7 +12,6 @@
 
 
 
-@interface GPXrteType : XMLElement {
-}
+@interface GPXrteType : XMLElement
 
 @end

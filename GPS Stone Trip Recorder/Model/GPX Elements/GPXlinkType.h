@@ -12,9 +12,8 @@
 
 
 
-@interface GPXlinkType : XMLElement {
-	NSString *href;
-}
+@interface GPXlinkType : XMLElement
+
 @property(nonatomic, retain) NSString *href;
 
 @end

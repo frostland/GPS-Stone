@@ -12,7 +12,6 @@
 
 
 
-@interface GPXptsegType : XMLElement {
-}
+@interface GPXptsegType : XMLElement
 
 @end

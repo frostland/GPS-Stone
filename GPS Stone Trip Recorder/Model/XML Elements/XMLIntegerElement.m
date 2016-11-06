@@ -12,17 +12,15 @@
 
 @implementation XMLIntegerElement
 
-@synthesize value;
-
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
-	if (!buf) buf = string;
-	else      buf = [buf stringByAppendingString:string];
+	if (buf == nil) buf = string;
+	else            buf = [buf stringByAppendingString:string];
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-	self.value = [buf integerValue];
+	self.value = buf.integerValue;
 	containsText = YES;
 	
 	[super parser:parser didEndElement:elementName namespaceURI:namespaceURI qualifiedName:qName];
@@ -30,12 +28,12 @@
 
 - (NSData *)dataForStuffBetweenTags:(NSUInteger)indent
 {
-	return [[NSString stringWithFormat:@"%d", self.value] dataUsingEncoding:VSO_XML_ENCODING];
+	return [[NSString stringWithFormat:@"%"NSINT_FMT, self.value] dataUsingEncoding:VSO_XML_ENCODING];
 }
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"%@ object; integer value = \"%d\"", self.elementName, self.value];
+	return [NSString stringWithFormat:@"%@ object; integer value = \"%"NSINT_FMT"\"", self.elementName, self.value];
 }
 
 @end

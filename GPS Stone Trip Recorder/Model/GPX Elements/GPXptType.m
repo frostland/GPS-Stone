@@ -17,13 +17,11 @@
 
 @implementation GPXptType
 
-@synthesize coords;
-
 + (NSMutableDictionary *)elementToClassRelations
 {
-	NSMutableDictionary *d = [super elementToClassRelations];
-	[d setValue:[XMLDecimalElement class] forKey:@"ele"];
-	[d setValue:[XMLDateElement class] forKey:@"time"];
+	NSMutableDictionary *d = super.elementToClassRelations;
+	[d setValue:XMLDecimalElement.class forKey:@"ele"];
+	[d setValue:XMLDateElement.class    forKey:@"time"];
 	return d;
 }
 
@@ -31,12 +29,12 @@
 {
 	if ((self = [super initWithAttributes:dic elementName:en]) != nil) {
 		NSString *latStr = [dic valueForKey:@"lat"];
-		if (!latStr) NSXMLLog(@"Warning, invalid GPX file: No lat attribute in \"pt\"");
-		else         coords.latitude = [latStr doubleValue];
+		if (latStr == nil) NSXMLLog(@"Warning, invalid GPX file: No lat attribute in \"pt\"");
+		else               _coords.latitude = [latStr doubleValue];
 		
 		NSString *lonStr = [dic valueForKey:@"lon"];
-		if (!lonStr) NSXMLLog(@"Warning, invalid GPX file: No lon attribute in \"pt\"");
-		else         coords.longitude = [lonStr doubleValue];
+		if (lonStr == nil) NSXMLLog(@"Warning, invalid GPX file: No lon attribute in \"pt\"");
+		else               _coords.longitude = [lonStr doubleValue];
 	}
 	
 	return self;
@@ -44,7 +42,7 @@
 
 - (NSData *)dataForElementAttributes
 {
-	return [[NSString stringWithFormat:@" lat=\""VSO_COORD_PRINT_FORMAT@"\" lon=\""VSO_COORD_PRINT_FORMAT@"\"", coords.latitude, coords.longitude] dataUsingEncoding:VSO_XML_ENCODING];
+	return [[NSString stringWithFormat:@" lat=\""VSO_COORD_PRINT_FORMAT@"\" lon=\""VSO_COORD_PRINT_FORMAT@"\"", self.coords.latitude, self.coords.longitude] dataUsingEncoding:VSO_XML_ENCODING];
 }
 
 @end

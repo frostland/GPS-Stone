@@ -19,38 +19,27 @@
 
 + (NSMutableDictionary *)elementToClassRelations
 {
-	NSMutableDictionary *d = [super elementToClassRelations];
-	[d setValue:[XMLStringElement class] forKey:@"name"];
-	[d setValue:[XMLStringElement class] forKey:@"cmt"];
-	[d setValue:[XMLStringElement class] forKey:@"desc"];
-	[d setValue:[XMLStringElement class] forKey:@"src"];
-	[d setValue:[GPXlinkType class] forKey:@"link"];
-	[d setValue:[XMLIntegerElement class] forKey:@"number"];
-	[d setValue:[XMLStringElement class] forKey:@"type"];
-	[d setValue:[GPXextensionsType class] forKey:@"extensions"];
-	[d setValue:[GPXtrksegType class] forKey:@"trkseg"];
+	NSMutableDictionary *d = super.elementToClassRelations;
+	[d setValue:XMLStringElement.class  forKey:@"name"];
+	[d setValue:XMLStringElement.class  forKey:@"cmt"];
+	[d setValue:XMLStringElement.class  forKey:@"desc"];
+	[d setValue:XMLStringElement.class  forKey:@"src"];
+	[d setValue:GPXlinkType.class       forKey:@"link"];
+	[d setValue:XMLIntegerElement.class forKey:@"number"];
+	[d setValue:XMLStringElement.class  forKey:@"type"];
+	[d setValue:GPXextensionsType.class forKey:@"extensions"];
+	[d setValue:GPXtrksegType.class     forKey:@"trkseg"];
 	return d;
-}
-
-- (id)initWithAttributes:(NSDictionary *)dic elementName:(NSString *)en
-{
-	if ((self = [super initWithAttributes:dic elementName:en]) != nil) {
-	}
-	
-	return self;
 }
 
 - (GPXtrksegType *)firstTrackSegment
 {
-	if ([[self trackSegments] count] == 0) return nil;
-	return [[self trackSegments] objectAtIndex:0];
+	return self.trackSegments.firstObject;
 }
 
 - (GPXtrksegType *)lastTrackSegment
 {
-	NSUInteger n = [[self trackSegments] count];
-	if (n == 0) return nil;
-	return [[self trackSegments] objectAtIndex:n-1];
+	return self.trackSegments.lastObject;
 }
 
 - (NSArray *)trackSegments

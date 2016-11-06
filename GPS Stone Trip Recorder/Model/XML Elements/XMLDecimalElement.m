@@ -12,8 +12,6 @@
 
 @implementation XMLDecimalElement
 
-@synthesize value;
-
 + (XMLDecimalElement *)decimalElementWithElementName:(NSString *)en value:(CGFloat)v
 {
 	XMLDecimalElement *e = [XMLDecimalElement new];
@@ -26,13 +24,13 @@
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
-	if (!buf) buf = string;
-	else      buf = [buf stringByAppendingString:string];
+	if (buf == nil) buf = string;
+	else            buf = [buf stringByAppendingString:string];
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-	self.value = (CGFloat)[buf doubleValue];
+	self.value = (CGFloat)buf.doubleValue;
 	containsText = YES;
 	
 	[super parser:parser didEndElement:elementName namespaceURI:namespaceURI qualifiedName:qName];
@@ -45,7 +43,7 @@
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"%@ object; decimal value = \"%g\"", self.elementName, self.value];
+	return [NSString stringWithFormat:@"%@ object; decimal value = \"%"CGFLOAT_FMT"\"", self.elementName, self.value];
 }
 
 @end

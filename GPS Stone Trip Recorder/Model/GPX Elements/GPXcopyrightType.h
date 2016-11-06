@@ -12,9 +12,8 @@
 
 
 
-@interface GPXcopyrightType : XMLElement {
-	NSString *author;
-}
+@interface GPXcopyrightType : XMLElement
+
 @property(nonatomic, retain) NSString *author;
 
 @end

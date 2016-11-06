@@ -12,7 +12,6 @@
 
 
 
-@interface GPXpersonType : XMLElement {
-}
+@interface GPXpersonType : XMLElement
 
 @end

@@ -12,8 +12,6 @@
 
 @implementation XMLDateElement
 
-@synthesize date;
-
 + (id)dateElementWithElementName:(NSString *)en date:(NSDate *)d
 {
 	XMLDateElement *de = [XMLDateElement new];
@@ -52,14 +50,14 @@
 	containsText = YES;
 	
 	/* Hard core parsing of the date */
-	NSDateComponents *comps = [[NSDateComponents alloc] init];
+	NSDateComponents *comps = [NSDateComponents new];
 	
 	BOOL errWhenDecoding = YES;
 	
 	BOOL neg = NO;
 	NSUInteger curReadPos = 0;
 	NSUInteger secs, mins, hours, day, month, year;
-	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
 	
 	if ([[buf substringWithRange:NSMakeRange(curReadPos, 1)] isEqualToString:@"-"]) {
 		neg = YES;
@@ -134,10 +132,8 @@ err:
 
 - (NSInteger)year
 {
-	NSCalendar *cal = [NSCalendar new];
-	NSInteger year = [[cal components:NSYearCalendarUnit fromDate:self.date] year];
-	
-	return year;
+	NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+	return [calendar components:NSCalendarUnitYear fromDate:self.date].year;
 }
 
 @end

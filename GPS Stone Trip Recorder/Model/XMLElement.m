@@ -12,13 +12,10 @@
 
 @implementation XMLElement
 
-@synthesize elmntName, parent, children;
-
 + (XMLElement *)xmlElementWithElementName:(NSString *)en
 {
 	XMLElement *newElement = [self new];
 	newElement.elementName = en;
-	
 	return newElement;
 }
 
@@ -30,7 +27,7 @@
 - (id)init
 {
 	if ((self = [super init]) != nil) {
-		children = [NSMutableArray new];
+		self.children = [NSMutableArray new];
 		
 		childrenChanged = YES;
 		containsText = NO;
@@ -51,9 +48,8 @@
 
 - (NSString *)elementName
 {
-	if (!elmntName) return NSStringFromClass([self class]);
-	
-	return elmntName;
+	if (!_elementName) return NSStringFromClass(self.class);
+	return _elementName;
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict
@@ -70,11 +66,10 @@
 	id child = [[childClass alloc] initWithAttributes:attributeDict elementName:elementName];
 	if (child != nil) {
 		[child setParent:self];
-		[children addObject:child];
+		[self.children addObject:child];
 		parser.delegate = child;
 		childrenChanged = YES;
 	} else NSXMLLog(@"Cannot create object of class \"%@\"", NSStringFromClass(childClass));
-/*	[child release];*/
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
@@ -100,20 +95,21 @@
 {
 	NSMutableData *dta = [NSMutableData data];
 	
-	for (XMLElement *child in children) [dta appendData:[child XMLOutput:indent+1]];
+	for (XMLElement *child in self.children)
+		[dta appendData:[child XMLOutput:indent+1]];
 	
-	return [dta copy];
+	return dta;
 }
 
 - (NSData *)XMLOutputForTagOpening:(NSUInteger)indent
 {
 	NSMutableData *dta = [NSMutableData data];
 	
-	if (!parent) [dta appendData:[@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" dataUsingEncoding:VSO_XML_ENCODING]];
+	if (self.parent == nil) [dta appendData:[@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" dataUsingEncoding:VSO_XML_ENCODING]];
 	for (NSUInteger i = 0; i<indent; i++)
 		[dta appendData:[@"\t" dataUsingEncoding:VSO_XML_ENCODING]];
 	[dta appendData:[[NSString stringWithFormat:@"<%@", self.elementName] dataUsingEncoding:VSO_XML_ENCODING]];
-	[dta appendData:[self dataForElementAttributes]];
+	[dta appendData:self.dataForElementAttributes];
 	[dta appendData:[@">" dataUsingEncoding:VSO_XML_ENCODING]];
 	if (!containsText) [dta appendData:[@"\n" dataUsingEncoding:VSO_XML_ENCODING]];
 	
@@ -141,7 +137,7 @@
 	[dta appendData:[self dataForStuffBetweenTags:indent]];
 	[dta appendData:[self XMLOutputForTagClosing:indent]];
 	
-	return [dta copy];
+	return dta;
 }
 
 - (NSArray *)childrenWithElementName:(NSString *)en
@@ -151,15 +147,15 @@
 		if ([curElement.elementName isEqualToString:en])
 			[cp addObject:curElement];
 	
-	return [cp copy];
+	return cp;
 }
 
 - (id)lastChildWithElementName:(NSString *)en
 {
 	NSArray *chdrn = [self childrenWithElementName:en];
 	
-	if ([chdrn count] == 0) return nil;
-	return [chdrn lastObject];
+	if (chdrn.count == 0) return nil;
+	return chdrn.lastObject;
 }
 
 - (BOOL)insertChild:(XMLElement *)c atIndexOfElementType:(NSUInteger)idx
@@ -168,8 +164,8 @@
 	NSUInteger i, j = 0;
 	NSUInteger n = [self.children count];
 	
-	if ([[[self class] elementToClassRelations] valueForKey:c.elementName] == nil) {
-		NSDLog(@"Warning: trying to add a not known element \"%@\" in a \"%@\"", c.elementName, self.elementName);
+	if ([self.class.elementToClassRelations valueForKey:c.elementName] == nil) {
+		NSDLog(@"Warning: trying to add an unknown element \"%@\" in a \"%@\"", c.elementName, self.elementName);
 		return NO;
 	}
 	
@@ -195,13 +191,13 @@
 
 - (BOOL)addChild:(XMLElement *)c
 {
-	return [self insertChild:c atIndexOfElementType:[[self childrenWithElementName:c.elementName] count]];
+	return [self insertChild:c atIndexOfElementType:[self childrenWithElementName:c.elementName].count];
 }
 
 - (void)removeAllChildrenWithElementName:(NSString *)en
 {
 	NSUInteger i;
-	for (i = 0; i<[self.children count]; i++) {
+	for (i = 0; i<self.children.count; ++i) {
 		if ([[[self.children objectAtIndex:i] elementName] isEqualToString:en]) {
 			[self.children removeObjectAtIndex:i--];
 			childrenChanged = YES;

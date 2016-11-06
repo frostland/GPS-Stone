@@ -16,30 +16,20 @@
 
 + (NSMutableDictionary *)elementToClassRelations
 {
-	NSMutableDictionary *d = [super elementToClassRelations];
-	[d setValue:[GPXwptType class] forKey:@"trkpt"];
-	[d setValue:[GPXextensionsType class] forKey:@"extensions"];
+	NSMutableDictionary *d = super.elementToClassRelations;
+	[d setValue:GPXwptType.class        forKey:@"trkpt"];
+	[d setValue:GPXextensionsType.class forKey:@"extensions"];
 	return d;
-}
-
-- (id)initWithAttributes:(NSDictionary *)dic elementName:(NSString *)en
-{
-	if ((self = [super initWithAttributes:dic elementName:en]) != nil) {
-	}
-	
-	return self;
 }
 
 - (GPXwptType *)firstTrackPoint
 {
-	if ([[self trackPoints] count] == 0) return nil;
-	return [[self trackPoints] objectAtIndex:0];
+	return self.trackPoints.firstObject;
 }
 
 - (GPXwptType *)lastTrackPoint
 {
-	if ([[self trackPoints] count] == 0) return nil;
-	return [[self trackPoints] objectAtIndex:[[self trackPoints] count]-1];
+	return self.trackPoints.lastObject;
 }
 
 - (NSArray *)trackPoints

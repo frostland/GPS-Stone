@@ -21,33 +21,32 @@
 
 @implementation GPXwptType
 
-@synthesize coords;
-
 + (NSMutableDictionary *)elementToClassRelations
 {
-	NSMutableDictionary *d = [super elementToClassRelations];
-	[d setValue:[XMLDecimalElement class] forKey:@"ele"];
-	[d setValue:[XMLDateElement class] forKey:@"time"];
-	[d setValue:[XMLDecimalElement class] forKey:@"magvar"];
-	[d setValue:[XMLDecimalElement class] forKey:@"geoidheight"];
-	[d setValue:[XMLStringElement class] forKey:@"name"];
-	[d setValue:[XMLStringElement class] forKey:@"cmt"];
-	[d setValue:[XMLStringElement class] forKey:@"desc"];
-	[d setValue:[XMLStringElement class] forKey:@"src"];
-	[d setValue:[GPXlinkType class] forKey:@"link"];
-	[d setValue:[XMLStringElement class] forKey:@"sym"];
-	[d setValue:[XMLStringElement class] forKey:@"type"];
-	[d setValue:[XMLStringElement class] forKey:@"fix"];
-	[d setValue:[XMLIntegerElement class] forKey:@"sat"];
-	[d setValue:[XMLDecimalElement class] forKey:@"hdop"];
-	[d setValue:[XMLDecimalElement class] forKey:@"vdop"];
-	[d setValue:[XMLDecimalElement class] forKey:@"pdop"];
-	[d setValue:[XMLDecimalElement class] forKey:@"ageofdgpsdata"];
-	[d setValue:[XMLIntegerElement class] forKey:@"dgpsid"];
-	[d setValue:[GPXextensionsType class] forKey:@"extensions"];
+	NSMutableDictionary *d = super.elementToClassRelations;
+	[d setValue:XMLDecimalElement.class forKey:@"ele"];
+	[d setValue:XMLDateElement.class    forKey:@"time"];
+	[d setValue:XMLDecimalElement.class forKey:@"magvar"];
+	[d setValue:XMLDecimalElement.class forKey:@"geoidheight"];
+	[d setValue:XMLStringElement.class  forKey:@"name"];
+	[d setValue:XMLStringElement.class  forKey:@"cmt"];
+	[d setValue:XMLStringElement.class  forKey:@"desc"];
+	[d setValue:XMLStringElement.class  forKey:@"src"];
+	[d setValue:GPXlinkType.class       forKey:@"link"];
+	[d setValue:XMLStringElement.class  forKey:@"sym"];
+	[d setValue:XMLStringElement.class  forKey:@"type"];
+	[d setValue:XMLStringElement.class  forKey:@"fix"];
+	[d setValue:XMLIntegerElement.class forKey:@"sat"];
+	[d setValue:XMLDecimalElement.class forKey:@"hdop"];
+	[d setValue:XMLDecimalElement.class forKey:@"vdop"];
+	[d setValue:XMLDecimalElement.class forKey:@"pdop"];
+	[d setValue:XMLDecimalElement.class forKey:@"ageofdgpsdata"];
+	[d setValue:XMLIntegerElement.class forKey:@"dgpsid"];
+	[d setValue:GPXextensionsType.class forKey:@"extensions"];
 	
 	/* Version 1.0 */
-/*	[d setValue:[XMLDecimalElement class] forKey:@"speed"];*/
+//	[d setValue:XMLDecimalElement.class forKey:@"speed"];
+	
 	return d;
 }
 
@@ -74,11 +73,11 @@
 	if ((self = [super initWithAttributes:dic elementName:en]) != nil) {
 		NSString *latStr = [dic valueForKey:@"lat"];
 		if (!latStr) NSXMLLog(@"Warning, invalid GPX file: No lat attribute in \"wpt\"");
-		else         coords.latitude = [latStr doubleValue];
+		else         _coords.latitude = latStr.doubleValue;
 		
 		NSString *lonStr = [dic valueForKey:@"lon"];
 		if (!lonStr) NSXMLLog(@"Warning, invalid GPX file: No lon attribute in \"wpt\"");
-		else         coords.longitude = [lonStr doubleValue];
+		else         _coords.longitude = lonStr.doubleValue;
 	}
 	
 	return self;
@@ -86,57 +85,57 @@
 
 - (NSData *)dataForElementAttributes
 {
-	return [[NSString stringWithFormat:@" lat=\""VSO_COORD_PRINT_FORMAT@"\" lon=\""VSO_COORD_PRINT_FORMAT@"\"", coords.latitude, coords.longitude] dataUsingEncoding:VSO_XML_ENCODING];
+	return [[NSString stringWithFormat:@" lat=\""VSO_COORD_PRINT_FORMAT@"\" lon=\""VSO_COORD_PRINT_FORMAT@"\"", self.coords.latitude, self.coords.longitude] dataUsingEncoding:VSO_XML_ENCODING];
 }
 
 - (BOOL)hasHAccuracy
 {
-	return ([[self childrenWithElementName:@"hdop"] count] != 0);
+	return ([self childrenWithElementName:@"hdop"].count != 0);
 }
 
 - (CLLocationAccuracy)hAccuracy
 {
-	return [(XMLDecimalElement *)[self lastChildWithElementName:@"hdop"] value];
+	return ((XMLDecimalElement *)[self lastChildWithElementName:@"hdop"]).value;
 }
 
 - (BOOL)hasVAccuracy
 {
-	return ([[self childrenWithElementName:@"vdop"] count] != 0);
+	return ([self childrenWithElementName:@"vdop"].count != 0);
 }
 
 - (CLLocationAccuracy)vAccuracy
 {
-	return [(XMLDecimalElement *)[self lastChildWithElementName:@"vdop"] value];
+	return ((XMLDecimalElement *)[self lastChildWithElementName:@"vdop"]).value;
 }
 
 - (BOOL)hasHeading
 {
-	return ([[self childrenWithElementName:@"magvar"] count] != 0);
+	return ([self childrenWithElementName:@"magvar"].count != 0);
 }
 
 - (CLLocationDirection)heading
 {
-	return [(XMLDecimalElement *)[self lastChildWithElementName:@"magvar"] value];
+	return ((XMLDecimalElement *)[self lastChildWithElementName:@"magvar"]).value;
 }
 
 - (BOOL)hasElevation
 {
-	return ([[self childrenWithElementName:@"ele"] count] != 0);
+	return ([self childrenWithElementName:@"ele"].count != 0);
 }
 
 - (CLLocationDistance)elevation
 {
-	return [(XMLDecimalElement *)[self lastChildWithElementName:@"ele"] value];
+	return ((XMLDecimalElement *)[self lastChildWithElementName:@"ele"]).value;
 }
 
 - (BOOL)hasDate
 {
-	return ([[self childrenWithElementName:@"time"] count] != 0);
+	return ([self childrenWithElementName:@"time"].count != 0);
 }
 
 - (NSDate *)date
 {
-	return [[self lastChildWithElementName:@"time"] date];
+	return ((XMLDateElement *)[self lastChildWithElementName:@"time"]).date;
 }
 
 @end

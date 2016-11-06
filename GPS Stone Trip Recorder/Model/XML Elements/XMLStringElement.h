@@ -12,9 +12,8 @@
 
 
 
-@interface XMLStringElement : XMLElement {
-	NSString *content;
-}	
+@interface XMLStringElement : XMLElement
+
 @property(nonatomic, retain) NSString *content;
 
 @end

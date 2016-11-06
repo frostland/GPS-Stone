@@ -12,7 +12,6 @@
 
 
 
-@interface GPXemailType : XMLElement {
-}
+@interface GPXemailType : XMLElement
 
 @end

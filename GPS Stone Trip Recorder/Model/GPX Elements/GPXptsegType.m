@@ -16,17 +16,9 @@
 
 + (NSMutableDictionary *)elementToClassRelations
 {
-	NSMutableDictionary *d = [super elementToClassRelations];
-	[d setValue:[GPXptType class] forKey:@"pt"];
+	NSMutableDictionary *d = super.elementToClassRelations;
+	[d setValue:GPXptType.class forKey:@"pt"];
 	return d;
-}
-
-- (id)initWithAttributes:(NSDictionary *)dic elementName:(NSString *)en
-{
-	if ((self = [super initWithAttributes:dic elementName:en]) != nil) {
-	}
-	
-	return self;
 }
 
 @end

@@ -17,6 +17,7 @@
 @interface GPXtrksegType : XMLElement {
 	NSArray *cachedPoints;
 }
+
 - (GPXwptType *)firstTrackPoint;
 - (GPXwptType *)lastTrackPoint;
 - (NSArray *)trackPoints;

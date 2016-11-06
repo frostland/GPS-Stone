@@ -16,18 +16,10 @@
 
 + (NSMutableDictionary *)elementToClassRelations
 {
-	NSMutableDictionary *d = [super elementToClassRelations];
-	[d setValue:[XMLStringElement class] forKey:@"id"];
-	[d setValue:[XMLStringElement class] forKey:@"domain"];
+	NSMutableDictionary *d = super.elementToClassRelations;
+	[d setValue:XMLStringElement.class forKey:@"id"];
+	[d setValue:XMLStringElement.class forKey:@"domain"];
 	return d;
-}
-
-- (id)initWithAttributes:(NSDictionary *)dic elementName:(NSString *)en
-{
-	if ((self = [super initWithAttributes:dic elementName:en]) != nil) {
-	}
-	
-	return self;
 }
 
 @end

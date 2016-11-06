@@ -22,25 +22,17 @@
 
 + (NSMutableDictionary *)elementToClassRelations
 {
-	NSMutableDictionary *d = [super elementToClassRelations];
-	[d setValue:[XMLStringElement class] forKey:@"name"];
-	[d setValue:[XMLStringElement class] forKey:@"desc"];
-	[d setValue:[GPXpersonType class] forKey:@"author"];
-	[d setValue:[GPXcopyrightType class] forKey:@"copyright"];
-	[d setValue:[GPXlinkType class] forKey:@"link"];
-	[d setValue:[XMLDateElement class] forKey:@"time"];
-	[d setValue:[XMLStringElement class] forKey:@"keywords"];
-	[d setValue:[GPXboundsType class] forKey:@"bounds"];
-	[d setValue:[GPXextensionsType class] forKey:@"extensions"];
+	NSMutableDictionary *d = super.elementToClassRelations;
+	[d setValue:XMLStringElement.class  forKey:@"name"];
+	[d setValue:XMLStringElement.class  forKey:@"desc"];
+	[d setValue:GPXpersonType.class     forKey:@"author"];
+	[d setValue:GPXcopyrightType.class  forKey:@"copyright"];
+	[d setValue:GPXlinkType.class       forKey:@"link"];
+	[d setValue:XMLDateElement.class    forKey:@"time"];
+	[d setValue:XMLStringElement.class  forKey:@"keywords"];
+	[d setValue:GPXboundsType.class     forKey:@"bounds"];
+	[d setValue:GPXextensionsType.class forKey:@"extensions"];
 	return d;
-}
-
-- (id)initWithAttributes:(NSDictionary *)dic elementName:(NSString *)en
-{
-	if ((self = [super initWithAttributes:dic elementName:en]) != nil) {
-	}
-	
-	return self;
 }
 
 @end

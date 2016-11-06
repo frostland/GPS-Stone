@@ -16,6 +16,7 @@
 @interface GPXtrkType : XMLElement {
 	NSArray *cachedSegments;
 }
+
 - (GPXtrksegType *)firstTrackSegment;
 - (GPXtrksegType *)lastTrackSegment;
 - (NSArray *)trackSegments;

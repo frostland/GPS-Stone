@@ -17,16 +17,14 @@
 
 @implementation GPXgpxType
 
-@synthesize version, creator;
-
 + (NSMutableDictionary *)elementToClassRelations
 {
-	NSMutableDictionary *d = [super elementToClassRelations];
-	[d setValue:[GPXmetadataType class] forKey:@"metadata"];
-	[d setValue:[GPXwptType class] forKey:@"wpt"];
-	[d setValue:[GPXrteType class] forKey:@"rte"];
-	[d setValue:[GPXtrkType class] forKey:@"trk"];
-	[d setValue:[GPXextensionsType class] forKey:@"extensions"];
+	NSMutableDictionary *d = super.elementToClassRelations;
+	[d setValue:GPXmetadataType.class   forKey:@"metadata"];
+	[d setValue:GPXwptType.class        forKey:@"wpt"];
+	[d setValue:GPXrteType.class        forKey:@"rte"];
+	[d setValue:GPXtrkType.class        forKey:@"trk"];
+	[d setValue:GPXextensionsType.class forKey:@"extensions"];
 	return d;
 }
 
@@ -35,8 +33,8 @@
 	if ((self = [super initWithAttributes:dic elementName:en]) != nil) {
 		self.creator = [dic valueForKey:@"creator"];
 		self.version = [dic valueForKey:@"version"];
-		if (!self.creator) NSXMLLog(@"Warning: invalid GPX file; no name attribute to the gpx root element");
-		if (!self.version) NSXMLLog(@"Warning: invalid GPX file; no version attribute to the gpx root element");
+		if (self.creator == nil) NSXMLLog(@"Warning: invalid GPX file; no name attribute to the gpx root element");
+		if (self.version == nil) NSXMLLog(@"Warning: invalid GPX file; no version attribute to the gpx root element");
 		if (![self.version isEqualToString:@"1.1"]) NSXMLLog(@"Warning: GPX file version is not 1.1. There may be errors when parsing it.");
 	}
 	
@@ -45,13 +43,12 @@
 
 - (NSData *)dataForElementAttributes;
 {
-	return [[NSString stringWithFormat:@" creator=\"%@\" version=\"1.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.topografix.com/GPX/1/1\" xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\"", creator] dataUsingEncoding:VSO_XML_ENCODING];
+	return [[NSString stringWithFormat:@" creator=\"%@\" version=\"1.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.topografix.com/GPX/1/1\" xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\"", self.creator] dataUsingEncoding:VSO_XML_ENCODING];
 }
 
 - (GPXtrkType *)firstTrack
 {
-	if ([[self tracks] count] == 0) return nil;
-	return [[self tracks] objectAtIndex:0];
+	return self.tracks.firstObject;
 }
 
 - (NSArray *)tracks
@@ -69,7 +66,7 @@
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"gpx object; creator = \"%@\"; version = \"%@\"; children = \"%@\"", creator, version, self.children];
+	return [NSString stringWithFormat:@"gpx object; creator = \"%@\"; version = \"%@\"; children = \"%@\"", self.creator, self.version, self.children];
 }
 
 @end

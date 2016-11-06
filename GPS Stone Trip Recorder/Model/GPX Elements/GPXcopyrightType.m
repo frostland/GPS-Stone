@@ -15,13 +15,11 @@
 
 @implementation GPXcopyrightType
 
-@synthesize author;
-
 + (NSMutableDictionary *)elementToClassRelations
 {
-	NSMutableDictionary *d = [super elementToClassRelations];
-	[d setValue:[XMLYearElement class] forKey:@"year"];
-	[d setValue:[XMLStringElement class] forKey:@"license"];
+	NSMutableDictionary *d = super.elementToClassRelations;
+	[d setValue:XMLYearElement.class   forKey:@"year"];
+	[d setValue:XMLStringElement.class forKey:@"license"];
 	return d;
 }
 
@@ -29,7 +27,7 @@
 {
 	if ((self = [super initWithAttributes:dic elementName:en]) != nil) {
 		self.author = [dic valueForKey:@"author"];
-		if (!self.author) NSXMLLog(@"Warning, invalid GPX file: no author in a copyright");
+		if (self.author == nil) NSXMLLog(@"Warning, invalid GPX file: no author in a copyright");
 	}
 	
 	return self;
@@ -37,7 +35,7 @@
 
 - (NSData *)dataForElementAttributes;
 {
-	return [[NSString stringWithFormat:@" author=\"%@\"", author] dataUsingEncoding:VSO_XML_ENCODING];
+	return [[NSString stringWithFormat:@" author=\"%@\"", self.author] dataUsingEncoding:VSO_XML_ENCODING];
 }
 
 @end

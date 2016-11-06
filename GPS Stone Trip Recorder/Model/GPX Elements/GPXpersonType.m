@@ -18,19 +18,11 @@
 
 + (NSMutableDictionary *)elementToClassRelations
 {
-	NSMutableDictionary *d = [super elementToClassRelations];
-	[d setValue:[XMLStringElement class] forKey:@"name"];
-	[d setValue:[GPXemailType class] forKey:@"email"];
-	[d setValue:[GPXlinkType class] forKey:@"link"];
+	NSMutableDictionary *d = super.elementToClassRelations;
+	[d setValue:XMLStringElement.class forKey:@"name"];
+	[d setValue:GPXemailType.class     forKey:@"email"];
+	[d setValue:GPXlinkType.class      forKey:@"link"];
 	return d;
-}
-
-- (id)initWithAttributes:(NSDictionary *)dic elementName:(NSString *)en
-{
-	if ((self = [super initWithAttributes:dic elementName:en]) != nil) {
-	}
-	
-	return self;
 }
 
 @end

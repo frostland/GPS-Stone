@@ -14,11 +14,7 @@
 #define VSO_XML_ENCODING NSUTF8StringEncoding
 
 
-@interface XMLElement : NSObject {
-	NSMutableArray *children;
-	
-	NSString *elmntName;
-	
+@interface XMLElement : NSObject <NSXMLParserDelegate> {
 	/* Set this variable to YES in subclasses if no new line must be added between tag opening and closing */
 	BOOL containsText;
 	/* Gives the opportunity to subclasses to manage caches. When a child is added (or deleted), the following var is set to YES */
@@ -26,7 +22,7 @@
 }
 
 @property(nonatomic, weak) XMLElement *parent;
-@property(nonatomic, retain, getter=elementName, setter=setElementName:) NSString *elmntName;
+@property(nonatomic, retain) NSString *elementName;
 @property(nonatomic, retain) NSMutableArray *children;
 
 + (XMLElement *)xmlElementWithElementName:(NSString *)en;

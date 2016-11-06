@@ -13,19 +13,19 @@
 
 
 @interface XMLDateElement : XMLElement {
-	NSDate *date;
-	
 	NSString *buf;
 }
-@property(nonatomic, retain) NSDate *date;
+
 + (id)dateElementWithElementName:(NSString *)en date:(NSDate *)d;
+
+@property(nonatomic, retain) NSDate *date;
 
 @end
 
 
 
-@interface XMLYearElement : XMLDateElement {
-}
-- (NSInteger)year;
+@interface XMLYearElement : XMLDateElement
+
+@property(nonatomic, readonly) NSInteger year;
 
 @end

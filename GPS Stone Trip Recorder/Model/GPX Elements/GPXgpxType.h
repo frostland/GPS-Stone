@@ -15,11 +15,9 @@
 
 /* Root element of gpx files */
 @interface GPXgpxType : XMLElement {
-	NSString *version;
-	NSString *creator;
-	
 	NSArray *cachedTracks;
 }
+
 @property(nonatomic, retain) NSString *version;
 @property(nonatomic, retain) NSString *creator;
 

@@ -14,13 +14,11 @@
 
 @implementation GPXlinkType
 
-@synthesize href;
-
 + (NSMutableDictionary *)elementToClassRelations
 {
-	NSMutableDictionary *d = [super elementToClassRelations];
-	[d setValue:[XMLStringElement class] forKey:@"text"];
-	[d setValue:[XMLStringElement class] forKey:@"type"];
+	NSMutableDictionary *d = super.elementToClassRelations;
+	[d setValue:XMLStringElement.class forKey:@"text"];
+	[d setValue:XMLStringElement.class forKey:@"type"];
 	return d;
 }
 
@@ -28,7 +26,7 @@
 {
 	if ((self = [super initWithAttributes:dic elementName:en]) != nil) {
 		self.href = [dic valueForKey:@"href"];
-		if (!self.href) NSXMLLog(@"Invalid GPX file: no href in a link");
+		if (self.href == nil) NSXMLLog(@"Invalid GPX file: no href in a link");
 	}
 	
 	return self;
@@ -36,7 +34,7 @@
 
 - (NSData *)dataForElementAttributes
 {
-	return [[NSString stringWithFormat:@" href=\"%@\"", href] dataUsingEncoding:VSO_XML_ENCODING];
+	return [[NSString stringWithFormat:@" href=\"%@\"", self.href] dataUsingEncoding:VSO_XML_ENCODING];
 }
 
 @end

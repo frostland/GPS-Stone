@@ -13,9 +13,8 @@
 
 
 
-@interface GPXptType : XMLElement {
-	CLLocationCoordinate2D coords;
-}
+@interface GPXptType : XMLElement
+
 @property(nonatomic, assign) CLLocationCoordinate2D coords;
 
 @end

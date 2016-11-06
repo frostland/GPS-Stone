@@ -12,6 +12,19 @@
 #import <CoreLocation/CLLocation.h>
 #include <stdlib.h>
 
+
+/* Formats for NSLog for NSInteger, CGFloat, etc. */
+#define CGFLOAT_FMT @"g"
+/* See definition of NSUInteger to understand the test below */
+#if __LP64__ || (TARGET_OS_EMBEDDED && !TARGET_OS_IPHONE) || TARGET_OS_WIN32 || NS_BUILD_32_LIKE_64
+# define NSINT_FMT @"ld"
+# define NSUINT_FMT @"lu"
+#else
+# define NSINT_FMT @"d"
+# define NSUINT_FMT @"u"
+#endif
+
+
 #ifndef NDEBUG
 # define NSDLog(format...) NSLog(format)
 #else
@@ -25,6 +38,7 @@
 #else
 # define NSXMLLog(format...) (void)NULL
 #endif
+
 
 NSString *fullPathFromRelativeForGPXFile(NSString *relativePath);
 NSString *relativePathFromFullForGPXFile(NSString *fullPath);

@@ -13,11 +13,11 @@
 
 
 @interface XMLDecimalElement : XMLElement {
-	CGFloat value;
-	
 	NSString *buf;
 }
-@property() CGFloat value;
+
 + (XMLDecimalElement *)decimalElementWithElementName:(NSString *)en value:(CGFloat)v;
+
+@property(nonatomic, assign) CGFloat value;
 
 @end

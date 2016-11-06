@@ -13,10 +13,9 @@
 
 
 @interface XMLIntegerElement : XMLElement {
-	NSInteger value;
-	
 	NSString *buf;
 }
-@property() NSInteger value;
+
+@property(nonatomic, assign) NSInteger value;
 
 @end

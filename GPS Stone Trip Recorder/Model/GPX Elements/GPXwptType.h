@@ -13,21 +13,26 @@
 
 
 
-@interface GPXwptType : XMLElement {
-	CLLocationCoordinate2D coords;
-}
-@property(nonatomic, assign) CLLocationCoordinate2D coords;
+@interface GPXwptType : XMLElement
+
 + (GPXwptType *)waypointWithElementName:(NSString *)en coordinates:(CLLocationCoordinate2D)c hAccuracy:(CLLocationAccuracy)hPrecision
 										elevation:(CLLocationDistance)elevation vAccuracy:(CLLocationAccuracy)vPrecision
 										  heading:(CLLocationDirection)heading date:(NSDate *)date;
+
+@property(nonatomic, assign) CLLocationCoordinate2D coords;
+
 - (BOOL)hasHAccuracy;
 - (CLLocationAccuracy)hAccuracy;
+
 - (BOOL)hasVAccuracy;
 - (CLLocationAccuracy)vAccuracy;
+
 - (BOOL)hasHeading;
 - (CLLocationDirection)heading;
+
 - (BOOL)hasElevation;
 - (CLLocationDistance)elevation;
+
 - (BOOL)hasDate;
 - (NSDate *)date;
 

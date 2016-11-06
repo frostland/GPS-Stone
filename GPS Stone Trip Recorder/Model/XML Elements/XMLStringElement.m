@@ -12,8 +12,6 @@
 
 @implementation XMLStringElement
 
-@synthesize content;
-
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
 	if (!self.content) self.content = string;
