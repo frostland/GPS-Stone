@@ -37,26 +37,16 @@
 	BOOL sentWithiPhone;
 	BOOL peoplePickerIsForFromField;
 	
-	NSMutableDictionary *recordingInfos;
 	GPXgpxType *gpx;
-	
-	NSURLConnection *urlConnection;
 }
 
 @property(nonatomic, weak) id <VSORecordingDetailViewCtrlDelegate> delegate;
 @property(nonatomic, retain) NSMutableDictionary *recordingInfos;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil recording:(NSDictionary *)recInfos;
-
 - (IBAction)done:(id)sender;
 - (IBAction)exportGPX:(id)sender;
 - (IBAction)cancel:(id)sender;
 - (IBAction)doneButtonOfNameEditingHit:(id)sender;
-
-- (IBAction)yourMailEndEditing:(id)sender;
-- (IBAction)destMailEndEditing:(id)sender;
-- (IBAction)setYourMailFromAdressBook:(id)sender;
-- (IBAction)addMailToDestFromAdressBook:(id)sender;
 
 @end
 

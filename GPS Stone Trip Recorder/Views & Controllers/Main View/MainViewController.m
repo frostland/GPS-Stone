@@ -26,9 +26,9 @@
 
 - (void)updateUI;
 - (void)refreshInfoButtonAnimated:(BOOL)aniamte;
-- (void)selectPage:(int)p animated:(BOOL)animate;
-- (void)loadScrollViewWithPage:(int)page;
-- (void)unloadScrollViewPageControllerNumber:(int)p;
+- (void)selectPage:(NSInteger)p animated:(BOOL)animate;
+- (void)loadScrollViewWithPage:(NSInteger)page;
+- (void)unloadScrollViewPageControllerNumber:(NSInteger)p;
 
 - (void)setRecordState:(VSORecordState)s;
 
@@ -126,8 +126,8 @@
 	
 	NSTimeInterval totalRecordTime = [[currentRecordingInfo valueForKey:VSO_REC_LIST_TOTAL_REC_TIME_BEFORE_LAST_PAUSE_KEY] doubleValue];
 	NSTimeInterval ti = -[dateRecordStart timeIntervalSinceNow] + totalRecordTime;
-	[currentRecordingInfo setValue:[NSNumber numberWithDouble:ti] forKey:VSO_REC_LIST_TOTAL_REC_TIME_KEY];
-	[currentRecordingInfo setValue:[NSDate dateWithTimeIntervalSinceNow:0] forKey:VSO_REC_LIST_DATE_END_KEY];
+	[currentRecordingInfo setValue:@(ti) forKey:VSO_REC_LIST_TOTAL_REC_TIME_KEY];
+	[currentRecordingInfo setValue:[NSDate new] forKey:VSO_REC_LIST_DATE_END_KEY];
 	if (recState == VSORecordStateStopped) {
 		[currentRecordingInfo removeObjectForKey:VSO_REC_LIST_RECORD_STATE_KEY];
 		for (Class curClass in ctrlClassesForPages)
@@ -189,7 +189,7 @@
 	if (animate) [UIView commitAnimations];
 }
 
-- (void)selectPage:(int)p animated:(BOOL)animate
+- (void)selectPage:(NSInteger)p animated:(BOOL)animate
 {
 	[self loadScrollViewWithPage:p];
 	
@@ -204,22 +204,22 @@
 	[self refreshInfoButtonAnimated:animate];
 }
 
-- (void)loadScrollViewWithPage:(int)page
+- (void)loadScrollViewWithPage:(NSInteger)page
 {
 	if (page < 0) return;
-	if (page >= [pageControl numberOfPages]) return;
+	if (page >= pageControl.numberOfPages) return;
 	
 	// replace the placeholder if necessary
 	VSOInfoGenericController *controller = [viewControllers objectAtIndex:page];
 	if ((NSNull *)controller == [NSNull null]) {
-		controller = [[[ctrlClassesForPages objectAtIndex:page] alloc] initWithGPX:currentGpx location:currentLocation];
+		controller = [(Class)[ctrlClassesForPages objectAtIndex:page] instantiateWithGPX:currentGpx location:currentLocation];
 		[viewControllers replaceObjectAtIndex:page withObject:controller];
 		[controller setCurrentRecordingInfo:currentRecordingInfo];
 		controller.delegate = self;
 	}
 	
 	// add the controller's view to the scroll view
-	if (nil == controller.view.superview) {
+	if (controller.view.superview == nil) {
 		CGRect frame = pagesView.frame;
 		frame.origin.x = frame.size.width * page;
 		frame.origin.y = 0;
@@ -229,7 +229,7 @@
 	}
 }
 
-- (void)unloadScrollViewPageControllerNumber:(int)p
+- (void)unloadScrollViewPageControllerNumber:(NSInteger)p
 {
 	/* We do not unload the current page! */
 	if (p == selPage) return;
@@ -240,7 +240,7 @@
 
 - (void)unloadAllUnusedScrollViewPageController
 {
-	for (NSUInteger i = 0; i<[viewControllers count]; i++) [self unloadScrollViewPageControllerNumber:i];
+	for (NSUInteger i = 0; i<viewControllers.count; ++i) [self unloadScrollViewPageControllerNumber:i];
 }
 
 - (void)updateUI
@@ -466,13 +466,14 @@
 	[self stopRecording];
 	[UIDevice currentDevice].proximityMonitoringEnabled = NO;
 	
-	VSORecordingsListViewCtlr *controller = [[VSORecordingsListViewCtlr alloc] initWithNibName:@"VSORecordingsListViewCtlr" bundle:nil recordingList:recordingList];
-	UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:controller];
+	UINavigationController *navCtrl = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"VSORecordingsListNavCtrl"];
+	VSORecordingsListViewCtlr *controller = navCtrl.viewControllers.firstObject;
+	controller.recordingList = recordingList;
 	controller.delegate = self;
 	
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 	controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-	[self presentModalViewController:navCtrl animated:YES];
+	[self presentViewController:navCtrl animated:YES completion:NULL];
 }
 
 - (void)pauseRecording
@@ -545,6 +546,7 @@
 	[super viewDidLoad];
 	
 	[locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+	[locationManager requestWhenInUseAuthorization];
 	[self setLocationServicesEnable:locationManager.locationServicesEnabled];
 	
 	/***************** Pages *****************/
@@ -556,6 +558,8 @@
 		[viewControllers addObject:NSNull.null];
 		[viewControllersStates addObject:NSNull.null];
 	}
+	
+	[self.view layoutIfNeeded];
 	
 	pagesView.pagingEnabled = YES;
 	pagesView.bounces = YES;
@@ -774,10 +778,10 @@
 	[self refreshHeadingInfos];
 }
 
-- (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
+	CLLocation *newLocation = locations.lastObject;
+	
 	BOOL pointAdded = NO;
 	/* Negative accuracy means the location was not found */
 	if (signbit(newLocation.horizontalAccuracy)) return;
@@ -852,11 +856,11 @@
 {
 	[UIDevice currentDevice].proximityMonitoringEnabled = NO;
 	
-	VSOSettingsViewController *controller = [[VSOSettingsViewController alloc] initWithNibName:@"VSOSettingsView" bundle:nil];
-	controller.delegate = self;
+	UINavigationController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SettingsNavController"];
+	((VSOSettingsViewController*)controller.viewControllers.firstObject).delegate = self;
 	
 	controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-	[self presentModalViewController:controller animated:YES];
+	[self presentViewController:controller animated:YES completion:NULL];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex

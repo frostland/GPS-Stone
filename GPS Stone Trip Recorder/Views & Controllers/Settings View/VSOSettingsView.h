@@ -8,7 +8,7 @@
 
 
 
-@interface VSOSettingsView : UIView {
+@interface VSOSettingsView : UITableView {
 }
 
 @end

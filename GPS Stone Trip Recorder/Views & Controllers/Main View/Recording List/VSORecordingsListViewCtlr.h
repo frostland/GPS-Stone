@@ -14,20 +14,14 @@
 
 @protocol VSORecordingsListViewControllerDelegate;
 
-@interface VSORecordingsListViewCtlr : UIViewController <VSORecordingDetailViewCtrlDelegate> {
+@interface VSORecordingsListViewCtlr : UITableViewController <VSORecordingDetailViewCtrlDelegate> {
 	IBOutlet UITableView *tableViewRecordings;
-	IBOutlet UIBarButtonItem *buttonEdit;
 	IBOutlet UIBarButtonItem *buttonDone;
-	
-	NSMutableArray *recordingList;
 }
 
 @property(nonatomic, retain) NSMutableArray *recordingList;
 @property(nonatomic, weak) id <VSORecordingsListViewControllerDelegate> delegate;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil recordingList:(NSMutableArray *)recs;
-
-- (IBAction)editTableView:(id)sender;
 - (IBAction)done:(id)sender;
 
 @end

@@ -15,121 +15,7 @@
 
 
 
-@interface VSORecordingDetailViewCtrl (GPXExport)
-
-- (void)sendMailWithVSO:(BOOL)useVSO;
-
-@end
-
-
-
-@implementation VSORecordingDetailViewCtrl (GPXExport)
-
-- (void)removeSendingMailView
-{
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:VSO_ANIM_TIME];
-	viewSendingMail.alpha = 0.;
-	[UIView commitAnimations];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-	if (sentWithiPhone) return;
-	
-	/* Errors:
-	 1: $mail->send returned an error
-	 2: Bad file extension
-	 3: No from field
-	 4: Bad file type
-	 5: No attachement file with name "GPXFile"
-	 */
-	NSString *errMsg = nil;
-	NSUInteger err = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] intValue];
-	switch (err) {
-		case 0: /* No Err */ break;
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-		case 5: errMsg = [NSString stringWithFormat:NSLocalizedString(@"server error when sending mail code#", nil), 10+err]; break;
-		default: errMsg = @""; break;
-	}
-	
-	[self removeSendingMailView];
-	if (errMsg != nil) [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"cannot send mail", nil) message:errMsg delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] show];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-	if (sentWithiPhone) return;
-	
-	NSString *errMsg = [NSString stringWithFormat:NSLocalizedString(@"reason: %@", nil), [error localizedDescription]];
-	
-	[self removeSendingMailView];
-	[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"cannot send mail", nil) message:errMsg delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] show];
-}
-
-- (void)sendMailWithVSO:(BOOL)useVSO
-{
-	NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"];
-	if (!appVersion) appVersion = @"Unknown version. Intern bug...";
-	
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:VSO_URL_TO_SEND_MAIL]];
-	[request setHTTPMethod:@"POST"];
-	
-	NSString *boundary = @"---------------------------14v742198x6p3s1466499882128og901449VSO";
-	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
-	[request addValue:contentType forHTTPHeaderField:@"Content-Type"];
-	
-	NSMutableData *body = [NSMutableData data];
-	[body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[@"Content-Disposition: form-data; name=\"appVersion\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[[NSString stringWithFormat:@"%@\n", appVersion] dataUsingEncoding:NSUTF8StringEncoding]];
-	
-	if (useVSO) {
-		[body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-		[body appendData:[@"Content-Disposition: form-data; name=\"sendTo\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-		[body appendData:[[NSString stringWithFormat:@"%@\n", textFieldDestEmails.text] dataUsingEncoding:NSUTF8StringEncoding]];
-		
-		[body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-		[body appendData:[@"Content-Disposition: form-data; name=\"fromField\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-		[body appendData:[[NSString stringWithFormat:@"%@\n", [textFieldYourEmail.text isEqualToString:@""]? @"noreply@vso-software.com": textFieldYourEmail.text] dataUsingEncoding:NSUTF8StringEncoding]];
-		
-		[body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-		[body appendData:[@"Content-Disposition: form-data; name=\"mailTitle\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-		[body appendData:[[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"gpx file sent", nil)] dataUsingEncoding:NSUTF8StringEncoding]];
-	}
-	
-	[body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[@"Content-Disposition: form-data; name=\"sentWithDefaultiPhoneMailSheet\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[[NSString stringWithFormat:@"%d\n", !useVSO] dataUsingEncoding:NSUTF8StringEncoding]];
-	
-	[body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[@"Content-Disposition: form-data; name=\"lang\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[[NSString stringWithFormat:@"%@\n", [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]] dataUsingEncoding:NSUTF8StringEncoding]];
-	
-	[body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[@"Content-Disposition: form-data; name=\"deviceID\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[[NSString stringWithFormat:@"%@\n", @"uniqueIdentifier is not accessible anymore on iOS!"] dataUsingEncoding:NSUTF8StringEncoding]];
-	
-	[body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[[NSString stringWithFormat:@"Content-Disposition: file; name=\"GPXFile\"; filename=\"%@.gpx\"\r\n", [recordingInfos valueForKey:VSO_REC_LIST_NAME_KEY]] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[[NSString stringWithString:@"Content-Type: application/octet-stream\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[NSData dataWithContentsOfFile:fullPathFromRelativeForGPXFile([recordingInfos valueForKey:VSO_REC_LIST_PATH_KEY])]];
-	[body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	[request setHTTPBody:body];
-	
-	urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-}
-
-@end
-
-
-
 @implementation VSORecordingDetailViewCtrl
-
-@synthesize delegate, recordingInfos;
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict
 {
@@ -141,17 +27,14 @@
 	}
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil recording:(NSMutableDictionary *)recInfos
+- (void)setRecordingInfos:(NSMutableDictionary *)recordingInfos
 {
-	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-		self.recordingInfos = recInfos;
-		
-		NSString *path = fullPathFromRelativeForGPXFile([recordingInfos valueForKey:VSO_REC_LIST_PATH_KEY]);
-		NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:[NSData dataWithContentsOfFile:path]];
-		[xmlParser setDelegate:self];
-		[xmlParser parse];
-	}
-	return self;
+	_recordingInfos = recordingInfos;
+	
+	NSString *path = fullPathFromRelativeForGPXFile([_recordingInfos valueForKey:VSO_REC_LIST_PATH_KEY]);
+	NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+	[xmlParser setDelegate:self];
+	[xmlParser parse];
 }
 
 
@@ -163,16 +46,16 @@
 	viewSendingMail.alpha = 0.;
 	[self.view addSubview:viewSendingMail];
 	vPosOfNameUIElements = viewForName.frame.origin.y;
-	self.title = [recordingInfos valueForKey:VSO_REC_LIST_NAME_KEY];
+	self.title = [_recordingInfos valueForKey:VSO_REC_LIST_NAME_KEY];
 	
-	NSTimeInterval time = [[recordingInfos valueForKey:VSO_REC_LIST_TOTAL_REC_TIME_KEY] doubleValue];
-	NSTimeInterval distance = [[recordingInfos valueForKey:VSO_REC_LIST_TOTAL_REC_DISTANCE_KEY] doubleValue];
+	NSTimeInterval time = [[_recordingInfos valueForKey:VSO_REC_LIST_TOTAL_REC_TIME_KEY] doubleValue];
+	NSTimeInterval distance = [[_recordingInfos valueForKey:VSO_REC_LIST_TOTAL_REC_DISTANCE_KEY] doubleValue];
 	[labelInfos setText:[NSString stringWithFormat:@"%@ / %@ / %@", NSStringFromTimeInterval(time), NSStringFromDistance(distance), NSStringFromSpeed(distance/time, YES)]];
-	[labelDate setText:NSStringFromDate([recordingInfos valueForKey:VSO_REC_LIST_DATE_END_KEY])];
+	[labelDate setText:NSStringFromDate([_recordingInfos valueForKey:VSO_REC_LIST_DATE_END_KEY])];
 	
-	[textFieldName setText:[recordingInfos valueForKey:VSO_REC_LIST_NAME_KEY]];
+	[textFieldName setText:[_recordingInfos valueForKey:VSO_REC_LIST_NAME_KEY]];
 	
-	mapViewController = [[VSOMapViewController alloc] initWithGPX:gpx location:nil];
+	mapViewController = [VSOMapViewController instantiateWithGPX:gpx location:nil];
 	mapViewController.showUL = NO;
 	
 	CGRect frame = viewWithMap.frame;
@@ -226,7 +109,7 @@
 {
 	if (textField != textFieldName) return;
 	
-	[recordingInfos setValue:[textFieldName text] forKey:VSO_REC_LIST_NAME_KEY];
+	[_recordingInfos setValue:[textFieldName text] forKey:VSO_REC_LIST_NAME_KEY];
 	self.title = [textFieldName text];
 	
 	CGRect f = viewForName.frame;
@@ -241,40 +124,6 @@
 	[self.delegate nameChanged];
 }
 
-- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
-{
-	if (result == MFMailComposeResultSent) [self sendMailWithVSO:NO];
-	
-	[self dismissModalViewControllerAnimated:YES];
-}
-
-- (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
-{
-	[chooseMailCtrl dismissModalViewControllerAnimated:YES];
-}
-
-- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
-{
-	return YES;
-}
-
-- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
-{
-	CFTypeRef emails = ABRecordCopyValue(person, kABPersonEmailProperty);
-	NSString *email = (NSString *)CFBridgingRelease(ABMultiValueCopyValueAtIndex(emails, ABMultiValueGetIndexForIdentifier(emails, identifier)));
-	
-	if (peoplePickerIsForFromField) {
-		[textFieldYourEmail setText:email];
-		[[NSUserDefaults standardUserDefaults] setValue:textFieldYourEmail.text forKey:VSO_UDK_USER_EMAIL];
-	} else {
-		if (![textFieldDestEmails.text isEqualToString:@""]) [textFieldDestEmails setText:[textFieldDestEmails.text stringByAppendingFormat:@",%@", email]];
-		else                                                 [textFieldDestEmails setText:email];
-	}
-	[chooseMailCtrl dismissModalViewControllerAnimated:YES];
-	
-	return NO;
-}
-
 - (IBAction)exportGPX:(id)sender
 {
 	if ([MFMailComposeViewController canSendMail]) {
@@ -284,8 +133,8 @@
 		ctrl.mailComposeDelegate = self;
 		
 		[ctrl setSubject:NSLocalizedString(@"gpx file sent", nil)];
-		[ctrl addAttachmentData:[NSData dataWithContentsOfFile:fullPathFromRelativeForGPXFile([recordingInfos valueForKey:VSO_REC_LIST_PATH_KEY])]
-							mimeType:@"application/octet-stream" fileName:[NSString stringWithFormat:@"%@.gpx", [recordingInfos valueForKey:VSO_REC_LIST_NAME_KEY]]];
+		[ctrl addAttachmentData:[NSData dataWithContentsOfFile:fullPathFromRelativeForGPXFile([_recordingInfos valueForKey:VSO_REC_LIST_PATH_KEY])]
+							mimeType:@"application/octet-stream" fileName:[NSString stringWithFormat:@"%@.gpx", [_recordingInfos valueForKey:VSO_REC_LIST_NAME_KEY]]];
 		
 		[self presentModalViewController:ctrl animated:YES];
 	} else {
@@ -308,60 +157,11 @@
 	[self dismissModalViewControllerAnimated:YES];
 }
 
-- (IBAction)yourMailEndEditing:(id)sender
-{
-	[[NSUserDefaults standardUserDefaults] setValue:textFieldYourEmail.text forKey:VSO_UDK_USER_EMAIL];
-	[textFieldYourEmail resignFirstResponder];
-	[textFieldDestEmails becomeFirstResponder];
-}
-
-- (IBAction)destMailEndEditing:(id)sender
-{
-	[textFieldDestEmails resignFirstResponder];
-	[self dismissModalViewControllerAnimated:YES];
-	
-	/* We're sending the mail through VSO here */
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:VSO_ANIM_TIME];
-	viewSendingMail.alpha = 1.;
-	
-	[self sendMailWithVSO:YES];
-	
-	[UIView commitAnimations];
-}
-
-- (void)showPeoplePicker
-{
-	ABPeoplePickerNavigationController *ctrl = [ABPeoplePickerNavigationController new];
-	[ctrl setDisplayedProperties:[NSArray arrayWithObjects:[NSNumber numberWithInt:kABPersonEmailProperty], nil]];
-	ctrl.peoplePickerDelegate = self;
-	
-	ctrl.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-	[chooseMailCtrl presentModalViewController:ctrl animated:YES];
-}
-
-- (IBAction)setYourMailFromAdressBook:(id)sender
-{
-	peoplePickerIsForFromField = YES;
-	[self showPeoplePicker];
-}
-
-- (IBAction)addMailToDestFromAdressBook:(id)sender
-{
-	peoplePickerIsForFromField = NO;
-	[self showPeoplePicker];
-}
-
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
 	
 	// Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
 }
 
 @end

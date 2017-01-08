@@ -20,7 +20,6 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
 	[scrollView addSubview:viewWithSettings];
 	scrollView.contentSize = viewWithSettings.frame.size;
 	

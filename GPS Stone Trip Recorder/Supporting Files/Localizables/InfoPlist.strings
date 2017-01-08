@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  GPS Stone Trip Recorder
+
+  Created by François Lamboley on 08/01/2017.
+
+*/
+
+NSLocationWhenInUseUsageDescription = "Access to your location is required to show your speed, and other location related information.";

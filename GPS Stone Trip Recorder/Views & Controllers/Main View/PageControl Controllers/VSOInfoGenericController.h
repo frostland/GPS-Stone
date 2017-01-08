@@ -44,7 +44,7 @@
  * It is up to the subclass to use and clear the stored points. */
 + (BOOL)needsAllPoints;
 
-- (id)initWithGPX:(GPXgpxType *)gpx location:(CLLocation *)l;
++ (instancetype)instantiateWithGPX:(GPXgpxType *)gpx location:(CLLocation *)l;
 
 - (void)setCurrentLocation:(CLLocation *)nl pointWasRecorded:(BOOL)pointWasRecorded;
 

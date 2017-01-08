@@ -15,12 +15,9 @@
 
 @implementation VSORecordingsListViewCtlr
 
-@synthesize delegate, recordingList;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil recordingList:(NSMutableArray *)recs
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-		self.recordingList = recs;
+	if (self = [super initWithCoder:aDecoder]) {
 		self.title = NSLocalizedString(@"recordings", nil);
 	}
 	return self;
@@ -32,8 +29,7 @@
 {
 	[super viewDidLoad];
 	
-	self.navigationItem.rightBarButtonItem = buttonDone;
-	self.navigationItem.leftBarButtonItem = buttonEdit;
+	self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 
@@ -47,20 +43,13 @@
 
 - (void)updateTabBarButtons:(BOOL)tableViewEditing
 {
-	buttonEdit.enabled = !tableViewEditing;
-}
-
-- (IBAction)editTableView:(id)sender
-{
-	[tableViewRecordings setEditing:YES animated:YES];
-	[self updateTabBarButtons:tableViewRecordings.editing];
 }
 
 - (IBAction)done:(id)sender
 {
 	if (!tableViewRecordings.editing) [self.delegate recordingsListViewControllerDidFinish:self];
 	else {
-		[tableViewRecordings setEditing:NO  animated:YES];
+		[tableViewRecordings setEditing:NO animated:YES];
 		[self updateTabBarButtons:tableViewRecordings.editing];
 	}
 }
@@ -76,6 +65,19 @@
 	[self dismissModalViewControllerAnimated:YES];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+	if ([segue.identifier isEqualToString:@"ShowDetails"]) {
+		VSORecordingDetailViewCtrl *controller = segue.destinationViewController;
+		
+		NSMutableDictionary *rec = [[_recordingList objectAtIndex:[tableViewRecordings.indexPathForSelectedRow indexAtPosition:1]] mutableCopy];
+		[_recordingList replaceObjectAtIndex:[tableViewRecordings.indexPathForSelectedRow indexAtPosition:1] withObject:rec];
+		controller.recordingInfos = rec;
+		
+		controller.delegate = self;
+	}
+}
+
 /* Settings table view dataSource and delegate */
 #pragma mark Data source / Delegate
 
@@ -87,7 +89,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [recordingList count];
+	return [_recordingList count];
 }
 
 
@@ -95,14 +97,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	static NSString *CellIdentifier = @"Cell";
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
 	
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	if (cell == nil) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	}
-	
-	NSDictionary *curRecDescr = [recordingList objectAtIndex:[indexPath indexAtPosition:1]];
+	NSDictionary *curRecDescr = [_recordingList objectAtIndex:[indexPath indexAtPosition:1]];
 	cell.textLabel.text = [curRecDescr valueForKey:VSO_REC_LIST_NAME_KEY];
 	
 	NSString *distanceStr = NSStringFromDistance([[curRecDescr valueForKey:VSO_REC_LIST_TOTAL_REC_DISTANCE_KEY] doubleValue]);
@@ -112,25 +109,6 @@
 	return cell;
 }
 
-// Override to support row selection in the table view.
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	NSMutableDictionary *rec = [[recordingList objectAtIndex:[indexPath indexAtPosition:1]] mutableCopy];
-	[recordingList replaceObjectAtIndex:[indexPath indexAtPosition:1] withObject:rec];
-	
-	VSORecordingDetailViewCtrl *controller = [[VSORecordingDetailViewCtrl alloc] initWithNibName:@"VSORecordingDetailView" bundle:nil recording:rec];
-	controller.delegate = self;
-	[self.navigationController pushViewController:controller animated:YES];
-	
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	return YES;
-}
-
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -138,12 +116,12 @@
 		NSUInteger i = [indexPath indexAtPosition:1];
 		
 		NSFileManager *fm = [NSFileManager defaultManager];
-		if (![fm removeItemAtPath:fullPathFromRelativeForGPXFile([[recordingList objectAtIndex:i] valueForKey:VSO_REC_LIST_PATH_KEY]) error:NULL]) {
+		if (![fm removeItemAtPath:fullPathFromRelativeForGPXFile([[_recordingList objectAtIndex:i] valueForKey:VSO_REC_LIST_PATH_KEY]) error:NULL]) {
 			[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"internal error", nil) message:[NSString stringWithFormat:NSLocalizedString(@"cannot delete recording. please contact developer error code #", nil), 2] delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] show];
-			NSLog(@"Can't delete relative path \"%@\" (full path is: \"%@\")", [[recordingList objectAtIndex:i] valueForKey:VSO_REC_LIST_PATH_KEY], fullPathFromRelativeForGPXFile([[recordingList objectAtIndex:i] valueForKey:VSO_REC_LIST_PATH_KEY]));
+			NSLog(@"Can't delete relative path \"%@\" (full path is: \"%@\")", [[_recordingList objectAtIndex:i] valueForKey:VSO_REC_LIST_PATH_KEY], fullPathFromRelativeForGPXFile([[_recordingList objectAtIndex:i] valueForKey:VSO_REC_LIST_PATH_KEY]));
 			return;
 		}
-		[recordingList removeObjectAtIndex:i];
+		[_recordingList removeObjectAtIndex:i];
 		
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}   

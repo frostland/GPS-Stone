@@ -19,14 +19,13 @@
 	return NO;
 }
 
-- (id)initWithGPX:(GPXgpxType *)gpx location:(CLLocation *)l
++ (instancetype)instantiateWithGPX:(GPXgpxType *)gpx location:(CLLocation *)l
 {
-	if ((self = [self init]) != nil) {
-		self.currentGPX = gpx;
-		self.currentLocation = l;
-	}
-	
-	return self;
+	UIStoryboard *s = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+	VSOInfoGenericController *ret = [s instantiateViewControllerWithIdentifier:NSStringFromClass(self)];
+	ret.currentGPX = gpx;
+	ret.currentLocation = l;
+	return ret;
 }
 
 - (void)setCurrentLocation:(CLLocation *)nl pointWasRecorded:(BOOL)pointWasRecorded

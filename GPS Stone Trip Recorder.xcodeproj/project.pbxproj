@@ -9,13 +9,9 @@
 /* Begin PBXBuildFile section */
 		0F13A60F102AE7E800D1C9BE /* VSOInfoGenericController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F13A60E102AE7E800D1C9BE /* VSOInfoGenericController.m */; };
 		0F2B6089102842F300FC0595 /* VSORecordingDetailViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2B6087102842F300FC0595 /* VSORecordingDetailViewCtrl.m */; };
-		0F2B608A102842F300FC0595 /* VSORecordingDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F2B6088102842F300FC0595 /* VSORecordingDetailView.xib */; };
 		0F34802B10089A9700E88124 /* VSOMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F34802910089A9700E88124 /* VSOMapViewController.m */; };
-		0F34802C10089A9700E88124 /* VSOMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F34802A10089A9700E88124 /* VSOMapViewController.xib */; };
 		0F3480DC1008A77B00E88124 /* VSOInfoViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3480DA1008A77B00E88124 /* VSOInfoViewCtrl.m */; };
-		0F3480DD1008A77B00E88124 /* VSOInfoViewCtrl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3480DB1008A77B00E88124 /* VSOInfoViewCtrl.xib */; };
 		0F3480F91008A83B00E88124 /* VSODetailsViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3480F71008A83B00E88124 /* VSODetailsViewCtrl.m */; };
-		0F3480FA1008A83B00E88124 /* VSODetailsViewCtrl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3480F81008A83B00E88124 /* VSODetailsViewCtrl.xib */; };
 		0F34811C1008A93A00E88124 /* VSOScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F34811B1008A93A00E88124 /* VSOScrollView.m */; };
 		0F3774D6103D7F68009B7FAE /* VSOBlankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3774D5103D7F68009B7FAE /* VSOBlankView.m */; };
 		0F48CE5E1029AD88008C524D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F48CE5D1029AD88008C524D /* AddressBookUI.framework */; };
@@ -26,7 +22,6 @@
 		0F5780B51020939900067838 /* XMLStringElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5780B41020939900067838 /* XMLStringElement.m */; };
 		0F5780DF102095E000067838 /* XMLDateElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5780DE102095E000067838 /* XMLDateElement.m */; };
 		0F5780E51020988800067838 /* GPXwptType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5780E41020988800067838 /* GPXwptType.m */; };
-		0F656070100B4FC5004D16D7 /* VSORecordingsListViewCtlr.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F65606E100B4FC5004D16D7 /* VSORecordingsListViewCtlr.xib */; };
 		0F79F6A010203DAE00AF7FF1 /* VSOUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */; };
 		0FA3D1DD10302ED80098760F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA3D1DC10302ED80098760F /* MessageUI.framework */; };
 		0FB4B0FC10074B20005292C4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB4B0FB10074B20005292C4 /* MapKit.framework */; };
@@ -50,8 +45,6 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		280E754D0DD40C5E005A515E /* VSOSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E754A0DD40C5E005A515E /* VSOSettingsView.xib */; };
-		280E754E0DD40C5E005A515E /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E754B0DD40C5E005A515E /* MainView.xib */; };
 		288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765580DF743DE002DB57D /* CoreGraphics.framework */; };
 		289233A60DB2D0840083E9F9 /* VSOSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A30DB2D0840083E9F9 /* VSOSettingsView.m */; };
 		289233A70DB2D0840083E9F9 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A50DB2D0840083E9F9 /* MainView.m */; };
@@ -61,6 +54,7 @@
 		7B482CE11DCA8ADD007B5ABC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CDF1DCA8ADD007B5ABC /* Localizable.strings */; };
 		7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */; };
 		7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE81DCA975F007B5ABC /* Main.storyboard */; };
+		7B63B7691E227E96001FA33C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B63B7681E227E96001FA33C /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,17 +62,13 @@
 		0F13A60E102AE7E800D1C9BE /* VSOInfoGenericController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOInfoGenericController.m; sourceTree = "<group>"; };
 		0F2B6086102842F300FC0595 /* VSORecordingDetailViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSORecordingDetailViewCtrl.h; sourceTree = "<group>"; };
 		0F2B6087102842F300FC0595 /* VSORecordingDetailViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSORecordingDetailViewCtrl.m; sourceTree = "<group>"; };
-		0F2B6088102842F300FC0595 /* VSORecordingDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VSORecordingDetailView.xib; sourceTree = "<group>"; };
 		0F2EE638102330820002BB25 /* Dev Notes.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Dev Notes.rtf"; sourceTree = "<group>"; };
 		0F34802810089A9700E88124 /* VSOMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOMapViewController.h; sourceTree = "<group>"; };
 		0F34802910089A9700E88124 /* VSOMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOMapViewController.m; sourceTree = "<group>"; };
-		0F34802A10089A9700E88124 /* VSOMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VSOMapViewController.xib; sourceTree = "<group>"; };
 		0F3480D91008A77B00E88124 /* VSOInfoViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOInfoViewCtrl.h; sourceTree = "<group>"; };
 		0F3480DA1008A77B00E88124 /* VSOInfoViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOInfoViewCtrl.m; sourceTree = "<group>"; };
-		0F3480DB1008A77B00E88124 /* VSOInfoViewCtrl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VSOInfoViewCtrl.xib; sourceTree = "<group>"; };
 		0F3480F61008A83B00E88124 /* VSODetailsViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSODetailsViewCtrl.h; sourceTree = "<group>"; };
 		0F3480F71008A83B00E88124 /* VSODetailsViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSODetailsViewCtrl.m; sourceTree = "<group>"; };
-		0F3480F81008A83B00E88124 /* VSODetailsViewCtrl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VSODetailsViewCtrl.xib; sourceTree = "<group>"; };
 		0F34811A1008A93A00E88124 /* VSOScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOScrollView.h; sourceTree = "<group>"; };
 		0F34811B1008A93A00E88124 /* VSOScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOScrollView.m; sourceTree = "<group>"; };
 		0F3774D4103D7F68009B7FAE /* VSOBlankView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOBlankView.h; sourceTree = "<group>"; };
@@ -97,7 +87,6 @@
 		0F5780DE102095E000067838 /* XMLDateElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLDateElement.m; sourceTree = "<group>"; };
 		0F5780E31020988800067838 /* GPXwptType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXwptType.h; sourceTree = "<group>"; };
 		0F5780E41020988800067838 /* GPXwptType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXwptType.m; sourceTree = "<group>"; };
-		0F65606E100B4FC5004D16D7 /* VSORecordingsListViewCtlr.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VSORecordingsListViewCtlr.xib; sourceTree = "<group>"; };
 		0F79F69E10203DAE00AF7FF1 /* VSOUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOUtils.h; sourceTree = "<group>"; };
 		0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOUtils.m; sourceTree = "<group>"; };
 		0FA3D1DC10302ED80098760F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -139,8 +128,6 @@
 		1D3623250D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSStoneTripRecorderAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* GPS Stone Trip Recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GPS Stone Trip Recorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		280E754A0DD40C5E005A515E /* VSOSettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VSOSettingsView.xib; sourceTree = "<group>"; };
-		280E754B0DD40C5E005A515E /* MainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainView.xib; sourceTree = "<group>"; };
 		288765580DF743DE002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		289233A20DB2D0840083E9F9 /* VSOSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOSettingsView.h; sourceTree = "<group>"; };
 		289233A30DB2D0840083E9F9 /* VSOSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOSettingsView.m; sourceTree = "<group>"; };
@@ -156,6 +143,7 @@
 		7B482CE01DCA8ADD007B5ABC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B482CE91DCA976E007B5ABC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7B63B7681E227E96001FA33C /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* GPS_Stone_Trip_Recorder-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GPS_Stone_Trip_Recorder-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -181,8 +169,8 @@
 		0F2B6084102842C500FC0595 /* Recording List */ = {
 			isa = PBXGroup;
 			children = (
-				0FC907BC1023107F009EA1B1 /* VSORecordingsListViewCtlr.m */,
 				0FC907BD1023107F009EA1B1 /* VSORecordingsListViewCtlr.h */,
+				0FC907BC1023107F009EA1B1 /* VSORecordingsListViewCtlr.m */,
 				0F2B6086102842F300FC0595 /* VSORecordingDetailViewCtrl.h */,
 				0F2B6087102842F300FC0595 /* VSORecordingDetailViewCtrl.m */,
 			);
@@ -251,16 +239,6 @@
 			path = "GPX Elements";
 			sourceTree = "<group>";
 		};
-		0F6560BD100B646B004D16D7 /* Page Control */ = {
-			isa = PBXGroup;
-			children = (
-				0F34802A10089A9700E88124 /* VSOMapViewController.xib */,
-				0F3480DB1008A77B00E88124 /* VSOInfoViewCtrl.xib */,
-				0F3480F81008A83B00E88124 /* VSODetailsViewCtrl.xib */,
-			);
-			name = "Page Control";
-			sourceTree = "<group>";
-		};
 		0F6F2FF410175F33006C7495 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,19 +293,6 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = CustomTemplate;
-			sourceTree = "<group>";
-		};
-		29B97317FDCFA39411CA2CEA /* Xibs (Obsolete) */ = {
-			isa = PBXGroup;
-			children = (
-				0F2B6088102842F300FC0595 /* VSORecordingDetailView.xib */,
-				0F6560BD100B646B004D16D7 /* Page Control */,
-				0F65606E100B4FC5004D16D7 /* VSORecordingsListViewCtlr.xib */,
-				280E754A0DD40C5E005A515E /* VSOSettingsView.xib */,
-				280E754B0DD40C5E005A515E /* MainView.xib */,
-			);
-			name = "Xibs (Obsolete)";
-			path = ../..;
 			sourceTree = "<group>";
 		};
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
@@ -390,7 +355,6 @@
 		7B27B9351DCF3E03006F44B7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				29B97317FDCFA39411CA2CEA /* Xibs (Obsolete) */,
 				7B27B9361DCF3E3D006F44B7 /* Localizables */,
 				7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
@@ -405,6 +369,7 @@
 			isa = PBXGroup;
 			children = (
 				7B482CDF1DCA8ADD007B5ABC /* Localizable.strings */,
+				7B63B7681E227E96001FA33C /* InfoPlist.strings */,
 			);
 			path = Localizables;
 			sourceTree = "<group>";
@@ -485,15 +450,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				280E754D0DD40C5E005A515E /* VSOSettingsView.xib in Resources */,
-				280E754E0DD40C5E005A515E /* MainView.xib in Resources */,
-				0F34802C10089A9700E88124 /* VSOMapViewController.xib in Resources */,
+				7B63B7691E227E96001FA33C /* InfoPlist.strings in Resources */,
 				7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */,
-				0F3480DD1008A77B00E88124 /* VSOInfoViewCtrl.xib in Resources */,
-				0F3480FA1008A83B00E88124 /* VSODetailsViewCtrl.xib in Resources */,
-				0F656070100B4FC5004D16D7 /* VSORecordingsListViewCtlr.xib in Resources */,
 				7B482CE11DCA8ADD007B5ABC /* Localizable.strings in Resources */,
-				0F2B608A102842F300FC0595 /* VSORecordingDetailView.xib in Resources */,
 				7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */,
 				7B27B9291DCDF6B1006F44B7 /* Assets.xcassets in Resources */,
 			);

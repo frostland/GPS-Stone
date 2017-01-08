@@ -10,7 +10,7 @@
 
 @protocol VSOSettingsViewControllerDelegate;
 
-@interface VSOSettingsViewController : UIViewController {
+@interface VSOSettingsViewController : UITableViewController {
 	IBOutlet UISegmentedControl *segmentedCtrlMapType;
 	IBOutlet UITextField *textFieldMinDist;
 	IBOutlet UITextField *textFieldMinTime;
