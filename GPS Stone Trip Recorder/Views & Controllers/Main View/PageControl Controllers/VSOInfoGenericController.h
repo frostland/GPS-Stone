@@ -16,9 +16,12 @@
 
 @protocol VSOInfoGenericControllerDelegate
 
-- (void)beginRecording;
+- (void)openPreferences;
+
 - (void)showDetailedInfosView;
 - (void)showMapView;
+
+- (void)beginRecording;
 
 @end
 

@@ -12,11 +12,16 @@
 
 
 
-@interface VSOInfoViewCtrl : VSOInfoGenericController {
-	IBOutlet UIButton *buttonRecord;
-}
-- (IBAction)showDetailedInfos;
-- (IBAction)showPositionOnMap;
-- (IBAction)recordPosition;
+@interface VSOInfoViewCtrl : VSOInfoGenericController
+
+@property(nonatomic, strong) IBOutlet NSLayoutConstraint *constraintMarginTopTitle;
+
+@property(nonatomic, weak) IBOutlet UIButton *buttonRecord;
+
+- (IBAction)openPreferences:(id)sender;
+
+- (IBAction)showDetailedInfos:(id)sender;
+- (IBAction)showPositionOnMap:(id)sender;
+- (IBAction)startRecording:(id)sender;
 
 @end

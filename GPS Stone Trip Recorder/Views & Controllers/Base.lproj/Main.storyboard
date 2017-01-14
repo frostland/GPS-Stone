@@ -348,7 +348,7 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMI-3P-57z">
                                                     <rect key="frame" x="15" y="8" width="345" height="69"/>
-                                                    <string key="text">The screen will be turned off to save battery life. A value of 0 minute means the screen is never turned off. In any case, the screen is turned off when it is near something (for instance when in your pocket)</string>
+                                                    <string key="text">The screen will be turned off to save battery life. A value of 0 minute means the screen is never turned off. In any case, the screen is turned off when it is near something (for instance when in your pocket).</string>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -891,88 +891,105 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="vso-logo" translatesAutoresizingMaskIntoConstraints="NO" id="B3b-Vx-Kt0">
-                                <rect key="frame" x="124" y="66" width="128" height="110"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="road" translatesAutoresizingMaskIntoConstraints="NO" id="V8c-0N-zXx">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="798"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="Welcome to GPS Stone" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="qcP-b5-dt1">
-                                <rect key="frame" x="55" y="28" width="265" height="28"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="24"/>
+                                <rect key="frame" x="47" y="62" width="281" height="34"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJ1-H4-4Tu">
-                                <rect key="frame" x="16" y="319" width="343" height="30"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                <state key="normal" title="Record my position">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="16" y="229" width="343" height="39"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                <state key="normal" title="Start a New Recording">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <state key="highlighted">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="recordPosition" destination="YNg-Ki-68k" eventType="touchUpInside" id="UAc-XX-wsH"/>
+                                    <action selector="startRecording:" destination="YNg-Ki-68k" eventType="touchUpInside" id="hIZ-P7-mqc"/>
                                 </connections>
                             </button>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9c-1j-3iO">
-                                <rect key="frame" x="16" y="279" width="343" height="30"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                <state key="normal" title="Show my position on the map">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="191.5" y="133" width="167.5" height="33"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <state key="normal" title="Go to the Map">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <state key="highlighted">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="showPositionOnMap" destination="YNg-Ki-68k" eventType="touchUpInside" id="yfi-ch-uRh"/>
+                                    <action selector="showPositionOnMap:" destination="YNg-Ki-68k" eventType="touchUpInside" id="dvy-Px-VTm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ihm-A0-PIq">
-                                <rect key="frame" x="16" y="239" width="343" height="30"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                <state key="normal" title="Show the GPS info (Speed…)">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="16" y="133" width="167.5" height="33"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <state key="normal" title="Go to GPS Info">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <state key="highlighted">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="showDetailedInfos" destination="YNg-Ki-68k" eventType="touchUpInside" id="HZm-ew-Guw"/>
+                                    <action selector="showDetailedInfos:" destination="YNg-Ki-68k" eventType="touchUpInside" id="swc-01-uNT"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rt2-Cp-J6Z">
+                                <rect key="frame" x="16" y="173" width="343" height="33"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <state key="normal" title="Preferences">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="openPreferences:" destination="YNg-Ki-68k" eventType="touchUpInside" id="ZKT-Gw-i7m"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="hJ1-H4-4Tu" firstAttribute="leading" secondItem="Ovb-oY-OOx" secondAttribute="leadingMargin" id="2WD-Xo-xT0"/>
-                            <constraint firstItem="B3b-Vx-Kt0" firstAttribute="centerX" secondItem="Ovb-oY-OOx" secondAttribute="centerX" id="H5Q-EU-IJs"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="d9c-1j-3iO" secondAttribute="trailing" id="KPV-bD-qke"/>
-                            <constraint firstItem="B3b-Vx-Kt0" firstAttribute="top" secondItem="qcP-b5-dt1" secondAttribute="bottom" constant="10" id="VIX-uo-kvQ"/>
-                            <constraint firstItem="d9c-1j-3iO" firstAttribute="top" secondItem="Ihm-A0-PIq" secondAttribute="bottom" constant="10" id="az4-Oc-AEz"/>
-                            <constraint firstItem="Ihm-A0-PIq" firstAttribute="leading" secondItem="Ovb-oY-OOx" secondAttribute="leadingMargin" id="ebH-ON-KRr"/>
-                            <constraint firstItem="qcP-b5-dt1" firstAttribute="top" secondItem="Ovb-oY-OOx" secondAttribute="top" constant="28" id="iiN-Bk-uhB"/>
-                            <constraint firstItem="d9c-1j-3iO" firstAttribute="leading" secondItem="Ovb-oY-OOx" secondAttribute="leadingMargin" id="nh9-F0-VOV"/>
-                            <constraint firstItem="qcP-b5-dt1" firstAttribute="centerX" secondItem="Ovb-oY-OOx" secondAttribute="centerX" id="npy-0T-44A"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="hJ1-H4-4Tu" secondAttribute="trailing" id="pUG-70-Tqi"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ihm-A0-PIq" secondAttribute="trailing" id="rfz-y6-7tr"/>
-                            <constraint firstItem="hJ1-H4-4Tu" firstAttribute="top" secondItem="d9c-1j-3iO" secondAttribute="bottom" constant="10" id="tr7-3e-UmN"/>
-                            <constraint firstItem="Ihm-A0-PIq" firstAttribute="top" secondItem="B3b-Vx-Kt0" secondAttribute="bottom" constant="63" id="xsZ-fd-rMW"/>
+                            <constraint firstItem="rt2-Cp-J6Z" firstAttribute="leading" secondItem="Ovb-oY-OOx" secondAttribute="leadingMargin" id="4aD-Oz-VyQ"/>
+                            <constraint firstItem="qcP-b5-dt1" firstAttribute="top" secondItem="sib-5P-AJX" secondAttribute="bottom" constant="42" id="6bu-mA-pN1"/>
+                            <constraint firstItem="Ihm-A0-PIq" firstAttribute="leading" secondItem="Ovb-oY-OOx" secondAttribute="leadingMargin" id="85P-9k-Ivi"/>
+                            <constraint firstItem="d9c-1j-3iO" firstAttribute="width" secondItem="Ihm-A0-PIq" secondAttribute="width" id="95y-Fq-OPK"/>
+                            <constraint firstItem="hJ1-H4-4Tu" firstAttribute="top" secondItem="rt2-Cp-J6Z" secondAttribute="bottom" constant="23" id="Aqe-BX-Muj"/>
+                            <constraint firstItem="d9c-1j-3iO" firstAttribute="leading" secondItem="Ihm-A0-PIq" secondAttribute="trailing" constant="8" id="Gr2-4G-pjV"/>
+                            <constraint firstItem="hJ1-H4-4Tu" firstAttribute="leading" secondItem="Ovb-oY-OOx" secondAttribute="leadingMargin" id="KM7-FY-fle"/>
+                            <constraint firstItem="V8c-0N-zXx" firstAttribute="top" secondItem="Ovb-oY-OOx" secondAttribute="top" id="WFo-EL-M3b"/>
+                            <constraint firstItem="V8c-0N-zXx" firstAttribute="leading" secondItem="Ovb-oY-OOx" secondAttribute="leading" id="ZYU-3p-KVZ"/>
+                            <constraint firstItem="hJ1-H4-4Tu" firstAttribute="trailing" secondItem="Ovb-oY-OOx" secondAttribute="trailingMargin" id="aag-Nv-Osn"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rt2-Cp-J6Z" secondAttribute="trailing" id="cC2-ML-Mnb"/>
+                            <constraint firstAttribute="trailing" secondItem="V8c-0N-zXx" secondAttribute="trailing" id="dJw-To-bFK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="d9c-1j-3iO" secondAttribute="trailing" id="kZX-2o-9xt"/>
+                            <constraint firstItem="rt2-Cp-J6Z" firstAttribute="top" secondItem="Ihm-A0-PIq" secondAttribute="bottom" constant="7" id="lF7-ie-NTN"/>
+                            <constraint firstItem="d9c-1j-3iO" firstAttribute="baseline" secondItem="Ihm-A0-PIq" secondAttribute="baseline" id="mr5-kN-1Fl"/>
+                            <constraint firstItem="Ihm-A0-PIq" firstAttribute="top" secondItem="qcP-b5-dt1" secondAttribute="bottom" constant="37" id="qjk-Mx-ne4"/>
+                            <constraint firstItem="qcP-b5-dt1" firstAttribute="centerX" secondItem="Ovb-oY-OOx" secondAttribute="centerX" id="t3E-nr-evl"/>
+                            <constraint firstAttribute="bottom" secondItem="V8c-0N-zXx" secondAttribute="bottom" constant="-131" id="xRw-Lb-8pp"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="buttonRecord" destination="hJ1-H4-4Tu" id="wlh-ak-h0r"/>
+                        <outlet property="constraintMarginTopTitle" destination="6bu-mA-pN1" id="Jy4-Ab-i2k"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QDM-9F-ChZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="812" y="177"/>
+            <point key="canvasLocation" x="812" y="176.76161919040482"/>
         </scene>
     </scenes>
     <resources>
         <image name="north" width="85" height="85"/>
         <image name="recList_button" width="45" height="45"/>
         <image name="record_button" width="45" height="45"/>
-        <image name="vso-logo" width="128" height="110"/>
+        <image name="road" width="845" height="1221"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="c8c-NA-ABV"/>

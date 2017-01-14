@@ -12,6 +12,11 @@
 #import "Constants.h"
 #include "VSOUtils.h"
 
+
+BOOL isDeviceScreenTallerThanOriginalIPhone() {
+	return UIScreen.mainScreen.bounds.size.height > 480;
+}
+
 NSString *fullPathFromRelativeForGPXFile(NSString *relativePath) {
 	return [VSO_PATH_TO_FOLDER_WITH_GPX_FILES stringByAppendingPathComponent:relativePath];
 }

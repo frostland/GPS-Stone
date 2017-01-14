@@ -40,6 +40,8 @@
 #endif
 
 
+BOOL isDeviceScreenTallerThanOriginalIPhone();
+
 NSString *fullPathFromRelativeForGPXFile(NSString *relativePath);
 NSString *relativePathFromFullForGPXFile(NSString *fullPath);
 
