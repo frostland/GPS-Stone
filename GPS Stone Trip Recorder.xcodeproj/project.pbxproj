@@ -166,7 +166,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0F2B6084102842C500FC0595 /* Recording List */ = {
+		0F2B6084102842C500FC0595 /* Recordings List */ = {
 			isa = PBXGroup;
 			children = (
 				0FC907BD1023107F009EA1B1 /* VSORecordingsListViewCtlr.h */,
@@ -174,7 +174,7 @@
 				0F2B6086102842F300FC0595 /* VSORecordingDetailViewCtrl.h */,
 				0F2B6087102842F300FC0595 /* VSORecordingDetailViewCtrl.m */,
 			);
-			path = "Recording List";
+			path = "Recordings List";
 			sourceTree = "<group>";
 		};
 		0F3480261008996800E88124 /* PageControl Controllers */ = {
@@ -272,7 +272,6 @@
 		289233A00DB2D0730083E9F9 /* Main View */ = {
 			isa = PBXGroup;
 			children = (
-				0F2B6084102842C500FC0595 /* Recording List */,
 				0F3480261008996800E88124 /* PageControl Controllers */,
 				289233A40DB2D0840083E9F9 /* MainView.h */,
 				289233A50DB2D0840083E9F9 /* MainView.m */,
@@ -347,6 +346,7 @@
 				7B482CE81DCA975F007B5ABC /* Main.storyboard */,
 				0F3481191008A92200E88124 /* General */,
 				289233A00DB2D0730083E9F9 /* Main View */,
+				0F2B6084102842C500FC0595 /* Recordings List */,
 				281C6CD70DB2D82200F60ACC /* Settings View */,
 			);
 			path = "Views & Controllers";
