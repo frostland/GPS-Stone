@@ -40,7 +40,7 @@ NSString *NSStringFromDegrees(CLLocationDegrees d, BOOL lat) {
 	NSUInteger mins = (NSUInteger)minsDec;
 	CLLocationDegrees secsDec = (minsDec-mins)*60.;
 	
-	NSString *output = [NSString stringWithFormat:@"%d° %d' %.5f'' ", degs, mins, secsDec];
+	NSString *output = [NSString stringWithFormat:@"%d° %d’ %.5f” ", degs, mins, secsDec];
 	
 	NSString *suffix;
 	if (!neg) suffix = NSLocalizedString(lat? @"N": @"E", nil);
