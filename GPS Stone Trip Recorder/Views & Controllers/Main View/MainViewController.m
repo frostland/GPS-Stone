@@ -25,7 +25,6 @@
 #endif
 
 - (void)updateUI;
-- (void)refreshInfoButtonAnimated:(BOOL)aniamte;
 - (void)selectPage:(NSInteger)p animated:(BOOL)animate;
 - (void)loadScrollViewWithPage:(NSInteger)page;
 - (void)unloadScrollViewPageControllerNumber:(NSInteger)p;
@@ -152,43 +151,6 @@
 }
 #endif
 
-- (void)refreshInfoButtonAnimated:(BOOL)animate
-{
-	/* Setting position of the info button */
-	if (animate) {
-		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:VSO_ANIM_TIME];
-	}
-	CGRect f = [buttonInfoDark frame];
-	switch (selPage) {
-		case VSO_PAGE_NUMBER_WITH_MAP:
-			buttonInfoDark.alpha  = 0.;
-			buttonInfoLight.alpha = 1.;
-			break;
-		case VSO_PAGE_NUMBER_WITH_DETAILED_INFOS:
-			buttonInfoDark.alpha  = 1.;
-			buttonInfoLight.alpha = 0.;
-			break;
-		case VSO_PAGE_NUMBER_WITH_GENERAL_INFOS:
-			buttonInfoDark.alpha  = 1.;
-			buttonInfoLight.alpha = 0.;
-			break;
-		default:
-			buttonInfoDark.alpha  = 0.;
-			buttonInfoLight.alpha = 1.;
-	}
-	if (selPage == VSO_PAGE_NUMBER_WITH_DETAILED_INFOS) {
-		f.origin.x = VSO_INFO_X_POS_FOR_PAGE_WITH_DETAILED_INFOS;
-		f.origin.y = VSO_INFO_Y_POS_FOR_PAGE_WITH_DETAILED_INFOS;
-	} else {
-		f.origin.x = VSO_INFO_X_POS;
-		f.origin.y = VSO_INFO_Y_POS;
-	}
-	[buttonInfoDark  setFrame:f];
-	[buttonInfoLight setFrame:f];
-	if (animate) [UIView commitAnimations];
-}
-
 - (void)selectPage:(NSInteger)p animated:(BOOL)animate
 {
 	[self loadScrollViewWithPage:p];
@@ -201,7 +163,7 @@
 	// Set the boolean used when scrolls originate from the UIPageControl. See scrollViewDidScroll: above.
 	pageControlUsed = animate;
 	
-	[self refreshInfoButtonAnimated:animate];
+	[self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)loadScrollViewWithPage:(NSInteger)page
@@ -233,8 +195,11 @@
 {
 	/* We do not unload the current page! */
 	if (p == selPage) return;
-	if ([viewControllers objectAtIndex:p] != [NSNull null])
-		[viewControllersStates replaceObjectAtIndex:p withObject:[(VSOInfoGenericController *)[viewControllers objectAtIndex:p] state]];
+	VSOInfoGenericController *viewController = (VSOInfoGenericController *)[viewControllers objectAtIndex:p];
+	if (![viewController isEqual:NSNull.null]) {
+		[viewControllersStates replaceObjectAtIndex:p withObject:[viewController state]];
+		[viewController.view removeFromSuperview];
+	}
 	[viewControllers replaceObjectAtIndex:p withObject:[NSNull null]];
 }
 
@@ -604,6 +569,16 @@
 	[self resetIdleTimer:nil];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+	switch (selPage) {
+		case 0: return UIStatusBarStyleLightContent;
+		case 1: return UIStatusBarStyleDefault;
+		case 2: return UIStatusBarStyleDefault;
+		default: return UIStatusBarStyleDefault;
+	}
+}
+
 - (void)settingsChanged:(NSNotification *)n
 {
 	[self resetIdleTimer:nil];
@@ -768,7 +743,7 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
 	pageControlUsed = NO;
-	[self refreshInfoButtonAnimated:YES];
+	[self setNeedsStatusBarAppearanceUpdate];
 	
 	[self showMapSwipeWarning];
 }

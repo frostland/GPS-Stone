@@ -30,8 +30,6 @@
 	IBOutlet UIPageControl *pageControl;
 	
 	IBOutlet UIButton *buttonRecord;
-	IBOutlet UIButton *buttonInfoDark;
-	IBOutlet UIButton *buttonInfoLight;
 	IBOutlet UIButton *buttonListOfRecordings;
 	
 	IBOutlet UIView *viewMiniInfos;

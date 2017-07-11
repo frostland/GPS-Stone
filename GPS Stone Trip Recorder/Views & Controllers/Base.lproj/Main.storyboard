@@ -85,34 +85,6 @@
                                     <action selector="showRecordsListStopRecordButtonAction:" destination="h48-r7-9YD" eventType="touchUpInside" id="8PO-HF-myd"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="76k-eH-JMI" userLabel="Button Info Light">
-                                <rect key="frame" x="308" y="35" width="22" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="highlighted">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="showInfo" destination="h48-r7-9YD" eventType="touchUpInside" id="wYr-43-cKP"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d0p-ca-jVa" userLabel="Button Info Dark">
-                                <rect key="frame" x="308" y="35" width="22" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843" green="0.30980393000000001" blue="0.52156866000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="showInfo" destination="h48-r7-9YD" eventType="touchUpInside" id="8Vb-RK-4rC"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -130,8 +102,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="buttonInfoDark" destination="d0p-ca-jVa" id="ZwY-sK-OkG"/>
-                        <outlet property="buttonInfoLight" destination="76k-eH-JMI" id="yJc-1X-NKB"/>
                         <outlet property="buttonListOfRecordings" destination="BOs-Ur-oX4" id="Q5A-zA-XRi"/>
                         <outlet property="buttonRecord" destination="aOw-wb-WZ3" id="eEk-eE-EeB"/>
                         <outlet property="labelMiniInfosDistance" destination="Quy-J2-vBR" id="JGY-Qm-kzh"/>
@@ -883,6 +853,17 @@
                                     <action selector="centerMapOnCurLoc:" destination="AEg-vC-tvX" eventType="touchUpInside" id="zMy-aL-41L"/>
                                 </connections>
                             </button>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dca-Wh-v9g">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="tmA-CB-lyI">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="af1-RV-6RI"/>
+                                </constraints>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -891,7 +872,10 @@
                             <constraint firstItem="EZt-q1-Lqg" firstAttribute="top" secondItem="ibA-9y-tEc" secondAttribute="bottom" constant="10" id="LFw-Ig-idw"/>
                             <constraint firstAttribute="trailing" secondItem="xKH-do-tx1" secondAttribute="trailing" id="Unh-p3-Tml"/>
                             <constraint firstItem="xKH-do-tx1" firstAttribute="top" secondItem="uIC-Hb-XKG" secondAttribute="top" id="W0o-Zc-swp"/>
+                            <constraint firstAttribute="trailing" secondItem="dca-Wh-v9g" secondAttribute="trailing" id="YIx-4w-odv"/>
                             <constraint firstAttribute="trailing" secondItem="ibA-9y-tEc" secondAttribute="trailing" constant="10" id="YrQ-1D-rxy"/>
+                            <constraint firstItem="dca-Wh-v9g" firstAttribute="top" secondItem="uIC-Hb-XKG" secondAttribute="top" id="Z8c-Ls-O9C"/>
+                            <constraint firstItem="dca-Wh-v9g" firstAttribute="leading" secondItem="uIC-Hb-XKG" secondAttribute="leading" id="xPJ-2e-wrx"/>
                         </constraints>
                     </view>
                     <connections>
