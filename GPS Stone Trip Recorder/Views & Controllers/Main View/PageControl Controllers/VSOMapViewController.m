@@ -46,110 +46,6 @@
 @end
 
 
-@implementation VSOMapViewController (Private)
-
-- (BOOL)isCurLocOnBordersOfMap
-{
-	CGPoint p = [mapView convertCoordinate:currentLocation.coordinate toPointToView:mapView];
-	if (p.x < mapView.frame.size.width*PERCENT_FOR_MAP_BORDER/100.)  return YES;
-	if (p.y < mapView.frame.size.height*PERCENT_FOR_MAP_BORDER/100.) return YES;
-	if (p.x > mapView.frame.size.width  - mapView.frame.size.width*PERCENT_FOR_MAP_BORDER/100.)  return YES;
-	if (p.y > mapView.frame.size.height - mapView.frame.size.height*PERCENT_FOR_MAP_BORDER/100.) return YES;
-	
-	return NO;
-}
-
-- (void)expandBoundsFrom:(MKCoordinateRegion *)r with:(CLLocationCoordinate2D)c
-{
-	CLLocationDegrees d = c.latitude - (r->center.latitude - r->span.latitudeDelta/2.);
-	if (d < 0) {
-		r->center.latitude -= -d/2.;
-		r->span.latitudeDelta += -d;
-	}
-	d = c.longitude - (r->center.longitude-r->span.longitudeDelta/2.);
-	if (d < 0) {
-		r->center.longitude -= -d/2.;
-		r->span.longitudeDelta += -d;
-	}
-	d = (r->center.latitude+r->span.latitudeDelta/2.) - c.latitude;
-	if (d < 0) {
-		r->center.latitude += -d/2.;
-		r->span.latitudeDelta += -d;
-	}
-	d = (r->center.longitude+r->span.longitudeDelta/2.) - c.longitude;
-	if (d < 0) {
-		r->center.longitude += -d/2.;
-		r->span.longitudeDelta += -d;
-	}
-}
-
-- (void)addPointToDraw:(CLLocation *)l draw:(BOOL)shouldDraw
-{
-	CLLocationCoordinate2D c = l.coordinate;
-	if (shouldDraw) {
-		CGPoint p = [mapView convertCoordinate:c toPointToView:pathAnnotationView];
-		[pathAnnotationView addPoint:p createNewPath:addTrackSegOnNextPoint];
-		[pathAnnotationView setNeedsDisplay];
-	}
-	
-	if (nTrackSeg == 0) bounds = MKCoordinateRegionMakeWithDistance(c, DEFAULT_SPAN, DEFAULT_SPAN);
-	
-	if (addTrackSegOnNextPoint) {
-		/* Adding track segment */
-		nTrackSeg++;
-		paths          = realloc(paths, nTrackSeg*sizeof(CLLocationCoordinate2D *));
-		pointsDescrInTrack = realloc(pointsDescrInTrack, nTrackSeg*sizeof(VSOArrayOfPointsDescr));
-		
-		pointsDescrInTrack[nTrackSeg-1].bounds = MKCoordinateRegionMakeWithDistance(c, 0., 0.);
-		
-		pointsDescrInTrack[nTrackSeg-1].realNumberOfPoints = 0;
-		pointsDescrInTrack[nTrackSeg-1].bufferNumberOfPoints = N_POINTS_BUFFER_INCREMENT;
-		paths[nTrackSeg-1] = mallocTable(pointsDescrInTrack[nTrackSeg-1].bufferNumberOfPoints, sizeof(CLLocationCoordinate2D));
-	}
-	if (++(pointsDescrInTrack[nTrackSeg-1].realNumberOfPoints) > pointsDescrInTrack[nTrackSeg-1].bufferNumberOfPoints) {
-		/* More points than current buffer capacity. Increasing size of buffer */
-		pointsDescrInTrack[nTrackSeg-1].bufferNumberOfPoints += N_POINTS_BUFFER_INCREMENT;
-		paths[nTrackSeg-1] = realloc(paths[nTrackSeg-1], pointsDescrInTrack[nTrackSeg-1].bufferNumberOfPoints*sizeof(CLLocationCoordinate2D));
-	}
-	
-	[self expandBoundsFrom:&bounds with:c];
-	[self expandBoundsFrom:&(pointsDescrInTrack[nTrackSeg-1].bounds) with:c];
-	paths[nTrackSeg-1][pointsDescrInTrack[nTrackSeg-1].realNumberOfPoints - 1] = c;
-	
-	addTrackSegOnNextPoint = NO;
-}
-
-- (void)allocNewPointInfos
-{
-	nTrackSeg = 0;
-	addTrackSegOnNextPoint = YES;
-	paths = mallocTable(nTrackSeg, sizeof(CLLocationCoordinate2D *));
-	pointsDescrInTrack = mallocTable(nTrackSeg, sizeof(VSOArrayOfPointsDescr));
-}
-
-- (void)freePointsInfos
-{
-	free2DTable((void **)paths, nTrackSeg); paths = NULL;
-	free(pointsDescrInTrack); pointsDescrInTrack = NULL;
-}
-
-- (NSData *)dataFromMapRegion
-{
-	MKCoordinateRegion r = [mapView region];
-	/* We save the region with a delta, else, because of rounding problems, it is always too big */
-	r.span.latitudeDelta  -= r.span.latitudeDelta*0.15;
-	r.span.longitudeDelta -= r.span.longitudeDelta*0.15;
-	return [NSData dataWithBytes:&r length:sizeof(MKCoordinateRegion)];
-}
-
-- (MKCoordinateRegion)regionFromData:(NSData *)dta
-{
-	if (!dta) return [mapView region];
-	return *(MKCoordinateRegion*)[dta bytes];
-}
-
-@end
-
 #pragma mark -
 @implementation VSOMapViewController
 	
@@ -174,6 +70,34 @@
 	}
 	
 	return self;
+}
+
+- (void)viewDidLoad
+{
+	[super viewDidLoad];
+	NSDLog(@"viewDidLoad in VSOMapViewController");
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChanged:) name:VSO_NTF_SETTINGS_CHANGED object:nil];
+	
+	pathAnnotation = [VSOAnnotation new];
+	[mapView addAnnotation:pathAnnotation];
+	if (showUL) {
+		curLocAnnotation = [VSOAnnotation new];
+		[mapView addAnnotation:curLocAnnotation];
+	} else curLocAnnotation = nil;
+	mapView.delegate = self;
+	
+	mapViewRegionZoomedOnce = NO;
+	NSData *regionDta = [[NSUserDefaults standardUserDefaults] valueForKey:VSO_UDK_MAP_REGION];
+	if (regionDta != nil) {
+		settingMapViewRegionByProg = YES;
+		mapView.region = [self regionFromData:regionDta];
+		mapViewRegionZoomedOnce = YES;
+	}
+	mapViewRegionRestored = YES;
+	
+	[self settingsChanged:nil];
+	[self refreshInfos];
 }
 
 - (void)settingsChanged:(NSNotification *)n
@@ -399,35 +323,6 @@ end:
 	else                       [mapView setCenterCoordinate:currentLocation.coordinate animated:YES];
 }
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
-	[super viewDidLoad];
-	NSDLog(@"viewDidLoad in VSOMapViewController");
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChanged:) name:VSO_NTF_SETTINGS_CHANGED object:nil];
-	
-	pathAnnotation = [VSOAnnotation new];
-	[mapView addAnnotation:pathAnnotation];
-	if (showUL) {
-		curLocAnnotation = [VSOAnnotation new];
-		[mapView addAnnotation:curLocAnnotation];
-	} else curLocAnnotation = nil;
-	mapView.delegate = self;
-	
-	mapViewRegionZoomedOnce = NO;
-	NSData *regionDta = [[NSUserDefaults standardUserDefaults] valueForKey:VSO_UDK_MAP_REGION];
-	if (regionDta != nil) {
-		settingMapViewRegionByProg = YES;
-		mapView.region = [self regionFromData:regionDta];
-		mapViewRegionZoomedOnce = YES;
-	}
-	mapViewRegionRestored = YES;
-	
-	[self settingsChanged:nil];
-	[self refreshInfos];
-}
-
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
 	if (buttonIndex != [alertView cancelButtonIndex])
@@ -461,6 +356,112 @@ end:
 	if (pathAnnotation != nil) [mapView removeAnnotation:pathAnnotation];
 	
 	mapView.delegate = nil;
+}
+
+@end
+
+
+
+@implementation VSOMapViewController (Private)
+
+- (BOOL)isCurLocOnBordersOfMap
+{
+	CGPoint p = [mapView convertCoordinate:currentLocation.coordinate toPointToView:mapView];
+	if (p.x < mapView.frame.size.width  * PERCENT_FOR_MAP_BORDER/100.) return YES;
+	if (p.y < mapView.frame.size.height * PERCENT_FOR_MAP_BORDER/100.) return YES;
+	if (p.x > mapView.frame.size.width  - mapView.frame.size.width  * PERCENT_FOR_MAP_BORDER/100.) return YES;
+	if (p.y > mapView.frame.size.height - mapView.frame.size.height * PERCENT_FOR_MAP_BORDER/100.) return YES;
+	
+	return NO;
+}
+
+- (void)expandBoundsFrom:(MKCoordinateRegion *)r with:(CLLocationCoordinate2D)c
+{
+	CLLocationDegrees d = c.latitude - (r->center.latitude - r->span.latitudeDelta/2.);
+	if (d < 0) {
+		r->center.latitude -= -d/2.;
+		r->span.latitudeDelta += -d;
+	}
+	d = c.longitude - (r->center.longitude-r->span.longitudeDelta/2.);
+	if (d < 0) {
+		r->center.longitude -= -d/2.;
+		r->span.longitudeDelta += -d;
+	}
+	d = (r->center.latitude+r->span.latitudeDelta/2.) - c.latitude;
+	if (d < 0) {
+		r->center.latitude += -d/2.;
+		r->span.latitudeDelta += -d;
+	}
+	d = (r->center.longitude+r->span.longitudeDelta/2.) - c.longitude;
+	if (d < 0) {
+		r->center.longitude += -d/2.;
+		r->span.longitudeDelta += -d;
+	}
+}
+
+- (void)addPointToDraw:(CLLocation *)l draw:(BOOL)shouldDraw
+{
+	CLLocationCoordinate2D c = l.coordinate;
+	if (shouldDraw) {
+		CGPoint p = [mapView convertCoordinate:c toPointToView:pathAnnotationView];
+		[pathAnnotationView addPoint:p createNewPath:addTrackSegOnNextPoint];
+		[pathAnnotationView setNeedsDisplay];
+	}
+	
+	if (nTrackSeg == 0) bounds = MKCoordinateRegionMakeWithDistance(c, DEFAULT_SPAN, DEFAULT_SPAN);
+	
+	if (addTrackSegOnNextPoint) {
+		/* Adding track segment */
+		nTrackSeg++;
+		paths              = realloc(paths, nTrackSeg*sizeof(CLLocationCoordinate2D *));
+		pointsDescrInTrack = realloc(pointsDescrInTrack, nTrackSeg*sizeof(VSOArrayOfPointsDescr));
+		
+		pointsDescrInTrack[nTrackSeg-1].bounds = MKCoordinateRegionMakeWithDistance(c, 0., 0.);
+		
+		pointsDescrInTrack[nTrackSeg-1].realNumberOfPoints = 0;
+		pointsDescrInTrack[nTrackSeg-1].bufferNumberOfPoints = N_POINTS_BUFFER_INCREMENT;
+		paths[nTrackSeg-1] = mallocTable(pointsDescrInTrack[nTrackSeg-1].bufferNumberOfPoints, sizeof(CLLocationCoordinate2D));
+	}
+	if (++(pointsDescrInTrack[nTrackSeg-1].realNumberOfPoints) > pointsDescrInTrack[nTrackSeg-1].bufferNumberOfPoints) {
+		/* More points than current buffer capacity. Increasing size of buffer */
+		pointsDescrInTrack[nTrackSeg-1].bufferNumberOfPoints += N_POINTS_BUFFER_INCREMENT;
+		paths[nTrackSeg-1] = realloc(paths[nTrackSeg-1], pointsDescrInTrack[nTrackSeg-1].bufferNumberOfPoints*sizeof(CLLocationCoordinate2D));
+	}
+	
+	[self expandBoundsFrom:&bounds with:c];
+	[self expandBoundsFrom:&(pointsDescrInTrack[nTrackSeg-1].bounds) with:c];
+	paths[nTrackSeg-1][pointsDescrInTrack[nTrackSeg-1].realNumberOfPoints - 1] = c;
+	
+	addTrackSegOnNextPoint = NO;
+}
+
+- (void)allocNewPointInfos
+{
+	nTrackSeg = 0;
+	addTrackSegOnNextPoint = YES;
+	paths = mallocTable(nTrackSeg, sizeof(CLLocationCoordinate2D *));
+	pointsDescrInTrack = mallocTable(nTrackSeg, sizeof(VSOArrayOfPointsDescr));
+}
+
+- (void)freePointsInfos
+{
+	free2DTable((void **)paths, nTrackSeg); paths = NULL;
+	free(pointsDescrInTrack); pointsDescrInTrack = NULL;
+}
+
+- (NSData *)dataFromMapRegion
+{
+	MKCoordinateRegion r = [mapView region];
+	/* We save the region with a delta, else, because of rounding problems, it is always too big */
+	r.span.latitudeDelta  -= r.span.latitudeDelta*0.15;
+	r.span.longitudeDelta -= r.span.longitudeDelta*0.15;
+	return [NSData dataWithBytes:&r length:sizeof(MKCoordinateRegion)];
+}
+
+- (MKCoordinateRegion)regionFromData:(NSData *)dta
+{
+	if (!dta) return [mapView region];
+	return *(MKCoordinateRegion*)[dta bytes];
 }
 
 @end
