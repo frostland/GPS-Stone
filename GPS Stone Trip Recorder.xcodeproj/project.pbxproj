@@ -417,6 +417,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = "Frost Land";
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = DVL8GW97S8;
