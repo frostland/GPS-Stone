@@ -40,7 +40,7 @@ NSString *NSStringFromDegrees(CLLocationDegrees d, BOOL lat) {
 	NSUInteger mins = (NSUInteger)minsDec;
 	CLLocationDegrees secsDec = (minsDec-mins)*60.;
 	
-	NSString *output = [NSString stringWithFormat:@"%d° %d’ %.5f” ", degs, mins, secsDec];
+	NSString *output = [NSString stringWithFormat:@"%lu° %lu’ %.5f” ", (unsigned long)degs, (unsigned long)mins, secsDec];
 	
 	NSString *suffix;
 	if (!neg) suffix = NSLocalizedString(lat? @"N": @"E", nil);
@@ -73,9 +73,9 @@ NSString *NSStringFromSpeed(CGFloat speed, BOOL showUnit) {
 
 NSString *NSStringFromTimeInterval(NSTimeInterval i) {
 	NSUInteger h, m, s;
-	h = i/3600, m = (i-h*3600)/60, s = i-h*3600-m*60;
+	h = i/3600; m = (i-h*3600)/60; s = i-h*3600-m*60;
 	
-	return [NSString stringWithFormat:@"%02d:%02d:%02d", h, m, s];
+	return [NSString stringWithFormat:@"%02lu:%02lu:%02lu", (unsigned long)h, (unsigned long)m, (unsigned long)s];
 }
 
 NSString *NSStringFromDistance(CLLocationDistance d) {
@@ -103,7 +103,7 @@ NSString *NSStringFromAltitude(CLLocationDistance a) {
 
 #pragma mark -
 /* *************************** */
-void *mallocTable(unsigned int size, size_t sizeOfElementsInTable) {
+void *mallocTable(size_t size, size_t sizeOfElementsInTable) {
 	void *b = malloc(size*sizeOfElementsInTable);
 	if (!b) {
 		fprintf(stderr, "Cannot malloc %ld bytes. Exiting now.\n", size*sizeOfElementsInTable);
@@ -113,34 +113,34 @@ void *mallocTable(unsigned int size, size_t sizeOfElementsInTable) {
 	return b;
 }
 
-void **malloc2DTable(unsigned int xSize, unsigned int ySize, size_t sizeOfElementsInTable) {
+void **malloc2DTable(size_t xSize, size_t ySize, size_t sizeOfElementsInTable) {
 	void **b = mallocTable(xSize, sizeof(void*));
 	
-	for (unsigned int i = 0; i<xSize; i++)
+	for (size_t i = 0; i<xSize; i++)
 		b[i] = mallocTable(ySize, sizeOfElementsInTable);
 	
 	return b;
 }
 
-void ***malloc3DTable(unsigned int xSize, unsigned int ySize, unsigned int zSize, size_t sizeOfElementsInTable) {
+void ***malloc3DTable(size_t xSize, size_t ySize, size_t zSize, size_t sizeOfElementsInTable) {
 	void ***b = (void ***)malloc2DTable(xSize, ySize, sizeof(void*));
 	
-	for (unsigned int i = 0; i<xSize; i++)
-		for (unsigned int j = 0; j<ySize; j++)
+	for (size_t i = 0; i<xSize; i++)
+		for (size_t j = 0; j<ySize; j++)
 			b[i][j] = mallocTable(zSize, sizeOfElementsInTable);
 	
 	return b;
 }
 
-void free2DTable(void **b, unsigned int xSize) {
-	for (unsigned int i = 0; i<xSize; i++)
+void free2DTable(void **b, size_t xSize) {
+	for (size_t i = 0; i<xSize; i++)
 		free(b[i]);
 	
 	free(b);
 }
 
-void free3DTable(void ***b, unsigned int xSize, unsigned int ySize) {
-	for (unsigned int i = 0; i<xSize; i++)
+void free3DTable(void ***b, size_t xSize, size_t ySize) {
+	for (size_t i = 0; i<xSize; i++)
 		free2DTable(b[i], ySize);
 	
 	free(b);

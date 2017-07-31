@@ -12,8 +12,6 @@
 		0F34802B10089A9700E88124 /* VSOMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F34802910089A9700E88124 /* VSOMapViewController.m */; };
 		0F3480DC1008A77B00E88124 /* VSOInfoViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3480DA1008A77B00E88124 /* VSOInfoViewCtrl.m */; };
 		0F3480F91008A83B00E88124 /* VSODetailsViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3480F71008A83B00E88124 /* VSODetailsViewCtrl.m */; };
-		0F34811C1008A93A00E88124 /* VSOScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F34811B1008A93A00E88124 /* VSOScrollView.m */; };
-		0F3774D6103D7F68009B7FAE /* VSOBlankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3774D5103D7F68009B7FAE /* VSOBlankView.m */; };
 		0F48CE5E1029AD88008C524D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F48CE5D1029AD88008C524D /* AddressBookUI.framework */; };
 		0F48CE7D1029AF9D008C524D /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F48CE7C1029AF9D008C524D /* AddressBook.framework */; };
 		0F577FCD1020811300067838 /* GPXgpxType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F577FCC1020811300067838 /* GPXgpxType.m */; };
@@ -27,7 +25,6 @@
 		0FB4B0FC10074B20005292C4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB4B0FB10074B20005292C4 /* MapKit.framework */; };
 		0FBBCBA9100A9F67003679A8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FBBCBA8100A9F67003679A8 /* CoreLocation.framework */; };
 		0FC907BE1023107F009EA1B1 /* VSORecordingsListViewCtlr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC907BC1023107F009EA1B1 /* VSORecordingsListViewCtlr.m */; };
-		0FD0628E102C6FCE0047414B /* VSOPathAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD0628D102C6FCE0047414B /* VSOPathAnnotationView.m */; };
 		0FE8B0DA10218740009A321A /* XMLDecimalElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B0D910218740009A321A /* XMLDecimalElement.m */; };
 		0FE8B11610218965009A321A /* GPXrteType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B11510218965009A321A /* GPXrteType.m */; };
 		0FE8B12C10218AFA009A321A /* XMLIntegerElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B12B10218AFA009A321A /* XMLIntegerElement.m */; };
@@ -46,8 +43,6 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765580DF743DE002DB57D /* CoreGraphics.framework */; };
-		289233A60DB2D0840083E9F9 /* VSOSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A30DB2D0840083E9F9 /* VSOSettingsView.m */; };
-		289233A70DB2D0840083E9F9 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A50DB2D0840083E9F9 /* MainView.m */; };
 		289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A90DB2D0DB0083E9F9 /* MainViewController.m */; };
 		289233B00DB2D0DB0083E9F9 /* VSOSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AD0DB2D0DB0083E9F9 /* VSOSettingsViewController.m */; };
 		7B27B9291DCDF6B1006F44B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */; };
@@ -69,10 +64,6 @@
 		0F3480DA1008A77B00E88124 /* VSOInfoViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOInfoViewCtrl.m; sourceTree = "<group>"; };
 		0F3480F61008A83B00E88124 /* VSODetailsViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSODetailsViewCtrl.h; sourceTree = "<group>"; };
 		0F3480F71008A83B00E88124 /* VSODetailsViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSODetailsViewCtrl.m; sourceTree = "<group>"; };
-		0F34811A1008A93A00E88124 /* VSOScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOScrollView.h; sourceTree = "<group>"; };
-		0F34811B1008A93A00E88124 /* VSOScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOScrollView.m; sourceTree = "<group>"; };
-		0F3774D4103D7F68009B7FAE /* VSOBlankView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOBlankView.h; sourceTree = "<group>"; };
-		0F3774D5103D7F68009B7FAE /* VSOBlankView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOBlankView.m; sourceTree = "<group>"; };
 		0F48CE5D1029AD88008C524D /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		0F48CE7C1029AF9D008C524D /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		0F577FCB1020811300067838 /* GPXgpxType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXgpxType.h; sourceTree = "<group>"; };
@@ -95,8 +86,6 @@
 		0FBBCBC6100A9FDD003679A8 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		0FC907BC1023107F009EA1B1 /* VSORecordingsListViewCtlr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSORecordingsListViewCtlr.m; sourceTree = "<group>"; };
 		0FC907BD1023107F009EA1B1 /* VSORecordingsListViewCtlr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSORecordingsListViewCtlr.h; sourceTree = "<group>"; };
-		0FD0628C102C6FCE0047414B /* VSOPathAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOPathAnnotationView.h; sourceTree = "<group>"; };
-		0FD0628D102C6FCE0047414B /* VSOPathAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOPathAnnotationView.m; sourceTree = "<group>"; };
 		0FE8B0D810218740009A321A /* XMLDecimalElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLDecimalElement.h; sourceTree = "<group>"; };
 		0FE8B0D910218740009A321A /* XMLDecimalElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLDecimalElement.m; sourceTree = "<group>"; };
 		0FE8B11410218965009A321A /* GPXrteType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXrteType.h; sourceTree = "<group>"; };
@@ -129,10 +118,6 @@
 		1D6058910D05DD3D006BFB54 /* GPS Stone Trip Recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GPS Stone Trip Recorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765580DF743DE002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		289233A20DB2D0840083E9F9 /* VSOSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOSettingsView.h; sourceTree = "<group>"; };
-		289233A30DB2D0840083E9F9 /* VSOSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOSettingsView.m; sourceTree = "<group>"; };
-		289233A40DB2D0840083E9F9 /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
-		289233A50DB2D0840083E9F9 /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
 		289233A80DB2D0DB0083E9F9 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		289233A90DB2D0DB0083E9F9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		289233AC0DB2D0DB0083E9F9 /* VSOSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOSettingsViewController.h; sourceTree = "<group>"; };
@@ -144,6 +129,7 @@
 		7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B482CE91DCA976E007B5ABC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7B63B7681E227E96001FA33C /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		7BA2A5EA1F2E013A0014603B /* Test Recording.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Test Recording.gpx"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* GPS_Stone_Trip_Recorder-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GPS_Stone_Trip_Recorder-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -190,17 +176,6 @@
 				0F34802910089A9700E88124 /* VSOMapViewController.m */,
 			);
 			path = "PageControl Controllers";
-			sourceTree = "<group>";
-		};
-		0F3481191008A92200E88124 /* General */ = {
-			isa = PBXGroup;
-			children = (
-				0FD0628C102C6FCE0047414B /* VSOPathAnnotationView.h */,
-				0FD0628D102C6FCE0047414B /* VSOPathAnnotationView.m */,
-				0F34811A1008A93A00E88124 /* VSOScrollView.h */,
-				0F34811B1008A93A00E88124 /* VSOScrollView.m */,
-			);
-			path = General;
 			sourceTree = "<group>";
 		};
 		0F577FC910207FBF00067838 /* GPX 1.1 Tree */ = {
@@ -261,8 +236,6 @@
 		281C6CD70DB2D82200F60ACC /* Settings View */ = {
 			isa = PBXGroup;
 			children = (
-				289233A20DB2D0840083E9F9 /* VSOSettingsView.h */,
-				289233A30DB2D0840083E9F9 /* VSOSettingsView.m */,
 				289233AC0DB2D0DB0083E9F9 /* VSOSettingsViewController.h */,
 				289233AD0DB2D0DB0083E9F9 /* VSOSettingsViewController.m */,
 			);
@@ -273,12 +246,8 @@
 			isa = PBXGroup;
 			children = (
 				0F3480261008996800E88124 /* PageControl Controllers */,
-				289233A40DB2D0840083E9F9 /* MainView.h */,
-				289233A50DB2D0840083E9F9 /* MainView.m */,
 				289233A80DB2D0DB0083E9F9 /* MainViewController.h */,
 				289233A90DB2D0DB0083E9F9 /* MainViewController.m */,
-				0F3774D4103D7F68009B7FAE /* VSOBlankView.h */,
-				0F3774D5103D7F68009B7FAE /* VSOBlankView.m */,
 			);
 			path = "Main View";
 			sourceTree = "<group>";
@@ -287,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				0F2EE638102330820002BB25 /* Dev Notes.rtf */,
+				7BA2A5EA1F2E013A0014603B /* Test Recording.gpx */,
 				7B27B9311DCF3D81006F44B7 /* GPS Stone Trip Recorder */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -344,7 +314,6 @@
 			children = (
 				7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */,
 				7B482CE81DCA975F007B5ABC /* Main.storyboard */,
-				0F3481191008A92200E88124 /* General */,
 				289233A00DB2D0730083E9F9 /* Main View */,
 				0F2B6084102842C500FC0595 /* Recordings List */,
 				281C6CD70DB2D82200F60ACC /* Settings View */,
@@ -416,7 +385,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Frost Land";
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
@@ -468,14 +437,11 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.m in Sources */,
-				289233A60DB2D0840083E9F9 /* VSOSettingsView.m in Sources */,
-				289233A70DB2D0840083E9F9 /* MainView.m in Sources */,
 				289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */,
 				289233B00DB2D0DB0083E9F9 /* VSOSettingsViewController.m in Sources */,
 				0F34802B10089A9700E88124 /* VSOMapViewController.m in Sources */,
 				0F3480DC1008A77B00E88124 /* VSOInfoViewCtrl.m in Sources */,
 				0F3480F91008A83B00E88124 /* VSODetailsViewCtrl.m in Sources */,
-				0F34811C1008A93A00E88124 /* VSOScrollView.m in Sources */,
 				0F79F6A010203DAE00AF7FF1 /* VSOUtils.m in Sources */,
 				0F577FCD1020811300067838 /* GPXgpxType.m in Sources */,
 				0F577FD01020816D00067838 /* XMLElement.m in Sources */,
@@ -499,8 +465,6 @@
 				0FC907BE1023107F009EA1B1 /* VSORecordingsListViewCtlr.m in Sources */,
 				0F2B6089102842F300FC0595 /* VSORecordingDetailViewCtrl.m in Sources */,
 				0F13A60F102AE7E800D1C9BE /* VSOInfoGenericController.m in Sources */,
-				0FD0628E102C6FCE0047414B /* VSOPathAnnotationView.m in Sources */,
-				0F3774D6103D7F68009B7FAE /* VSOBlankView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,12 +495,18 @@
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -608,12 +578,18 @@
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -639,12 +615,18 @@
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

@@ -9,18 +9,7 @@
 #import <MapKit/MapKit.h>
 #import <UIKit/UIKit.h>
 
-#import "VSOPathAnnotationView.h"
-
 #import "VSOInfoGenericController.h"
-
-
-
-@interface VSOAnnotation : NSObject <MKMutableAnnotation> {
-	CLLocationCoordinate2D coordinate;
-}
-@property(nonatomic) CLLocationCoordinate2D coordinate;
-
-@end
 
 
 
@@ -36,10 +25,9 @@ typedef struct VSOArrayOfPointsDescr {
 @interface VSOMapViewController : VSOInfoGenericController <MKMapViewDelegate> {
 	IBOutlet UIButton *buttonCenterMapOnCurLoc;
 	IBOutlet MKMapView *mapView;
-	VSOAnnotation *curLocAnnotation, *pathAnnotation;
 	
-	VSOCurLocationAnnotationView *curLocAnnotationView;
-	VSOPathAnnotationView *pathAnnotationView;
+	MKPolyline *latestPolyline;
+	MKOverlayPathRenderer *pathRenderer;
 	
 	BOOL showUL;
 	BOOL followingUserLoc;
@@ -63,7 +51,7 @@ typedef struct VSOArrayOfPointsDescr {
 @property() BOOL showUL;
 @property() BOOL followULCentersOnTrip;
 - (void)initDrawnPathWithCurrentGPX;
-- (void)redrawAllPointsOnMap;
+- (void)redrawLastSegmentOnMap;
 
 - (IBAction)centerMapOnCurLoc:(id)sender;
 

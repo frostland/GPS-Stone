@@ -12,8 +12,6 @@
 #import "VSODetailsViewCtrl.h"
 #import "VSOMapViewController.h"
 #import "VSOInfoViewCtrl.h"
-#import "VSOScrollView.h"
-#import "VSOBlankView.h"
 
 #import "GPXgpxType.h"
 #import "Constants.h"
@@ -22,11 +20,8 @@
 
 /* Note: The code to manage the pages is found in the sample codes of Apple (sample named PageControl) */
 
-#define SIMULATOR_CODE
-#undef SIMULATOR_CODE
-
 @interface MainViewController : UIViewController <VSOSettingsViewControllerDelegate, VSORecordingsListViewControllerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, VSOInfoGenericControllerDelegate> {
-	IBOutlet VSOScrollView *pagesView;
+	IBOutlet UIScrollView *pagesView;
 	IBOutlet UIPageControl *pageControl;
 	
 	IBOutlet UIButton *buttonRecord;
@@ -38,16 +33,12 @@
 	IBOutlet UILabel *labelMiniInfosRecordingState;
 	
 	/* To manage the pages */
-	int selPage;
+	NSInteger selPage;
 	BOOL pageControlUsed;
 	NSArray *ctrlClassesForPages;
 	NSMutableArray *viewControllers;
 	NSMutableArray *viewControllersStates;
 	NSTimer *timerToUnloadUnusedPages;
-	
-	NSTimer *timerToTurnOffScreen;
-	VSOBlankView *viewBlankScreen;
-	int selPageBeforeShuttingScreenOff;
 	
 	NSMutableArray *recordingList;
 	
@@ -65,13 +56,10 @@
 	NSTimer *timerToRefreshTimes;
 	
 	BOOL alertIsForStop;
-	
-#ifdef SIMULATOR_CODE
-	NSTimer *t;
-	CLLocationCoordinate2D coordinate;
-#endif
 }
-@property(nonatomic, assign) int selPage;
+
+@property(nonatomic, assign) NSInteger selPage;
+
 - (IBAction)showInfo;
 - (IBAction)changePage:(id)sender;
 

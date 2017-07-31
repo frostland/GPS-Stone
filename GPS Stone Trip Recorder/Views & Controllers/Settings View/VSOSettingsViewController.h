@@ -29,7 +29,6 @@
 - (IBAction)mapTypeChanged:(id)sender;
 - (IBAction)minDistChanged:(id)sender;
 - (IBAction)minTimeChanged:(id)sender;
-- (IBAction)timeBeforeSreenTurningOffChanged:(id)sender;
 
 - (IBAction)skipNonAccuratePointsValueChanged:(id)sender;
 - (IBAction)metricMeasuresValueChanged:(id)sender;

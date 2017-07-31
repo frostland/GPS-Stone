@@ -55,7 +55,7 @@
 	[textFieldName setText:[_recordingInfos valueForKey:VSO_REC_LIST_NAME_KEY]];
 	
 	mapViewController = [VSOMapViewController instantiateWithGPX:gpx location:nil];
-	mapViewController.showUL = NO;
+	mapViewController.showUL = YES;
 	
 	CGRect frame = viewWithMap.frame;
 	frame.origin.x = 0;
@@ -135,7 +135,7 @@
 		[ctrl addAttachmentData:[NSData dataWithContentsOfFile:fullPathFromRelativeForGPXFile([_recordingInfos valueForKey:VSO_REC_LIST_PATH_KEY])]
 							mimeType:@"application/octet-stream" fileName:[NSString stringWithFormat:@"%@.gpx", [_recordingInfos valueForKey:VSO_REC_LIST_NAME_KEY]]];
 		
-		[self presentModalViewController:ctrl animated:YES];
+		[self presentViewController:ctrl animated:YES completion:NULL];
 	} else {
 		sentWithiPhone = NO;
 		
@@ -147,13 +147,13 @@
 		else                                               [textFieldDestEmails becomeFirstResponder];
 		
 		chooseMailCtrl.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-		[self presentModalViewController:chooseMailCtrl animated:YES];
+		[self presentViewController:chooseMailCtrl animated:YES completion:NULL];
 	}
 }
 
 - (IBAction)cancel:(id)sender
 {
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)didReceiveMemoryWarning {

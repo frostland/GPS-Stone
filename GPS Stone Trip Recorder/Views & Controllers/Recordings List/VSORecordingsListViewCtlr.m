@@ -62,7 +62,7 @@
 
 - (void)recordingsDetailViewControllerDidFinish:(VSORecordingDetailViewCtrl *)controller
 {
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

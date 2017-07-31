@@ -18,7 +18,7 @@
 
 @protocol VSORecordingDetailViewCtrlDelegate;
 
-@interface VSORecordingDetailViewCtrl : UIViewController <UITextFieldDelegate, ABPeoplePickerNavigationControllerDelegate, MFMailComposeViewControllerDelegate> {
+@interface VSORecordingDetailViewCtrl : UIViewController <UITextFieldDelegate, ABPeoplePickerNavigationControllerDelegate, MFMailComposeViewControllerDelegate, NSXMLParserDelegate> {
 	IBOutlet UIView *viewSendingMail;
 	IBOutlet UIView *viewWithMap;
 	IBOutlet UIView *viewChooseMail;

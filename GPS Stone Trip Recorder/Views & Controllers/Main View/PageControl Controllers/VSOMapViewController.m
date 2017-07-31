@@ -13,18 +13,6 @@
 #import "MainViewController.h"
 
 
-
-@implementation VSOAnnotation
-
-@synthesize coordinate;
-
-- (void)dealloc
-{
-	NSDLog(@"Deallocing a VSOAnnotation");
-}
-
-@end
-
 #define DEFAULT_SPAN 3000.
 #define PERCENT_FOR_MAP_BORDER 15
 #define N_POINTS_BUFFER_INCREMENT 500
@@ -56,9 +44,9 @@
 	return YES;
 }
 
-- (id)init
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-	if ((self = [super init]) != nil) {
+	if ((self = [super initWithCoder:aDecoder]) != nil) {
 		[self allocNewPointInfos];
 		
 		showUL = YES;
@@ -77,18 +65,13 @@
 	[super viewDidLoad];
 	NSDLog(@"viewDidLoad in VSOMapViewController");
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChanged:) name:VSO_NTF_SETTINGS_CHANGED object:nil];
+	[NSNotificationCenter.defaultCenter addObserver:self selector:@selector(settingsChanged:) name:VSO_NTF_SETTINGS_CHANGED object:nil];
 	
-	pathAnnotation = [VSOAnnotation new];
-	[mapView addAnnotation:pathAnnotation];
-	if (showUL) {
-		curLocAnnotation = [VSOAnnotation new];
-		[mapView addAnnotation:curLocAnnotation];
-	} else curLocAnnotation = nil;
 	mapView.delegate = self;
+	mapView.showsUserLocation = showUL;
 	
 	mapViewRegionZoomedOnce = NO;
-	NSData *regionDta = [[NSUserDefaults standardUserDefaults] valueForKey:VSO_UDK_MAP_REGION];
+	NSData *regionDta = [NSUserDefaults.standardUserDefaults valueForKey:VSO_UDK_MAP_REGION];
 	if (regionDta != nil) {
 		settingMapViewRegionByProg = YES;
 		mapView.region = [self regionFromData:regionDta];
@@ -102,9 +85,7 @@
 
 - (void)settingsChanged:(NSNotification *)n
 {
-	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-	
-	mapView.mapType = [ud integerForKey:VSO_UDK_MAP_TYPE];
+	mapView.mapType = [NSUserDefaults.standardUserDefaults integerForKey:VSO_UDK_MAP_TYPE];
 }
 
 - (void)initDrawnPathWithCurrentGPX
@@ -120,37 +101,24 @@
 	NSDLog(@"bounds: {{%g, %g}, {%g, %g}}", bounds.center.latitude, bounds.center.longitude, bounds.span.latitudeDelta, bounds.span.longitudeDelta);
 }
 
-- (void)redrawAllPointsOnMap
+- (void)redrawLastSegmentOnMap
 {
-	[pathAnnotationView clearDrawnPoints];
-	
-	for (NSUInteger i = 0; i<nTrackSeg; i++) [pathAnnotationView addCoords:paths[i] nCoords:pointsDescrInTrack[i].realNumberOfPoints bounds:pointsDescrInTrack[i].bounds];
-}
-
-- (void)refreshCurLocPrecision
-{
-	[curLocAnnotationView setPrecision:[mapView convertRegion:MKCoordinateRegionMakeWithDistance(currentLocation.coordinate, currentLocation.horizontalAccuracy, currentLocation.horizontalAccuracy) toRectToView:curLocAnnotationView].size.width];
+	if (latestPolyline != nil) [mapView removeOverlay:latestPolyline];
+	if (nTrackSeg > 0 && pointsDescrInTrack[nTrackSeg-1].realNumberOfPoints > 1) {
+		latestPolyline = [MKPolyline polylineWithCoordinates:paths[nTrackSeg-1] count:pointsDescrInTrack[nTrackSeg-1].realNumberOfPoints];
+		[mapView addOverlay:latestPolyline];
+	}
 }
 
 - (void)refreshInfos
 {
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:VSO_ANIM_TIME];
-	[UIView setAnimationBeginsFromCurrentState:YES];
-	
-	/* Refreshes the current user location annotation view */
-	curLocAnnotation.coordinate = currentLocation.coordinate;
-	[self refreshCurLocPrecision];
-	
-	[UIView commitAnimations];
-	
-	[pathAnnotationView setNeedsDisplay];
+//	[pathAnnotationView setNeedsDisplay];
 }
 
 - (void)setCurrentLocation:(CLLocation *)cl
 {
 	[super setCurrentLocation:cl];
-	if (currentLocation == nil || !showUL) return;
+	if (currentLocation == nil) return;
 	
 	if (nTrackSeg == 0) bounds = MKCoordinateRegionMakeWithDistance(currentLocation.coordinate, DEFAULT_SPAN, DEFAULT_SPAN);
 	
@@ -179,7 +147,7 @@ end:
 - (void)recordingStateChangedFrom:(VSORecordState)previousState to:(VSORecordState)newState
 {
 	if (previousState == VSORecordStateStopped && (newState == VSORecordStateWaitingGPS || newState == VSORecordStateRecording)) {
-		[pathAnnotationView clearDrawnPoints];
+		[mapView removeOverlays:mapView.overlays];
 		
 		[self freePointsInfos];
 		[self allocNewPointInfos];
@@ -188,29 +156,18 @@ end:
 	}
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mpV viewForAnnotation:(id <MKAnnotation>)ann
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
 {
-	if (ann == curLocAnnotation) {
-		// Try to dequeue an existing loc annotation view first
-		curLocAnnotationView = (VSOCurLocationAnnotationView *)[mpV dequeueReusableAnnotationViewWithIdentifier:@"CurLocAnnotation"];
-		
-		if (!curLocAnnotationView) curLocAnnotationView = [[VSOCurLocationAnnotationView alloc] initWithAnnotation:curLocAnnotation reuseIdentifier:@"CurLocAnnotation"];
-		else                       curLocAnnotationView.annotation = curLocAnnotation;
-		
-		return curLocAnnotationView;
-	} else if (ann == pathAnnotation) {
-		// Try to dequeue an existing path annotation view first
-		pathAnnotationView = (VSOPathAnnotationView *)[mpV dequeueReusableAnnotationViewWithIdentifier:@"PathAnnotation"];
-		
-		if (!pathAnnotationView) pathAnnotationView = [[VSOPathAnnotationView alloc] initWithAnnotation:pathAnnotation reuseIdentifier:@"PathAnnotation"];
-		else                     pathAnnotationView.annotation = pathAnnotation;
-		
-		pathAnnotationView.map = mpV;
-		[self redrawAllPointsOnMap];
-		
-		return pathAnnotationView;
+	if ([overlay isKindOfClass:MKPolyline.class]) {
+		pathRenderer = [[MKPolylineRenderer alloc] initWithPolyline:(MKPolyline *)overlay];
+		pathRenderer.strokeColor = [UIColor colorWithRed:92./255. green:43./255. blue:153./255. alpha:0.75];
+		pathRenderer.lineWidth = 5.;
+		if ([mapView.overlays indexOfObjectIdenticalTo:overlay]%2 == 1) {
+			/* This is the overlay for a pause */
+			pathRenderer.lineDashPattern = @[@12, @16];
+		}
+		return pathRenderer;
 	}
-	
 	return nil;
 }
 
@@ -221,20 +178,11 @@ end:
 
 - (void)mapView:(MKMapView *)mpV regionDidChangeAnimated:(BOOL)animated
 {
-	if (mapViewRegionRestored) [[NSUserDefaults standardUserDefaults] setValue:[self dataFromMapRegion] forKey:VSO_UDK_MAP_REGION];
+	if (mapViewRegionRestored) [NSUserDefaults.standardUserDefaults setValue:self.dataFromMapRegion forKey:VSO_UDK_MAP_REGION];
 	
 	MKCoordinateSpan curSpan = [mpV region].span;
 	if (ABS(1. - curSpan.latitudeDelta/ previousRegionSpan.latitudeDelta)  > 0.01 ||
 		 ABS(1. - curSpan.longitudeDelta/previousRegionSpan.longitudeDelta) > 0.01) {
-		/* The scale of the map changed: The points must be redrawn */
-		NSDLog(@"The scale of the map changed. Redrawing points and refreshing loc accuracy.");
-		[self redrawAllPointsOnMap];
-		
-		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:VSO_ANIM_TIME];
-		[UIView setAnimationBeginsFromCurrentState:YES];
-		[self refreshCurLocPrecision];
-		[UIView commitAnimations];
 	} else {
 		if (!settingMapViewRegionByProg) {
 			followingUserLoc = NO;
@@ -310,7 +258,7 @@ end:
 	}
 	[(NSMutableDictionary*)currentRecordingInfo removeObjectForKey:VSO_REC_LIST_STORED_POINTS_FOR_CLASS_KEY([self class])];
 	
-	[self redrawAllPointsOnMap];
+	[self redrawLastSegmentOnMap];
 }
 
 - (IBAction)centerMapOnCurLoc:(id)sender
@@ -352,10 +300,8 @@ end:
 	[self freePointsInfos];
 	[timerToForceFollowUL invalidate]; timerToForceFollowUL = nil;
 	
-	if (curLocAnnotation != nil) [mapView removeAnnotation:curLocAnnotation];
-	if (pathAnnotation != nil) [mapView removeAnnotation:pathAnnotation];
-	
 	mapView.delegate = nil;
+	[mapView removeOverlays:mapView.overlays];
 }
 
 @end
@@ -402,16 +348,22 @@ end:
 - (void)addPointToDraw:(CLLocation *)l draw:(BOOL)shouldDraw
 {
 	CLLocationCoordinate2D c = l.coordinate;
-	if (shouldDraw) {
-		CGPoint p = [mapView convertCoordinate:c toPointToView:pathAnnotationView];
-		[pathAnnotationView addPoint:p createNewPath:addTrackSegOnNextPoint];
-		[pathAnnotationView setNeedsDisplay];
-	}
 	
 	if (nTrackSeg == 0) bounds = MKCoordinateRegionMakeWithDistance(c, DEFAULT_SPAN, DEFAULT_SPAN);
 	
 	if (addTrackSegOnNextPoint) {
 		/* Adding track segment */
+		[self redrawLastSegmentOnMap];
+		latestPolyline = nil;
+		if (nTrackSeg > 0) {
+			CLLocationCoordinate2D coordinates[] = {
+				paths[nTrackSeg-1][pointsDescrInTrack[nTrackSeg-1].realNumberOfPoints-1],
+				l.coordinate
+			};
+			MKPolyline *polyline = [MKPolyline polylineWithCoordinates:coordinates count:2];
+			[mapView addOverlay:polyline];
+		}
+		
 		nTrackSeg++;
 		paths              = realloc(paths, nTrackSeg*sizeof(CLLocationCoordinate2D *));
 		pointsDescrInTrack = realloc(pointsDescrInTrack, nTrackSeg*sizeof(VSOArrayOfPointsDescr));
@@ -433,6 +385,7 @@ end:
 	paths[nTrackSeg-1][pointsDescrInTrack[nTrackSeg-1].realNumberOfPoints - 1] = c;
 	
 	addTrackSegOnNextPoint = NO;
+	if (shouldDraw) [self redrawLastSegmentOnMap];
 }
 
 - (void)allocNewPointInfos
@@ -452,9 +405,8 @@ end:
 - (NSData *)dataFromMapRegion
 {
 	MKCoordinateRegion r = [mapView region];
-	/* We save the region with a delta, else, because of rounding problems, it is always too big */
-	r.span.latitudeDelta  -= r.span.latitudeDelta*0.15;
-	r.span.longitudeDelta -= r.span.longitudeDelta*0.15;
+	r.span.latitudeDelta  -= r.span.latitudeDelta;
+	r.span.longitudeDelta -= r.span.longitudeDelta;
 	return [NSData dataWithBytes:&r length:sizeof(MKCoordinateRegion)];
 }
 

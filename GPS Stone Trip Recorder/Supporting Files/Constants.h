@@ -71,10 +71,8 @@ typedef enum VSODistanceUnit {
 #define VSO_UDK_MEMORY_WARNING_PATH_CUT_SHOWN @"VSO Path Cut Memory Warning Shown"
 #define VSO_UDK_MIN_PATH_DISTANCE @"VSO Min Distance Before Adding Point" /* Value is in meter */
 #define VSO_UDK_MIN_TIME_FOR_UPDATE @"VSO Min Time Between Updates" /* Value is in second */
-#define VSO_UDK_TURN_OFF_SCREEN_DELAY @"VSO Delay Before Turning Off Screen (0 to disable screen turning off)" /* Value is in seconds */
 #define VSO_UDK_DISTANCE_UNIT @"VSO Distance Unit"
 #define VSO_UDK_USER_EMAIL @"VSO User eMail"
 
 /* Constants for the names of the notifications */
 #define VSO_NTF_SETTINGS_CHANGED @"VSO App Settings Changed"
-#define VSO_NTF_VIEW_TOUCHED @"VSO View Touched"

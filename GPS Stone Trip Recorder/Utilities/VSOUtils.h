@@ -40,7 +40,7 @@
 #endif
 
 
-BOOL isDeviceScreenTallerThanOriginalIPhone();
+BOOL isDeviceScreenTallerThanOriginalIPhone(void);
 
 NSString *fullPathFromRelativeForGPXFile(NSString *relativePath);
 NSString *relativePathFromFullForGPXFile(NSString *fullPath);
@@ -57,9 +57,9 @@ NSString *NSStringFromTimeInterval(NSTimeInterval i);
 NSString *NSStringFromDistance(CLLocationDistance d);
 NSString *NSStringFromAltitude(CLLocationDistance a);
 
-void *mallocTable(unsigned int size, size_t sizeOfElementsInTable);
-void **malloc2DTable(unsigned int xSize, unsigned int ySize, size_t sizeOfElementsInTable);
-void ***malloc3DTable(unsigned int xSize, unsigned int ySize, unsigned int zSize, size_t sizeOfElementsInTable);
+void *mallocTable(size_t size, size_t sizeOfElementsInTable);
+void **malloc2DTable(size_t xSize, size_t ySize, size_t sizeOfElementsInTable);
+void ***malloc3DTable(size_t xSize, size_t ySize, size_t zSize, size_t sizeOfElementsInTable);
 
-void free2DTable(void **b, unsigned int xSize);
-void free3DTable(void ***b, unsigned int xSize, unsigned int ySize);
+void free2DTable(void **b, size_t xSize);
+void free3DTable(void ***b, size_t xSize, size_t ySize);

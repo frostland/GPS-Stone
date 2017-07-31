@@ -7,7 +7,6 @@
  */
 
 #import "MainViewController.h"
-#import "MainView.h"
 
 #import "VSOUtils.h"
 
@@ -19,10 +18,6 @@
 
 - (void)loadPreviousRecordingList;
 - (void)saveCurrentGpx;
-
-#ifdef SIMULATOR_CODE
-- (void)refreshFalseLocation:(NSTimer *)t;
-#endif
 
 - (void)updateUI;
 - (void)selectPage:(NSInteger)p animated:(BOOL)animate;
@@ -40,8 +35,6 @@
 - (void)refreshHeadingInfos;
 - (void)refreshCurrentSpeedAverage;
 - (void)refreshTimes:(NSTimer *)t;
-
-- (void)resetIdleTimer:(NSNotification *)n;
 
 @end
 
@@ -72,7 +65,7 @@
 		return;
 	}
 	recordingList = [NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:VSO_PATH_TO_GPX_LIST]];
-	if ([recordingList count] == 0) {
+	if (recordingList.count == 0) {
 		assert(![fm fileExistsAtPath:VSO_PATH_TO_PAUSED_REC_WITNESS]);
 		return;
 	}
@@ -135,21 +128,6 @@
 	
 	[recordingList insertObject:currentRecordingInfo atIndex:0];
 }
-
-#ifdef SIMULATOR_CODE
-/* Simulator code (location generation) */
-
-- (void)refreshFalseLocation:(NSTimer *)t
-{
-	CGFloat md = 0.00003*105;
-	/*	if ([[currentRecordingInfo valueForKey:VSO_REC_LIST_N_REG_POINTS_KEY] unsignedIntValue] > 10) return;*/
-	coordinate.latitude  -= ((((CGFloat)random()/RAND_MAX) * (md*2.)) - md);
-	coordinate.longitude -= ((((CGFloat)random()/RAND_MAX) * (md*2.)) - md);
-	
-	CLLocation *newLoc = [[CLLocation alloc] initWithCoordinate:coordinate altitude:((CGFloat)random() / RAND_MAX)*200. - 100. horizontalAccuracy:((CGFloat)random() / RAND_MAX)*0 + 0 verticalAccuracy:((CGFloat)random() / RAND_MAX)*1.5 + 0.5 timestamp:[NSDate dateWithTimeIntervalSinceNow:0]];
-	[self locationManager:nil didUpdateToLocation:[[newLoc copy] autorelease] fromLocation:[[currentLocation copy] autorelease]];
-}
-#endif
 
 - (void)selectPage:(NSInteger)p animated:(BOOL)animate
 {
@@ -232,7 +210,7 @@
 		default: NSLog(@"What are we doing here??? (in updateUI of the main view controller)");
 	}
 	
-	buttonRecord.enabled = ([locationManager locationServicesEnabled] && recordState != VSORecordStateWaitingGPS);
+	buttonRecord.enabled = (locationManager.locationServicesEnabled && recordState != VSORecordStateWaitingGPS);
 	
 	labelMiniInfosRecordingState.hidden = !(recordState == VSORecordStatePaused || recordState == VSORecordStateWaitingGPS);
 	labelMiniInfosRecordTime.hidden = !(recordState == VSORecordStateRecording);
@@ -339,46 +317,6 @@
 			[curCtrl recordingStateChangedFrom:previousRecordState to:recordState];
 }
 
-- (void)showBlankScreen:(NSTimer *)t
-{
-	[timerToTurnOffScreen invalidate]; timerToTurnOffScreen = nil;
-	
-	if (viewBlankScreen.superview != nil || ![UIDevice currentDevice].proximityMonitoringEnabled) {
-		/* The screen is blanked, or the proximity monitoring is disabled. We have nothing to do. */
-		if (![UIDevice currentDevice].proximityMonitoringEnabled) NSDLog(@"Power saving mode disabled...");
-		return;
-	}
-	
-	NSDLog(@"Showing Blank Screen...");
-	
-	selPageBeforeShuttingScreenOff = selPage;
-	
-	selPage = 0;
-	[self selectPage:0 animated:NO];
-	[self unloadAllUnusedScrollViewPageController];
-	
-	[self.view addSubview:viewBlankScreen];
-	[viewBlankScreen showMsg];
-	[[UIApplication sharedApplication] setStatusBarHidden:YES];
-}
-
-- (void)resetIdleTimer:(NSNotification *)n
-{
-	NSDLog(@"Resetting idle timer...");
-	NSTimeInterval ti = [[NSUserDefaults standardUserDefaults] doubleForKey:VSO_UDK_TURN_OFF_SCREEN_DELAY];
-	NSDLog(@"Idle time is %g", ti);
-	
-	if (viewBlankScreen.superview != nil) {
-		/* The screen is blanked */
-		selPage = selPageBeforeShuttingScreenOff;
-		[self selectPage:selPageBeforeShuttingScreenOff animated:NO];
-	}
-	if (ti == 0) return;
-	
-	[timerToTurnOffScreen invalidate];
-	timerToTurnOffScreen = [NSTimer scheduledTimerWithTimeInterval:ti target:self selector:@selector(showBlankScreen:) userInfo:NULL repeats:NO];
-}
-
 - (void)screenLockNotification:(NSNotification *)n
 {
 	NSDLog(@"Screen Locked");
@@ -392,7 +330,7 @@
 {
 	NSDLog(@"Screen Unlocked");
 	if (recordState == VSORecordStateScreenLocked) {
-		NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+		NSUserDefaults *ud = NSUserDefaults.standardUserDefaults;
 		if ([ud boolForKey:VSO_UDK_FIRST_UNLOCK])
 			[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"lock screen msg title", nil) message:NSLocalizedString(@"lock screen info", nil)
 												delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] show];
@@ -532,7 +470,6 @@
 	pagesView.showsHorizontalScrollIndicator = NO;
 	pagesView.showsVerticalScrollIndicator = NO;
 	pagesView.scrollsToTop = NO;
-	pagesView.delayScroll = NO;
 	pagesView.delegate = self;
 	
 	selPage = [NSUserDefaults.standardUserDefaults integerForKey:VSO_UDK_SELECTED_PAGE];
@@ -542,31 +479,19 @@
 	[buttonRecord setAdjustsImageWhenDisabled:YES];
 	
 	/***************** Location Manager *****************/
-#ifndef SIMULATOR_CODE
 	[locationManager startUpdatingLocation];
 	[locationManager startUpdatingHeading];
-#else
-	srandom(time(NULL));
-	coordinate.latitude  = 43.603695;
-	coordinate.longitude = 1.435905;
-	[self refreshFalseLocation:nil];
-	t = [[NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(refreshFalseLocation:) userInfo:nil repeats:YES] retain];
-#endif
 	
-	viewBlankScreen = [[VSOBlankView alloc] initWithFrame:self.view.bounds];
-	
-	[UIDevice currentDevice].proximityMonitoringEnabled = YES;
+	UIDevice.currentDevice.proximityMonitoringEnabled = YES;
 	
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self selector:@selector(screenLockNotification:)   name:UIApplicationWillResignActiveNotification object:nil];
 	[nc addObserver:self selector:@selector(screenUnlockNotification:) name:UIApplicationDidBecomeActiveNotification  object:nil];
 	[nc addObserver:self selector:@selector(settingsChanged:) name:VSO_NTF_SETTINGS_CHANGED object:nil];
-	[nc addObserver:self selector:@selector(resetIdleTimer:) name:VSO_NTF_VIEW_TOUCHED object:nil];
 	
 	[self updateUI];
 	
 	[self loadPreviousRecordingList];
-	[self resetIdleTimer:nil];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -581,7 +506,6 @@
 
 - (void)settingsChanged:(NSNotification *)n
 {
-	[self resetIdleTimer:nil];
 	[self refreshInfos];
 }
 
@@ -597,7 +521,7 @@
 		/* Opening file handle to output xml on the fly */
 		NSFileManager *fm = [NSFileManager defaultManager];
 		
-		NSUInteger i = 1;
+		int i = 1;
 		while ([fm fileExistsAtPath:(currentGpxOutputPath = [VSO_BASE_PATH_TO_GPX stringByAppendingFormat:@"%d.gpx", i++])]);
 		
 		[[NSData data] writeToFile:currentGpxOutputPath atomically:NO];
@@ -661,36 +585,26 @@
 	[self showInfo];
 }
 
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	// Return YES for supported orientations
-	return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
 - (void)settingsViewControllerDidFinish:(VSOSettingsViewController *)controller
 {
 	[UIDevice currentDevice].proximityMonitoringEnabled = YES;
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)recordingsListViewControllerDidFinish:(VSORecordingsListViewCtlr *)controller
 {
 	[UIDevice currentDevice].proximityMonitoringEnabled = YES;
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 
 #pragma mark Page Control
 /**************************** Page Control ****************************/
 /* Does not affect the UI */
-- (void)setSelPage:(int)p
+- (void)setSelPage:(NSInteger)p
 {
 	selPage = p;
-	pagesView.delayScroll = (selPage == VSO_PAGE_NUMBER_WITH_MAP);
-	
-	[[NSUserDefaults standardUserDefaults] setInteger:selPage forKey:VSO_UDK_SELECTED_PAGE];
+	[NSUserDefaults.standardUserDefaults setInteger:selPage forKey:VSO_UDK_SELECTED_PAGE];
 }
 
 - (void)showMapSwipeWarning
@@ -720,12 +634,14 @@
 	[timerToUnloadUnusedPages invalidate];
 	timerToUnloadUnusedPages = [NSTimer scheduledTimerWithTimeInterval:VSO_TIME_BEFORE_RELEASE_OF_UNUSED_CTRLS target:self selector:@selector(fireUnloadAllUnusedScrollViewPageController:) userInfo:NULL repeats:NO];
 	
-	// We don't want a "feedback loop" between the UIPageControl and the scroll delegate in
-	// which a scroll event generated from the user hitting the page control triggers updates from
-	// the delegate method. We use a boolean to disable the delegate logic when the page control is used.
+	/* We don't want a "feedback loop" between the UIPageControl and the scroll
+	 * delegate in which a scroll event generated from the user hitting the page
+	 * control triggers updates from the delegate method. We use a boolean to
+	 * disable the delegate logic when the page control is used. */
 	if (!sender.dragging && pageControlUsed) return;
 	
-	// Switch the indicator when more than 50% of the previous/next page is visible
+	/* Switch the indicator when more than 50% of the previous/next page is
+	 * visible. */
 	CGFloat pageWidth = pagesView.frame.size.width;
 	self.selPage = floor((pagesView.contentOffset.x - pageWidth/2) / pageWidth) + 1;
 	pageControl.currentPage = selPage;
@@ -762,11 +678,11 @@
 {
 	CLLocation *newLocation = locations.lastObject;
 	
-	BOOL pointAdded = NO;
+	__block BOOL pointAdded = NO;
 	/* Negative accuracy means the location was not found */
 	if (signbit(newLocation.horizontalAccuracy)) return;
 	
-	void (^end)() = ^{
+	void (^end)(void) = ^{
 		[self setCurrentLocationOfControllers:(recordState == VSORecordStateRecording && pointAdded)];
 		[self refreshInfos];
 	};
@@ -790,13 +706,13 @@
 	CLLocationDistance d = 0.;
 	if (lastTrackPoint != nil) {
 		CLLocation *lastPoint = [[CLLocation alloc] initWithLatitude:lastTrackPoint.coords.latitude longitude:lastTrackPoint.coords.longitude];
-		d = [lastPoint getDistanceFrom:newLocation];
+		d = [lastPoint distanceFromLocation:newLocation];
 		if (d < minDist) {end(); return;}
 		if ([lastTrackPoint hasDate] && (-[[lastTrackPoint date] timeIntervalSinceNow] < minTimeInterval)) {end(); return;}
 	}
 	
 	CLLocationDistance totalRecordDistance = [[currentRecordingInfo valueForKey:VSO_REC_LIST_TOTAL_REC_DISTANCE_KEY] doubleValue];
-	[currentRecordingInfo setValue:[NSNumber numberWithDouble:totalRecordDistance+d] forKey:VSO_REC_LIST_TOTAL_REC_DISTANCE_KEY];
+	[currentRecordingInfo setValue:@(totalRecordDistance+d) forKey:VSO_REC_LIST_TOTAL_REC_DISTANCE_KEY];
 	[self addCurrentLocationToCurrentTrack];
 	pointAdded = YES;
 	
@@ -806,9 +722,9 @@
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
-	if ([error domain] == kCLErrorDomain) {
+	if (error.domain == kCLErrorDomain) {
 		// We handle CoreLocation-related errors here
-		switch ([error code]) {
+		switch (error.code) {
 			case kCLErrorDenied:
 				[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"cannot get location", nil) message:NSLocalizedString(@"record cancelled: cant get location", nil)
 													delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] show];
@@ -822,8 +738,8 @@
 		}
 	} else {
 		NSDLog(@"Cannot get User Location, domain error is not kCLErrorDomain");
-		NSDLog(@"\tError domain: \"%@\"  Error code: %d", [error domain], [error code]);
-		NSDLog(@"\tDescription: \"%@\"", [error localizedDescription]);
+		NSDLog(@"\tError domain: \"%@\"  Error code: %ld", error.domain, (long)error.code);
+		NSDLog(@"\tDescription: \"%@\"", error.localizedDescription);
 	}
 	
 	[self stopRecording];
@@ -834,10 +750,10 @@
 /**************************** UI Actions ****************************/
 - (IBAction)showInfo
 {
-	[UIDevice currentDevice].proximityMonitoringEnabled = NO;
+	UIDevice.currentDevice.proximityMonitoringEnabled = NO;
 	
 	UINavigationController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SettingsNavController"];
-	((VSOSettingsViewController*)controller.viewControllers.firstObject).delegate = self;
+	((VSOSettingsViewController *)controller.viewControllers.firstObject).delegate = self;
 	
 	controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 	[self presentViewController:controller animated:YES completion:NULL];
@@ -932,13 +848,8 @@
 {
 	[locationManager stopUpdatingLocation];
 	[locationManager stopUpdatingHeading];
-#ifdef SIMULATOR_CODE
-	[t invalidate];
-	t = nil;
-#endif
 	
 	[timerToUnloadUnusedPages invalidate];
-	[timerToTurnOffScreen invalidate];
 	[timerToRefreshTimes invalidate];
 }
 

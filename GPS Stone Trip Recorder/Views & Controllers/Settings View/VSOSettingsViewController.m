@@ -26,20 +26,18 @@
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 	[nc addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-	[nc addObserver:self selector:@selector(settingViewTouched:) name:VSO_NTF_VIEW_TOUCHED object:self.view];
 	
 	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
 	
-	[textFieldMinDist setText:[NSString stringWithFormat:@"%d", [ud integerForKey:VSO_UDK_MIN_PATH_DISTANCE]]];
-	[textFieldMinTime setText:[NSString stringWithFormat:@"%d", [ud integerForKey:VSO_UDK_MIN_TIME_FOR_UPDATE]]];
-	[textFieldTurnOffScreen setText:[NSString stringWithFormat:@"%d", [ud integerForKey:VSO_UDK_TURN_OFF_SCREEN_DELAY]/60]];
+	[textFieldMinDist setText:[NSString stringWithFormat:@"%ld", (long)[ud integerForKey:VSO_UDK_MIN_PATH_DISTANCE]]];
+	[textFieldMinTime setText:[NSString stringWithFormat:@"%ld", (long)[ud integerForKey:VSO_UDK_MIN_TIME_FOR_UPDATE]]];
 	[switchSkip setOn:[ud boolForKey:VSO_UDK_SKIP_NON_ACCURATE_POINTS]];
 	[switchMetricMeasures setOn:([ud integerForKey:VSO_UDK_DISTANCE_UNIT] == VSODistanceUnitKilometers)];
 	
 	switch ([ud integerForKey:VSO_UDK_MAP_TYPE]) {
-		case MKMapTypeStandard : [segmentedCtrlMapType setSelectedSegmentIndex:0]; break;
+		case MKMapTypeStandard:  [segmentedCtrlMapType setSelectedSegmentIndex:0]; break;
 		case MKMapTypeSatellite: [segmentedCtrlMapType setSelectedSegmentIndex:1]; break;
-		case MKMapTypeHybrid   : [segmentedCtrlMapType setSelectedSegmentIndex:2]; break;
+		case MKMapTypeHybrid:    [segmentedCtrlMapType setSelectedSegmentIndex:2]; break;
 		default:
 			/* Unknown map type!!! */
 			[[NSException exceptionWithName:@"Unknown map type in viewDidLoad of FlipsideViewController"
@@ -48,9 +46,14 @@
 	}
 }
 
+- (void)didReceiveMemoryWarning
+{
+	[super didReceiveMemoryWarning];
+}
+
 - (void)keyboardWillShow:(NSNotification *)n
 {
-	CGFloat h = [[[n userInfo] valueForKey:UIKeyboardBoundsUserInfoKey] CGRectValue].size.height;
+	CGFloat h = [[n.userInfo valueForKey:UIKeyboardBoundsUserInfoKey] CGRectValue].size.height;
 	CGRect f = scrollView.frame;
 	f.size.height -= h;
 	
@@ -62,7 +65,7 @@
 
 - (void)keyboardWillHide:(NSNotification *)n
 {
-	CGFloat h = [[[n userInfo] valueForKey:UIKeyboardBoundsUserInfoKey] CGRectValue].size.height;
+	CGFloat h = [[n.userInfo valueForKey:UIKeyboardBoundsUserInfoKey] CGRectValue].size.height;
 	CGRect f = scrollView.frame;
 	f.size.height += h;
 	
@@ -107,12 +110,6 @@
 	[[NSNotificationCenter defaultCenter] postNotificationName:VSO_NTF_SETTINGS_CHANGED object:nil userInfo:nil];
 }
 
-- (IBAction)timeBeforeSreenTurningOffChanged:(id)sender
-{
-	[[NSUserDefaults standardUserDefaults] setInteger:[[sender text] doubleValue]*60. forKey:VSO_UDK_TURN_OFF_SCREEN_DELAY];
-	[[NSNotificationCenter defaultCenter] postNotificationName:VSO_NTF_SETTINGS_CHANGED object:nil userInfo:nil];
-}
-
 - (IBAction)skipNonAccuratePointsValueChanged:(id)sender
 {
 	[[NSUserDefaults standardUserDefaults] setBool:[sender isOn] forKey:VSO_UDK_SKIP_NON_ACCURATE_POINTS];
@@ -123,31 +120,6 @@
 	if ([sender isOn]) [[NSUserDefaults standardUserDefaults] setInteger:VSODistanceUnitKilometers forKey:VSO_UDK_DISTANCE_UNIT];
 	else               [[NSUserDefaults standardUserDefaults] setInteger:VSODistanceUnitMiles      forKey:VSO_UDK_DISTANCE_UNIT];
 	[[NSNotificationCenter defaultCenter] postNotificationName:VSO_NTF_SETTINGS_CHANGED object:nil userInfo:nil];
-}
-
-- (void)settingViewTouched:(NSNotification *)n
-{
-	[textFieldMinDist resignFirstResponder];
-	[textFieldMinTime resignFirstResponder];
-	[textFieldTurnOffScreen resignFirstResponder];
-}
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	// Return YES for supported orientations
-	return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-	[super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
 }
 
 @end
