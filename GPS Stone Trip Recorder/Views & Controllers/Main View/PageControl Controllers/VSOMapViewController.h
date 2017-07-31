@@ -25,6 +25,7 @@ typedef struct VSOArrayOfPointsDescr {
 @interface VSOMapViewController : VSOInfoGenericController <MKMapViewDelegate> {
 	IBOutlet UIButton *buttonCenterMapOnCurLoc;
 	IBOutlet MKMapView *mapView;
+	IBOutlet UIView *viewStatusBarBlur;
 	
 	MKPolyline *latestPolyline;
 	MKOverlayPathRenderer *pathRenderer;
@@ -52,6 +53,8 @@ typedef struct VSOArrayOfPointsDescr {
 @property() BOOL followULCentersOnTrip;
 - (void)initDrawnPathWithCurrentGPX;
 - (void)redrawLastSegmentOnMap;
+
+- (void)hideStatusBarBlur;
 
 - (IBAction)centerMapOnCurLoc:(id)sender;
 

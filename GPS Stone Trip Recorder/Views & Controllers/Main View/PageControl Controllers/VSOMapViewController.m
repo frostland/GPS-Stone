@@ -110,6 +110,11 @@
 	}
 }
 
+- (void)hideStatusBarBlur
+{
+	[viewStatusBarBlur removeFromSuperview];
+}
+
 - (void)refreshInfos
 {
 //	[pathAnnotationView setNeedsDisplay];

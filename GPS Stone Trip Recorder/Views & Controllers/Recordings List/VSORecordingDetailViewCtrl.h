@@ -19,24 +19,15 @@
 @protocol VSORecordingDetailViewCtrlDelegate;
 
 @interface VSORecordingDetailViewCtrl : UIViewController <UITextFieldDelegate, ABPeoplePickerNavigationControllerDelegate, MFMailComposeViewControllerDelegate, NSXMLParserDelegate> {
-	IBOutlet UIView *viewSendingMail;
 	IBOutlet UIView *viewWithMap;
-	IBOutlet UIView *viewChooseMail;
-	UIViewController *chooseMailCtrl;
 	VSOMapViewController *mapViewController;
 	
-	IBOutlet UITextField *textFieldYourEmail;
-	IBOutlet UITextField *textFieldDestEmails;
-	
-	IBOutlet UIView *viewForName;
 	IBOutlet UITextField *textFieldName;
 	IBOutlet UILabel *labelInfos;
 	IBOutlet UILabel *labelDate;
-	CGFloat vPosOfNameUIElements;
-	
-	BOOL sentWithiPhone;
-	BOOL peoplePickerIsForFromField;
-	
+	IBOutlet NSLayoutConstraint *constraintNameKeyboard;
+	IBOutlet NSLayoutConstraint *constraintNameNoKeyboard;
+
 	GPXgpxType *gpx;
 }
 

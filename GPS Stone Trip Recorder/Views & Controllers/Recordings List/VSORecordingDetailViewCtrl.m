@@ -11,8 +11,6 @@
 #import "Constants.h"
 #import "VSOUtils.h"
 
-#define VSO_URL_TO_SEND_MAIL @"http://www.vso-software.fr/products/atomgps/iphone-mail.php"
-
 
 
 @implementation VSORecordingDetailViewCtrl
@@ -42,9 +40,6 @@
 {
 	[super viewDidLoad];
 	
-	viewSendingMail.alpha = 0.;
-	[self.view addSubview:viewSendingMail];
-	vPosOfNameUIElements = viewForName.frame.origin.y;
 	self.title = [_recordingInfos valueForKey:VSO_REC_LIST_NAME_KEY];
 	
 	NSTimeInterval time = [[_recordingInfos valueForKey:VSO_REC_LIST_TOTAL_REC_TIME_KEY] doubleValue];
@@ -61,10 +56,11 @@
 	frame.origin.x = 0;
 	frame.origin.y = 0;
 	mapViewController.view.frame = frame;
+	[mapViewController hideStatusBarBlur];
 	[viewWithMap addSubview:mapViewController.view];
 	
 	[mapViewController initDrawnPathWithCurrentGPX];
-	[mapViewController redrawAllPointsOnMap];
+	[mapViewController redrawLastSegmentOnMap];
 	mapViewController.followULCentersOnTrip = YES;
 	[mapViewController centerMapOnCurLoc:nil];
 }
@@ -92,13 +88,12 @@
 {
 	if (textField != textFieldName) return YES;
 	
-	CGRect f = viewForName.frame;
-	f.origin.y = 30;
-	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:VSO_ANIM_TIME];
-	viewForName.frame = f;
+	constraintNameNoKeyboard.active = NO;
+	constraintNameKeyboard.active = YES;
 	viewWithMap.alpha = 0.;
+	[self.view layoutIfNeeded];
 	[UIView commitAnimations];
 	
 	return YES;
@@ -111,13 +106,12 @@
 	[_recordingInfos setValue:[textFieldName text] forKey:VSO_REC_LIST_NAME_KEY];
 	self.title = [textFieldName text];
 	
-	CGRect f = viewForName.frame;
-	f.origin.y = vPosOfNameUIElements;
-	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:VSO_ANIM_TIME];
-	viewForName.frame = f;
+	constraintNameNoKeyboard.active = YES;
+	constraintNameKeyboard.active = NO;
 	viewWithMap.alpha = 1.;
+	[self.view layoutIfNeeded];
 	[UIView commitAnimations];
 	
 	[self.delegate nameChanged];
@@ -125,9 +119,12 @@
 
 - (IBAction)exportGPX:(id)sender
 {
-	if ([MFMailComposeViewController canSendMail]) {
-		sentWithiPhone = YES;
-		
+	if (!MFMailComposeViewController.canSendMail) {
+		[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"configure mail", nil) message:[NSString stringWithFormat:NSLocalizedString(@"to export a GPX file, you must configure at least one email address in your phone settings", nil), 1] delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] show];
+		return;
+	}
+	
+	if (MFMailComposeViewController.canSendMail) {
 		MFMailComposeViewController *ctrl = [MFMailComposeViewController new];
 		ctrl.mailComposeDelegate = self;
 		
@@ -136,18 +133,6 @@
 							mimeType:@"application/octet-stream" fileName:[NSString stringWithFormat:@"%@.gpx", [_recordingInfos valueForKey:VSO_REC_LIST_NAME_KEY]]];
 		
 		[self presentViewController:ctrl animated:YES completion:NULL];
-	} else {
-		sentWithiPhone = NO;
-		
-		chooseMailCtrl = [[UIViewController alloc] initWithNibName:nil bundle:nil];
-		[chooseMailCtrl setView:viewChooseMail];
-		
-		[textFieldYourEmail setText:[[NSUserDefaults standardUserDefaults] valueForKey:VSO_UDK_USER_EMAIL]];
-		if ([textFieldYourEmail.text isEqualToString:@""]) [textFieldYourEmail becomeFirstResponder];
-		else                                               [textFieldDestEmails becomeFirstResponder];
-		
-		chooseMailCtrl.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-		[self presentViewController:chooseMailCtrl animated:YES completion:NULL];
 	}
 }
 
