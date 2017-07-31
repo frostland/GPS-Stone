@@ -607,22 +607,11 @@
 	[NSUserDefaults.standardUserDefaults setInteger:selPage forKey:VSO_UDK_SELECTED_PAGE];
 }
 
-- (void)showMapSwipeWarning
-{
-	if (selPage != VSO_PAGE_NUMBER_WITH_MAP) return;
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:VSO_UDK_MAP_SWIPE_WARNING_SHOWN]) return;
-	
-	[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"swipe on map", nil) message:NSLocalizedString(@"how to come swipe when on map", nil)
-										delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] show];
-	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:VSO_UDK_MAP_SWIPE_WARNING_SHOWN];
-}
-
 - (IBAction)changePage:(id)sender
 {
 	self.selPage = pageControl.currentPage;
 	
 	[self selectPage:selPage animated:YES];
-	[self showMapSwipeWarning];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender
@@ -660,8 +649,6 @@
 {
 	pageControlUsed = NO;
 	[self setNeedsStatusBarAppearanceUpdate];
-	
-	[self showMapSwipeWarning];
 }
 
 #pragma mark Location Management
