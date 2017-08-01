@@ -410,8 +410,6 @@ end:
 - (NSData *)dataFromMapRegion
 {
 	MKCoordinateRegion r = [mapView region];
-	r.span.latitudeDelta  -= r.span.latitudeDelta;
-	r.span.longitudeDelta -= r.span.longitudeDelta;
 	return [NSData dataWithBytes:&r length:sizeof(MKCoordinateRegion)];
 }
 
