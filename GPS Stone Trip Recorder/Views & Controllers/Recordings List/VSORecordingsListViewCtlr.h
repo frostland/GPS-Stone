@@ -15,7 +15,6 @@
 @protocol VSORecordingsListViewControllerDelegate;
 
 @interface VSORecordingsListViewCtlr : UITableViewController <VSORecordingDetailViewCtrlDelegate> {
-	IBOutlet UITableView *tableViewRecordings;
 	IBOutlet UIBarButtonItem *buttonDone;
 }
 

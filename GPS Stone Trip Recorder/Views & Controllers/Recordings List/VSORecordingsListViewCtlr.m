@@ -8,6 +8,7 @@
 
 #import "VSORecordingsListViewCtlr.h"
 
+#import "MainViewController.h"
 #import "Constants.h"
 #import "VSOUtils.h"
 
@@ -23,8 +24,6 @@
 	return self;
 }
 
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
@@ -32,32 +31,26 @@
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	// Return YES for supported orientations
-	return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
 - (void)updateTabBarButtons:(BOOL)tableViewEditing
 {
 }
 
 - (IBAction)done:(id)sender
 {
-	if (!tableViewRecordings.editing) [self.delegate recordingsListViewControllerDidFinish:self];
+	if (!self.tableView.editing) [self.delegate recordingsListViewControllerDidFinish:self];
 	else {
-		[tableViewRecordings setEditing:NO animated:YES];
-		[self updateTabBarButtons:tableViewRecordings.editing];
+		[self.tableView setEditing:NO animated:YES];
+		[self updateTabBarButtons:self.tableView.editing];
 	}
 }
 
-
 - (void)nameChanged
 {
-	[tableViewRecordings reloadData];
+	[self.tableView reloadData];
+	MainViewController *root = UIApplication.sharedApplication.keyWindow.rootViewController;
+	if ([root isKindOfClass:MainViewController.class]) {
+		[root saveRecordingListStoppingGPX:NO];
+	}
 }
 
 - (void)recordingsDetailViewControllerDidFinish:(VSORecordingDetailViewCtrl *)controller
@@ -70,8 +63,8 @@
 	if ([segue.identifier isEqualToString:@"ShowDetails"]) {
 		VSORecordingDetailViewCtrl *controller = segue.destinationViewController;
 		
-		NSMutableDictionary *rec = [[_recordingList objectAtIndex:[tableViewRecordings.indexPathForSelectedRow indexAtPosition:1]] mutableCopy];
-		[_recordingList replaceObjectAtIndex:[tableViewRecordings.indexPathForSelectedRow indexAtPosition:1] withObject:rec];
+		NSMutableDictionary *rec = [[_recordingList objectAtIndex:[self.tableView.indexPathForSelectedRow indexAtPosition:1]] mutableCopy];
+		[_recordingList replaceObjectAtIndex:[self.tableView.indexPathForSelectedRow indexAtPosition:1] withObject:rec];
 		controller.recordingInfos = rec;
 		
 		controller.delegate = self;
