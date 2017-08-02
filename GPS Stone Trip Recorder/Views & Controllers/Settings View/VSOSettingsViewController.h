@@ -14,7 +14,6 @@
 	IBOutlet UISegmentedControl *segmentedCtrlMapType;
 	IBOutlet UITextField *textFieldMinDist;
 	IBOutlet UITextField *textFieldMinTime;
-	IBOutlet UITextField *textFieldTurnOffScreen;
 	IBOutlet UISwitch *switchSkip;
 	IBOutlet UISwitch *switchMetricMeasures;
 	

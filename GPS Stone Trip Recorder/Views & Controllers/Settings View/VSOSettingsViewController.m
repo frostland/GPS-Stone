@@ -35,14 +35,12 @@
 	[switchMetricMeasures setOn:([ud integerForKey:VSO_UDK_DISTANCE_UNIT] == VSODistanceUnitKilometers)];
 	
 	switch ([ud integerForKey:VSO_UDK_MAP_TYPE]) {
-		case MKMapTypeStandard:  [segmentedCtrlMapType setSelectedSegmentIndex:0]; break;
 		case MKMapTypeSatellite: [segmentedCtrlMapType setSelectedSegmentIndex:1]; break;
 		case MKMapTypeHybrid:    [segmentedCtrlMapType setSelectedSegmentIndex:2]; break;
+		case MKMapTypeStandard: /* No Break */
 		default:
-			/* Unknown map type!!! */
-			[[NSException exceptionWithName:@"Unknown map type in viewDidLoad of FlipsideViewController"
-											 reason:@"Not FLMapTypeStandard, MKMapTypeSatellite or MKMapTypeHybrid; corresponding to no known map type!" userInfo:nil] raise];
-			break;
+			/* We use the standard map type when map type is unknown. */
+			[segmentedCtrlMapType setSelectedSegmentIndex:0];
 	}
 }
 
@@ -85,14 +83,12 @@
 	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
 	
 	switch ([segmentedCtrlMapType selectedSegmentIndex]) {
-		case 0: [ud setInteger:MKMapTypeStandard  forKey:VSO_UDK_MAP_TYPE]; break;
 		case 1: [ud setInteger:MKMapTypeSatellite forKey:VSO_UDK_MAP_TYPE]; break;
 		case 2: [ud setInteger:MKMapTypeHybrid    forKey:VSO_UDK_MAP_TYPE]; break;
+		case 0: /* No Break */
 		default:
-			/* Unknown segment!!! */
-			[[NSException exceptionWithName:@"Wrong segment in mapTypeChanged:"
-											 reason:@"Not 0, 1 or 2; corresponding to no known map type!" userInfo:nil] raise];
-			break;
+			/* Let's set the map type to standard for unknown segment. */
+			[ud setInteger:MKMapTypeStandard  forKey:VSO_UDK_MAP_TYPE];
 	}
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:VSO_NTF_SETTINGS_CHANGED object:nil userInfo:nil];

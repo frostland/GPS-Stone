@@ -161,7 +161,7 @@ end:
 	}
 }
 
-- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
+- (MKOverlayRenderer *)mapView:(MKMapView *)mv rendererForOverlay:(id<MKOverlay>)overlay
 {
 	if ([overlay isKindOfClass:MKPolyline.class]) {
 		pathRenderer = [[MKPolylineRenderer alloc] initWithPolyline:(MKPolyline *)overlay];

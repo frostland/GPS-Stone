@@ -47,7 +47,7 @@
 - (void)nameChanged
 {
 	[self.tableView reloadData];
-	MainViewController *root = UIApplication.sharedApplication.keyWindow.rootViewController;
+	MainViewController *root = (MainViewController *)UIApplication.sharedApplication.keyWindow.rootViewController;
 	if ([root isKindOfClass:MainViewController.class]) {
 		[root saveRecordingListStoppingGPX:NO];
 	}
