@@ -147,5 +147,10 @@
 	
 	// Release any cached data, images, etc that aren't in use.
 }
+	
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+	[controller dismissViewControllerAnimated:YES completion:NULL];
+}
 
 @end
