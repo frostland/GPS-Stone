@@ -442,6 +442,8 @@
 		locationManager.delegate = self;
 		
 		ctrlClassesForPages = [NSArray arrayWithObjects:VSOInfoViewCtrl.class, VSODetailsViewCtrl.class, VSOMapViewController.class, nil];
+		
+		[self loadPreviousRecordingList];
 	}
 	return self;
 }
@@ -490,8 +492,6 @@
 	[nc addObserver:self selector:@selector(settingsChanged:) name:VSO_NTF_SETTINGS_CHANGED object:nil];
 	
 	[self updateUI];
-	
-	[self loadPreviousRecordingList];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
