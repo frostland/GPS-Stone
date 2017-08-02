@@ -63,7 +63,7 @@ NSString *NSStringFromDate(NSDate *date) {
 
 /* speed is in m/s */
 NSString *NSStringFromSpeed(CGFloat speed, BOOL showUnit) {
-	BOOL miles = ([[NSUserDefaults standardUserDefaults] integerForKey:VSO_UDK_DISTANCE_UNIT] == VSODistanceUnitMiles);
+	BOOL miles = (distanceUnit() == VSODistanceUnitMiles);
 	speed *= 3.6; /* speed is now in km/h */
 	if (miles) speed /= ONE_MILE_INTO_KILOMETER; /* speed is now in mph */
 	
@@ -79,7 +79,7 @@ NSString *NSStringFromTimeInterval(NSTimeInterval i) {
 }
 
 NSString *NSStringFromDistance(CLLocationDistance d) {
-	if ([[NSUserDefaults standardUserDefaults] integerForKey:VSO_UDK_DISTANCE_UNIT] == VSODistanceUnitMiles) {
+	if (distanceUnit() == VSODistanceUnitMiles) {
 		CGFloat d2 = d/ONE_FOOT_INTO_METER;
 		if (d2 < 1000) return [NSString stringWithFormat:NSLocalizedString(@"n ft format", nil), (unsigned int)(d2 + 0.5)];
 		d2 = (d/1000.)/ONE_MILE_INTO_KILOMETER;
@@ -92,7 +92,7 @@ NSString *NSStringFromDistance(CLLocationDistance d) {
 
 NSString *NSStringFromAltitude(CLLocationDistance a) {
 	NSString *formatNonLoc = @"x m format (altitude)";
-	if ([[NSUserDefaults standardUserDefaults] integerForKey:VSO_UDK_DISTANCE_UNIT] == VSODistanceUnitMiles) {
+	if (distanceUnit() == VSODistanceUnitMiles) {
 		a /= ONE_FOOT_INTO_METER; /* a is now in feet */
 		formatNonLoc = @"x ft format (altitude)";
 	}
@@ -100,6 +100,13 @@ NSString *NSStringFromAltitude(CLLocationDistance a) {
 	return [NSString stringWithFormat:NSLocalizedString(formatNonLoc, nil), a + 0.5];
 }
 
+VSODistanceUnit distanceUnit(void) {
+	NSInteger unit = [NSUserDefaults.standardUserDefaults integerForKey:VSO_UDK_DISTANCE_UNIT];
+	if (unit == VSODistanceUnitAutomatic)
+		return ([[NSLocale.currentLocale objectForKey:NSLocaleUsesMetricSystem] boolValue]? VSODistanceUnitKilometers: VSODistanceUnitMiles);
+	
+	return (VSODistanceUnit)unit;
+}
 
 #pragma mark -
 /* *************************** */

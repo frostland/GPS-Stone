@@ -20,19 +20,11 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	[scrollView addSubview:viewWithSettings];
-	scrollView.contentSize = viewWithSettings.frame.size;
-	
-	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-	[nc addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 	
 	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
 	
 	[textFieldMinDist setText:[NSString stringWithFormat:@"%ld", (long)[ud integerForKey:VSO_UDK_MIN_PATH_DISTANCE]]];
 	[textFieldMinTime setText:[NSString stringWithFormat:@"%ld", (long)[ud integerForKey:VSO_UDK_MIN_TIME_FOR_UPDATE]]];
-	[switchSkip setOn:[ud boolForKey:VSO_UDK_SKIP_NON_ACCURATE_POINTS]];
-	[switchMetricMeasures setOn:([ud integerForKey:VSO_UDK_DISTANCE_UNIT] == VSODistanceUnitKilometers)];
 	
 	switch ([ud integerForKey:VSO_UDK_MAP_TYPE]) {
 		case MKMapTypeSatellite: [segmentedCtrlMapType setSelectedSegmentIndex:1]; break;
@@ -47,30 +39,6 @@
 - (void)didReceiveMemoryWarning
 {
 	[super didReceiveMemoryWarning];
-}
-
-- (void)keyboardWillShow:(NSNotification *)n
-{
-	CGFloat h = [[n.userInfo valueForKey:UIKeyboardBoundsUserInfoKey] CGRectValue].size.height;
-	CGRect f = scrollView.frame;
-	f.size.height -= h;
-	
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:VSO_ANIM_TIME];
-	scrollView.frame = f;
-	[UIView commitAnimations];
-}
-
-- (void)keyboardWillHide:(NSNotification *)n
-{
-	CGFloat h = [[n.userInfo valueForKey:UIKeyboardBoundsUserInfoKey] CGRectValue].size.height;
-	CGRect f = scrollView.frame;
-	f.size.height += h;
-	
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:VSO_ANIM_TIME];
-	scrollView.frame = f;
-	[UIView commitAnimations];
 }
 
 - (IBAction)done
@@ -106,16 +74,69 @@
 	[[NSNotificationCenter defaultCenter] postNotificationName:VSO_NTF_SETTINGS_CHANGED object:nil userInfo:nil];
 }
 
-- (IBAction)skipNonAccuratePointsValueChanged:(id)sender
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	[[NSUserDefaults standardUserDefaults] setBool:[sender isOn] forKey:VSO_UDK_SKIP_NON_ACCURATE_POINTS];
+	NSUserDefaults *ud = NSUserDefaults.standardUserDefaults;
+	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+	switch (indexPath.section) {
+		case 1:
+			if (indexPath.row == 2) {
+				[cell setAccessoryType:([ud boolForKey:VSO_UDK_SKIP_NON_ACCURATE_POINTS]? UITableViewCellAccessoryCheckmark: UITableViewCellAccessoryNone)];
+			}
+			break;
+			
+		case 2: {
+			NSInteger unit = [ud integerForKey:VSO_UDK_DISTANCE_UNIT];
+			switch (indexPath.row) {
+				case 0: [cell setAccessoryType:(unit == VSODistanceUnitAutomatic?  UITableViewCellAccessoryCheckmark: UITableViewCellAccessoryNone)]; break;
+				case 1: [cell setAccessoryType:(unit == VSODistanceUnitKilometers? UITableViewCellAccessoryCheckmark: UITableViewCellAccessoryNone)]; break;
+				case 2: [cell setAccessoryType:(unit == VSODistanceUnitMiles?      UITableViewCellAccessoryCheckmark: UITableViewCellAccessoryNone)]; break;
+			}
+			break;
+		}
+			
+		default: /* nop */;
+	}
+	return cell;
 }
 
-- (IBAction)metricMeasuresValueChanged:(id)sender
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if ([sender isOn]) [[NSUserDefaults standardUserDefaults] setInteger:VSODistanceUnitKilometers forKey:VSO_UDK_DISTANCE_UNIT];
-	else               [[NSUserDefaults standardUserDefaults] setInteger:VSODistanceUnitMiles      forKey:VSO_UDK_DISTANCE_UNIT];
-	[[NSNotificationCenter defaultCenter] postNotificationName:VSO_NTF_SETTINGS_CHANGED object:nil userInfo:nil];
+	return [indexPath isEqual:[NSIndexPath indexPathForRow:2 inSection:1]] || indexPath.section == 2;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	NSUserDefaults *ud = NSUserDefaults.standardUserDefaults;
+	switch (indexPath.section) {
+		case 1:
+			if (indexPath.row == 2) {
+				BOOL skip = ![ud boolForKey:VSO_UDK_SKIP_NON_ACCURATE_POINTS];
+				[ud setBool:skip forKey:VSO_UDK_SKIP_NON_ACCURATE_POINTS];
+				[[tableView cellForRowAtIndexPath:indexPath] setAccessoryType:(skip? UITableViewCellAccessoryCheckmark: UITableViewCellAccessoryNone)];
+				[[NSNotificationCenter defaultCenter] postNotificationName:VSO_NTF_SETTINGS_CHANGED object:nil userInfo:nil];
+			}
+			break;
+			
+		case 2: {
+			NSInteger newUnit = VSODistanceUnitAutomatic;
+			switch (indexPath.row) {
+				case 0: newUnit = VSODistanceUnitAutomatic;  break;
+				case 1: newUnit = VSODistanceUnitKilometers; break;
+				case 2: newUnit = VSODistanceUnitMiles;      break;
+			}
+			[ud setInteger:newUnit forKey:VSO_UDK_DISTANCE_UNIT];
+			[[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]] setAccessoryType:(newUnit == VSODistanceUnitAutomatic?  UITableViewCellAccessoryCheckmark: UITableViewCellAccessoryNone)];
+			[[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:2]] setAccessoryType:(newUnit == VSODistanceUnitKilometers? UITableViewCellAccessoryCheckmark: UITableViewCellAccessoryNone)];
+			[[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:2]] setAccessoryType:(newUnit == VSODistanceUnitMiles?      UITableViewCellAccessoryCheckmark: UITableViewCellAccessoryNone)];
+			[[NSNotificationCenter defaultCenter] postNotificationName:VSO_NTF_SETTINGS_CHANGED object:nil userInfo:nil];
+			break;
+		}
+			
+		default: /* nop */;
+	}
 }
 
 @end

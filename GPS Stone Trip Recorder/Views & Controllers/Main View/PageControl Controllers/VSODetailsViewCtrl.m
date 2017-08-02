@@ -96,10 +96,8 @@
 
 - (void)settingsChanged:(NSNotification *)n
 {
-	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-	
-	if ([ud integerForKey:VSO_UDK_DISTANCE_UNIT] == VSODistanceUnitMiles) [labelKmph setText:NSLocalizedString(@"mph", nil)];
-	else                                                                  [labelKmph setText:NSLocalizedString(@"km/h", nil)];
+	if (distanceUnit() == VSODistanceUnitMiles) [labelKmph setText:NSLocalizedString(@"mph", nil)];
+	else                                        [labelKmph setText:NSLocalizedString(@"km/h", nil)];
 	
 	[self refreshInfos];
 }

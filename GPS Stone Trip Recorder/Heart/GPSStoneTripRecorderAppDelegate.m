@@ -35,8 +35,7 @@
 	[defaultValues setValue:@NO                  forKey:VSO_UDK_MEMORY_WARNING_PATH_CUT_SHOWN];
 	[defaultValues setValue:@2                   forKey:VSO_UDK_MIN_TIME_FOR_UPDATE];
 	[defaultValues setValue:@""                  forKey:VSO_UDK_USER_EMAIL];
-	if ([[NSLocale.currentLocale objectForKey:NSLocaleUsesMetricSystem] boolValue]) [defaultValues setValue:@(VSODistanceUnitKilometers) forKey:VSO_UDK_DISTANCE_UNIT];
-	else                                                                            [defaultValues setValue:@(VSODistanceUnitMiles)      forKey:VSO_UDK_DISTANCE_UNIT];
+	[defaultValues setValue:@(VSODistanceUnitAutomatic) forKey:VSO_UDK_DISTANCE_UNIT];
 	
 	[NSUserDefaults.standardUserDefaults registerDefaults:defaultValues];
 }

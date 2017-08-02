@@ -12,6 +12,8 @@
 #import <CoreLocation/CLLocation.h>
 #include <stdlib.h>
 
+#import "Constants.h"
+
 
 /* Formats for NSLog for NSInteger, CGFloat, etc. */
 #define CGFLOAT_FMT @"g"
@@ -56,6 +58,8 @@ NSString *NSStringFromTimeInterval(NSTimeInterval i);
 /* d is assumed to be > 0 */
 NSString *NSStringFromDistance(CLLocationDistance d);
 NSString *NSStringFromAltitude(CLLocationDistance a);
+
+VSODistanceUnit distanceUnit(void);
 
 void *mallocTable(size_t size, size_t sizeOfElementsInTable);
 void **malloc2DTable(size_t xSize, size_t ySize, size_t sizeOfElementsInTable);

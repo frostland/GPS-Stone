@@ -17,7 +17,9 @@ typedef enum VSORecordState {
 
 typedef enum VSODistanceUnit {
 	VSODistanceUnitKilometers = 0,
-	VSODistanceUnitMiles
+	VSODistanceUnitMiles,
+	
+	VSODistanceUnitAutomatic = 255
 } VSODistanceUnit;
 
 #define ONE_MILE_INTO_KILOMETER 1.609344
