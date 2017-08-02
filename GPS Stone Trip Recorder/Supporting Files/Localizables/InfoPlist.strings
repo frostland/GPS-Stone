@@ -6,4 +6,7 @@
 
 */
 
-NSLocationWhenInUseUsageDescription = "Access to your location is required to show your speed, and other location related information.";
+NSLocationWhenInUseUsageDescription = "Showing your speed, altitude and GPS coordinate requires getting your position.";
+NSLocationAlwaysUsageDescription = "Recording your trip requires knowing your position at all times. We will never use your position in background when the App is not recording a trip.";
+
+NSLocationAlwaysAndWhenInUseUsageDescription = "Recording your trip requires knowing your position at all times. We will never use your position in background when the App is not recording a trip.";

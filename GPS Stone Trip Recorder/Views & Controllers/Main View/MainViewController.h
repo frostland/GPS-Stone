@@ -66,8 +66,6 @@
 - (IBAction)recordPauseButtonAction:(id)sender;
 - (IBAction)showRecordsListStopRecordButtonAction:(id)sender;
 
-- (void)setLocationServicesEnable:(BOOL)enabled;
-
 - (void)saveRecordingListStoppingGPX:(BOOL)saveGPX;
 - (void)recoverFromCrash;
 

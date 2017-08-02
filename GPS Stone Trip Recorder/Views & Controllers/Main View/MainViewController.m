@@ -141,7 +141,15 @@
 	// Set the boolean used when scrolls originate from the UIPageControl. See scrollViewDidScroll: above.
 	pageControlUsed = animate;
 	
+	[self processDidMoveToPage:p];
+}
+	
+- (void)processDidMoveToPage:(NSInteger)page
+{
 	[self setNeedsStatusBarAppearanceUpdate];
+	if (page == VSO_PAGE_NUMBER_WITH_DETAILED_INFOS || page == VSO_PAGE_NUMBER_WITH_MAP) {
+		[locationManager requestWhenInUseAuthorization];
+	}
 }
 
 - (void)loadScrollViewWithPage:(NSInteger)page
@@ -210,7 +218,10 @@
 		default: NSLog(@"What are we doing here??? (in updateUI of the main view controller)");
 	}
 	
-	buttonRecord.enabled = (locationManager.locationServicesEnabled && recordState != VSORecordStateWaitingGPS);
+	buttonRecord.enabled = ((CLLocationManager.authorizationStatus == kCLAuthorizationStatusNotDetermined ||
+									 CLLocationManager.authorizationStatus == kCLAuthorizationStatusAuthorizedWhenInUse ||
+									 CLLocationManager.authorizationStatus == kCLAuthorizationStatusAuthorizedAlways) &&
+									recordState != VSORecordStateWaitingGPS);
 	
 	labelMiniInfosRecordingState.hidden = !(recordState == VSORecordStatePaused || recordState == VSORecordStateWaitingGPS);
 	labelMiniInfosRecordTime.hidden = !(recordState == VSORecordStateRecording);
@@ -320,7 +331,7 @@
 - (void)screenLockNotification:(NSNotification *)n
 {
 	NSDLog(@"Screen Locked");
-	if (recordState == VSORecordStateRecording) {
+	if (recordState == VSORecordStateRecording && CLLocationManager.authorizationStatus != kCLAuthorizationStatusAuthorizedAlways) {
 		[self pauseRecording];
 		[self setRecordState:VSORecordStateScreenLocked];
 	}
@@ -330,12 +341,6 @@
 {
 	NSDLog(@"Screen Unlocked");
 	if (recordState == VSORecordStateScreenLocked) {
-		NSUserDefaults *ud = NSUserDefaults.standardUserDefaults;
-		if ([ud boolForKey:VSO_UDK_FIRST_UNLOCK])
-			[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"lock screen msg title", nil) message:NSLocalizedString(@"lock screen info", nil)
-												delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] show];
-		[ud setBool:NO forKey:VSO_UDK_FIRST_UNLOCK];
-		
 		[self beginRecording];
 	}
 }
@@ -367,7 +372,6 @@
 - (void)showRecordsList
 {
 	[self stopRecording];
-	[UIDevice currentDevice].proximityMonitoringEnabled = NO;
 	
 	UINavigationController *navCtrl = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"VSORecordingsListNavCtrl"];
 	VSORecordingsListViewCtlr *controller = navCtrl.viewControllers.firstObject;
@@ -449,8 +453,6 @@
 	[super viewDidLoad];
 	
 	[locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
-	[locationManager requestWhenInUseAuthorization];
-	[self setLocationServicesEnable:locationManager.locationServicesEnabled];
 	
 	/***************** Pages *****************/
 	// view controllers are created lazily
@@ -482,8 +484,6 @@
 	[locationManager startUpdatingLocation];
 	[locationManager startUpdatingHeading];
 	
-	UIDevice.currentDevice.proximityMonitoringEnabled = YES;
-	
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self selector:@selector(screenLockNotification:)   name:UIApplicationWillResignActiveNotification object:nil];
 	[nc addObserver:self selector:@selector(screenUnlockNotification:) name:UIApplicationDidBecomeActiveNotification  object:nil];
@@ -512,7 +512,8 @@
 - (void)beginRecording
 {
 	if (recordState == VSORecordStateRecording) return;
-	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+	
+	[locationManager requestAlwaysAuthorization];
 	
 	if (!currentGpx) {
 		assert(currentGpxOutput == nil);
@@ -587,13 +588,11 @@
 
 - (void)settingsViewControllerDidFinish:(VSOSettingsViewController *)controller
 {
-	[UIDevice currentDevice].proximityMonitoringEnabled = YES;
 	[self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)recordingsListViewControllerDidFinish:(VSORecordingsListViewCtlr *)controller
 {
-	[UIDevice currentDevice].proximityMonitoringEnabled = YES;
 	[self dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -648,7 +647,7 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
 	pageControlUsed = NO;
-	[self setNeedsStatusBarAppearanceUpdate];
+	[self processDidMoveToPage:selPage];
 }
 
 #pragma mark Location Management
@@ -710,12 +709,12 @@
        didFailWithError:(NSError *)error
 {
 	if (error.domain == kCLErrorDomain) {
-		// We handle CoreLocation-related errors here
+		/* We handle CoreLocation-related errors here */
 		switch (error.code) {
 			case kCLErrorDenied:
 				[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"cannot get location", nil) message:NSLocalizedString(@"record cancelled: cant get location", nil)
 													delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] show];
-				[self setLocationServicesEnable:NO];
+				[self updateUI];
 				break;
 			case kCLErrorLocationUnknown: break;
 			case kCLErrorNetwork: break;
@@ -737,8 +736,6 @@
 /**************************** UI Actions ****************************/
 - (IBAction)showInfo
 {
-	UIDevice.currentDevice.proximityMonitoringEnabled = NO;
-	
 	UINavigationController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SettingsNavController"];
 	((VSOSettingsViewController *)controller.viewControllers.firstObject).delegate = self;
 	
@@ -777,10 +774,6 @@
 
 #pragma mark Other
 /**************************** Other ****************************/
-- (void)setLocationServicesEnable:(BOOL)enabled
-{
-	buttonRecord.enabled = enabled;
-}
 
 - (void)didReceiveMemoryWarning
 {
