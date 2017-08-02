@@ -386,7 +386,7 @@
 - (void)pauseRecording
 {
 	if (recordState == VSORecordStateStopped || recordState == VSORecordStatePaused) return;
-	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+	locationManager.allowsBackgroundLocationUpdates = NO;
 	
 	NSTimeInterval totalRecordTime = [[currentRecordingInfo valueForKey:VSO_REC_LIST_TOTAL_REC_TIME_BEFORE_LAST_PAUSE_KEY] doubleValue];
 	[currentRecordingInfo setValue:[NSNumber numberWithDouble:totalRecordTime+(-[dateRecordStart timeIntervalSinceNow])] forKey:VSO_REC_LIST_TOTAL_REC_TIME_BEFORE_LAST_PAUSE_KEY];
@@ -514,6 +514,7 @@
 	if (recordState == VSORecordStateRecording) return;
 	
 	[locationManager requestAlwaysAuthorization];
+	locationManager.allowsBackgroundLocationUpdates = YES;
 	
 	if (!currentGpx) {
 		assert(currentGpxOutput == nil);
