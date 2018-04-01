@@ -670,7 +670,7 @@
 	if (signbit(newLocation.horizontalAccuracy)) return;
 	
 	void (^end)(void) = ^{
-		[self setCurrentLocationOfControllers:(recordState == VSORecordStateRecording && pointAdded)];
+		[self setCurrentLocationOfControllers:(self->recordState == VSORecordStateRecording && pointAdded)];
 		[self refreshInfos];
 	};
 	
@@ -782,11 +782,6 @@
 	NSDLog(@"Memory warning in Main View Controller.");
 	
 	[self unloadAllUnusedScrollViewPageController];
-}
-
-- (void)viewDidUnload
-{
-	[super viewDidUnload];
 }
 
 - (void)saveRecordingListStoppingGPX:(BOOL)saveGPX
