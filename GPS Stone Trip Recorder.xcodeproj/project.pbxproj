@@ -129,6 +129,7 @@
 		7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B482CE91DCA976E007B5ABC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7B63B7681E227E96001FA33C /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		7B96A7CA229F1B5300267DBD /* GPS Stone Trip Recorder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GPS Stone Trip Recorder.entitlements"; sourceTree = "<group>"; };
 		7BA2A5EA1F2E013A0014603B /* Test Recording.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Test Recording.gpx"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* GPS_Stone_Trip_Recorder-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GPS_Stone_Trip_Recorder-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -282,6 +283,7 @@
 		7B27B9311DCF3D81006F44B7 /* GPS Stone Trip Recorder */ = {
 			isa = PBXGroup;
 			children = (
+				7B96A7CA229F1B5300267DBD /* GPS Stone Trip Recorder.entitlements */,
 				7B27B9321DCF3DC6006F44B7 /* Utilities */,
 				7B27B9331DCF3DE5006F44B7 /* Heart */,
 				0F6F2FF410175F33006C7495 /* Model */,
@@ -362,9 +364,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* GPS Recorder */ = {
+		1D6058900D05DD3D006BFB54 /* GPS Stone Trip Recorder */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "GPS Recorder" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "GPS Stone Trip Recorder" */;
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
@@ -374,7 +376,7 @@
 			);
 			dependencies = (
 			);
-			name = "GPS Recorder";
+			name = "GPS Stone Trip Recorder";
 			productName = "GPS Recorder";
 			productReference = 1D6058910D05DD3D006BFB54 /* GPS Stone Trip Recorder.app */;
 			productType = "com.apple.product-type.application";
@@ -394,6 +396,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.Keychain = {
+								enabled = 0;
+							};
 						};
 					};
 				};
@@ -410,7 +415,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* GPS Recorder */,
+				1D6058900D05DD3D006BFB54 /* GPS Stone Trip Recorder */,
 			);
 		};
 /* End PBXProject section */
@@ -495,7 +500,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = DVL8GW97S8;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -505,6 +511,7 @@
 				INFOPLIST_FILE = "GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.vso-software.GPSStoneTripRecorder";
 				PRODUCT_NAME = "GPS Stone Trip Recorder";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -513,7 +520,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = DVL8GW97S8;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -521,6 +529,7 @@
 				INFOPLIST_FILE = "GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.vso-software.GPSStoneTripRecorder";
 				PRODUCT_NAME = "GPS Stone Trip Recorder";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
@@ -602,7 +611,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "GPS Recorder" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "GPS Stone Trip Recorder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
