@@ -93,10 +93,10 @@
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
 	
 	NSDictionary *curRecDescr = [_recordingList objectAtIndex:[indexPath indexAtPosition:1]];
-	cell.textLabel.text = [curRecDescr valueForKey:VSO_REC_LIST_NAME_KEY];
+	cell.textLabel.text = [curRecDescr valueForKey:c.recListNameKey];
 	
-	NSString *distanceStr = NSStringFromDistance([[curRecDescr valueForKey:VSO_REC_LIST_TOTAL_REC_DISTANCE_KEY] doubleValue]);
-	NSString *recTimeStr = NSStringFromTimeInterval([[curRecDescr valueForKey:VSO_REC_LIST_TOTAL_REC_TIME_KEY] doubleValue]);
+	NSString *distanceStr = NSStringFromDistance([[curRecDescr valueForKey:c.recListTotalRecDistanceKey] doubleValue]);
+	NSString *recTimeStr = NSStringFromTimeInterval([[curRecDescr valueForKey:c.recListTotalRecTimeKey] doubleValue]);
 	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ / %@", recTimeStr, distanceStr];
 	
 	return cell;
@@ -109,9 +109,9 @@
 		NSUInteger i = [indexPath indexAtPosition:1];
 		
 		NSFileManager *fm = [NSFileManager defaultManager];
-		if (![fm removeItemAtPath:fullPathFromRelativeForGPXFile([[_recordingList objectAtIndex:i] valueForKey:VSO_REC_LIST_PATH_KEY]) error:NULL]) {
+		if (![fm removeItemAtPath:fullPathFromRelativeForGPXFile([[_recordingList objectAtIndex:i] valueForKey:c.recListPathKey]) error:NULL]) {
 			[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"internal error", nil) message:[NSString stringWithFormat:NSLocalizedString(@"cannot delete recording. please contact developer error code #", nil), 2] delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] show];
-			NSLog(@"Can't delete relative path \"%@\" (full path is: \"%@\")", [[_recordingList objectAtIndex:i] valueForKey:VSO_REC_LIST_PATH_KEY], fullPathFromRelativeForGPXFile([[_recordingList objectAtIndex:i] valueForKey:VSO_REC_LIST_PATH_KEY]));
+			NSLog(@"Can't delete relative path \"%@\" (full path is: \"%@\")", [[_recordingList objectAtIndex:i] valueForKey:c.recListPathKey], fullPathFromRelativeForGPXFile([[_recordingList objectAtIndex:i] valueForKey:c.recListPathKey]));
 			return;
 		}
 		[_recordingList removeObjectAtIndex:i];

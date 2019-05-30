@@ -60,28 +60,28 @@
 	
 	assert(recordState == VSORecordStateStopped);
 	
-	if (![fm fileExistsAtPath:VSO_PATH_TO_GPX_LIST]) {
+	if (![fm fileExistsAtPath:c.urlToGPXList]) {
 		recordingList = [NSMutableArray new];
 		return;
 	}
-	recordingList = [NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:VSO_PATH_TO_GPX_LIST]];
+	recordingList = [NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:c.urlToGPXList]];
 	if (recordingList.count == 0) {
-		assert(![fm fileExistsAtPath:VSO_PATH_TO_PAUSED_REC_WITNESS]);
+		assert(![fm fileExistsAtPath:c.urlToPausedRecWitness]);
 		return;
 	}
 	
-	if ([fm fileExistsAtPath:VSO_PATH_TO_PAUSED_REC_WITNESS]) {
-		NSString *path = fullPathFromRelativeForGPXFile([[recordingList objectAtIndex:0] valueForKey:VSO_REC_LIST_PATH_KEY]);
+	if ([fm fileExistsAtPath:c.urlToPausedRecWitness]) {
+		NSString *path = fullPathFromRelativeForGPXFile([[recordingList objectAtIndex:0] valueForKey:c.recListPathKey]);
 		currentRecordingInfo = [recordingList objectAtIndex:0];
 		[recordingList removeObjectAtIndex:0];
 		
-		viewControllersStates = [NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:VSO_PATH_TO_PAUSED_REC_WITNESS]];
+		viewControllersStates = [NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:c.urlToPausedRecWitness]];
 		for (NSUInteger i = 0; i<[viewControllers count]; i++) {
 			VSOInfoGenericController *curCtrl = [viewControllers objectAtIndex:i];
 			if ((NSNull *)curCtrl != [NSNull null])
 				[curCtrl restoreStateFrom:[viewControllersStates objectAtIndex:i]];
 		}
-		[fm removeItemAtPath:VSO_PATH_TO_PAUSED_REC_WITNESS error:NULL];
+		[fm removeItemAtPath:c.urlToPausedRecWitness error:NULL];
 		
 		currentGpx = [[GPXgpxType alloc] initWithAttributes:[NSDictionary dictionaryWithObjects:[NSArray array] forKeys:[NSArray array]] elementName:@"gpx"];
 		[currentGpx addTrack];
@@ -93,7 +93,7 @@
 		currentGpxOutputPath = [path copy];
 		currentGpxOutput = [NSFileHandle fileHandleForWritingAtPath:path];
 		[currentGpxOutput seekToEndOfFile];
-		if ([[currentRecordingInfo valueForKey:VSO_REC_LIST_RECORD_STATE_KEY] unsignedIntValue] != VSORecordStatePaused)
+		if ([[currentRecordingInfo valueForKey:c.recListRecordStateKey] unsignedIntValue] != VSORecordStatePaused)
 			[currentGpxOutput writeData:[currentTracksegment XMLOutputForTagClosing:2]];
 		
 		[self setRecordState:VSORecordStatePaused];
@@ -107,21 +107,21 @@
 {
 	if (!currentRecordingInfo) return;
 	
-	if ([recordingList count] > 0 && [[recordingList objectAtIndex:0] valueForKey:VSO_REC_LIST_RECORD_STATE_KEY] != nil)
+	if ([recordingList count] > 0 && [[recordingList objectAtIndex:0] valueForKey:c.recListRecordStateKey] != nil)
 		[recordingList removeObjectAtIndex:0];
 	
-	VSORecordState recState = [[currentRecordingInfo valueForKey:VSO_REC_LIST_RECORD_STATE_KEY] unsignedIntValue];
-	if (recState == VSORecordStateStopped && [[currentRecordingInfo valueForKey:VSO_REC_LIST_N_REG_POINTS_KEY] unsignedIntValue] == 0) {
-		[[NSFileManager defaultManager] removeItemAtPath:fullPathFromRelativeForGPXFile([currentRecordingInfo valueForKey:VSO_REC_LIST_PATH_KEY]) error:NULL];
+	VSORecordState recState = [[currentRecordingInfo valueForKey:c.recListRecordStateKey] unsignedIntValue];
+	if (recState == VSORecordStateStopped && [[currentRecordingInfo valueForKey:c.recListNRegPointsKey] unsignedIntValue] == 0) {
+		[[NSFileManager defaultManager] removeItemAtPath:fullPathFromRelativeForGPXFile([currentRecordingInfo valueForKey:c.recListPathKey]) error:NULL];
 		return;
 	}
 	
-	NSTimeInterval totalRecordTime = [[currentRecordingInfo valueForKey:VSO_REC_LIST_TOTAL_REC_TIME_BEFORE_LAST_PAUSE_KEY] doubleValue];
+	NSTimeInterval totalRecordTime = [[currentRecordingInfo valueForKey:c.recListTotalRecTimeBeforeLastPauseKey] doubleValue];
 	NSTimeInterval ti = -[dateRecordStart timeIntervalSinceNow] + totalRecordTime;
-	[currentRecordingInfo setValue:@(ti) forKey:VSO_REC_LIST_TOTAL_REC_TIME_KEY];
-	[currentRecordingInfo setValue:[NSDate new] forKey:VSO_REC_LIST_DATE_END_KEY];
+	[currentRecordingInfo setValue:@(ti) forKey:c.recListTotalRecTimeKey];
+	[currentRecordingInfo setValue:[NSDate new] forKey:c.recListDateEndKey];
 	if (recState == VSORecordStateStopped) {
-		[currentRecordingInfo removeObjectForKey:VSO_REC_LIST_RECORD_STATE_KEY];
+		[currentRecordingInfo removeObjectForKey:c.recListRecordStateKey];
 		for (Class curClass in ctrlClassesForPages)
 			[currentRecordingInfo removeObjectForKey:VSO_REC_LIST_STORED_POINTS_FOR_CLASS_KEY(curClass)];
 	}
@@ -147,7 +147,7 @@
 - (void)processDidMoveToPage:(NSInteger)page
 {
 	[self setNeedsStatusBarAppearanceUpdate];
-	if (page == VSO_PAGE_NUMBER_WITH_DETAILED_INFOS || page == VSO_PAGE_NUMBER_WITH_MAP) {
+	if (page == c.pageNumberWithDetailedInfo || page == c.pageNumberWithMap) {
 		[locationManager requestWhenInUseAuthorization];
 	}
 }
@@ -235,7 +235,7 @@
 {
 	if (!currentRecordingInfo) return;
 	
-	NSTimeInterval totalRecordTime = [[currentRecordingInfo valueForKey:VSO_REC_LIST_TOTAL_REC_TIME_BEFORE_LAST_PAUSE_KEY] doubleValue];
+	NSTimeInterval totalRecordTime = [[currentRecordingInfo valueForKey:c.recListTotalRecTimeBeforeLastPauseKey] doubleValue];
 	NSTimeInterval ti = -[dateRecordStart timeIntervalSinceNow] + totalRecordTime;
 	NSUInteger i = (NSUInteger)ti;
 	
@@ -248,7 +248,7 @@
 	[self refreshCurrentSpeedAverage];
 	[[viewControllers objectAtIndex:selPage] refreshInfos];
 	
-	[labelMiniInfosDistance setText:NSStringFromDistance([[currentRecordingInfo valueForKey:VSO_REC_LIST_TOTAL_REC_DISTANCE_KEY] doubleValue])];
+	[labelMiniInfosDistance setText:NSStringFromDistance([[currentRecordingInfo valueForKey:c.recListTotalRecDistanceKey] doubleValue])];
 }
 
 - (void)refreshHeadingInfos
@@ -258,14 +258,14 @@
 
 - (void)refreshCurrentSpeedAverage
 {
-	NSTimeInterval totalRecordTime = [[currentRecordingInfo valueForKey:VSO_REC_LIST_TOTAL_REC_TIME_BEFORE_LAST_PAUSE_KEY] doubleValue];
-	CLLocationDistance totalRecordDistance = [[currentRecordingInfo valueForKey:VSO_REC_LIST_TOTAL_REC_DISTANCE_KEY] doubleValue];
+	NSTimeInterval totalRecordTime = [[currentRecordingInfo valueForKey:c.recListTotalRecTimeBeforeLastPauseKey] doubleValue];
+	CLLocationDistance totalRecordDistance = [[currentRecordingInfo valueForKey:c.recListTotalRecDistanceKey] doubleValue];
 	NSTimeInterval ti = -[dateRecordStart timeIntervalSinceNow] + totalRecordTime;
 	[currentRecordingInfo setValue:[NSNumber numberWithDouble:totalRecordDistance/ti]
-									forKey:VSO_REC_LIST_AVERAGE_SPEED_KEY];
+									forKey:c.recListAverageSpeedKey];
 	
 	/* For informative purpose only */
-	[currentRecordingInfo setValue:[NSNumber numberWithDouble:ti] forKey:VSO_REC_LIST_TOTAL_REC_TIME_KEY];
+	[currentRecordingInfo setValue:[NSNumber numberWithDouble:ti] forKey:c.recListTotalRecTimeKey];
 }
 
 
@@ -320,7 +320,7 @@
 {
 	VSORecordState previousRecordState = recordState;
 	recordState = s;
-	[currentRecordingInfo setValue:[NSNumber numberWithUnsignedInt:recordState] forKey:VSO_REC_LIST_RECORD_STATE_KEY];
+	[currentRecordingInfo setValue:[NSNumber numberWithUnsignedInt:recordState] forKey:c.recListRecordStateKey];
 	
 	/* Notifying view controllers that the record state changed */
 	for (VSOInfoGenericController *curCtrl in viewControllers)
@@ -354,17 +354,17 @@
 - (void)addCurrentLocationToCurrentTrack
 {
 	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-	if (currentLocation == nil || ([ud boolForKey:VSO_UDK_SKIP_NON_ACCURATE_POINTS] && currentLocation.horizontalAccuracy > VSO_MAX_ACCURACY_TO_RECORD_POINT)) return;
+	if (currentLocation == nil || ([ud boolForKey:VSO_UDK_SKIP_NON_ACCURATE_POINTS] && currentLocation.horizontalAccuracy > c.maxAccuracyToRecordPoint)) return;
 	
 	[currentTracksegment addTrackPointWithCoords:[currentLocation coordinate] hPrecision:currentLocation.horizontalAccuracy
 												  elevation:currentLocation.altitude vPrecision:currentLocation.verticalAccuracy
 													 heading:currentLocation.course date:[NSDate dateWithTimeIntervalSinceNow:0.]];
 	[currentGpxOutput writeData:[[currentTracksegment lastTrackPoint] XMLOutput:3]];
 	
-	[currentRecordingInfo setValue:[NSNumber numberWithUnsignedInt:1+[[currentRecordingInfo valueForKey:VSO_REC_LIST_N_REG_POINTS_KEY] unsignedIntValue]]
-									forKey:VSO_REC_LIST_N_REG_POINTS_KEY];
-	[currentRecordingInfo setValue:[NSNumber numberWithDouble:MAX(currentLocation.speed, [[currentRecordingInfo valueForKey:VSO_REC_LIST_MAX_SPEED_KEY] doubleValue])]
-									forKey:VSO_REC_LIST_MAX_SPEED_KEY];
+	[currentRecordingInfo setValue:[NSNumber numberWithUnsignedInt:1+[[currentRecordingInfo valueForKey:c.recListNRegPointsKey] unsignedIntValue]]
+									forKey:c.recListNRegPointsKey];
+	[currentRecordingInfo setValue:[NSNumber numberWithDouble:MAX(currentLocation.speed, [[currentRecordingInfo valueForKey:c.recListMaxSpeedKey] doubleValue])]
+									forKey:c.recListMaxSpeedKey];
 	
 	[self saveRecordingListStoppingGPX:NO];
 }
@@ -388,8 +388,8 @@
 	if (recordState == VSORecordStateStopped || recordState == VSORecordStatePaused) return;
 	locationManager.allowsBackgroundLocationUpdates = NO;
 	
-	NSTimeInterval totalRecordTime = [[currentRecordingInfo valueForKey:VSO_REC_LIST_TOTAL_REC_TIME_BEFORE_LAST_PAUSE_KEY] doubleValue];
-	[currentRecordingInfo setValue:[NSNumber numberWithDouble:totalRecordTime+(-[dateRecordStart timeIntervalSinceNow])] forKey:VSO_REC_LIST_TOTAL_REC_TIME_BEFORE_LAST_PAUSE_KEY];
+	NSTimeInterval totalRecordTime = [[currentRecordingInfo valueForKey:c.recListTotalRecTimeBeforeLastPauseKey] doubleValue];
+	[currentRecordingInfo setValue:[NSNumber numberWithDouble:totalRecordTime+(-[dateRecordStart timeIntervalSinceNow])] forKey:c.recListTotalRecTimeBeforeLastPauseKey];
 	
 	[timerToRefreshTimes invalidate]; timerToRefreshTimes = nil;
 	dateRecordStart = nil;
@@ -489,7 +489,7 @@
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self selector:@selector(screenLockNotification:)   name:UIApplicationWillResignActiveNotification object:nil];
 	[nc addObserver:self selector:@selector(screenUnlockNotification:) name:UIApplicationDidBecomeActiveNotification  object:nil];
-	[nc addObserver:self selector:@selector(settingsChanged:) name:VSO_NTF_SETTINGS_CHANGED object:nil];
+	[nc addObserver:self selector:@selector(settingsChanged:) name:c.ntfSettingsChanged object:nil];
 	
 	[self updateUI];
 }
@@ -542,14 +542,14 @@
 																								 [NSNumber numberWithInt:0],
 																								 NSStringFromDate([NSDate dateWithTimeIntervalSinceNow:0]), nil]
 																					 forKeys:[NSArray arrayWithObjects:
-																								 VSO_REC_LIST_PATH_KEY,
-																								 VSO_REC_LIST_TOTAL_REC_TIME_KEY,
-																								 VSO_REC_LIST_TOTAL_REC_TIME_BEFORE_LAST_PAUSE_KEY,
-																								 VSO_REC_LIST_TOTAL_REC_DISTANCE_KEY,
-																								 VSO_REC_LIST_MAX_SPEED_KEY,
-																								 VSO_REC_LIST_AVERAGE_SPEED_KEY,
-																								 VSO_REC_LIST_N_REG_POINTS_KEY,
-																								 VSO_REC_LIST_NAME_KEY, nil]];
+																								 c.recListPathKey,
+																								 c.recListTotalRecTimeKey,
+																								 c.recListTotalRecTimeBeforeLastPauseKey,
+																								 c.recListTotalRecDistanceKey,
+																								 c.recListMaxSpeedKey,
+																								 c.recListAverageSpeedKey,
+																								 c.recListNRegPointsKey,
+																								 c.recListNameKey, nil]];
 		[currentGpxOutput writeData:[currentGpx XMLOutputForTagOpening:0]];
 		[currentGpxOutput writeData:[[currentGpx firstTrack] XMLOutputForTagOpening:1]];
 		
@@ -570,14 +570,14 @@
 
 - (void)showDetailedInfosView
 {
-	selPage = VSO_PAGE_NUMBER_WITH_DETAILED_INFOS;
+	selPage = c.pageNumberWithDetailedInfo;
 	pageControl.currentPage = selPage;
 	[self selectPage:selPage animated:YES];
 }
 
 - (void)showMapView
 {
-	selPage = VSO_PAGE_NUMBER_WITH_MAP;
+	selPage = c.pageNumberWithMap;
 	pageControl.currentPage = selPage;
 	[self selectPage:selPage animated:YES];
 }
@@ -677,7 +677,7 @@
 	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
 	currentLocation = newLocation;
 	if (recordState != VSORecordStateRecording && recordState != VSORecordStateWaitingGPS) {end(); return;}
-	if ([ud boolForKey:VSO_UDK_SKIP_NON_ACCURATE_POINTS] && newLocation.horizontalAccuracy > VSO_MAX_ACCURACY_TO_RECORD_POINT) {end(); return;}
+	if ([ud boolForKey:VSO_UDK_SKIP_NON_ACCURATE_POINTS] && newLocation.horizontalAccuracy > c.maxAccuracyToRecordPoint) {end(); return;}
 	
 	assert(dateRecordStart != nil || recordState != VSORecordStateRecording);
 	if (dateRecordStart == nil && recordState != VSORecordStateRecording) {
@@ -698,8 +698,8 @@
 		if ([lastTrackPoint hasDate] && (-[[lastTrackPoint date] timeIntervalSinceNow] < minTimeInterval)) {end(); return;}
 	}
 	
-	CLLocationDistance totalRecordDistance = [[currentRecordingInfo valueForKey:VSO_REC_LIST_TOTAL_REC_DISTANCE_KEY] doubleValue];
-	[currentRecordingInfo setValue:@(totalRecordDistance+d) forKey:VSO_REC_LIST_TOTAL_REC_DISTANCE_KEY];
+	CLLocationDistance totalRecordDistance = [[currentRecordingInfo valueForKey:c.recListTotalRecDistanceKey] doubleValue];
+	[currentRecordingInfo setValue:@(totalRecordDistance+d) forKey:c.recListTotalRecDistanceKey];
 	[self addCurrentLocationToCurrentTrack];
 	pointAdded = YES;
 	
@@ -799,10 +799,10 @@
 				if ((NSNull *)curCtrl != [NSNull null]) [viewControllersStates replaceObjectAtIndex:i withObject:[curCtrl state]];
 				i++;
 			}
-			[NSKeyedArchiver archiveRootObject:viewControllersStates toFile:VSO_PATH_TO_PAUSED_REC_WITNESS];
+			[NSKeyedArchiver archiveRootObject:viewControllersStates toFile:c.urlToPausedRecWitness];
 		}
 	}
-	[NSKeyedArchiver archiveRootObject:recordingList toFile:VSO_PATH_TO_GPX_LIST];
+	[NSKeyedArchiver archiveRootObject:recordingList toFile:c.urlToGPXList];
 }
 
 - (void)recoverFromCrash
@@ -811,11 +811,11 @@
 	if (recordingList.count == 0) return;
 	
 	NSDictionary *recInfos = [recordingList objectAtIndex:0];
-	if ([recInfos valueForKey:VSO_REC_LIST_RECORD_STATE_KEY] != nil) {
+	if ([recInfos valueForKey:c.recListRecordStateKey] != nil) {
 		NSDLog(@"App crashed while recording. Recovering last state...");
 		[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"app crashed", nil) message:NSLocalizedString(@"recovering last recording", nil)
 											delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] show];
-		[NSKeyedArchiver archiveRootObject:viewControllersStates toFile:VSO_PATH_TO_PAUSED_REC_WITNESS];
+		[NSKeyedArchiver archiveRootObject:viewControllersStates toFile:c.urlToPausedRecWitness];
 		[self loadPreviousRecordingList];
 	}
 }

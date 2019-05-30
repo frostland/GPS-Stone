@@ -18,13 +18,13 @@ BOOL isDeviceScreenTallerThanOriginalIPhone() {
 }
 
 NSString *fullPathFromRelativeForGPXFile(NSString *relativePath) {
-	return [VSO_PATH_TO_FOLDER_WITH_GPX_FILES stringByAppendingPathComponent:relativePath];
+	return [c.urlToFolderWithGPXFiles stringByAppendingPathComponent:relativePath];
 }
 
 NSString *relativePathFromFullForGPXFile(NSString *fullPath) {
 #ifndef NDEBUG
-	if ([[fullPath pathComponents] count] != [[VSO_PATH_TO_FOLDER_WITH_GPX_FILES pathComponents] count] + 1) {
-		NSLog(@"Error: [[fullPath pathComponents] count] != [[VSO_PATH_TO_FOLDER_WITH_GPX_FILES pathComponents] count] + 1 (in relativePathFromFullForGPXFile)");
+	if ([[fullPath pathComponents] count] != [[c.urlToFolderWithGPXFiles pathComponents] count] + 1) {
+		NSLog(@"Error: [[fullPath pathComponents] count] != [[c.urlToFolderWithGPXFiles pathComponents] count] + 1 (in relativePathFromFullForGPXFile)");
 		return nil;
 	}
 #endif
@@ -65,7 +65,7 @@ NSString *NSStringFromDate(NSDate *date) {
 NSString *NSStringFromSpeed(CGFloat speed, BOOL showUnit) {
 	BOOL miles = (distanceUnit() == VSODistanceUnitMiles);
 	speed *= 3.6; /* speed is now in km/h */
-	if (miles) speed /= ONE_MILE_INTO_KILOMETER; /* speed is now in mph */
+	if (miles) speed /= c.oneMileInKilometer; /* speed is now in mph */
 	
 	NSString *formatNonLoc = [NSString stringWithFormat:@"x with arbitrary decimal precision%@",  showUnit? (miles? @" mph format": @" km/h format"): @""];
 	return [NSString stringWithFormat:NSLocalizedString(formatNonLoc, nil), MAX(0, 2 - (NSInteger)(log10(speed))), speed];
@@ -80,9 +80,9 @@ NSString *NSStringFromTimeInterval(NSTimeInterval i) {
 
 NSString *NSStringFromDistance(CLLocationDistance d) {
 	if (distanceUnit() == VSODistanceUnitMiles) {
-		CGFloat d2 = d/ONE_FOOT_INTO_METER;
+		CGFloat d2 = d/c.oneFootInMeters;
 		if (d2 < 1000) return [NSString stringWithFormat:NSLocalizedString(@"n ft format", nil), (unsigned int)(d2 + 0.5)];
-		d2 = (d/1000.)/ONE_MILE_INTO_KILOMETER;
+		d2 = (d/1000.)/c.oneMileInKilometer;
 		return [NSString stringWithFormat:NSLocalizedString(@"x with arbitrary decimal precision mi format", nil), MAX(0, 2 - (NSInteger)(log10(d2))), d2];
 	} else {
 		if (d < 1000) return [NSString stringWithFormat:NSLocalizedString(@"n m format", nil), (unsigned int)(d + 0.5)];
@@ -93,19 +93,11 @@ NSString *NSStringFromDistance(CLLocationDistance d) {
 NSString *NSStringFromAltitude(CLLocationDistance a) {
 	NSString *formatNonLoc = @"x m format (altitude)";
 	if (distanceUnit() == VSODistanceUnitMiles) {
-		a /= ONE_FOOT_INTO_METER; /* a is now in feet */
+		a /= c.oneFootInMeters; /* a is now in feet */
 		formatNonLoc = @"x ft format (altitude)";
 	}
 	
 	return [NSString stringWithFormat:NSLocalizedString(formatNonLoc, nil), a + 0.5];
-}
-
-VSODistanceUnit distanceUnit(void) {
-	NSInteger unit = [NSUserDefaults.standardUserDefaults integerForKey:VSO_UDK_DISTANCE_UNIT];
-	if (unit == VSODistanceUnitAutomatic)
-		return ([[NSLocale.currentLocale objectForKey:NSLocaleUsesMetricSystem] boolValue]? VSODistanceUnitKilometers: VSODistanceUnitMiles);
-	
-	return (VSODistanceUnit)unit;
 }
 
 #pragma mark -

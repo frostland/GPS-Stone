@@ -18,7 +18,7 @@
 	
 	if (!isDeviceScreenTallerThanOriginalIPhone()) {self.constraintMarginTopTitle.constant = 25.;}
 	
-	if ([[currentRecordingInfo valueForKey:VSO_REC_LIST_RECORD_STATE_KEY] unsignedIntValue] == VSORecordStateStopped) [self.buttonRecord setAlpha:1.];
+	if ([[currentRecordingInfo valueForKey:c.recListRecordStateKey] unsignedIntValue] == VSORecordStateStopped) [self.buttonRecord setAlpha:1.];
 	else                                                                                                              [self.buttonRecord setAlpha:0.];
 }
 
@@ -59,7 +59,7 @@
 - (void)recordingStateChangedFrom:(VSORecordState)lastState to:(VSORecordState)newState
 {
 	[self refreshInfos];
-	[UIView animateWithDuration:VSO_ANIM_TIME animations:^{
+	[UIView animateWithDuration:c.animTime animations:^{
 		[self.buttonRecord setAlpha:(newState == VSORecordStateStopped ? 1. : 0.)];
 	}];
 }

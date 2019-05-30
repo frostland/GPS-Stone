@@ -29,7 +29,7 @@
 {
 	_recordingInfos = recordingInfos;
 	
-	NSString *path = fullPathFromRelativeForGPXFile([_recordingInfos valueForKey:VSO_REC_LIST_PATH_KEY]);
+	NSString *path = fullPathFromRelativeForGPXFile([_recordingInfos valueForKey:c.recListPathKey]);
 	NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:[NSData dataWithContentsOfFile:path]];
 	[xmlParser setDelegate:self];
 	[xmlParser parse];
@@ -40,14 +40,14 @@
 {
 	[super viewDidLoad];
 	
-	self.title = [_recordingInfos valueForKey:VSO_REC_LIST_NAME_KEY];
+	self.title = [_recordingInfos valueForKey:c.recListNameKey];
 	
-	NSTimeInterval time = [[_recordingInfos valueForKey:VSO_REC_LIST_TOTAL_REC_TIME_KEY] doubleValue];
-	NSTimeInterval distance = [[_recordingInfos valueForKey:VSO_REC_LIST_TOTAL_REC_DISTANCE_KEY] doubleValue];
+	NSTimeInterval time = [[_recordingInfos valueForKey:c.recListTotalRecTimeKey] doubleValue];
+	NSTimeInterval distance = [[_recordingInfos valueForKey:c.recListTotalRecDistanceKey] doubleValue];
 	[labelInfos setText:[NSString stringWithFormat:@"%@ / %@ / %@", NSStringFromTimeInterval(time), NSStringFromDistance(distance), NSStringFromSpeed(distance/time, YES)]];
-	[labelDate setText:NSStringFromDate([_recordingInfos valueForKey:VSO_REC_LIST_DATE_END_KEY])];
+	[labelDate setText:NSStringFromDate([_recordingInfos valueForKey:c.recListDateEndKey])];
 	
-	[textFieldName setText:[_recordingInfos valueForKey:VSO_REC_LIST_NAME_KEY]];
+	[textFieldName setText:[_recordingInfos valueForKey:c.recListNameKey]];
 	
 	mapViewController = [VSOMapViewController instantiateWithGPX:gpx location:nil];
 	mapViewController.showUL = YES;
@@ -89,7 +89,7 @@
 	if (textField != textFieldName) return YES;
 	
 	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:VSO_ANIM_TIME];
+	[UIView setAnimationDuration:c.animTime];
 	constraintNameNoKeyboard.active = NO;
 	constraintNameKeyboard.active = YES;
 	viewWithMap.alpha = 0.;
@@ -103,11 +103,11 @@
 {
 	if (textField != textFieldName) return;
 	
-	[_recordingInfos setValue:[textFieldName text] forKey:VSO_REC_LIST_NAME_KEY];
+	[_recordingInfos setValue:[textFieldName text] forKey:c.recListNameKey];
 	self.title = [textFieldName text];
 	
 	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:VSO_ANIM_TIME];
+	[UIView setAnimationDuration:c.animTime];
 	constraintNameNoKeyboard.active = YES;
 	constraintNameKeyboard.active = NO;
 	viewWithMap.alpha = 1.;
@@ -129,8 +129,8 @@
 		ctrl.mailComposeDelegate = self;
 		
 		[ctrl setSubject:NSLocalizedString(@"gpx file sent", nil)];
-		[ctrl addAttachmentData:[NSData dataWithContentsOfFile:fullPathFromRelativeForGPXFile([_recordingInfos valueForKey:VSO_REC_LIST_PATH_KEY])]
-							mimeType:@"application/octet-stream" fileName:[NSString stringWithFormat:@"%@.gpx", [_recordingInfos valueForKey:VSO_REC_LIST_NAME_KEY]]];
+		[ctrl addAttachmentData:[NSData dataWithContentsOfFile:fullPathFromRelativeForGPXFile([_recordingInfos valueForKey:c.recListPathKey])]
+							mimeType:@"application/octet-stream" fileName:[NSString stringWithFormat:@"%@.gpx", [_recordingInfos valueForKey:c.recListNameKey]]];
 		
 		[self presentViewController:ctrl animated:YES completion:NULL];
 	}

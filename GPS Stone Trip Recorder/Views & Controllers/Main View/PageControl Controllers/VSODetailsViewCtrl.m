@@ -35,7 +35,7 @@
 	[labelLat  setText:NSStringFromDegrees(currentLocation.coordinate.latitude, YES)];
 	[labelLong setText:NSStringFromDegrees(currentLocation.coordinate.longitude, NO)];
 	[labelHorizontalAccuracy setText:NSStringFromDistance(currentLocation.horizontalAccuracy)];
-	if (currentLocation.horizontalAccuracy > VSO_MAX_ACCURACY_TO_RECORD_POINT) [labelHorizontalAccuracy setTextColor:[UIColor redColor]];
+	if (currentLocation.horizontalAccuracy > c.maxAccuracyToRecordPoint) [labelHorizontalAccuracy setTextColor:[UIColor redColor]];
 	else                                                                       [labelHorizontalAccuracy setTextColor:[UIColor blackColor]];
 	if (currentLocation.verticalAccuracy >= 0) {
 		[labelAltitude setText:[NSString stringWithFormat:@"%@", NSStringFromAltitude(currentLocation.altitude)]];
@@ -46,22 +46,22 @@
 	[self refreshHeadingInfos];
 	
 	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:VSO_ANIM_TIME];
+	[UIView setAnimationDuration:c.animTime];
 	if (!currentGPX) [viewWithTrackInfos setAlpha:0.];
 	else             [viewWithTrackInfos setAlpha:1.];
 	[UIView commitAnimations];
 	
 	if (!currentGPX) return;
 	
-	[labelTrackName setText:[currentRecordingInfo valueForKey:VSO_REC_LIST_NAME_KEY]];
+	[labelTrackName setText:[currentRecordingInfo valueForKey:c.recListNameKey]];
 	
-	[labelNumberOfPoints setText:[NSString stringWithFormat:@"%d", [[currentRecordingInfo valueForKey:VSO_REC_LIST_N_REG_POINTS_KEY] unsignedIntValue]]];
-	[labelElapsedTime setText:NSStringFromTimeInterval([[currentRecordingInfo valueForKey:VSO_REC_LIST_TOTAL_REC_TIME_KEY] doubleValue])];
-	[labelTotalDistance setText:NSStringFromDistance([[currentRecordingInfo valueForKey:VSO_REC_LIST_TOTAL_REC_DISTANCE_KEY] doubleValue])];
-	CLLocationSpeed currentAverageSpeed = [[currentRecordingInfo valueForKey:VSO_REC_LIST_AVERAGE_SPEED_KEY] doubleValue];
+	[labelNumberOfPoints setText:[NSString stringWithFormat:@"%d", [[currentRecordingInfo valueForKey:c.recListNRegPointsKey] unsignedIntValue]]];
+	[labelElapsedTime setText:NSStringFromTimeInterval([[currentRecordingInfo valueForKey:c.recListTotalRecTimeKey] doubleValue])];
+	[labelTotalDistance setText:NSStringFromDistance([[currentRecordingInfo valueForKey:c.recListTotalRecDistanceKey] doubleValue])];
+	CLLocationSpeed currentAverageSpeed = [[currentRecordingInfo valueForKey:c.recListAverageSpeedKey] doubleValue];
 	if (currentAverageSpeed >= 0) [labelAverageSpeed setText:NSStringFromSpeed(currentAverageSpeed, NO)];
 	
-	CLLocationSpeed currentMaxSpeed = [[currentRecordingInfo valueForKey:VSO_REC_LIST_MAX_SPEED_KEY] doubleValue];
+	CLLocationSpeed currentMaxSpeed = [[currentRecordingInfo valueForKey:c.recListMaxSpeedKey] doubleValue];
 	if (currentMaxSpeed >= 0) [labelMaxSpeed setText:NSStringFromSpeed(currentMaxSpeed, NO)];
 }
 
@@ -72,7 +72,7 @@
 	if (currentHeading  != nil) h = currentHeading.trueHeading;
 	if (h >= 0) {
 		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:VSO_ANIM_TIME];
+		[UIView setAnimationDuration:c.animTime];
 		[imageNorth setAlpha:1.];
 		[imageNorth setTransform:CGAffineTransformMakeRotation(-2.*M_PI*(h/360))];
 		[UIView commitAnimations];
@@ -83,7 +83,7 @@
 {
 	[self refreshInfos];
 	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:VSO_ANIM_TIME];
+	[UIView setAnimationDuration:c.animTime];
 	if (newState == VSORecordStateStopped) [buttonRecord setAlpha:1.];
 	else                                   [buttonRecord setAlpha:0.];
 	[UIView commitAnimations];
@@ -105,12 +105,12 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChanged:) name:VSO_NTF_SETTINGS_CHANGED object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChanged:) name:c.ntfSettingsChanged object:nil];
 	
 	[imageNorth setAlpha:0.];
 	if (!currentGPX) [viewWithTrackInfos setAlpha:0.];
 	else             [viewWithTrackInfos setAlpha:1.];
-	if ([[currentRecordingInfo valueForKey:VSO_REC_LIST_RECORD_STATE_KEY] unsignedIntValue] == VSORecordStateStopped) [buttonRecord setAlpha:1.];
+	if ([[currentRecordingInfo valueForKey:c.recListRecordStateKey] unsignedIntValue] == VSORecordStateStopped) [buttonRecord setAlpha:1.];
 	else                                                                                                              [buttonRecord setAlpha:0.];
 	
 	[self settingsChanged:nil];

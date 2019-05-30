@@ -38,8 +38,6 @@
 		0FE8B1BE102193FF009A321A /* GPXptType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B1BD102193FF009A321A /* GPXptType.m */; };
 		0FE8B1C1102195E6009A321A /* GPXptsegType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B1C0102195E6009A321A /* GPXptsegType.m */; };
 		0FE8B1C41021964F009A321A /* GPXboundsType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B1C31021964F009A321A /* GPXboundsType.m */; };
-		1D3623260D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.m */; };
-		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765580DF743DE002DB57D /* CoreGraphics.framework */; };
@@ -50,6 +48,10 @@
 		7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */; };
 		7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE81DCA975F007B5ABC /* Main.storyboard */; };
 		7B63B7691E227E96001FA33C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B63B7681E227E96001FA33C /* InfoPlist.strings */; };
+		7B94D1E222A0169600848832 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E122A0169600848832 /* AppDelegate.swift */; };
+		7B94D1E622A0191700848832 /* ServicesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E522A0191700848832 /* ServicesProvider.swift */; };
+		7B94D1E822A0194100848832 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E722A0194100848832 /* Constants.swift */; };
+		7B94D1EA22A0197900848832 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E922A0197900848832 /* AppSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -113,8 +115,6 @@
 		0FE8B1C21021964F009A321A /* GPXboundsType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXboundsType.h; sourceTree = "<group>"; };
 		0FE8B1C31021964F009A321A /* GPXboundsType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXboundsType.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D3623240D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSStoneTripRecorderAppDelegate.h; sourceTree = "<group>"; };
-		1D3623250D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSStoneTripRecorderAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* GPS Stone Trip Recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GPS Stone Trip Recorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765580DF743DE002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -122,13 +122,17 @@
 		289233A90DB2D0DB0083E9F9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		289233AC0DB2D0DB0083E9F9 /* VSOSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOSettingsViewController.h; sourceTree = "<group>"; };
 		289233AD0DB2D0DB0083E9F9 /* VSOSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOSettingsViewController.m; sourceTree = "<group>"; };
-		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* GPS_Stone_Trip_Recorder.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPS_Stone_Trip_Recorder.pch; sourceTree = "<group>"; };
 		7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B482CE01DCA8ADD007B5ABC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B482CE91DCA976E007B5ABC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7B63B7681E227E96001FA33C /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		7B94D1E022A0169600848832 /* GPS Stone Trip Recorder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GPS Stone Trip Recorder-Bridging-Header.h"; sourceTree = "<group>"; };
+		7B94D1E122A0169600848832 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7B94D1E522A0191700848832 /* ServicesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesProvider.swift; sourceTree = "<group>"; };
+		7B94D1E722A0194100848832 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7B94D1E922A0197900848832 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		7B96A7CA229F1B5300267DBD /* GPS Stone Trip Recorder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GPS Stone Trip Recorder.entitlements"; sourceTree = "<group>"; };
 		7BA2A5EA1F2E013A0014603B /* Test Recording.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Test Recording.gpx"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* GPS_Stone_Trip_Recorder-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GPS_Stone_Trip_Recorder-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -305,8 +309,8 @@
 		7B27B9331DCF3DE5006F44B7 /* Heart */ = {
 			isa = PBXGroup;
 			children = (
-				1D3623240D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.h */,
-				1D3623250D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.m */,
+				7B94D1E322A0172700848832 /* Application Lifecycle */,
+				7B94D1E422A0190100848832 /* Services */,
 			);
 			path = Heart;
 			sourceTree = "<group>";
@@ -328,9 +332,9 @@
 			children = (
 				7B27B9361DCF3E3D006F44B7 /* Localizables */,
 				7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */,
-				29B97316FDCFA39411CA2CEA /* main.m */,
 				0FBBCBC6100A9FDD003679A8 /* Constants.h */,
 				32CA4F630368D1EE00C91783 /* GPS_Stone_Trip_Recorder.pch */,
+				7B94D1E022A0169600848832 /* GPS Stone Trip Recorder-Bridging-Header.h */,
 				8D1107310486CEB800E47090 /* GPS_Stone_Trip_Recorder-Info.plist */,
 			);
 			path = "Supporting Files";
@@ -359,6 +363,24 @@
 			);
 			name = "Base XML Elements";
 			path = "XML Elements";
+			sourceTree = "<group>";
+		};
+		7B94D1E322A0172700848832 /* Application Lifecycle */ = {
+			isa = PBXGroup;
+			children = (
+				7B94D1E122A0169600848832 /* AppDelegate.swift */,
+			);
+			path = "Application Lifecycle";
+			sourceTree = "<group>";
+		};
+		7B94D1E422A0190100848832 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7B94D1E522A0191700848832 /* ServicesProvider.swift */,
+				7B94D1E722A0194100848832 /* Constants.swift */,
+				7B94D1E922A0197900848832 /* AppSettings.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -391,6 +413,7 @@
 				ORGANIZATIONNAME = "Frost Land";
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -440,8 +463,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
-				1D3623260D0F684500981E51 /* GPSStoneTripRecorderAppDelegate.m in Sources */,
 				289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */,
 				289233B00DB2D0DB0083E9F9 /* VSOSettingsViewController.m in Sources */,
 				0F34802B10089A9700E88124 /* VSOMapViewController.m in Sources */,
@@ -449,7 +470,9 @@
 				0F3480F91008A83B00E88124 /* VSODetailsViewCtrl.m in Sources */,
 				0F79F6A010203DAE00AF7FF1 /* VSOUtils.m in Sources */,
 				0F577FCD1020811300067838 /* GPXgpxType.m in Sources */,
+				7B94D1E222A0169600848832 /* AppDelegate.swift in Sources */,
 				0F577FD01020816D00067838 /* XMLElement.m in Sources */,
+				7B94D1E822A0194100848832 /* Constants.swift in Sources */,
 				0F57809A1020925100067838 /* GPXmetadataType.m in Sources */,
 				0F5780B51020939900067838 /* XMLStringElement.m in Sources */,
 				0F5780DF102095E000067838 /* XMLDateElement.m in Sources */,
@@ -469,6 +492,8 @@
 				0FE8B1C41021964F009A321A /* GPXboundsType.m in Sources */,
 				0FC907BE1023107F009EA1B1 /* VSORecordingsListViewCtlr.m in Sources */,
 				0F2B6089102842F300FC0595 /* VSORecordingDetailViewCtrl.m in Sources */,
+				7B94D1E622A0191700848832 /* ServicesProvider.swift in Sources */,
+				7B94D1EA22A0197900848832 /* AppSettings.swift in Sources */,
 				0F13A60F102AE7E800D1C9BE /* VSOInfoGenericController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -500,6 +525,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -509,9 +535,13 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder.pch";
 				INFOPLIST_FILE = "GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.vso-software.GPSStoneTripRecorder";
 				PRODUCT_NAME = "GPS Stone Trip Recorder";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "GPS Stone Trip Recorder/Supporting Files/GPS Stone Trip Recorder-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -520,6 +550,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
@@ -527,9 +558,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder.pch";
 				INFOPLIST_FILE = "GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.vso-software.GPSStoneTripRecorder";
 				PRODUCT_NAME = "GPS Stone Trip Recorder";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "GPS Stone Trip Recorder/Supporting Files/GPS Stone Trip Recorder-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

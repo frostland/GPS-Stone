@@ -65,7 +65,7 @@
 	[super viewDidLoad];
 	NSDLog(@"viewDidLoad in VSOMapViewController");
 	
-	[NSNotificationCenter.defaultCenter addObserver:self selector:@selector(settingsChanged:) name:VSO_NTF_SETTINGS_CHANGED object:nil];
+	[NSNotificationCenter.defaultCenter addObserver:self selector:@selector(settingsChanged:) name:c.ntfSettingsChanged object:nil];
 	
 	mapView.delegate = self;
 	mapView.showsUserLocation = showUL;
@@ -127,7 +127,7 @@
 	
 	if (nTrackSeg == 0) bounds = MKCoordinateRegionMakeWithDistance(currentLocation.coordinate, DEFAULT_SPAN, DEFAULT_SPAN);
 	
-	VSORecordState recState = [[currentRecordingInfo valueForKey:VSO_REC_LIST_RECORD_STATE_KEY] unsignedIntValue];
+	VSORecordState recState = [[currentRecordingInfo valueForKey:c.recListRecordStateKey] unsignedIntValue];
 	if (recState == VSORecordStatePaused || recState == VSORecordStateScreenLocked) addTrackSegOnNextPoint = YES;
 	
 end:
@@ -205,7 +205,7 @@ end:
 	NSMutableData *dta = [NSMutableData data];
 	[dta appendData:[self dataFromMapRegion]];
 	
-	VSORecordState recState = [[currentRecordingInfo valueForKey:VSO_REC_LIST_RECORD_STATE_KEY] unsignedIntValue];
+	VSORecordState recState = [[currentRecordingInfo valueForKey:c.recListRecordStateKey] unsignedIntValue];
 	[dta appendBytes:&recState length:sizeof(VSORecordState)];
 	
 	[dta appendBytes:&nTrackSeg length:sizeof(NSUInteger)];
@@ -250,8 +250,8 @@ end:
 	
 	followingUserLoc = *(BOOL*)bytes;
 	
-	NSDLog(@"%d -> %d", recState, [[currentRecordingInfo valueForKey:VSO_REC_LIST_RECORD_STATE_KEY] unsignedIntValue]);
-	[self recordingStateChangedFrom:recState to:[[currentRecordingInfo valueForKey:VSO_REC_LIST_RECORD_STATE_KEY] unsignedIntValue]];
+	NSDLog(@"%d -> %d", recState, [[currentRecordingInfo valueForKey:c.recListRecordStateKey] unsignedIntValue]);
+	[self recordingStateChangedFrom:recState to:[[currentRecordingInfo valueForKey:c.recListRecordStateKey] unsignedIntValue]];
 	
 	addTrackSegOnNextPoint = (nTrackSeg == 0);
 	NSArray *storedPoints = [currentRecordingInfo valueForKey:VSO_REC_LIST_STORED_POINTS_FOR_CLASS_KEY([self class])];
@@ -287,7 +287,7 @@ end:
 	[super didReceiveMemoryWarning];
 	NSDLog(@"Memory warning in Map View Controller. Cleaning all drawn points.");
 	
-	if ([[currentRecordingInfo valueForKey:VSO_REC_LIST_RECORD_STATE_KEY] unsignedIntValue] == VSORecordStateStopped) return;
+	if ([[currentRecordingInfo valueForKey:c.recListRecordStateKey] unsignedIntValue] == VSORecordStateStopped) return;
 	
 	[self freePointsInfos];
 	[self allocNewPointInfos];
@@ -405,18 +405,6 @@ end:
 {
 	free2DTable((void **)paths, nTrackSeg); paths = NULL;
 	free(pointsDescrInTrack); pointsDescrInTrack = NULL;
-}
-
-- (NSData *)dataFromMapRegion
-{
-	MKCoordinateRegion r = [mapView region];
-	return [NSData dataWithBytes:&r length:sizeof(MKCoordinateRegion)];
-}
-
-- (MKCoordinateRegion)regionFromData:(NSData *)dta
-{
-	if (!dta) return [mapView region];
-	return *(MKCoordinateRegion*)[dta bytes];
 }
 
 @end

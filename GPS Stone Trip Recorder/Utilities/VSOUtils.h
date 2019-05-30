@@ -59,8 +59,6 @@ NSString *NSStringFromTimeInterval(NSTimeInterval i);
 NSString *NSStringFromDistance(CLLocationDistance d);
 NSString *NSStringFromAltitude(CLLocationDistance a);
 
-VSODistanceUnit distanceUnit(void);
-
 void *mallocTable(size_t size, size_t sizeOfElementsInTable);
 void **malloc2DTable(size_t xSize, size_t ySize, size_t sizeOfElementsInTable);
 void ***malloc3DTable(size_t xSize, size_t ySize, size_t zSize, size_t sizeOfElementsInTable);

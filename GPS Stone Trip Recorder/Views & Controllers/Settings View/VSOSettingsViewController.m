@@ -59,19 +59,19 @@
 			[ud setInteger:MKMapTypeStandard  forKey:VSO_UDK_MAP_TYPE];
 	}
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName:VSO_NTF_SETTINGS_CHANGED object:nil userInfo:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:c.ntfSettingsChanged object:nil userInfo:nil];
 }
 
 - (IBAction)minDistChanged:(id)sender
 {
 	[[NSUserDefaults standardUserDefaults] setInteger:[[sender text] integerValue] forKey:VSO_UDK_MIN_PATH_DISTANCE];
-	[[NSNotificationCenter defaultCenter] postNotificationName:VSO_NTF_SETTINGS_CHANGED object:nil userInfo:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:c.ntfSettingsChanged object:nil userInfo:nil];
 }
 
 - (IBAction)minTimeChanged:(id)sender
 {
 	[[NSUserDefaults standardUserDefaults] setInteger:[[sender text] doubleValue] forKey:VSO_UDK_MIN_TIME_FOR_UPDATE];
-	[[NSNotificationCenter defaultCenter] postNotificationName:VSO_NTF_SETTINGS_CHANGED object:nil userInfo:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:c.ntfSettingsChanged object:nil userInfo:nil];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -116,7 +116,7 @@
 				BOOL skip = ![ud boolForKey:VSO_UDK_SKIP_NON_ACCURATE_POINTS];
 				[ud setBool:skip forKey:VSO_UDK_SKIP_NON_ACCURATE_POINTS];
 				[[tableView cellForRowAtIndexPath:indexPath] setAccessoryType:(skip? UITableViewCellAccessoryCheckmark: UITableViewCellAccessoryNone)];
-				[[NSNotificationCenter defaultCenter] postNotificationName:VSO_NTF_SETTINGS_CHANGED object:nil userInfo:nil];
+				[[NSNotificationCenter defaultCenter] postNotificationName:c.ntfSettingsChanged object:nil userInfo:nil];
 			}
 			break;
 			
@@ -131,7 +131,7 @@
 			[[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]] setAccessoryType:(newUnit == VSODistanceUnitAutomatic?  UITableViewCellAccessoryCheckmark: UITableViewCellAccessoryNone)];
 			[[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:2]] setAccessoryType:(newUnit == VSODistanceUnitKilometers? UITableViewCellAccessoryCheckmark: UITableViewCellAccessoryNone)];
 			[[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:2]] setAccessoryType:(newUnit == VSODistanceUnitMiles?      UITableViewCellAccessoryCheckmark: UITableViewCellAccessoryNone)];
-			[[NSNotificationCenter defaultCenter] postNotificationName:VSO_NTF_SETTINGS_CHANGED object:nil userInfo:nil];
+			[[NSNotificationCenter defaultCenter] postNotificationName:c.ntfSettingsChanged object:nil userInfo:nil];
 			break;
 		}
 			
