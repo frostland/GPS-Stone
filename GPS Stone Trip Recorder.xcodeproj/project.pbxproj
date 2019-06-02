@@ -48,6 +48,8 @@
 		7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */; };
 		7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE81DCA975F007B5ABC /* Main.storyboard */; };
 		7B63B7691E227E96001FA33C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B63B7681E227E96001FA33C /* InfoPlist.strings */; };
+		7B93E38222A184ED00709971 /* LocationRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B93E38122A184ED00709971 /* LocationRecorder.swift */; };
+		7B93E38622A1CA4900709971 /* KVObserver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B93E38522A1CA4900709971 /* KVObserver.framework */; };
 		7B94D1E222A0169600848832 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E122A0169600848832 /* AppDelegate.swift */; };
 		7B94D1E622A0191700848832 /* ServicesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E522A0191700848832 /* ServicesProvider.swift */; };
 		7B94D1E822A0194100848832 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E722A0194100848832 /* Constants.swift */; };
@@ -127,6 +129,8 @@
 		7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B482CE91DCA976E007B5ABC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7B63B7681E227E96001FA33C /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		7B93E38122A184ED00709971 /* LocationRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRecorder.swift; sourceTree = "<group>"; };
+		7B93E38522A1CA4900709971 /* KVObserver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KVObserver.framework; path = Carthage/Build/iOS/Static/KVObserver.framework; sourceTree = SOURCE_ROOT; };
 		7B94D1E022A0169600848832 /* GPS Stone Trip Recorder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GPS Stone Trip Recorder-Bridging-Header.h"; sourceTree = "<group>"; };
 		7B94D1E122A0169600848832 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B94D1E522A0191700848832 /* ServicesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesProvider.swift; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 				0F48CE5E1029AD88008C524D /* AddressBookUI.framework in Frameworks */,
 				288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */,
 				0FBBCBA9100A9F67003679A8 /* CoreLocation.framework in Frameworks */,
+				7B93E38622A1CA4900709971 /* KVObserver.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				0FB4B0FC10074B20005292C4 /* MapKit.framework in Frameworks */,
 				0FA3D1DD10302ED80098760F /* MessageUI.framework in Frameworks */,
@@ -263,6 +268,7 @@
 				7B94D1EB22A0389400848832 /* Readme.md */,
 				7BA2A5EA1F2E013A0014603B /* Test Recording.gpx */,
 				7B27B9311DCF3D81006F44B7 /* GPS Stone Trip Recorder */,
+				7B93E38322A1C9C900709971 /* Dependencies */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -365,6 +371,23 @@
 			path = "XML Elements";
 			sourceTree = "<group>";
 		};
+		7B93E38322A1C9C900709971 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				7B93E38422A1C9E000709971 /* Carthage Static */,
+			);
+			name = Dependencies;
+			sourceTree = "<group>";
+		};
+		7B93E38422A1C9E000709971 /* Carthage Static */ = {
+			isa = PBXGroup;
+			children = (
+				7B93E38522A1CA4900709971 /* KVObserver.framework */,
+			);
+			name = "Carthage Static";
+			path = Carthage/Build/Mac/Static;
+			sourceTree = "<group>";
+		};
 		7B94D1E322A0172700848832 /* Application Lifecycle */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,6 +402,7 @@
 				7B94D1E522A0191700848832 /* ServicesProvider.swift */,
 				7B94D1E722A0194100848832 /* Constants.swift */,
 				7B94D1E922A0197900848832 /* AppSettings.swift */,
+				7B93E38122A184ED00709971 /* LocationRecorder.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -473,6 +497,7 @@
 				7B94D1E222A0169600848832 /* AppDelegate.swift in Sources */,
 				0F577FD01020816D00067838 /* XMLElement.m in Sources */,
 				7B94D1E822A0194100848832 /* Constants.swift in Sources */,
+				7B93E38222A184ED00709971 /* LocationRecorder.swift in Sources */,
 				0F57809A1020925100067838 /* GPXmetadataType.m in Sources */,
 				0F5780B51020939900067838 /* XMLStringElement.m in Sources */,
 				0F5780DF102095E000067838 /* XMLDateElement.m in Sources */,
@@ -530,6 +555,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = DVL8GW97S8;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS/Static",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -555,6 +584,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = DVL8GW97S8;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS/Static",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder.pch";
 				INFOPLIST_FILE = "GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder-Info.plist";

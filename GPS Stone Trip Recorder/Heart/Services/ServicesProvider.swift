@@ -6,6 +6,7 @@
  * Copyright © 2019 Frost Land. All rights reserved.
  */
 
+import CoreLocation
 import Foundation
 
 
@@ -23,5 +24,7 @@ class ServicesProvider {
 	
 	private(set) lazy var constants = Constants()
 	private(set) lazy var appSettings = AppSettings(userDefaults: UserDefaults.standard)
+	
+	private(set) lazy var locationRecorder = LocationRecorder(locationManager: CLLocationManager())
 	
 }
