@@ -39,7 +39,7 @@ class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	This method is only valid to call while the location recorder is **stopped**
 	(it does not have a current recording). Will crash in debug mode (assert
 	active) if called while the recording is recording. */
-	func startRecording(name: String) {
+	func startNewRecording(name: String) {
 		assert(currentRecordingInfo == nil)
 		guard currentRecordingInfo == nil else {return}
 		
@@ -50,6 +50,50 @@ class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		currentGPXHandle.write(currentGPX.xmlOutput(forTagClosing: 0))
 		currentGPXHandle.write(currentGPX.firstTrack()!.xmlOutput(forTagOpening: 1))
 		currentGPXHandle.write(currentGPX.firstTrack()!.lastTrackSegment()!.xmlOutput(forTagOpening: 2))
+	}
+	
+	/** Pauses the current recording.
+	
+	This method is only valid to call while the location recorder is **not**
+	stopped (it has a current recording). Will crash in debug mode (assert
+	active) if called at an invalid time. */
+	func pauseCurrentRecording() {
+		assert(currentRecordingInfo != nil)
+		guard let r = currentRecordingInfo else {return}
+		
+		#warning("TODO: Pause the recording...")
+		
+		status = .pausedByUser(r)
+	}
+	
+	/** Resumes the current recording.
+	
+	This method is only valid to call while the location recorder is **paused by
+	the user**. Will crash in debug mode (assert active) if called at an invalid
+	time. */
+	func resumeCurrentRecording() {
+		guard case .pausedByUser(let r) = status else {
+			assertionFailure()
+			return
+		}
+		
+		#warning("TODO: Resume the recording...")
+		
+		status = .recording(r)
+	}
+	
+	/** Stops the current recording.
+	
+	This method is only valid to call while the location recorder is **not**
+	stopped (it has a current recording). Will crash in debug mode (assert
+	active) if called at an invalid time. */
+	func stopCurrentRecording() {
+		assert(currentRecordingInfo != nil)
+		guard let r = currentRecordingInfo else {return}
+		
+		#warning("TODO: End the recording...")
+		
+		status = .stopped
 	}
 	
 	/* *********************************
