@@ -54,6 +54,8 @@
 		7B94D1E622A0191700848832 /* ServicesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E522A0191700848832 /* ServicesProvider.swift */; };
 		7B94D1E822A0194100848832 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E722A0194100848832 /* Constants.swift */; };
 		7B94D1EA22A0197900848832 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E922A0197900848832 /* AppSettings.swift */; };
+		7B952C4C22AB171A0020478B /* RecordingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B952C4B22AB171A0020478B /* RecordingInfo.swift */; };
+		7BE9FF9D22AC1BC6006DED15 /* RecordingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -137,8 +139,10 @@
 		7B94D1E722A0194100848832 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7B94D1E922A0197900848832 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		7B94D1EB22A0389400848832 /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
+		7B952C4B22AB171A0020478B /* RecordingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingInfo.swift; sourceTree = "<group>"; };
 		7B96A7CA229F1B5300267DBD /* GPS Stone Trip Recorder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GPS Stone Trip Recorder.entitlements"; sourceTree = "<group>"; };
 		7BA2A5EA1F2E013A0014603B /* Test Recording.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Test Recording.gpx"; sourceTree = "<group>"; };
+		7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsManager.swift; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* GPS_Stone_Trip_Recorder-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GPS_Stone_Trip_Recorder-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -227,6 +231,7 @@
 		0F6F2FF410175F33006C7495 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7B952C4B22AB171A0020478B /* RecordingInfo.swift */,
 				0F577FCE1020816D00067838 /* XMLElement.h */,
 				0F577FCF1020816D00067838 /* XMLElement.m */,
 				7B27B9381DCF49D9006F44B7 /* Base XML Elements */,
@@ -403,6 +408,7 @@
 				7B94D1E722A0194100848832 /* Constants.swift */,
 				7B94D1E922A0197900848832 /* AppSettings.swift */,
 				7B93E38122A184ED00709971 /* LocationRecorder.swift */,
+				7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -493,6 +499,7 @@
 				0F3480DC1008A77B00E88124 /* VSOInfoViewCtrl.m in Sources */,
 				0F3480F91008A83B00E88124 /* VSODetailsViewCtrl.m in Sources */,
 				0F79F6A010203DAE00AF7FF1 /* VSOUtils.m in Sources */,
+				7BE9FF9D22AC1BC6006DED15 /* RecordingsManager.swift in Sources */,
 				0F577FCD1020811300067838 /* GPXgpxType.m in Sources */,
 				7B94D1E222A0169600848832 /* AppDelegate.swift in Sources */,
 				0F577FD01020816D00067838 /* XMLElement.m in Sources */,
@@ -506,6 +513,7 @@
 				0FE8B11610218965009A321A /* GPXrteType.m in Sources */,
 				0FE8B12C10218AFA009A321A /* XMLIntegerElement.m in Sources */,
 				0FE8B14710218BAE009A321A /* GPXtrkType.m in Sources */,
+				7B952C4C22AB171A0020478B /* RecordingInfo.swift in Sources */,
 				0FE8B15810218E04009A321A /* GPXextensionsType.m in Sources */,
 				0FE8B15B10218EC6009A321A /* GPXtrksegType.m in Sources */,
 				0FE8B15E10218EFC009A321A /* GPXcopyrightType.m in Sources */,
