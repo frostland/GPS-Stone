@@ -15,13 +15,19 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	
 	@IBOutlet var pageControl: UIPageControl!
 	
-	@IBOutlet var buttonRecordOrStop: UIButton!
-	@IBOutlet var buttonListRecordsOrPause: UIButton!
-	
+	@IBOutlet var buttonRecord: UIButton!
+	@IBOutlet var buttonPause: UIButton!
+	@IBOutlet var buttonListRecords: UIButton!
+	@IBOutlet var buttonStop: UIButton!
+
 	@IBOutlet var viewMiniInfos: UIView!
 	@IBOutlet var labelMiniInfosDistance: UILabel!
 	@IBOutlet var labelMiniInfosRecordTime: UILabel!
 	@IBOutlet var labelMiniInfosRecordingState: UILabel!
+	
+	override var preferredStatusBarStyle: UIStatusBarStyle {
+		return .lightContent
+	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		switch segue.identifier {
@@ -33,6 +39,26 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 		default: (/*nop*/)
 		}
 	}
+	
+	/* ***************
+	   MARK: - Actions
+	   *************** */
+	
+	@IBAction func changePage(_ sender: UIPageControl) {
+	}
+	
+	@IBAction func startRecording(_ sender: Any) {
+	}
+	
+	@IBAction func pauseRecording(_ sender: Any) {
+	}
+	
+	@IBAction func stopRecording(_ sender: Any) {
+	}
+	
+	/* ***************************************************
+	   MARK: - Page View Controller Data Source & Delegate
+	   *************************************************** */
 	
 	func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
 		return nil

@@ -62,6 +62,17 @@
                                     <action selector="changePage:" destination="h48-r7-9YD" eventType="valueChanged" id="XOh-NB-tUv"/>
                                 </connections>
                             </pageControl>
+                            <button hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfY-rK-h2H" userLabel="Button Pause">
+                                <rect key="frame" x="8" y="614" width="45" height="45"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" image="pause_button"/>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="pauseRecording:" destination="h48-r7-9YD" eventType="touchUpInside" id="5i4-zG-eCu"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOw-wb-WZ3" userLabel="Button Record">
                                 <rect key="frame" x="8" y="614" width="45" height="45"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -70,10 +81,21 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="recordPauseButtonAction:" destination="h48-r7-9YD" eventType="touchUpInside" id="bzy-Ed-4w0"/>
+                                    <action selector="startRecording:" destination="h48-r7-9YD" eventType="touchUpInside" id="kd9-gv-RdM"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BOs-Ur-oX4" userLabel="Button Show List">
+                            <button hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vCH-Eh-5Cr" userLabel="Button Stop">
+                                <rect key="frame" x="322" y="614" width="45" height="45"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" image="stop_button"/>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="stopRecording:" destination="h48-r7-9YD" eventType="touchUpInside" id="N2K-2O-png"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BOs-Ur-oX4" userLabel="Button List">
                                 <rect key="frame" x="322" y="614" width="45" height="45"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" image="recList_button"/>
@@ -81,7 +103,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="showRecordsListStopRecordButtonAction:" destination="h48-r7-9YD" eventType="touchUpInside" id="8PO-HF-myd"/>
+                                    <segue destination="qgW-nw-uvs" kind="presentation" id="XRh-0w-SGp"/>
                                 </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xXl-5W-WYg">
@@ -97,7 +119,10 @@
                             <constraint firstAttribute="trailing" secondItem="BOs-Ur-oX4" secondAttribute="trailing" constant="8" id="2nB-8N-mUS"/>
                             <constraint firstItem="aOw-wb-WZ3" firstAttribute="leading" secondItem="gZT-g0-sLH" secondAttribute="leading" constant="8" id="3qL-Xg-nW0"/>
                             <constraint firstItem="vYj-h8-3PW" firstAttribute="top" secondItem="xXl-5W-WYg" secondAttribute="bottom" constant="-2" id="5Fe-X3-MTF"/>
+                            <constraint firstItem="jfY-rK-h2H" firstAttribute="centerY" secondItem="aOw-wb-WZ3" secondAttribute="centerY" id="6tl-Ug-XI0"/>
                             <constraint firstItem="BOs-Ur-oX4" firstAttribute="leading" secondItem="DIC-Dg-0ZO" secondAttribute="trailing" constant="20" id="LEh-uq-7by"/>
+                            <constraint firstItem="jfY-rK-h2H" firstAttribute="centerX" secondItem="aOw-wb-WZ3" secondAttribute="centerX" id="OqH-Rq-g9t"/>
+                            <constraint firstItem="vCH-Eh-5Cr" firstAttribute="centerX" secondItem="BOs-Ur-oX4" secondAttribute="centerX" id="Qql-e3-y1J"/>
                             <constraint firstAttribute="trailing" secondItem="xXl-5W-WYg" secondAttribute="trailing" id="VPY-GR-gdb"/>
                             <constraint firstItem="aOw-wb-WZ3" firstAttribute="top" secondItem="xXl-5W-WYg" secondAttribute="bottom" constant="15" id="bfT-o5-OOR"/>
                             <constraint firstItem="G6r-Do-Tt0" firstAttribute="top" secondItem="DIC-Dg-0ZO" secondAttribute="bottom" constant="13" id="eLr-qH-uhl"/>
@@ -105,13 +130,16 @@
                             <constraint firstItem="DIC-Dg-0ZO" firstAttribute="leading" secondItem="aOw-wb-WZ3" secondAttribute="trailing" constant="20" id="hCP-Uf-Cii"/>
                             <constraint firstItem="xXl-5W-WYg" firstAttribute="top" secondItem="gZT-g0-sLH" secondAttribute="top" id="jdh-fZ-5PG"/>
                             <constraint firstItem="xXl-5W-WYg" firstAttribute="leading" secondItem="gZT-g0-sLH" secondAttribute="leading" id="jiB-Aj-e0p"/>
+                            <constraint firstItem="vCH-Eh-5Cr" firstAttribute="centerY" secondItem="BOs-Ur-oX4" secondAttribute="centerY" id="kZh-hY-C9B"/>
                             <constraint firstItem="G6r-Do-Tt0" firstAttribute="top" secondItem="BOs-Ur-oX4" secondAttribute="bottom" constant="8" id="pz8-kJ-boq"/>
                             <constraint firstItem="G6r-Do-Tt0" firstAttribute="top" secondItem="aOw-wb-WZ3" secondAttribute="bottom" constant="8" id="stD-z9-C3p"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="buttonListRecordsOrPause" destination="BOs-Ur-oX4" id="v5q-GT-rno"/>
-                        <outlet property="buttonRecordOrStop" destination="aOw-wb-WZ3" id="pFe-gB-d93"/>
+                        <outlet property="buttonListRecords" destination="BOs-Ur-oX4" id="idE-2O-b10"/>
+                        <outlet property="buttonPause" destination="jfY-rK-h2H" id="OPH-rh-vcB"/>
+                        <outlet property="buttonRecord" destination="aOw-wb-WZ3" id="RjY-Tf-BTU"/>
+                        <outlet property="buttonStop" destination="vCH-Eh-5Cr" id="wFi-2w-Lwm"/>
                         <outlet property="labelMiniInfosDistance" destination="Quy-J2-vBR" id="JGY-Qm-kzh"/>
                         <outlet property="labelMiniInfosRecordTime" destination="8OL-lM-L62" id="QX2-kB-dyP"/>
                         <outlet property="labelMiniInfosRecordingState" destination="jfU-Oc-jun" id="5OR-Zv-8M9"/>
@@ -356,7 +384,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mL4-4a-SDL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="849" y="1673"/>
+            <point key="canvasLocation" x="274" y="1584"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EqF-hk-jpR">
@@ -372,7 +400,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NI4-ap-R3v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="118" y="1673"/>
+            <point key="canvasLocation" x="-457" y="1584"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="M3A-9S-Nkp">
@@ -429,7 +457,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gcs-pX-erj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="482" y="886"/>
+            <point key="canvasLocation" x="-90" y="853"/>
         </scene>
         <!--Recording Detail View Ctrl-->
         <scene sceneID="hRd-IQ-foK">
@@ -528,7 +556,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w4X-wj-zjU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1212" y="886"/>
+            <point key="canvasLocation" x="641" y="853"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zR9-DE-vRR">
@@ -544,7 +572,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ipw-2c-ymg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-249" y="886"/>
+            <point key="canvasLocation" x="-822" y="853"/>
         </scene>
         <!--Details View Ctrl-->
         <scene sceneID="5QM-IY-oOQ">
@@ -857,7 +885,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="kLL-5j-EFq" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UY9-ee-lRs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1271" y="536"/>
+            <point key="canvasLocation" x="-538" y="-569"/>
         </scene>
         <!--Info View Ctrl-->
         <scene sceneID="YqX-z2-bi0">
@@ -967,9 +995,11 @@
     </scenes>
     <resources>
         <image name="north" width="85" height="85"/>
+        <image name="pause_button" width="45" height="45"/>
         <image name="recList_button" width="45" height="45"/>
         <image name="record_button" width="45" height="45"/>
         <image name="road" width="845.5" height="1221"/>
+        <image name="stop_button" width="45" height="45"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="c8c-NA-ABV"/>
