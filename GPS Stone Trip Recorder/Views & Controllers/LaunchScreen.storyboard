@@ -33,9 +33,9 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="3nS-8n-Dvw" secondAttribute="bottom" constant="68" id="DDb-XR-RBZ"/>
                             <constraint firstAttribute="trailing" secondItem="3nS-8n-Dvw" secondAttribute="trailing" id="KrI-K2-AGh"/>
                             <constraint firstItem="GJd-Yh-RWb" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="99" id="Ku4-95-1ja"/>
-                            <constraint firstAttribute="bottom" secondItem="3nS-8n-Dvw" secondAttribute="bottom" constant="68" id="PeX-ei-IeG"/>
                             <constraint firstAttribute="centerX" secondItem="GJd-Yh-RWb" secondAttribute="centerX" id="Q3B-4B-g5h"/>
                             <constraint firstItem="3nS-8n-Dvw" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="ZUk-rf-bco"/>
                             <constraint firstItem="3nS-8n-Dvw" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="jfx-VL-eFy"/>
@@ -45,7 +45,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52" y="374.66266866566718"/>
+            <point key="canvasLocation" x="50.724637681159422" y="374.18478260869568"/>
         </scene>
     </scenes>
     <resources>

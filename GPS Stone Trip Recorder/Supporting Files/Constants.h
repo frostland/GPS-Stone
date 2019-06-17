@@ -14,3 +14,5 @@ typedef enum VSORecordState {
 	VSORecordStateWaitingGPS,
 	VSORecordStateScreenLocked
 } VSORecordState;
+
+#define VSO_COORD_PRINT_FORMAT @"%.10f"

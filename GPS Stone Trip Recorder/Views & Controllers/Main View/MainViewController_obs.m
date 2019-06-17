@@ -427,7 +427,7 @@
 
 
 #pragma mark -
-@implementation MainViewController
+@implementation MainViewController_OBS
 
 @synthesize selPage; /* Setter overwritten */
 

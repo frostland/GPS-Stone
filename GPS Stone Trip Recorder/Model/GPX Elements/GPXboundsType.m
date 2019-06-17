@@ -39,7 +39,7 @@
 
 - (NSData *)dataForElementAttributes;
 {
-	return [[NSString stringWithFormat:@" minlat=\""c.coordPrintFormat@"\" minlon=\""c.coordPrintFormat@"\" maxlat=\""c.coordPrintFormat@"\" maxlon=\""c.coordPrintFormat@"\"", self.minCoords.latitude, self.minCoords.longitude, self.maxCoords.latitude, self.maxCoords.longitude] dataUsingEncoding:VSO_XML_ENCODING];
+	return [[NSString stringWithFormat:@" minlat=\""VSO_COORD_PRINT_FORMAT@"\" minlon=\""VSO_COORD_PRINT_FORMAT@"\" maxlat=\""VSO_COORD_PRINT_FORMAT@"\" maxlon=\""VSO_COORD_PRINT_FORMAT@"\"", self.minCoords.latitude, self.minCoords.longitude, self.maxCoords.latitude, self.maxCoords.longitude] dataUsingEncoding:VSO_XML_ENCODING];
 }
 
 @end

@@ -24,23 +24,20 @@
                             <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DIC-Dg-0ZO">
                                 <rect key="frame" x="73" y="623" width="229" height="31"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="…" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="jfU-Oc-jun">
-                                        <rect key="frame" x="0.0" y="5" width="171" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="…" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="jfU-Oc-jun">
+                                        <rect key="frame" x="0.0" y="5" width="229" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="00:00:00" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="8OL-lM-L62">
-                                        <rect key="frame" x="15" y="5" width="94" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="00:00:00" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="8OL-lM-L62">
+                                        <rect key="frame" x="15" y="6.5" width="64" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="1500 km" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Quy-J2-vBR">
-                                        <rect key="frame" x="127" y="5" width="86" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="1500 km" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Quy-J2-vBR">
+                                        <rect key="frame" x="155" y="6.5" width="59" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -48,17 +45,24 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.25" green="0.25" blue="0.25" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="Quy-J2-vBR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8OL-lM-L62" secondAttribute="trailing" constant="8" id="1Le-li-oX1"/>
                                     <constraint firstAttribute="height" constant="31" id="2Ao-VS-fcX"/>
+                                    <constraint firstAttribute="trailing" secondItem="jfU-Oc-jun" secondAttribute="trailing" id="53Z-aY-bGe"/>
+                                    <constraint firstItem="jfU-Oc-jun" firstAttribute="centerY" secondItem="DIC-Dg-0ZO" secondAttribute="centerY" id="HuQ-dO-VBY"/>
+                                    <constraint firstItem="jfU-Oc-jun" firstAttribute="leading" secondItem="DIC-Dg-0ZO" secondAttribute="leading" id="Vk8-Kd-bmY"/>
+                                    <constraint firstItem="8OL-lM-L62" firstAttribute="centerY" secondItem="DIC-Dg-0ZO" secondAttribute="centerY" id="etD-Sf-I4k"/>
+                                    <constraint firstItem="Quy-J2-vBR" firstAttribute="centerY" secondItem="DIC-Dg-0ZO" secondAttribute="centerY" id="hgC-K6-v5t"/>
+                                    <constraint firstAttribute="trailing" secondItem="Quy-J2-vBR" secondAttribute="trailing" constant="15" id="iUW-Ay-Eaw"/>
+                                    <constraint firstItem="8OL-lM-L62" firstAttribute="leading" secondItem="DIC-Dg-0ZO" secondAttribute="leading" constant="15" id="ntJ-s7-5E8"/>
                                 </constraints>
                             </view>
-                            <pageControl opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="vYj-h8-3PW">
-                                <rect key="frame" x="26" y="598" width="320" height="36"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <pageControl opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="vYj-h8-3PW">
+                                <rect key="frame" x="25" y="597" width="325" height="37"/>
                                 <connections>
                                     <action selector="changePage:" destination="h48-r7-9YD" eventType="valueChanged" id="XOh-NB-tUv"/>
                                 </connections>
                             </pageControl>
-                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOw-wb-WZ3" userLabel="Button Record">
+                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOw-wb-WZ3" userLabel="Button Record">
                                 <rect key="frame" x="8" y="614" width="45" height="45"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" image="record_button"/>
@@ -69,7 +73,7 @@
                                     <action selector="recordPauseButtonAction:" destination="h48-r7-9YD" eventType="touchUpInside" id="bzy-Ed-4w0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BOs-Ur-oX4" userLabel="Button Show List">
+                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BOs-Ur-oX4" userLabel="Button Show List">
                                 <rect key="frame" x="322" y="614" width="45" height="45"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" image="recList_button"/>
@@ -83,18 +87,21 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xXl-5W-WYg">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="599"/>
                                 <connections>
-                                    <segue destination="kLL-5j-EFq" kind="embed" id="toD-Ha-OfB"/>
+                                    <segue destination="kLL-5j-EFq" kind="embed" identifier="MainPageViewControllerSegue" id="toD-Ha-OfB"/>
                                 </connections>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="vYj-h8-3PW" secondAttribute="trailing" constant="25" id="2l3-LJ-xg3"/>
                             <constraint firstAttribute="trailing" secondItem="BOs-Ur-oX4" secondAttribute="trailing" constant="8" id="2nB-8N-mUS"/>
                             <constraint firstItem="aOw-wb-WZ3" firstAttribute="leading" secondItem="gZT-g0-sLH" secondAttribute="leading" constant="8" id="3qL-Xg-nW0"/>
+                            <constraint firstItem="vYj-h8-3PW" firstAttribute="top" secondItem="xXl-5W-WYg" secondAttribute="bottom" constant="-2" id="5Fe-X3-MTF"/>
                             <constraint firstItem="BOs-Ur-oX4" firstAttribute="leading" secondItem="DIC-Dg-0ZO" secondAttribute="trailing" constant="20" id="LEh-uq-7by"/>
                             <constraint firstAttribute="trailing" secondItem="xXl-5W-WYg" secondAttribute="trailing" id="VPY-GR-gdb"/>
                             <constraint firstItem="aOw-wb-WZ3" firstAttribute="top" secondItem="xXl-5W-WYg" secondAttribute="bottom" constant="15" id="bfT-o5-OOR"/>
                             <constraint firstItem="G6r-Do-Tt0" firstAttribute="top" secondItem="DIC-Dg-0ZO" secondAttribute="bottom" constant="13" id="eLr-qH-uhl"/>
+                            <constraint firstItem="vYj-h8-3PW" firstAttribute="leading" secondItem="gZT-g0-sLH" secondAttribute="leading" constant="25" id="h5G-93-oBq"/>
                             <constraint firstItem="DIC-Dg-0ZO" firstAttribute="leading" secondItem="aOw-wb-WZ3" secondAttribute="trailing" constant="20" id="hCP-Uf-Cii"/>
                             <constraint firstItem="xXl-5W-WYg" firstAttribute="top" secondItem="gZT-g0-sLH" secondAttribute="top" id="jdh-fZ-5PG"/>
                             <constraint firstItem="xXl-5W-WYg" firstAttribute="leading" secondItem="gZT-g0-sLH" secondAttribute="leading" id="jiB-Aj-e0p"/>
@@ -103,8 +110,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="buttonListOfRecordings" destination="BOs-Ur-oX4" id="Q5A-zA-XRi"/>
-                        <outlet property="buttonRecord" destination="aOw-wb-WZ3" id="eEk-eE-EeB"/>
+                        <outlet property="buttonListRecordsOrPause" destination="BOs-Ur-oX4" id="v5q-GT-rno"/>
+                        <outlet property="buttonRecordOrStop" destination="aOw-wb-WZ3" id="pFe-gB-d93"/>
                         <outlet property="labelMiniInfosDistance" destination="Quy-J2-vBR" id="JGY-Qm-kzh"/>
                         <outlet property="labelMiniInfosRecordTime" destination="8OL-lM-L62" id="QX2-kB-dyP"/>
                         <outlet property="labelMiniInfosRecordingState" destination="jfU-Oc-jun" id="5OR-Zv-8M9"/>

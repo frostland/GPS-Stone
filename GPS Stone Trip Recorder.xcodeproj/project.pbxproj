@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0F13A60F102AE7E800D1C9BE /* VSOInfoGenericController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F13A60E102AE7E800D1C9BE /* VSOInfoGenericController.m */; };
-		0F2B6089102842F300FC0595 /* VSORecordingDetailViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2B6087102842F300FC0595 /* VSORecordingDetailViewCtrl.m */; };
-		0F34802B10089A9700E88124 /* VSOMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F34802910089A9700E88124 /* VSOMapViewController.m */; };
-		0F3480DC1008A77B00E88124 /* VSOInfoViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3480DA1008A77B00E88124 /* VSOInfoViewCtrl.m */; };
-		0F3480F91008A83B00E88124 /* VSODetailsViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3480F71008A83B00E88124 /* VSODetailsViewCtrl.m */; };
 		0F48CE5E1029AD88008C524D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F48CE5D1029AD88008C524D /* AddressBookUI.framework */; };
 		0F48CE7D1029AF9D008C524D /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F48CE7C1029AF9D008C524D /* AddressBook.framework */; };
 		0F577FCD1020811300067838 /* GPXgpxType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F577FCC1020811300067838 /* GPXgpxType.m */; };
@@ -20,11 +15,9 @@
 		0F5780B51020939900067838 /* XMLStringElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5780B41020939900067838 /* XMLStringElement.m */; };
 		0F5780DF102095E000067838 /* XMLDateElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5780DE102095E000067838 /* XMLDateElement.m */; };
 		0F5780E51020988800067838 /* GPXwptType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5780E41020988800067838 /* GPXwptType.m */; };
-		0F79F6A010203DAE00AF7FF1 /* VSOUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */; };
 		0FA3D1DD10302ED80098760F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA3D1DC10302ED80098760F /* MessageUI.framework */; };
 		0FB4B0FC10074B20005292C4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB4B0FB10074B20005292C4 /* MapKit.framework */; };
 		0FBBCBA9100A9F67003679A8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FBBCBA8100A9F67003679A8 /* CoreLocation.framework */; };
-		0FC907BE1023107F009EA1B1 /* VSORecordingsListViewCtlr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC907BC1023107F009EA1B1 /* VSORecordingsListViewCtlr.m */; };
 		0FE8B0DA10218740009A321A /* XMLDecimalElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B0D910218740009A321A /* XMLDecimalElement.m */; };
 		0FE8B11610218965009A321A /* GPXrteType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B11510218965009A321A /* GPXrteType.m */; };
 		0FE8B12C10218AFA009A321A /* XMLIntegerElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8B12B10218AFA009A321A /* XMLIntegerElement.m */; };
@@ -41,7 +34,6 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765580DF743DE002DB57D /* CoreGraphics.framework */; };
-		289233B00DB2D0DB0083E9F9 /* VSOSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AD0DB2D0DB0083E9F9 /* VSOSettingsViewController.m */; };
 		7B27B9291DCDF6B1006F44B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */; };
 		7B482CE11DCA8ADD007B5ABC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CDF1DCA8ADD007B5ABC /* Localizable.strings */; };
 		7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */; };
@@ -495,11 +487,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				289233B00DB2D0DB0083E9F9 /* VSOSettingsViewController.m in Sources */,
-				0F34802B10089A9700E88124 /* VSOMapViewController.m in Sources */,
-				0F3480DC1008A77B00E88124 /* VSOInfoViewCtrl.m in Sources */,
-				0F3480F91008A83B00E88124 /* VSODetailsViewCtrl.m in Sources */,
-				0F79F6A010203DAE00AF7FF1 /* VSOUtils.m in Sources */,
 				7BE9FF9D22AC1BC6006DED15 /* RecordingsManager.swift in Sources */,
 				0F577FCD1020811300067838 /* GPXgpxType.m in Sources */,
 				7B94D1E222A0169600848832 /* AppDelegate.swift in Sources */,
@@ -525,11 +512,8 @@
 				0FE8B1BE102193FF009A321A /* GPXptType.m in Sources */,
 				0FE8B1C1102195E6009A321A /* GPXptsegType.m in Sources */,
 				0FE8B1C41021964F009A321A /* GPXboundsType.m in Sources */,
-				0FC907BE1023107F009EA1B1 /* VSORecordingsListViewCtlr.m in Sources */,
-				0F2B6089102842F300FC0595 /* VSORecordingDetailViewCtrl.m in Sources */,
 				7B94D1E622A0191700848832 /* ServicesProvider.swift in Sources */,
 				7B94D1EA22A0197900848832 /* AppSettings.swift in Sources */,
-				0F13A60F102AE7E800D1C9BE /* VSOInfoGenericController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

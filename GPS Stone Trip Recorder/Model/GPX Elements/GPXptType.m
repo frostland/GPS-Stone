@@ -42,7 +42,7 @@
 
 - (NSData *)dataForElementAttributes
 {
-	return [[NSString stringWithFormat:@" lat=\""c.coordPrintFormat@"\" lon=\""c.coordPrintFormat@"\"", self.coords.latitude, self.coords.longitude] dataUsingEncoding:VSO_XML_ENCODING];
+	return [[NSString stringWithFormat:@" lat=\""VSO_COORD_PRINT_FORMAT@"\" lon=\""VSO_COORD_PRINT_FORMAT@"\"", self.coords.latitude, self.coords.longitude] dataUsingEncoding:VSO_XML_ENCODING];
 }
 
 @end

@@ -20,7 +20,7 @@
 
 /* Note: The code to manage the pages is found in the sample codes of Apple (sample named PageControl) */
 
-@interface MainViewController : UIViewController <VSOSettingsViewControllerDelegate, VSORecordingsListViewControllerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, VSOInfoGenericControllerDelegate> {
+@interface MainViewController_OBS : UIViewController <VSOSettingsViewControllerDelegate, VSORecordingsListViewControllerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, VSOInfoGenericControllerDelegate> {
 	IBOutlet UIScrollView *pagesView;
 	IBOutlet UIPageControl *pageControl;
 	
