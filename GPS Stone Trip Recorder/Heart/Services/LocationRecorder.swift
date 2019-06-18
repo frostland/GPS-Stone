@@ -34,6 +34,25 @@ class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		handleStatusChange(from: .stopped, to: status) /* willSet/didSet not called from init */
 	}
 	
+	/** Tell the location recorder a new client requires the user’s position.
+	
+	When you don’t need the position anymore, call `releaseTracking()` */
+	func retainTracking() {
+		numberOfClientsRequiringTracking += 1
+		if numberOfClientsRequiringTracking == 1 {
+			/* Nobody was requesting tracking, now someone does. */
+			#warning("TODO")
+		}
+	}
+	
+	func releaseTracking() {
+		numberOfClientsRequiringTracking -= 1
+		if numberOfClientsRequiringTracking == 0 {
+			/* Nobody needs the tracking anymore. */
+			#warning("TODO")
+		}
+	}
+	
 	/** Starts a new recording.
 	
 	This method is only valid to call while the location recorder is **stopped**
@@ -147,11 +166,11 @@ class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		func encode(to encoder: Encoder) throws {
 			let stateStr: String
 			switch self {
-			case .stopped:                stateStr = "stopped"
-			case .recording:              stateStr = "recording"
-			case .pausedByUser:           stateStr = "pausedByUser"
-			case .pausedByBackground:     stateStr = "pausedByBackground"
-			case .pausedByLocationDenied: stateStr = "pausedByLocationDenied"
+			case .stopped, .stoppedAndTracking: stateStr = "stopped"
+			case .recording:                    stateStr = "recording"
+			case .pausedByUser:                 stateStr = "pausedByUser"
+			case .pausedByBackground:           stateStr = "pausedByBackground"
+			case .pausedByLocationDenied:       stateStr = "pausedByLocationDenied"
 			}
 			
 			var container = encoder.container(keyedBy: CodingKeys.self)
@@ -160,6 +179,7 @@ class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		}
 		
 		case stopped
+		case stoppedAndTracking
 		case recording(RecordingInfo)
 		case pausedByUser(RecordingInfo)
 		case pausedByBackground(RecordingInfo)
@@ -167,7 +187,7 @@ class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		var recordingInfo: RecordingInfo? {
 			switch self {
-			case .stopped:
+			case .stopped, .stoppedAndTracking:
 				return nil
 				
 			case .recording(let ri), .pausedByUser(let ri), .pausedByBackground(let ri), .pausedByLocationDenied(let ri):
@@ -177,8 +197,8 @@ class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		var isTrackingUserPosition: Bool {
 			switch self {
-			case .stopped:                                                                return false
-			case .recording, .pausedByUser, .pausedByBackground, .pausedByLocationDenied: return true
+			case .stopped:                                                                                     return false
+			case .stoppedAndTracking, .recording, .pausedByUser, .pausedByBackground, .pausedByLocationDenied: return true
 			}
 		}
 		
@@ -224,6 +244,8 @@ class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	
 	private let lm: CLLocationManager
 	private let rm: RecordingsManager
+	
+	private var numberOfClientsRequiringTracking = 0
 	
 	private func handleStatusChange(from oldStatus: Status, to newStatus: Status) {
 		if oldStatus.recordingInfo == nil, let newRecordingInfo = newStatus.recordingInfo {
