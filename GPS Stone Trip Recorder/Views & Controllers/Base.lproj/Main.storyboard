@@ -574,10 +574,10 @@
             </objects>
             <point key="canvasLocation" x="-2465" y="766"/>
         </scene>
-        <!--Details View Ctrl-->
+        <!--Details View Controller-->
         <scene sceneID="5QM-IY-oOQ">
             <objects>
-                <viewController storyboardIdentifier="VSODetailsViewCtrl" id="MKq-A5-tA3" customClass="VSODetailsViewCtrl" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VSODetailsViewCtrl" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MKq-A5-tA3" customClass="DetailsViewController" customModule="GPS_Stone_Trip_Recorder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2vp-qc-meC"/>
                         <viewControllerLayoutGuide type="bottom" id="1QP-7J-knR"/>
@@ -804,6 +804,7 @@
                         <outlet property="labelNumberOfPoints" destination="Lef-w0-avQ" id="raR-yM-saU"/>
                         <outlet property="labelSpeed" destination="b6X-DE-ZF5" id="ZAt-L9-2kn"/>
                         <outlet property="labelTotalDistance" destination="S8Z-O0-QRh" id="PwF-hr-WWp"/>
+                        <outlet property="labelTrackName" destination="Bkk-x0-wDc" id="znC-LH-OzW"/>
                         <outlet property="labelVerticalAccuracy" destination="LPW-XC-jV5" id="ZyD-YJ-N5o"/>
                         <outlet property="viewWithTrackInfos" destination="ch3-VZ-ZbZ" id="lRm-z8-qgf"/>
                     </connections>
@@ -815,7 +816,7 @@
         <!--Map View Controller-->
         <scene sceneID="HUr-W2-LRk">
             <objects>
-                <viewController storyboardIdentifier="VSOMapViewController" id="AEg-vC-tvX" customClass="VSOMapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VSOMapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AEg-vC-tvX" customClass="VSOMapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gmr-Iq-wJe"/>
                         <viewControllerLayoutGuide type="bottom" id="EZt-q1-Lqg"/>
@@ -890,7 +891,7 @@
         <!--Info View Controller-->
         <scene sceneID="YqX-z2-bi0">
             <objects>
-                <viewController storyboardIdentifier="VSOInfoViewCtrl" id="YNg-Ki-68k" customClass="InfoViewController" customModule="GPS_Stone_Trip_Recorder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VSOInfoViewCtrl" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YNg-Ki-68k" customClass="InfoViewController" customModule="GPS_Stone_Trip_Recorder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sib-5P-AJX"/>
                         <viewControllerLayoutGuide type="bottom" id="vi3-eJ-Gt5"/>

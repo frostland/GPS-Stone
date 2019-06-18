@@ -25,19 +25,22 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	@IBOutlet var labelMiniInfosRecordTime: UILabel!
 	@IBOutlet var labelMiniInfosRecordingState: UILabel!
 	
-	override var preferredStatusBarStyle: UIStatusBarStyle {
-		return .lightContent
+	var pageViewController: UIPageViewController!
+	
+	override var childForStatusBarStyle: UIViewController? {
+		return pageViewController?.viewControllers?.first
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		switch segue.identifier {
 		case "MainPageViewControllerSegue"?:
-			let pageViewController = segue.destination as! UIPageViewController
+			pageViewController = (segue.destination as! UIPageViewController)
 			pageViewController.dataSource = self
 			pageViewController.delegate = self
 			
 			let viewController = mainStoryboard.instantiateViewController(withIdentifier: pageViewControllerIdentifiers[0])
 			pageViewController.setViewControllers([viewController], direction: .forward, animated: false, completion: nil)
+			setNeedsStatusBarAppearanceUpdate()
 			
 		default: (/*nop*/)
 		}
@@ -64,11 +67,17 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	   *************************************************** */
 	
 	func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-		return nil
+		guard let id = viewController.restorationIdentifier, let idx = pageViewControllerIdentifiers.firstIndex(of: id), idx > 0 else {return nil}
+		return mainStoryboard.instantiateViewController(withIdentifier: pageViewControllerIdentifiers[idx-1])
 	}
 	
 	func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-		return nil
+		guard let id = viewController.restorationIdentifier, let idx = pageViewControllerIdentifiers.firstIndex(of: id), idx < pageViewControllerIdentifiers.count-1 else {return nil}
+		return mainStoryboard.instantiateViewController(withIdentifier: pageViewControllerIdentifiers[idx+1])
+	}
+	
+	func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+		setNeedsStatusBarAppearanceUpdate()
 	}
 	
 	/* ***************
@@ -76,6 +85,6 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	   *************** */
 	
 	let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-	let pageViewControllerIdentifiers = ["VSOInfoViewCtrl"]
+	let pageViewControllerIdentifiers = ["VSOInfoViewCtrl", "VSODetailsViewCtrl"]
 	
 }
