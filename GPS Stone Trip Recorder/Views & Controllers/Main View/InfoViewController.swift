@@ -19,7 +19,7 @@ class InfoViewController : UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		if isDeviceScreenTallerThanOriginalIPhone() {
+		if !isDeviceScreenTallerThanOriginalIPhone() {
 			constraintMarginTopTitle.constant = 25
 		}
 	}
