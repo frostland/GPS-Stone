@@ -24,9 +24,6 @@ class InfoViewController : UIViewController {
 		}
 	}
 	
-	@IBAction func openPreferences(_ sender: Any) {
-	}
-	
 	@IBAction func showDetailedInfos(_ sender: Any) {
 	}
 	
