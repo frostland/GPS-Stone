@@ -36,6 +36,9 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 			pageViewController.dataSource = self
 			pageViewController.delegate = self
 			
+			let viewController = mainStoryboard.instantiateViewController(withIdentifier: pageViewControllerIdentifiers[0])
+			pageViewController.setViewControllers([viewController], direction: .forward, animated: false, completion: nil)
+			
 		default: (/*nop*/)
 		}
 	}
@@ -67,5 +70,12 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
 		return nil
 	}
+	
+	/* ***************
+	   MARK: - Private
+	   *************** */
+	
+	let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+	let pageViewControllerIdentifiers = ["VSOInfoViewCtrl"]
 	
 }

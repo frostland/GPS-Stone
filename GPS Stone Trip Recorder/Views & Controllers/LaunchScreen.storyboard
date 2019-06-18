@@ -22,24 +22,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="road" translatesAutoresizingMaskIntoConstraints="NO" id="3nS-8n-Dvw">
-                                <rect key="frame" x="0.0" y="0.0" width="414.00000000000023" height="668"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414.00000000000023" height="799"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GPS Stone Trip Recorder" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="GJd-Yh-RWb">
-                                <rect key="frame" x="20" y="119" width="374" height="43"/>
+                                <rect key="frame" x="20" y="99" width="374" height="43"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6u-7j-rup">
+                                <rect key="frame" x="0.0" y="668" width="414" height="68"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="3nS-8n-Dvw" secondAttribute="bottom" constant="68" id="DDb-XR-RBZ"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="3nS-8n-Dvw" secondAttribute="bottom" constant="-63" id="DDb-XR-RBZ"/>
                             <constraint firstAttribute="trailing" secondItem="3nS-8n-Dvw" secondAttribute="trailing" id="KrI-K2-AGh"/>
                             <constraint firstItem="GJd-Yh-RWb" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="99" id="Ku4-95-1ja"/>
                             <constraint firstAttribute="centerX" secondItem="GJd-Yh-RWb" secondAttribute="centerX" id="Q3B-4B-g5h"/>
                             <constraint firstItem="3nS-8n-Dvw" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="ZUk-rf-bco"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="a6u-7j-rup" secondAttribute="top" constant="68" id="bmG-0E-lA6"/>
+                            <constraint firstAttribute="bottom" secondItem="a6u-7j-rup" secondAttribute="bottom" id="fFn-lH-py2"/>
                             <constraint firstItem="3nS-8n-Dvw" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="jfx-VL-eFy"/>
+                            <constraint firstAttribute="trailing" secondItem="a6u-7j-rup" secondAttribute="trailing" id="wbC-b6-TaH"/>
                             <constraint firstItem="GJd-Yh-RWb" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="20" symbolic="YES" id="x7j-FC-K8j"/>
+                            <constraint firstItem="a6u-7j-rup" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="yvf-hE-MyE"/>
                         </constraints>
                     </view>
                 </viewController>

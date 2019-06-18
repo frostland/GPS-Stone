@@ -17,6 +17,7 @@ BOOL isDeviceScreenTallerThanOriginalIPhone() {
 	return UIScreen.mainScreen.bounds.size.height > 480;
 }
 
+#if 0
 NSString *fullPathFromRelativeForGPXFile(NSString *relativePath) {
 	return [c.urlToFolderWithGPXFiles stringByAppendingPathComponent:relativePath];
 }
@@ -144,3 +145,4 @@ void free3DTable(void ***b, size_t xSize, size_t ySize) {
 	
 	free(b);
 }
+#endif
