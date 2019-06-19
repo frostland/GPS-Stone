@@ -816,7 +816,7 @@
         <!--Map View Controller-->
         <scene sceneID="HUr-W2-LRk">
             <objects>
-                <viewController storyboardIdentifier="VSOMapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AEg-vC-tvX" customClass="VSOMapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VSOMapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AEg-vC-tvX" customClass="MapViewController" customModule="GPS_Stone_Trip_Recorder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gmr-Iq-wJe"/>
                         <viewControllerLayoutGuide type="bottom" id="EZt-q1-Lqg"/>
@@ -851,9 +851,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="af1-RV-6RI"/>
-                                </constraints>
                                 <blurEffect style="light"/>
                             </visualEffectView>
                         </subviews>
@@ -861,6 +858,7 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="xKH-do-tx1" secondAttribute="bottom" id="6Ud-Jq-I4h"/>
                             <constraint firstItem="xKH-do-tx1" firstAttribute="leading" secondItem="uIC-Hb-XKG" secondAttribute="leading" id="9Wq-1g-c5Y"/>
+                            <constraint firstItem="dca-Wh-v9g" firstAttribute="bottom" secondItem="gmr-Iq-wJe" secondAttribute="bottom" id="Cwh-Nf-1oF"/>
                             <constraint firstItem="EZt-q1-Lqg" firstAttribute="top" secondItem="ibA-9y-tEc" secondAttribute="bottom" constant="10" id="LFw-Ig-idw"/>
                             <constraint firstAttribute="trailing" secondItem="xKH-do-tx1" secondAttribute="trailing" id="Unh-p3-Tml"/>
                             <constraint firstItem="xKH-do-tx1" firstAttribute="top" secondItem="uIC-Hb-XKG" secondAttribute="top" id="W0o-Zc-swp"/>

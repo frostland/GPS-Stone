@@ -85,6 +85,6 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	   *************** */
 	
 	let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-	let pageViewControllerIdentifiers = ["VSOInfoViewCtrl", "VSODetailsViewCtrl"]
+	let pageViewControllerIdentifiers = ["VSOInfoViewCtrl", "VSODetailsViewCtrl", "VSOMapViewController"]
 	
 }

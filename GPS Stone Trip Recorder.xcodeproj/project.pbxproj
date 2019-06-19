@@ -34,6 +34,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765580DF743DE002DB57D /* CoreGraphics.framework */; };
+		7B1024FD22BA19A7008BF119 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1024FC22BA19A7008BF119 /* MapViewController.swift */; };
 		7B23D9BA22B90BB20007BA61 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B23D9B922B90BB20007BA61 /* InfoViewController.swift */; };
 		7B23D9BB22B90DF00007BA61 /* VSOUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */; };
 		7B27B9291DCDF6B1006F44B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */; };
@@ -121,6 +122,7 @@
 		289233AC0DB2D0DB0083E9F9 /* VSOSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOSettingsViewController.h; sourceTree = "<group>"; };
 		289233AD0DB2D0DB0083E9F9 /* VSOSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOSettingsViewController.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* GPS_Stone_Trip_Recorder.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPS_Stone_Trip_Recorder.pch; sourceTree = "<group>"; };
+		7B1024FC22BA19A7008BF119 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		7B23D9B922B90BB20007BA61 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B482CE01DCA8ADD007B5ABC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 				7BEED1BE22B6C0F700A055B9 /* MainViewController.swift */,
 				7B23D9B922B90BB20007BA61 /* InfoViewController.swift */,
 				7BD0A05822B9576500934656 /* DetailsViewController.swift */,
+				7B1024FC22BA19A7008BF119 /* MapViewController.swift */,
 			);
 			path = "Main View";
 			sourceTree = "<group>";
@@ -494,6 +497,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B1024FD22BA19A7008BF119 /* MapViewController.swift in Sources */,
 				7BE9FF9D22AC1BC6006DED15 /* RecordingsManager.swift in Sources */,
 				0F577FCD1020811300067838 /* GPXgpxType.m in Sources */,
 				7B94D1E222A0169600848832 /* AppDelegate.swift in Sources */,
