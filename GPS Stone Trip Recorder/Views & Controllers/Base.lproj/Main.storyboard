@@ -561,7 +561,7 @@
         <!--Navigation Controller-->
         <scene sceneID="zR9-DE-vRR">
             <objects>
-                <navigationController storyboardIdentifier="VSORecordingsListNavCtrl" id="qgW-nw-uvs" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="VSORecordingsListNavController" id="qgW-nw-uvs" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zdg-Wn-1bY">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -577,7 +577,7 @@
         <!--Details View Controller-->
         <scene sceneID="5QM-IY-oOQ">
             <objects>
-                <viewController storyboardIdentifier="VSODetailsViewCtrl" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MKq-A5-tA3" customClass="DetailsViewController" customModule="GPS_Stone_Trip_Recorder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VSODetailsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MKq-A5-tA3" customClass="DetailsViewController" customModule="GPS_Stone_Trip_Recorder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2vp-qc-meC"/>
                         <viewControllerLayoutGuide type="bottom" id="1QP-7J-knR"/>
@@ -889,7 +889,7 @@
         <!--Info View Controller-->
         <scene sceneID="YqX-z2-bi0">
             <objects>
-                <viewController storyboardIdentifier="VSOInfoViewCtrl" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YNg-Ki-68k" customClass="InfoViewController" customModule="GPS_Stone_Trip_Recorder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VSOInfoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YNg-Ki-68k" customClass="InfoViewController" customModule="GPS_Stone_Trip_Recorder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sib-5P-AJX"/>
                         <viewControllerLayoutGuide type="bottom" id="vi3-eJ-Gt5"/>
