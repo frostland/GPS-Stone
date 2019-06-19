@@ -70,6 +70,9 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	   MARK: - Actions
 	   *************** */
 	
+	@IBAction func unwindSegueToMainViewController(_ sender: UIStoryboardSegue) {
+	}
+	
 	@IBAction func changePage(_ sender: UIPageControl) {
 		let newIdx = pageControl.currentPage
 		let oldIdx = pageViewController.viewControllers?.first?.restorationIdentifier.flatMap{ pageViewControllerIdentifiers.firstIndex(of: $0) } ?? -1

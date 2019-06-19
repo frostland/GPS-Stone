@@ -27,4 +27,21 @@ class RecordingsListViewController : UITableViewController {
 		navigationItem.leftBarButtonItem = isEditing ? nil : buttonDone
 	}
 	
+	/* *******************************************
+	   MARK: - Table View Data Source and Delegate
+	   ******************************************* */
+	
+	override func numberOfSections(in tableView: UITableView) -> Int {
+		return 1
+	}
+	
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return 0
+	}
+	
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+		return cell
+	}
+	
 }
