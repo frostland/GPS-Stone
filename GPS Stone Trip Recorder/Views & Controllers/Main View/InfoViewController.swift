@@ -11,10 +11,20 @@ import UIKit
 
 
 
+protocol InfoViewControllerDelegate : class {
+	
+	func showDetailedInfo()
+	func showMap()
+	
+}
+
+
 class InfoViewController : UIViewController {
 	
 	@IBOutlet var constraintMarginTopTitle: NSLayoutConstraint!
 	@IBOutlet var buttonRecord: UIButton!
+	
+	weak var delegate: InfoViewControllerDelegate?
 	
 	override var preferredStatusBarStyle: UIStatusBarStyle {
 		return .lightContent
@@ -29,12 +39,21 @@ class InfoViewController : UIViewController {
 	}
 	
 	@IBAction func showDetailedInfos(_ sender: Any) {
+		delegate?.showDetailedInfo()
 	}
 	
 	@IBAction func showPositionOnMap(_ sender: Any) {
+		delegate?.showMap()
 	}
 	
 	@IBAction func startRecording(_ sender: Any) {
 	}
+	
+	/* ***************
+	   MARK: - Private
+	   *************** */
+	
+	#warning("TODO: In Xcode 11 apparently we can do injection from Storyboard. To be tested. (I put the warning here, it’s true everywhere indeed…)")
+	private let locationRecorder = S.sp.locationRecorder
 	
 }

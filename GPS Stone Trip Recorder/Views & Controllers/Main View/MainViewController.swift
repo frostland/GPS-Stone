@@ -57,9 +57,8 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 			pageViewController.dataSource = self
 			pageViewController.delegate = self
 			
-			let viewController = viewControllers[0] ?? mainStoryboard.instantiateViewController(withIdentifier: pageViewControllerIdentifiers[0])
+			let viewController = viewControllerForPage(atIndex: 0)
 			pageViewController.setViewControllers([viewController], direction: .forward, animated: false, completion: nil)
-			viewControllers[0] = viewController
 			setNeedsStatusBarAppearanceUpdate()
 			
 		default: (/*nop*/)
@@ -77,9 +76,8 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 		let newIdx = pageControl.currentPage
 		let oldIdx = pageViewController.viewControllers?.first?.restorationIdentifier.flatMap{ pageViewControllerIdentifiers.firstIndex(of: $0) } ?? -1
 		
-		let viewController = viewControllers[newIdx] ?? mainStoryboard.instantiateViewController(withIdentifier: pageViewControllerIdentifiers[newIdx])
+		let viewController = viewControllerForPage(atIndex: newIdx)
 		pageViewController.setViewControllers([viewController], direction: oldIdx < newIdx ? .forward : .reverse, animated: true, completion: nil)
-		viewControllers[newIdx] = viewController
 		setNeedsStatusBarAppearanceUpdate()
 	}
 	
@@ -98,12 +96,12 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	
 	func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
 		guard let id = viewController.restorationIdentifier, let idx = pageViewControllerIdentifiers.firstIndex(of: id), idx > 0 else {return nil}
-		return mainStoryboard.instantiateViewController(withIdentifier: pageViewControllerIdentifiers[idx-1])
+		return viewControllerForPage(atIndex: idx-1)
 	}
 	
 	func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
 		guard let id = viewController.restorationIdentifier, let idx = pageViewControllerIdentifiers.firstIndex(of: id), idx < pageViewControllerIdentifiers.count-1 else {return nil}
-		return mainStoryboard.instantiateViewController(withIdentifier: pageViewControllerIdentifiers[idx+1])
+		return viewControllerForPage(atIndex: idx+1)
 	}
 	
 	func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
@@ -123,5 +121,32 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	private let pageViewControllerIdentifiers = ["VSOInfoViewController", "VSODetailsViewController", "VSOMapViewController"]
 	
 	private var viewControllers: [UIViewController?]
+	
+	private func viewControllerForPage(atIndex index: Int) -> UIViewController {
+		let ret = viewControllers[index] ?? mainStoryboard.instantiateViewController(withIdentifier: pageViewControllerIdentifiers[index])
+		viewControllers[index] = ret
+		
+		switch ret {
+		case let infoViewController as InfoViewController: infoViewController.delegate = self
+		default: (/*nop*/)
+		}
+		
+		return ret
+	}
+	
+}
+
+
+extension MainViewController : InfoViewControllerDelegate {
+	
+	func showDetailedInfo() {
+		pageControl.currentPage = 1
+		changePage(pageControl)
+	}
+	
+	func showMap() {
+		pageControl.currentPage = 2
+		changePage(pageControl)
+	}
 	
 }
