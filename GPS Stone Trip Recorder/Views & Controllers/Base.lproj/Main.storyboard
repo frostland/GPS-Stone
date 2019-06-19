@@ -372,7 +372,7 @@
                     <navigationItem key="navigationItem" title="Settings" id="msU-NN-tCv">
                         <barButtonItem key="leftBarButtonItem" style="done" systemItem="done" id="acl-AD-GOG">
                             <connections>
-                                <action selector="done" destination="SoB-3e-nBh" id="jgd-F0-2Vs"/>
+                                <segue destination="IuA-gu-P2I" kind="unwind" unwindAction="unwindSegueToMainViewController:" id="9ew-xG-bmk"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -383,6 +383,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mL4-4a-SDL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="IuA-gu-P2I" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="484" y="846"/>
         </scene>
