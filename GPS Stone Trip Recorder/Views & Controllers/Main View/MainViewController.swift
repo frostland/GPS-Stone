@@ -27,6 +27,25 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	
 	var pageViewController: UIPageViewController!
 	
+	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+		fatalError("Unexpected init method")
+	}
+	
+	required init?(coder: NSCoder) {
+		viewControllers = [UIViewController?](repeating: nil, count: pageViewControllerIdentifiers.count)
+		
+		super.init(coder: coder)
+	}
+	
+	override func didReceiveMemoryWarning() {
+		super.didReceiveMemoryWarning()
+		
+		let currentIdx = pageViewController.viewControllers?.first?.restorationIdentifier.flatMap{ pageViewControllerIdentifiers.firstIndex(of: $0) } ?? -1
+		for i in 0..<viewControllers.count where i != currentIdx {
+			viewControllers[i] = nil
+		}
+	}
+	
 	override var childForStatusBarStyle: UIViewController? {
 		return pageViewController?.viewControllers?.first
 	}
@@ -38,8 +57,9 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 			pageViewController.dataSource = self
 			pageViewController.delegate = self
 			
-			let viewController = mainStoryboard.instantiateViewController(withIdentifier: pageViewControllerIdentifiers[0])
+			let viewController = viewControllers[0] ?? mainStoryboard.instantiateViewController(withIdentifier: pageViewControllerIdentifiers[0])
 			pageViewController.setViewControllers([viewController], direction: .forward, animated: false, completion: nil)
+			viewControllers[0] = viewController
 			setNeedsStatusBarAppearanceUpdate()
 			
 		default: (/*nop*/)
@@ -54,8 +74,9 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 		let newIdx = pageControl.currentPage
 		let oldIdx = pageViewController.viewControllers?.first?.restorationIdentifier.flatMap{ pageViewControllerIdentifiers.firstIndex(of: $0) } ?? -1
 		
-		let viewController = mainStoryboard.instantiateViewController(withIdentifier: pageViewControllerIdentifiers[newIdx])
+		let viewController = viewControllers[newIdx] ?? mainStoryboard.instantiateViewController(withIdentifier: pageViewControllerIdentifiers[newIdx])
 		pageViewController.setViewControllers([viewController], direction: oldIdx < newIdx ? .forward : .reverse, animated: true, completion: nil)
+		viewControllers[newIdx] = viewController
 		setNeedsStatusBarAppearanceUpdate()
 	}
 	
@@ -95,7 +116,9 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	   MARK: - Private
 	   *************** */
 	
-	let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-	let pageViewControllerIdentifiers = ["VSOInfoViewController", "VSODetailsViewController", "VSOMapViewController"]
+	private let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+	private let pageViewControllerIdentifiers = ["VSOInfoViewController", "VSODetailsViewController", "VSOMapViewController"]
+	
+	private var viewControllers: [UIViewController?]
 	
 }
