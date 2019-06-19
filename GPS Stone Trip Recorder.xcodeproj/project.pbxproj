@@ -41,6 +41,7 @@
 		7B482CE11DCA8ADD007B5ABC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CDF1DCA8ADD007B5ABC /* Localizable.strings */; };
 		7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */; };
 		7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE81DCA975F007B5ABC /* Main.storyboard */; };
+		7B5108F722BA57E60038CEAC /* RecordingsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5108F622BA57E60038CEAC /* RecordingsListViewController.swift */; };
 		7B63B7691E227E96001FA33C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B63B7681E227E96001FA33C /* InfoPlist.strings */; };
 		7B93E38222A184ED00709971 /* LocationRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B93E38122A184ED00709971 /* LocationRecorder.swift */; };
 		7B93E38622A1CA4900709971 /* KVObserver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B93E38522A1CA4900709971 /* KVObserver.framework */; };
@@ -128,6 +129,7 @@
 		7B482CE01DCA8ADD007B5ABC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B482CE91DCA976E007B5ABC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7B5108F622BA57E60038CEAC /* RecordingsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsListViewController.swift; sourceTree = "<group>"; };
 		7B63B7681E227E96001FA33C /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		7B93E38122A184ED00709971 /* LocationRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRecorder.swift; sourceTree = "<group>"; };
 		7B93E38522A1CA4900709971 /* KVObserver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KVObserver.framework; path = Carthage/Build/iOS/Static/KVObserver.framework; sourceTree = SOURCE_ROOT; };
@@ -171,6 +173,7 @@
 			children = (
 				0FC907BD1023107F009EA1B1 /* VSORecordingsListViewCtlr.h */,
 				0FC907BC1023107F009EA1B1 /* VSORecordingsListViewCtlr.m */,
+				7B5108F622BA57E60038CEAC /* RecordingsListViewController.swift */,
 				0F2B6086102842F300FC0595 /* VSORecordingDetailViewCtrl.h */,
 				0F2B6087102842F300FC0595 /* VSORecordingDetailViewCtrl.m */,
 			);
@@ -505,6 +508,7 @@
 				7B94D1E822A0194100848832 /* Constants.swift in Sources */,
 				7B93E38222A184ED00709971 /* LocationRecorder.swift in Sources */,
 				7B23D9BB22B90DF00007BA61 /* VSOUtils.m in Sources */,
+				7B5108F722BA57E60038CEAC /* RecordingsListViewController.swift in Sources */,
 				0F57809A1020925100067838 /* GPXmetadataType.m in Sources */,
 				0F5780B51020939900067838 /* XMLStringElement.m in Sources */,
 				0F5780DF102095E000067838 /* XMLDateElement.m in Sources */,

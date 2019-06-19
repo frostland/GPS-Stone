@@ -402,10 +402,10 @@
             </objects>
             <point key="canvasLocation" x="-154" y="835"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Recordings-->
         <scene sceneID="M3A-9S-Nkp">
             <objects>
-                <tableViewController id="M1W-OD-qbR" customClass="VSORecordingsListViewCtlr" sceneMemberID="viewController">
+                <tableViewController id="M1W-OD-qbR" customClass="RecordingsListViewController" customModule="GPS_Stone_Trip_Recorder" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="0lp-e5-lPf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -447,13 +447,16 @@
                             <outlet property="delegate" destination="M1W-OD-qbR" id="VHn-Cy-66m"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="PbE-Zs-ECC">
+                    <navigationItem key="navigationItem" title="Recordings" id="PbE-Zs-ECC">
                         <barButtonItem key="leftBarButtonItem" style="done" systemItem="done" id="K8q-kY-m0R">
                             <connections>
                                 <action selector="done:" destination="M1W-OD-qbR" id="LiL-n5-gUl"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="buttonDone" destination="K8q-kY-m0R" id="jWN-Nb-ost"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gcs-pX-erj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

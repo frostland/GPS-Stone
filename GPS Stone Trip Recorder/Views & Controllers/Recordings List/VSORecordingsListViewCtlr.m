@@ -16,14 +16,6 @@
 
 @implementation VSORecordingsListViewCtlr
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-	if (self = [super initWithCoder:aDecoder]) {
-		self.title = NSLocalizedString(@"recordings", nil);
-	}
-	return self;
-}
-
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
