@@ -35,6 +35,7 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765580DF743DE002DB57D /* CoreGraphics.framework */; };
 		7B08CFC622BA96AF00BE6E3F /* RecordingDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B08CFC522BA96AF00BE6E3F /* RecordingDetailsViewController.swift */; };
+		7B0F344C22BA9DFA00F0F9EC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F344B22BA9DFA00F0F9EC /* SettingsViewController.swift */; };
 		7B1024FD22BA19A7008BF119 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1024FC22BA19A7008BF119 /* MapViewController.swift */; };
 		7B23D9BA22B90BB20007BA61 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B23D9B922B90BB20007BA61 /* InfoViewController.swift */; };
 		7B23D9BB22B90DF00007BA61 /* VSOUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */; };
@@ -125,6 +126,7 @@
 		289233AD0DB2D0DB0083E9F9 /* VSOSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOSettingsViewController.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* GPS_Stone_Trip_Recorder.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPS_Stone_Trip_Recorder.pch; sourceTree = "<group>"; };
 		7B08CFC522BA96AF00BE6E3F /* RecordingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingDetailsViewController.swift; sourceTree = "<group>"; };
+		7B0F344B22BA9DFA00F0F9EC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		7B1024FC22BA19A7008BF119 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		7B23D9B922B90BB20007BA61 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 			children = (
 				289233AC0DB2D0DB0083E9F9 /* VSOSettingsViewController.h */,
 				289233AD0DB2D0DB0083E9F9 /* VSOSettingsViewController.m */,
+				7B0F344B22BA9DFA00F0F9EC /* SettingsViewController.swift */,
 			);
 			path = "Settings View";
 			sourceTree = "<group>";
@@ -532,6 +535,7 @@
 				0FE8B1BB10219391009A321A /* GPXpersonType.m in Sources */,
 				0FE8B1BE102193FF009A321A /* GPXptType.m in Sources */,
 				0FE8B1C1102195E6009A321A /* GPXptsegType.m in Sources */,
+				7B0F344C22BA9DFA00F0F9EC /* SettingsViewController.swift in Sources */,
 				0FE8B1C41021964F009A321A /* GPXboundsType.m in Sources */,
 				7B94D1E622A0191700848832 /* ServicesProvider.swift in Sources */,
 				7B94D1EA22A0197900848832 /* AppSettings.swift in Sources */,

@@ -154,7 +154,7 @@
         <!--Settings-->
         <scene sceneID="MFn-vY-oT4">
             <objects>
-                <tableViewController title="Settings" id="SoB-3e-nBh" customClass="VSOSettingsViewController" sceneMemberID="viewController">
+                <tableViewController title="Settings" id="SoB-3e-nBh" customClass="SettingsViewController" customModule="GPS_Stone_Trip_Recorder" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="42" sectionFooterHeight="28" id="kwx-m5-LA1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
