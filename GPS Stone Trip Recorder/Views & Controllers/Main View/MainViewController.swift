@@ -51,6 +51,12 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	   *************** */
 	
 	@IBAction func changePage(_ sender: UIPageControl) {
+		let newIdx = pageControl.currentPage
+		let oldIdx = pageViewController.viewControllers?.first?.restorationIdentifier.flatMap{ pageViewControllerIdentifiers.firstIndex(of: $0) } ?? -1
+		
+		let viewController = mainStoryboard.instantiateViewController(withIdentifier: pageViewControllerIdentifiers[newIdx])
+		pageViewController.setViewControllers([viewController], direction: oldIdx < newIdx ? .forward : .reverse, animated: true, completion: nil)
+		setNeedsStatusBarAppearanceUpdate()
 	}
 	
 	@IBAction func startRecording(_ sender: Any) {
@@ -77,6 +83,11 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	}
 	
 	func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+		/* Update the page control selected index */
+		if let id = pageViewController.viewControllers?.first?.restorationIdentifier, let idx = pageViewControllerIdentifiers.firstIndex(of: id) {
+			pageControl.currentPage = idx
+		}
+		
 		setNeedsStatusBarAppearanceUpdate()
 	}
 	
