@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+import KVObserver
+
 
 
 protocol InfoViewControllerDelegate : class {
@@ -36,6 +38,11 @@ class InfoViewController : UIViewController {
 		if !isDeviceScreenTallerThanOriginalIPhone() {
 			constraintMarginTopTitle.constant = 25
 		}
+		
+		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_status), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
+			guard let self = self else {return}
+			self.buttonRecord.isHidden = self.locationRecorder.status.isRecording
+		})
 	}
 	
 	@IBAction func showDetailedInfos(_ sender: Any) {
@@ -47,6 +54,7 @@ class InfoViewController : UIViewController {
 	}
 	
 	@IBAction func startRecording(_ sender: Any) {
+		locationRecorder.startNewRecording(name: "New Recording")
 	}
 	
 	/* ***************
@@ -55,5 +63,7 @@ class InfoViewController : UIViewController {
 	
 	#warning("TODO: In Xcode 11 apparently we can do injection from Storyboard. To be tested. (I put the warning here, it’s true everywhere indeed…)")
 	private let locationRecorder = S.sp.locationRecorder
+	
+	private let kvObserver = KVObserver()
 	
 }

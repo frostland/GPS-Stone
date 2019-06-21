@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+import KVObserver
+
 
 
 class MainViewController : UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
@@ -48,6 +50,30 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	
 	override var childForStatusBarStyle: UIViewController? {
 		return pageViewController?.viewControllers?.first
+	}
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_status), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
+			guard let self = self else {return}
+			
+			switch self.locationRecorder.status {
+			case .stopped, .stoppedAndTracking:
+				self.buttonRecord.isHidden = false
+				self.buttonStop.isHidden = true
+				self.buttonPause.isHidden = true
+				self.buttonListRecords.isHidden = false
+				
+			case .recording:
+				self.buttonRecord.isHidden = true
+				self.buttonStop.isHidden = false
+				self.buttonPause.isHidden = false
+				self.buttonListRecords.isHidden = true
+				
+			default: ()
+			}
+		})
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -116,6 +142,10 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	/* ***************
 	   MARK: - Private
 	   *************** */
+	
+	private let locationRecorder = S.sp.locationRecorder
+	
+	private let kvObserver = KVObserver()
 	
 	private let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
 	private let pageViewControllerIdentifiers = ["VSOInfoViewController", "VSODetailsViewController", "VSOMapViewController"]

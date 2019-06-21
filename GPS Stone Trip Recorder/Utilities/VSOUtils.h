@@ -53,12 +53,12 @@ NSString *NSStringFromDegrees(CLLocationDegrees d, BOOL lat);
 NSString *NSStringFromDirection(CLLocationDirection d);
 NSString *NSStringFromDate(NSDate *date);
 /* speed is in m/s */
-NSString *NSStringFromSpeed(CGFloat speed, BOOL showUnit);
+NSString *NSStringFromSpeed(CLLocationSpeed speed, BOOL showUnit, BOOL useMiles);
 /* i is assumed to be > 0 */
 NSString *NSStringFromTimeInterval(NSTimeInterval i);
 /* d is assumed to be > 0 */
-NSString *NSStringFromDistance(CLLocationDistance d);
-NSString *NSStringFromAltitude(CLLocationDistance a);
+NSString *NSStringFromDistance(CLLocationDistance d, BOOL useMiles);
+NSString *NSStringFromAltitude(CLLocationDistance a, BOOL useMiles);
 
 void *mallocTable(size_t size, size_t sizeOfElementsInTable);
 void **malloc2DTable(size_t xSize, size_t ySize, size_t sizeOfElementsInTable);

@@ -13,23 +13,13 @@
 #include "VSOUtils.h"
 
 
+#define ONE_MILE_IN_KILOMETER (1.609344)
+#define ONE_FOOT_IN_METERS    (0.3048)
+#define COORD_PRINT_FORMAT    (@"%.10f")
+
+
 BOOL isDeviceScreenTallerThanOriginalIPhone() {
 	return UIScreen.mainScreen.bounds.size.height > 480;
-}
-
-#if 0
-NSString *fullPathFromRelativeForGPXFile(NSString *relativePath) {
-	return [c.urlToFolderWithGPXFiles stringByAppendingPathComponent:relativePath];
-}
-
-NSString *relativePathFromFullForGPXFile(NSString *fullPath) {
-#ifndef NDEBUG
-	if ([[fullPath pathComponents] count] != [[c.urlToFolderWithGPXFiles pathComponents] count] + 1) {
-		NSLog(@"Error: [[fullPath pathComponents] count] != [[c.urlToFolderWithGPXFiles pathComponents] count] + 1 (in relativePathFromFullForGPXFile)");
-		return nil;
-	}
-#endif
-	return [fullPath lastPathComponent];
 }
 
 NSString *NSStringFromDegrees(CLLocationDegrees d, BOOL lat) {
@@ -63,12 +53,12 @@ NSString *NSStringFromDate(NSDate *date) {
 }
 
 /* speed is in m/s */
-NSString *NSStringFromSpeed(CGFloat speed, BOOL showUnit) {
-	BOOL miles = (distanceUnit() == VSODistanceUnitMiles);
+NSString *NSStringFromSpeed(CLLocationSpeed speed, BOOL showUnit, BOOL useMiles) {
 	speed *= 3.6; /* speed is now in km/h */
-	if (miles) speed /= c.oneMileInKilometer; /* speed is now in mph */
+	if (useMiles) speed /= ONE_MILE_IN_KILOMETER; /* speed is now in mph */
 	
-	NSString *formatNonLoc = [NSString stringWithFormat:@"x with arbitrary decimal precision%@",  showUnit? (miles? @" mph format": @" km/h format"): @""];
+#warning "TODO: Use a NumberFormatter (or a speed formatter?)"
+	NSString *formatNonLoc = [NSString stringWithFormat:@"x with arbitrary decimal precision%@",  showUnit? (useMiles? @" mph format": @" km/h format"): @""];
 	return [NSString stringWithFormat:NSLocalizedString(formatNonLoc, nil), MAX(0, 2 - (NSInteger)(log10(speed))), speed];
 }
 
@@ -76,14 +66,16 @@ NSString *NSStringFromTimeInterval(NSTimeInterval i) {
 	NSUInteger h, m, s;
 	h = i/3600; m = (i-h*3600)/60; s = i-h*3600-m*60;
 	
+#warning "TODO: Use a DateFormatter (IIRC)"
 	return [NSString stringWithFormat:@"%02lu:%02lu:%02lu", (unsigned long)h, (unsigned long)m, (unsigned long)s];
 }
 
-NSString *NSStringFromDistance(CLLocationDistance d) {
-	if (distanceUnit() == VSODistanceUnitMiles) {
-		CGFloat d2 = d/c.oneFootInMeters;
+NSString *NSStringFromDistance(CLLocationDistance d, BOOL useMiles) {
+#warning "TODO: Use a NumberFormatter (or a distance formatter?)"
+	if (useMiles) {
+		CGFloat d2 = d/ONE_FOOT_IN_METERS;
 		if (d2 < 1000) return [NSString stringWithFormat:NSLocalizedString(@"n ft format", nil), (unsigned int)(d2 + 0.5)];
-		d2 = (d/1000.)/c.oneMileInKilometer;
+		d2 = (d/1000.)/ONE_MILE_IN_KILOMETER;
 		return [NSString stringWithFormat:NSLocalizedString(@"x with arbitrary decimal precision mi format", nil), MAX(0, 2 - (NSInteger)(log10(d2))), d2];
 	} else {
 		if (d < 1000) return [NSString stringWithFormat:NSLocalizedString(@"n m format", nil), (unsigned int)(d + 0.5)];
@@ -91,14 +83,30 @@ NSString *NSStringFromDistance(CLLocationDistance d) {
 	}
 }
 
-NSString *NSStringFromAltitude(CLLocationDistance a) {
+NSString *NSStringFromAltitude(CLLocationDistance a, BOOL useMiles) {
+#warning "TODO: Use a NumberFormatter (or a distance formatter?)"
 	NSString *formatNonLoc = @"x m format (altitude)";
-	if (distanceUnit() == VSODistanceUnitMiles) {
-		a /= c.oneFootInMeters; /* a is now in feet */
+	if (useMiles) {
+		a /= ONE_FOOT_IN_METERS; /* a is now in feet */
 		formatNonLoc = @"x ft format (altitude)";
 	}
 	
 	return [NSString stringWithFormat:NSLocalizedString(formatNonLoc, nil), a + 0.5];
+}
+
+#if 0
+NSString *fullPathFromRelativeForGPXFile(NSString *relativePath) {
+	return [c.urlToFolderWithGPXFiles stringByAppendingPathComponent:relativePath];
+}
+
+NSString *relativePathFromFullForGPXFile(NSString *fullPath) {
+#ifndef NDEBUG
+	if ([[fullPath pathComponents] count] != [[c.urlToFolderWithGPXFiles pathComponents] count] + 1) {
+		NSLog(@"Error: [[fullPath pathComponents] count] != [[c.urlToFolderWithGPXFiles pathComponents] count] + 1 (in relativePathFromFullForGPXFile)");
+		return nil;
+	}
+#endif
+	return [fullPath lastPathComponent];
 }
 
 #pragma mark -

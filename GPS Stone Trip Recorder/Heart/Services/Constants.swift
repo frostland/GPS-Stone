@@ -13,11 +13,6 @@ import Foundation
 
 class Constants {
 	
-	let oneMileInKilometer = Double(1.609344)
-	let oneFootInMeters = Double(0.3048)
-	
-	let coordPrintFormat = "%.10f"
-	
 	let mainDataDir: URL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
 	private(set) lazy var urlToNiceExitWitness:      URL = { return mainDataDir.appendingPathComponent("Unclean Exit Witness.witness", isDirectory: false) }()
 	private(set) lazy var urlToCurrentRecordingInfo: URL = { return mainDataDir.appendingPathComponent("Current Recording Info.plist", isDirectory: false) }()
