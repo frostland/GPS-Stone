@@ -158,11 +158,11 @@ class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	This method is only valid to call while the location recorder is **stopped**
 	(it does not have a current recording). Will crash in debug mode (assert
 	active) if called while the recording is recording. */
-	func startNewRecording(name: String) {
+	func startNewRecording() {
 		assert(status.recordingInfo == nil)
 		guard status.recordingInfo == nil else {return}
 		
-		let recording = RecordingInfo(gpxURL: rm.createNextGPXFile(), name: name)
+		let recording = RecordingInfo(gpxURL: rm.createNextGPXFile(), name: "Untitled" /* The end user should not see this string, so it’s not localized */)
 		status = .recording(recording)
 		
 		/* Writing the GPX header to the GPX file */

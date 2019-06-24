@@ -108,6 +108,7 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	}
 	
 	@IBAction func startRecording(_ sender: Any) {
+		locationRecorder.startNewRecording()
 	}
 	
 	@IBAction func pauseRecording(_ sender: Any) {

@@ -54,7 +54,7 @@ class InfoViewController : UIViewController {
 	}
 	
 	@IBAction func startRecording(_ sender: Any) {
-		locationRecorder.startNewRecording(name: "New Recording")
+		locationRecorder.startNewRecording()
 	}
 	
 	/* ***************
