@@ -291,17 +291,19 @@ class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			currentGPXHandle = nil
 		}
 		
+		if newStatus.isTrackingUserPosition {
+			if newStatus.isRecording {lm.requestAlwaysAuthorization()}
+			else                     {lm.requestWhenInUseAuthorization()}
+		}
 		if newStatus.isTrackingUserPosition && !oldStatus.isTrackingUserPosition {
 			/* Also done at init time if needed. */
-			if #available(iOS 9.0, *) {lm.allowsBackgroundLocationUpdates = true}
-			lm.requestWhenInUseAuthorization()
 			lm.startUpdatingLocation()
 			lm.startUpdatingHeading()
 		} else if !newStatus.isTrackingUserPosition && oldStatus.isTrackingUserPosition {
 			lm.stopUpdatingHeading()
 			lm.stopUpdatingLocation()
-			if #available(iOS 9.0, *) {lm.allowsBackgroundLocationUpdates = false}
 		}
+		if #available(iOS 9.0, *) {lm.allowsBackgroundLocationUpdates = newStatus.isRecording}
 	}
 	
 }
