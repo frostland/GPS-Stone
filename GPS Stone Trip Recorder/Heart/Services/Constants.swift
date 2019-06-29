@@ -30,6 +30,4 @@ class Constants {
 	let pageNumberWithDetailedInfo = 1
 	let animTime = TimeInterval(0.3)
 	
-	/* Constants for the names of the notifications */
-	let ntfSettingsChanged = "VSO App Settings Changed"
 }

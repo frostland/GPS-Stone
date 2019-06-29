@@ -60,7 +60,6 @@
 
 /* Begin PBXFileReference section */
 		0F13A60D102AE7E800D1C9BE /* VSOInfoGenericController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOInfoGenericController.h; sourceTree = "<group>"; };
-		0F13A60E102AE7E800D1C9BE /* VSOInfoGenericController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOInfoGenericController.m; sourceTree = "<group>"; };
 		0F2B6086102842F300FC0595 /* VSORecordingDetailViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSORecordingDetailViewCtrl.h; sourceTree = "<group>"; };
 		0F2B6087102842F300FC0595 /* VSORecordingDetailViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSORecordingDetailViewCtrl.m; sourceTree = "<group>"; };
 		0F34802810089A9700E88124 /* VSOMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOMapViewController.h; sourceTree = "<group>"; };
@@ -189,7 +188,6 @@
 			isa = PBXGroup;
 			children = (
 				0F13A60D102AE7E800D1C9BE /* VSOInfoGenericController.h */,
-				0F13A60E102AE7E800D1C9BE /* VSOInfoGenericController.m */,
 				0F3480F61008A83B00E88124 /* VSODetailsViewCtrl.h */,
 				0F3480F71008A83B00E88124 /* VSODetailsViewCtrl.m */,
 				0F34802810089A9700E88124 /* VSOMapViewController.h */,

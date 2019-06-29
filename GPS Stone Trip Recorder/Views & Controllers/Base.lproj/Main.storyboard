@@ -723,7 +723,7 @@
                                 <inset key="contentEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
                                 <state key="normal" title="Start Recording"/>
                                 <connections>
-                                    <action selector="startRecord:" destination="MKq-A5-tA3" eventType="touchUpInside" id="Ut7-dV-sTO"/>
+                                    <action selector="startRecording:" destination="MKq-A5-tA3" eventType="touchUpInside" id="TVa-ki-cvy"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="Max:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="aWF-4w-Mff">

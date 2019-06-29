@@ -38,20 +38,29 @@ class DetailsViewController : UIViewController {
 		return .default
 	}
 	
+	deinit {
+		if let o = settingsObserver {
+			NotificationCenter.default.removeObserver(o)
+			settingsObserver = nil
+		}
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-//		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChanged:) name:c.ntfSettingsChanged object:nil];
-		
 		imageNorth.alpha = 0
 		
-//		if (!currentGPX) [viewWithTrackInfos setAlpha:0.];
-//		else             [viewWithTrackInfos setAlpha:1.];
-//		if ([[currentRecordingInfo valueForKey:c.recListRecordStateKey] unsignedIntValue] == VSORecordStateStopped) [buttonRecord setAlpha:1.];
-//		else                                                                                                              [buttonRecord setAlpha:0.];
+		assert(settingsObserver == nil)
+		settingsObserver = NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main, using: { [weak self] _ in
+			self?.updateUIFromSettingsChange()
+		})
+		updateUIFromSettingsChange()
 		
-//		[self settingsChanged:nil];
-		
+		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_status), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
+			guard let self = self else {return}
+			self.buttonRecord.isHidden = self.locationRecorder.status.isRecording
+			self.viewWithTrackInfos.isHidden = !self.locationRecorder.status.isRecording
+		})
 		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.currentLocation), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
 			self?.updateLocationUI()
 		})
@@ -72,6 +81,10 @@ class DetailsViewController : UIViewController {
 		locationRecorder.releaseTracking()
 	}
 	
+	@IBAction func startRecording(_ sender: Any) {
+		locationRecorder.startNewRecording()
+	}
+	
 	/* ***************
 	   MARK: - Private
 	   *************** */
@@ -81,6 +94,13 @@ class DetailsViewController : UIViewController {
 	private let locationRecorder = S.sp.locationRecorder
 	
 	private let kvObserver = KVObserver()
+	private var settingsObserver: NSObjectProtocol?
+	
+	private func updateUIFromSettingsChange() {
+		if appSettings.useMetricSystem {labelKmph.text = NSLocalizedString("km/h", comment: "")}
+		else                           {labelKmph.text = NSLocalizedString("mph",  comment: "")}
+		updateLocationUI()
+	}
 	
 	private func updateLocationUI() {
 		labelLat.text = NSLocalizedString("getting loc", comment: "")
