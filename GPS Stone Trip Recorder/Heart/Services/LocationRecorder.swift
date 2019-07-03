@@ -180,8 +180,6 @@ class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		assert(status.recordingInfo != nil)
 		guard let r = status.recordingInfo else {return}
 		
-		#warning("TODO: Pause the recording...")
-		
 		status = .pausedByUser(r)
 	}
 	
@@ -196,23 +194,17 @@ class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			return
 		}
 		
-		#warning("TODO: Resume the recording...")
-		
 		status = .recording(r)
 	}
 	
 	/** Stops the current recording.
 	
 	This method is only valid to call while the location recorder is **not**
-	stopped (it has a current recording). Will crash in debug mode (assert
-	active) if called at an invalid time. */
-	func stopCurrentRecording() {
-		assert(status.recordingInfo != nil)
-		guard let r = status.recordingInfo else {return}
-		
-		#warning("TODO: End the recording...")
-		
+	stopped (it has a current recording). Will crash if called at an invalid time */
+	func stopCurrentRecording() -> RecordingInfo {
+		let r = status.recordingInfo!
 		status = .stopped
+		return r
 	}
 	
 	/* *********************************
