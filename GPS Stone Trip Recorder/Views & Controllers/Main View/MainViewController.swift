@@ -58,6 +58,8 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_status), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
 			guard let self = self else {return}
 			
+			self.viewMiniInfos.isHidden = !self.locationRecorder.status.isRecording
+			
 			switch self.locationRecorder.status {
 			case .stopped, .stoppedAndTracking:
 				self.buttonRecord.isHidden = false
