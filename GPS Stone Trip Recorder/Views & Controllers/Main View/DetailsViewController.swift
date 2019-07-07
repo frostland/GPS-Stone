@@ -52,14 +52,16 @@ class DetailsViewController : UIViewController {
 		
 		assert(settingsObserver == nil)
 		settingsObserver = NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main, using: { [weak self] _ in
-			self?.updateUIFromSettingsChange()
+			guard let self = self else {return}
+			self.updateUnitsLabels()
+			self.updateRecordingUI()
+			self.updateLocationUI()
+			self.updateHeadingUI()
 		})
-		updateUIFromSettingsChange()
+		updateUnitsLabels()
 		
 		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_status), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
-			guard let self = self else {return}
-			self.buttonRecord.isHidden = self.locationRecorder.status.isRecording
-			self.viewWithTrackInfos.isHidden = !self.locationRecorder.status.isRecording
+			self?.updateRecordingUI()
 		})
 		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.currentLocation), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
 			self?.updateLocationUI()
@@ -96,10 +98,9 @@ class DetailsViewController : UIViewController {
 	private let kvObserver = KVObserver()
 	private var settingsObserver: NSObjectProtocol?
 	
-	private func updateUIFromSettingsChange() {
+	private func updateUnitsLabels() {
 		if appSettings.useMetricSystem {labelKmph.text = NSLocalizedString("km/h", comment: "")}
 		else                           {labelKmph.text = NSLocalizedString("mph",  comment: "")}
-		updateLocationUI()
 	}
 	
 	private func updateLocationUI() {
@@ -109,13 +110,6 @@ class DetailsViewController : UIViewController {
 		labelAltitude.text = NSLocalizedString("nd", comment: "")
 		labelVerticalAccuracy.text = ""
 		labelHorizontalAccuracy.text = NSLocalizedString("nd", comment: "")
-		
-		labelTrackName.text = NSLocalizedString("nd", comment: "")
-		labelMaxSpeed.text = NSLocalizedString("nd", comment: "")
-		labelAverageSpeed.text = NSLocalizedString("nd", comment: "")
-		labelElapsedTime.text = "00:00:00"
-		labelTotalDistance.text = NSLocalizedString("nd", comment: "")
-		labelNumberOfPoints.text = NSLocalizedString("nd", comment: "")
 		
 		if let location = locationRecorder.currentLocation {
 			labelLat.text  = NSStringFromDegrees(location.coordinate.latitude,  true)
@@ -139,6 +133,32 @@ class DetailsViewController : UIViewController {
 				self.imageNorth.alpha = 1
 				self.imageNorth.transform = CGAffineTransform(rotationAngle: -2 * CGFloat.pi * CGFloat(h/360))
 			})
+		}
+	}
+	
+	private func updateRecordingUI() {
+		let numberFormatter = NumberFormatter()
+		
+		if let recordingInfo = locationRecorder.status.recordingInfo {
+			labelTrackName.text = recordingInfo.name
+			labelMaxSpeed.text = NSStringFromSpeed(recordingInfo.maxSpeed, false, !appSettings.useMetricSystem)
+			labelAverageSpeed.text = NSLocalizedString("nd", comment: "")
+			labelElapsedTime.text = "00:00:00"
+			labelTotalDistance.text = NSStringFromDistance(recordingInfo.totalDistance, !appSettings.useMetricSystem)
+			labelNumberOfPoints.text = numberFormatter.string(for: recordingInfo.numberOfRecordedPoints) ?? "\(recordingInfo.numberOfRecordedPoints)"
+
+			buttonRecord.isHidden = true
+			viewWithTrackInfos.isHidden = false
+		} else {
+			labelTrackName.text = NSLocalizedString("nd", comment: "")
+			labelMaxSpeed.text = NSLocalizedString("nd", comment: "")
+			labelAverageSpeed.text = NSLocalizedString("nd", comment: "")
+			labelElapsedTime.text = "00:00:00"
+			labelTotalDistance.text = NSLocalizedString("nd", comment: "")
+			labelNumberOfPoints.text = NSLocalizedString("nd", comment: "")
+			
+			buttonRecord.isHidden = false
+			viewWithTrackInfos.isHidden = true
 		}
 	}
 	

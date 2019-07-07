@@ -12,7 +12,7 @@ import Foundation
 
 /* Inherits from NSObject to allow KVO on the instances.
  * TODO: Switch to Combine! */
-class RecordingsManager : NSObject {
+final class RecordingsManager : NSObject {
 	
 	/* KVObservable */
 	private(set) var recordings: [RecordingInfo]

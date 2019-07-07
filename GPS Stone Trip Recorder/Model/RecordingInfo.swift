@@ -59,6 +59,50 @@ struct RecordingInfo : Codable {
 	var averageSpeed = CLLocationSpeed(0)
 	
 	var numberOfRecordedPoints = 0
-//	var storedPointsCache = [CLLocation]()
+	var firstRecordedPoint: RecordingPoint?
+	var latestRecordedPoint: RecordingPoint?
+	var allPoints = [RecordingPoint]()
+	
+}
+
+struct RecordingPoint : Codable {
+	
+	let location: CLLocation
+	let date: Date
+	
+	init(location l: CLLocation, date d: Date = Date()) {
+		location = l
+		date = d
+	}
+	
+	init(from decoder: Decoder) throws {
+		let container = try decoder.singleValueContainer()
+		let data = try container.decode(Data.self)
+		
+		let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+		defer {unarchiver.finishDecoding()}
+		guard let loc = unarchiver.decodeObject(forKey: "location") as? CLLocation else {
+			throw NSError(domain: "fr.frostland.GPS-Stone", code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot decode location"])
+		}
+		guard let d = unarchiver.decodeObject(forKey: "date") as? Date else {
+			throw NSError(domain: "fr.frostland.GPS-Stone", code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot decode date"])
+		}
+		
+		location = loc
+		date = d
+	}
+	
+	func encode(to encoder: Encoder) throws {
+		let data = NSMutableData()
+		do {
+			let archiver = NSKeyedArchiver(forWritingWith: data)
+			defer {archiver.finishEncoding()}
+			archiver.encode(location, forKey: "location")
+			archiver.encode(date, forKey: "date")
+		}
+		
+		var container = encoder.singleValueContainer()
+		try container.encode(Data(data))
+	}
 	
 }

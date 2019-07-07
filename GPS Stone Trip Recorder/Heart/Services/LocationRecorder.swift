@@ -13,7 +13,7 @@ import Foundation
 
 /* Inherits from NSObject to allow KVO on the instances.
  * TODO: Switch to Combine! */
-class LocationRecorder : NSObject, CLLocationManagerDelegate {
+final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	
 	enum Status : Codable {
 		
@@ -82,6 +82,11 @@ class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			}
 		}
 		
+		var isWaitingForGPS: Bool {
+			guard case let .recording(info) = self else {return false}
+			return info.numberOfRecordedPoints == 0
+		}
+		
 		private enum CodingKeys : String, CodingKey {
 			case state
 			case recordingInfo
@@ -116,9 +121,36 @@ class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	
 	@objc dynamic private(set) var canRecord: Bool
 	@objc dynamic private(set) var currentHeading: CLHeading?
-	@objc dynamic private(set) var currentLocation: CLLocation?
+	@objc dynamic private(set) var currentLocation: CLLocation? {
+		willSet {
+			guard let newLocation = newValue else {return}
+			guard !s.skipNonAccuratePoints || newLocation.horizontalAccuracy > c.maxAccuracyToRecordPoint else {return}
+			
+			let distance: CLLocationDistance
+			guard case var .recording(recordingInfo) = status else {return}
+			if let latestRecordedPoint = recordingInfo.latestRecordedPoint {
+				guard -latestRecordedPoint.date.timeIntervalSinceNow >= s.minTimeForUpdate else {return}
+				distance = newLocation.distance(from: latestRecordedPoint.location)
+				guard distance >= s.minPathDistance else {return}
+			} else {
+				distance = 0
+			}
+			
+			NSLog("Adding new location in current recording: %@", newLocation)
+			let recordingPoint = RecordingPoint(location: newLocation)
+			if recordingInfo.firstRecordedPoint == nil {recordingInfo.firstRecordedPoint = recordingPoint}
+			recordingInfo.latestRecordedPoint = recordingPoint
+			recordingInfo.allPoints.append(recordingPoint)
+			recordingInfo.numberOfRecordedPoints += 1
+			recordingInfo.totalDistance += distance
+			recordingInfo.maxSpeed = max(newLocation.speed, recordingInfo.maxSpeed)
+			status = .recording(recordingInfo)
+		}
+	}
 	
-	init(locationManager: CLLocationManager, recordingsManager: RecordingsManager, constants: Constants) {
+	init(locationManager: CLLocationManager, recordingsManager: RecordingsManager, appSettings: AppSettings, constants: Constants) {
+		c = constants
+		s = appSettings
 		lm = locationManager
 		rm = recordingsManager
 		status = (try? PropertyListDecoder().decode(Status.self, from: Data(contentsOf: constants.urlToCurrentRecordingInfo))) ?? .stopped
@@ -253,6 +285,8 @@ class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	
 	/* *** Dependencies *** */
 	
+	private let c: Constants
+	private let s: AppSettings
 	private let lm: CLLocationManager
 	private let rm: RecordingsManager
 	

@@ -11,7 +11,7 @@ import Foundation
 
 
 
-class Constants {
+final class Constants {
 	
 	let mainDataDir: URL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
 	private(set) lazy var urlToNiceExitWitness:      URL = { return mainDataDir.appendingPathComponent("Unclean Exit Witness.witness", isDirectory: false) }()

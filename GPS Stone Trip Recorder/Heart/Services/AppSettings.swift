@@ -12,7 +12,7 @@ import MapKit
 
 
 
-class AppSettings {
+final class AppSettings {
 	
 	enum DistanceUnit : Int {
 		case automatic = 255

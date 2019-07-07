@@ -26,6 +26,6 @@ class ServicesProvider {
 	private(set) lazy var appSettings = AppSettings(userDefaults: UserDefaults.standard)
 	
 	private(set) lazy var recordingsManager = RecordingsManager(constants: constants)
-	private(set) lazy var locationRecorder = LocationRecorder(locationManager: CLLocationManager(), recordingsManager: recordingsManager, constants: constants)
+	private(set) lazy var locationRecorder = LocationRecorder(locationManager: CLLocationManager(), recordingsManager: recordingsManager, appSettings: appSettings, constants: constants)
 	
 }
