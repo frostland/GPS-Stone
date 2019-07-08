@@ -39,6 +39,9 @@ class DetailsViewController : UIViewController {
 	}
 	
 	deinit {
+		timerUpdateTimeUI?.invalidate()
+		timerUpdateTimeUI = nil
+		
 		if let o = settingsObserver {
 			NotificationCenter.default.removeObserver(o)
 			settingsObserver = nil
@@ -98,6 +101,8 @@ class DetailsViewController : UIViewController {
 	private let kvObserver = KVObserver()
 	private var settingsObserver: NSObjectProtocol?
 	
+	private var timerUpdateTimeUI: Timer?
+	
 	private func updateUnitsLabels() {
 		if appSettings.useMetricSystem {labelKmph.text = NSLocalizedString("km/h", comment: "")}
 		else                           {labelKmph.text = NSLocalizedString("mph",  comment: "")}
@@ -142,24 +147,49 @@ class DetailsViewController : UIViewController {
 		if let recordingInfo = locationRecorder.status.recordingInfo {
 			labelTrackName.text = recordingInfo.name
 			labelMaxSpeed.text = NSStringFromSpeed(recordingInfo.maxSpeed, false, !appSettings.useMetricSystem)
-			labelAverageSpeed.text = NSLocalizedString("nd", comment: "")
-			labelElapsedTime.text = "00:00:00"
 			labelTotalDistance.text = NSStringFromDistance(recordingInfo.totalDistance, !appSettings.useMetricSystem)
 			labelNumberOfPoints.text = numberFormatter.string(for: recordingInfo.numberOfRecordedPoints) ?? "\(recordingInfo.numberOfRecordedPoints)"
-
+			
 			buttonRecord.isHidden = true
 			viewWithTrackInfos.isHidden = false
+			
+			/* Not very beautiful putting this here… */
+			if timerUpdateTimeUI == nil {
+				timerUpdateTimeUI = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(updateTimeUI(_:)), userInfo: nil, repeats: true)
+			}
 		} else {
 			labelTrackName.text = NSLocalizedString("nd", comment: "")
 			labelMaxSpeed.text = NSLocalizedString("nd", comment: "")
-			labelAverageSpeed.text = NSLocalizedString("nd", comment: "")
-			labelElapsedTime.text = "00:00:00"
 			labelTotalDistance.text = NSLocalizedString("nd", comment: "")
 			labelNumberOfPoints.text = NSLocalizedString("nd", comment: "")
 			
+			labelAverageSpeed.text = NSLocalizedString("nd", comment: "")
+			labelElapsedTime.text = "00:00:00"
+			
 			buttonRecord.isHidden = false
 			viewWithTrackInfos.isHidden = true
+			
+			timerUpdateTimeUI?.invalidate()
+			timerUpdateTimeUI = nil
 		}
+	}
+	
+	@objc
+	private func updateTimeUI(_ timer: Timer?) {
+		guard var recordingInfo = locationRecorder.status.recordingInfo else {return}
+		
+		/* We cheat the time once */
+		recordingInfo.dateAndDuration.duration = -recordingInfo.dateAndDuration.dateStart.timeIntervalSinceNow
+		labelElapsedTime.text = NSStringFromTimeInterval(recordingInfo.totalRecordedTime)
+		
+		if let latestPointDate = recordingInfo.latestRecordedPoint?.date {
+			/* We cheat the time once twice (to avoid having the average speed that
+			 * moves all the time). */
+			recordingInfo.dateAndDuration.duration = -recordingInfo.dateAndDuration.dateStart.timeIntervalSince(latestPointDate)
+		}
+		guard recordingInfo.totalRecordedTime > 0.5 else {return}
+		
+		labelAverageSpeed.text = NSStringFromSpeed(recordingInfo.totalDistance/recordingInfo.totalRecordedTime, false, !appSettings.useMetricSystem)
 	}
 	
 }
