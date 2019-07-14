@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Recording" representedClassName=".Recording" syncable="YES" codeGenerationType="class">
+        <attribute name="averageSpeed" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="gpxRelativePath" attributeType="String" syncable="YES"/>
+        <attribute name="maxSpeed" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="totalDistance" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="pauses" toMany="YES" deletionRule="Cascade" destinationEntity="TimeSegment" inverseName="pauseSegmentRecording" inverseEntity="TimeSegment" syncable="YES"/>
+        <relationship name="points" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="RecordingPoint" inverseName="recording" inverseEntity="RecordingPoint" syncable="YES"/>
+        <relationship name="totalTimeSegment" maxCount="1" deletionRule="Cascade" destinationEntity="TimeSegment" inverseName="totalTimeSegmentRecording" inverseEntity="TimeSegment" syncable="YES"/>
+    </entity>
+    <entity name="RecordingPoint" representedClassName="RecordingPoint" syncable="YES" codeGenerationType="class">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="location" attributeType="Transformable" customClassName="CLLocation" syncable="YES"/>
+        <relationship name="recording" maxCount="1" deletionRule="Nullify" destinationEntity="Recording" inverseName="points" inverseEntity="Recording" syncable="YES"/>
+    </entity>
+    <entity name="TimeSegment" representedClassName="TimeSegment" syncable="YES" codeGenerationType="class">
+        <attribute name="duration" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="startTime" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="pauseSegmentRecording" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recording" inverseName="pauses" inverseEntity="Recording" syncable="YES"/>
+        <relationship name="totalTimeSegmentRecording" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recording" inverseName="totalTimeSegment" inverseEntity="Recording" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Recording" positionX="-63" positionY="-18" width="128" height="165"/>
+        <element name="RecordingPoint" positionX="128.5625" positionY="166.79296875" width="128" height="90"/>
+        <element name="TimeSegment" positionX="-290.38671875" positionY="34.91015625" width="160.51953125" height="105"/>
+    </elements>
+</model>
