@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14492.1" systemVersion="18G84" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Recording" representedClassName=".Recording" syncable="YES" codeGenerationType="class">
         <attribute name="averageSpeed" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="gpxRelativePath" attributeType="String" syncable="YES"/>
+        <attribute name="gpxFileBookmark" attributeType="Binary" syncable="YES"/>
         <attribute name="maxSpeed" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="totalDistance" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
@@ -22,8 +22,8 @@
         <relationship name="totalTimeSegmentRecording" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recording" inverseName="totalTimeSegment" inverseEntity="Recording" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Recording" positionX="-63" positionY="-18" width="128" height="165"/>
-        <element name="RecordingPoint" positionX="128.5625" positionY="166.79296875" width="128" height="90"/>
-        <element name="TimeSegment" positionX="-290.38671875" positionY="34.91015625" width="160.51953125" height="105"/>
+        <element name="Recording" positionX="-63" positionY="-18" width="128" height="163"/>
+        <element name="RecordingPoint" positionX="110.109375" positionY="90.20703125" width="128" height="90"/>
+        <element name="TimeSegment" positionX="-287.859375" positionY="34.86328125" width="160.51953125" height="105"/>
     </elements>
 </model>

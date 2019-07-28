@@ -18,6 +18,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	enum Status : Codable {
 		
 		init(from decoder: Decoder) throws {
+			assert(Thread.isMainThread)
 			let container = try decoder.container(keyedBy: CodingKeys.self)
 			let stateStr = try container.decode(String.self, forKey: .state)
 			if stateStr == "stopped" {
@@ -25,12 +26,12 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 				return
 			}
 			
-			let recordingInfo = try container.decode(RecordingInfo.self, forKey: .recordingInfo)
+			let recordingRef = try container.decode(URL.self, forKey: .recordingURI)
 			switch stateStr {
-			case "recording":              self = .recording(recordingInfo)
-			case "pausedByUser":           self = .pausedByUser(recordingInfo)
-			case "pausedByBackground":     self = .pausedByBackground(recordingInfo)
-			case "pausedByLocationDenied": self = .pausedByLocationDenied(recordingInfo)
+			case "recording":              self = .recording(recordingRef: recordingRef)
+			case "pausedByUser":           self = .pausedByUser(recordingRef: recordingRef)
+			case "pausedByBackground":     self = .pausedByBackground(recordingRef: recordingRef)
+			case "pausedByLocationDenied": self = .pausedByLocationDenied(recordingRef: recordingRef)
 			default:
 				throw NSError(domain: "fr.vso-software.GPSStoneTripRecorder", code: 1, userInfo: nil)
 			}
@@ -48,23 +49,23 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			
 			var container = encoder.container(keyedBy: CodingKeys.self)
 			try container.encode(stateStr, forKey: .state)
-			try container.encode(recordingInfo, forKey: .recordingInfo)
+			try container.encode(recordingRef, forKey: .recordingURI)
 		}
 		
 		case stopped
 		case stoppedAndTracking
-		case recording(RecordingInfo)
-		case pausedByUser(RecordingInfo)
-		case pausedByBackground(RecordingInfo)
-		case pausedByLocationDenied(RecordingInfo)
+		case recording(recordingRef: URL)
+		case pausedByUser(recordingRef: URL)
+		case pausedByBackground(recordingRef: URL)
+		case pausedByLocationDenied(recordingRef: URL)
 		
-		var recordingInfo: RecordingInfo? {
+		var recordingRef: URL? {
 			switch self {
 			case .stopped, .stoppedAndTracking:
 				return nil
 				
-			case .recording(let ri), .pausedByUser(let ri), .pausedByBackground(let ri), .pausedByLocationDenied(let ri):
-				return ri
+			case .recording(let rr), .pausedByUser(let rr), .pausedByBackground(let rr), .pausedByLocationDenied(let rr):
+				return rr
 			}
 		}
 		
@@ -82,14 +83,15 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			}
 		}
 		
-		var isWaitingForGPS: Bool {
-			guard case let .recording(info) = self else {return false}
-			return info.numberOfRecordedPoints == 0
-		}
+//		var isWaitingForGPS: Bool {
+//			#warning("Potential access of CoreData object outside of context queue")
+//			guard case let .recording(recording) = self else {return false}
+//			return (recording.points?.count ?? 0) == 0
+//		}
 		
 		private enum CodingKeys : String, CodingKey {
 			case state
-			case recordingInfo
+			case recordingURI
 		}
 		
 	}
@@ -123,34 +125,28 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	@objc dynamic private(set) var currentHeading: CLHeading?
 	@objc dynamic private(set) var currentLocation: CLLocation? {
 		willSet {
+			assert(Thread.isMainThread)
 			guard let newLocation = newValue else {return}
 			guard !s.skipNonAccuratePoints || newLocation.horizontalAccuracy > c.maxAccuracyToRecordPoint else {return}
 			
 			let distance: CLLocationDistance
-			guard case var .recording(recordingInfo) = status else {return}
-			if let latestRecordedPoint = recordingInfo.latestRecordedPoint {
-				guard -latestRecordedPoint.date.timeIntervalSinceNow >= s.minTimeForUpdate else {return}
-				distance = newLocation.distance(from: latestRecordedPoint.location)
+			guard case .recording = status else {return}
+			if let latestRecordedPoint = currentRecording.points?.lastObject as! RecordingPoint?, let pointDate = latestRecordedPoint.date, let pointLocation = latestRecordedPoint.location {
+				guard -pointDate.timeIntervalSinceNow >= s.minTimeForUpdate else {return}
+				distance = newLocation.distance(from: pointLocation)
 				guard distance >= s.minPathDistance else {return}
 			} else {
 				distance = 0
 			}
 			
-			NSLog("Adding new location in current recording: %@", newLocation)
-			let recordingPoint = RecordingPoint(location: newLocation)
-			if recordingInfo.firstRecordedPoint == nil {recordingInfo.firstRecordedPoint = recordingPoint}
-			recordingInfo.latestRecordedPoint = recordingPoint
-			recordingInfo.allPoints.append(recordingPoint)
-			recordingInfo.numberOfRecordedPoints += 1
-			recordingInfo.totalDistance += distance
-			recordingInfo.maxSpeed = max(newLocation.speed, recordingInfo.maxSpeed)
-			status = .recording(recordingInfo)
+			try? rm.unsafeAddPoint(location: newLocation, addedDistance: distance, to: currentRecording)
 		}
 	}
 	
-	init(locationManager: CLLocationManager, recordingsManager: RecordingsManager, appSettings: AppSettings, constants: Constants) {
+	init(locationManager: CLLocationManager, recordingsManager: RecordingsManager, dataHandler: DataHandler, appSettings: AppSettings, constants: Constants) {
 		c = constants
 		s = appSettings
+		dh = dataHandler
 		lm = locationManager
 		rm = recordingsManager
 		status = (try? PropertyListDecoder().decode(Status.self, from: Data(contentsOf: constants.urlToCurrentRecordingInfo))) ?? .stopped
@@ -190,12 +186,14 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	This method is only valid to call while the location recorder is **stopped**
 	(it does not have a current recording). Will crash in debug mode (assert
 	active) if called while the recording is recording. */
-	func startNewRecording() {
-		assert(status.recordingInfo == nil)
-		guard status.recordingInfo == nil else {return}
+	func startNewRecording() throws {
+		assert(Thread.isMainThread)
+		assert(status.recordingRef == nil)
+		guard status.recordingRef == nil else {return}
 		
-		let recording = RecordingInfo(gpxURL: rm.createNextGPXFile(), name: "Untitled" /* The end user should not see this string, so it’s not localized */)
-		status = .recording(recording)
+		let (recording, _) = try rm.unsafeCreateNextRecording()
+		status = .recording(recordingRef: rm.recordingRef(from: recording.objectID))
+		assert(currentRecording === recording)
 		
 		/* Writing the GPX header to the GPX file */
 		currentGPXHandle.write(currentGPX.xmlOutput(forTagClosing: 0))
@@ -209,10 +207,11 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	stopped (it has a current recording). Will crash in debug mode (assert
 	active) if called at an invalid time. */
 	func pauseCurrentRecording() {
-		assert(status.recordingInfo != nil)
-		guard let r = status.recordingInfo else {return}
+		assert(Thread.isMainThread)
+		assert(status.recordingRef != nil)
+		guard let rr = status.recordingRef else {return}
 		
-		status = .pausedByUser(r)
+		status = .pausedByUser(recordingRef: rr)
 	}
 	
 	/** Resumes the current recording.
@@ -221,20 +220,22 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	the user**. Will crash in debug mode (assert active) if called at an invalid
 	time. */
 	func resumeCurrentRecording() {
-		guard case .pausedByUser(let r) = status else {
+		assert(Thread.isMainThread)
+		guard case .pausedByUser(let rr) = status else {
 			assertionFailure()
 			return
 		}
 		
-		status = .recording(r)
+		status = .recording(recordingRef: rr)
 	}
 	
 	/** Stops the current recording.
 	
 	This method is only valid to call while the location recorder is **not**
 	stopped (it has a current recording). Will crash if called at an invalid time */
-	func stopCurrentRecording() -> RecordingInfo {
-		let r = status.recordingInfo!
+	func stopCurrentRecording() -> Recording {
+		assert(Thread.isMainThread)
+		let r = currentRecording!
 		status = .stopped
 		return r
 	}
@@ -270,10 +271,19 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	   MARK: - Private
 	   *************** */
 	
+	/** The current Recording CoreData object. Must always be used only on the
+	main thread.
+	
+	It is implicitly unwrapped! We have to be careful when we use it… Should
+	always be non-nil while recording (the willSet of the status property makes
+	sure of this). */
+	private var currentRecording: Recording!
+	
 	/** The GPX element containing the recording path.
 	
 	It is implicitly unwrapped! We have to be careful when we use it… Should
-	always be non-nil while recording. I tried being careful; it should be ok. */
+	always be non-nil while recording (the willSet of the status property makes
+	sure of this). */
 	private var currentGPX: GPXgpxType!
 	
 	/** The handle on which to write to continue the GPX file.
@@ -287,18 +297,34 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	
 	private let c: Constants
 	private let s: AppSettings
+	private let dh: DataHandler
 	private let lm: CLLocationManager
 	private let rm: RecordingsManager
 	
 	private var numberOfClientsRequiringTracking = 0
 	
 	private func handleStatusChange(from oldStatus: Status, to newStatus: Status) {
-		if oldStatus.recordingInfo == nil, let newRecordingInfo = newStatus.recordingInfo {
-			assert(currentGPX == nil && currentGPXHandle == nil)
+		assert(Thread.isMainThread)
+		if oldStatus.recordingRef == nil, let newRecordingRef = newStatus.recordingRef {
+			assert(currentGPX == nil && currentGPXHandle == nil && currentRecording == nil)
+			guard
+				let r = rm.unsafeRecording(from: newRecordingRef),
+				let bookmark = r.gpxFileBookmark,
+				let gpxURL = rm.gpxURL(from: bookmark),
+				let fh = try? FileHandle(forWritingTo: gpxURL)
+			else {
+				status = (numberOfClientsRequiringTracking > 0 ? .stoppedAndTracking : .stopped)
+				return
+			}
+			
+			/* Set the currentRecording for future uses (to avoid dereferencing the
+			 * reference in the status at each use). */
+			currentRecording = r
+			
 			/* We must create the GPX object! Note: If the GPX file already existed
 			 * (e.g. the app quit/relaunched while a recording was in progress), we
-			 * do not reload it; we simply create a new GPX object. Indeed, this
-			 * object is only used for its conveniences to write GPX XML. */
+			 * do not reload it; we simply create a new GPX object. The object is
+			 * only used for its conveniences to write GPX XML. */
 			currentGPX = GPXgpxType(
 				attributes: [
 					"version": "1.1",
@@ -308,13 +334,14 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			)
 			currentGPX.addTrack()
 			currentGPX.firstTrack()!.addTrackSegment()
+			
 			/* And the FileHandle to write the GPX to disk */
-			/* TODO: This is bad, to just assume the FileHandle creation will work… */
-			currentGPXHandle = try! FileHandle(forWritingTo: newRecordingInfo.gpxURL)
+			currentGPXHandle = fh
 			currentGPXHandle.seekToEndOfFile()
-		} else if oldStatus.recordingInfo != nil && newStatus.recordingInfo == nil {
+		} else if oldStatus.recordingRef != nil && newStatus.recordingRef == nil {
 			currentGPX = nil
 			currentGPXHandle = nil
+			currentRecording = nil
 		}
 		
 		if newStatus.isTrackingUserPosition {
@@ -322,7 +349,6 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			else                     {lm.requestWhenInUseAuthorization()}
 		}
 		if newStatus.isTrackingUserPosition && !oldStatus.isTrackingUserPosition {
-			/* Also done at init time if needed. */
 			lm.startUpdatingLocation()
 			lm.startUpdatingHeading()
 		} else if !newStatus.isTrackingUserPosition && oldStatus.isTrackingUserPosition {

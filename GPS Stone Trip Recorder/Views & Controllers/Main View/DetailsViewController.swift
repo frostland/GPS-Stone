@@ -87,7 +87,8 @@ class DetailsViewController : UIViewController {
 	}
 	
 	@IBAction func startRecording(_ sender: Any) {
-		locationRecorder.startNewRecording()
+		#warning("TODO: Handle the error if any")
+		try? locationRecorder.startNewRecording()
 	}
 	
 	/* ***************
@@ -142,9 +143,10 @@ class DetailsViewController : UIViewController {
 	}
 	
 	private func updateRecordingUI() {
+		assert(Thread.isMainThread)
 		let numberFormatter = NumberFormatter()
 		
-		if let recordingInfo = locationRecorder.status.recordingInfo {
+		if let recordingInfo = locationRecorder.status.recording {
 			labelTrackName.text = recordingInfo.name
 			labelMaxSpeed.text = NSStringFromSpeed(recordingInfo.maxSpeed, false, !appSettings.useMetricSystem)
 			labelTotalDistance.text = NSStringFromDistance(recordingInfo.totalDistance, !appSettings.useMetricSystem)

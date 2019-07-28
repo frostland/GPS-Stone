@@ -6,6 +6,7 @@
  * Copyright © 2019 Frost Land. All rights reserved.
  */
 
+import CoreData
 import Foundation
 
 
@@ -14,39 +15,46 @@ import Foundation
  * TODO: Switch to Combine! */
 final class RecordingsManager : NSObject {
 	
-	/* KVObservable */
-	private(set) var recordings: [RecordingInfo]
-	
-	init(constants: Constants) {
+	init(dataHandler: DataHandler, constants: Constants) {
 		c = constants
-		
-		let decoder = JSONDecoder()
-		recordings = (try? decoder.decode([RecordingInfo].self, from: Data(contentsOf: constants.urlToGPXList))) ?? []
+		dh = dataHandler
 	}
 	
-	func addRecording(_ recordingInfo: RecordingInfo) {
-		let idxSet = IndexSet(arrayLiteral: recordings.count)
+	func unsafeCreateNextRecording() throws -> (Recording, URL) {
+		let gpxURL = createNextGPXFile()
+		let bookmarkData = try gpxURL.bookmarkData(options: [], includingResourceValuesForKeys: nil, relativeTo: c.urlToFolderWithGPXFiles)
 		
-		willChange(.insertion, valuesAt: idxSet, for: \.recordings)
-		recordings.append(recordingInfo)
-		didChange(.insertion, valuesAt: idxSet, for: \.recordings)
+		let r: Recording
+		if #available(iOS 10.0, *) {r = Recording(context: dh.viewContext)}
+		else                       {r = NSEntityDescription.insertNewObject(forEntityName: "Recording", into: dh.viewContext) as! Recording}
+		r.name = NSLocalizedString("new recording", comment: "Default name for a recording")
+		r.gpxFileBookmark = bookmarkData
+		try dh.saveContextOrRollback()
+		return (r, gpxURL)
 	}
 	
-	func deleteRecording(at index: Int) {
-		let idxSet = IndexSet(arrayLiteral: index)
-		
-		willChange(.removal, valuesAt: idxSet, for: \.recordings)
-		recordings.remove(at: index)
-		didChange(.removal, valuesAt: idxSet, for: \.recordings)
+	func unsafeAddPoint(location: CLLocation, addedDistance: CLLocationDistance, to recording: Recording) throws {
+		NSLog("Adding new location in recording \(recording.name ?? "<no name>"): %@", location)
+		let recordingPoint = NSEntityDescription.insertNewObject(forEntityName: "RecordingPoint", into: dh.viewContext) as! RecordingPoint
+		recording.addToPoints(recordingPoint)
+		recording.totalDistance += Float(addedDistance)
+		recording.maxSpeed = max(Float(location.speed), recording.maxSpeed)
+		try dh.saveContextOrRollback()
 	}
 	
-	func createNextGPXFile() -> URL {
-		let fm = FileManager.default
-		
-		let url = (1...).lazy.map{ self.c.urlToGPX(number: $0) }.first{ !fm.fileExists(atPath: $0.path) }!
-		/* TODO: This is bad, to just assume the file creation will work… */
-		_ = fm.createFile(atPath: url.path, contents: nil, attributes: nil)
-		return url
+	func recordingRef(from recordingID: NSManagedObjectID) -> URL {
+		return recordingID.uriRepresentation()
+	}
+	
+	func unsafeRecording(from recordingRef: URL) -> Recording? {
+		guard let recordingID = dh.persistentStoreCoordinator.managedObjectID(forURIRepresentation: recordingRef) else {
+			return nil
+		}
+		return try? dh.viewContext.existingObject(with: recordingID) as? Recording
+	}
+	
+	func gpxURL(from bookmarkData: Data) -> URL? {
+		return try? NSURL(resolvingBookmarkData: bookmarkData, options: [.withoutUI], relativeTo: c.urlToFolderWithGPXFiles, bookmarkDataIsStale: nil) as URL?
 	}
 	
 	/* ***************
@@ -55,6 +63,16 @@ final class RecordingsManager : NSObject {
 	
 	/* *** Dependencies *** */
 	
-	let c: Constants
+	private let c: Constants
+	private let dh: DataHandler
+	
+	private func createNextGPXFile() -> URL {
+		let fm = FileManager.default
+		
+		let url = (1...).lazy.map{ self.c.urlToGPX(number: $0) }.first{ !fm.fileExists(atPath: $0.path) }!
+		/* TODO: This is bad, to just assume the file creation will work… */
+		_ = fm.createFile(atPath: url.path, contents: nil, attributes: nil)
+		return url
+	}
 	
 }

@@ -34,6 +34,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765580DF743DE002DB57D /* CoreGraphics.framework */; };
+		7B06D3A922EC8D27000D31B9 /* DataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B06D3A822EC8D27000D31B9 /* DataHandler.swift */; };
 		7B08CFC622BA96AF00BE6E3F /* RecordingDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B08CFC522BA96AF00BE6E3F /* RecordingDetailsViewController.swift */; };
 		7B0F344C22BA9DFA00F0F9EC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F344B22BA9DFA00F0F9EC /* SettingsViewController.swift */; };
 		7B1024FD22BA19A7008BF119 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1024FC22BA19A7008BF119 /* MapViewController.swift */; };
@@ -123,6 +124,7 @@
 		289233AC0DB2D0DB0083E9F9 /* VSOSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOSettingsViewController.h; sourceTree = "<group>"; };
 		289233AD0DB2D0DB0083E9F9 /* VSOSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOSettingsViewController.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* GPS_Stone_Trip_Recorder.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPS_Stone_Trip_Recorder.pch; sourceTree = "<group>"; };
+		7B06D3A822EC8D27000D31B9 /* DataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
 		7B08CFC522BA96AF00BE6E3F /* RecordingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingDetailsViewController.swift; sourceTree = "<group>"; };
 		7B0F344B22BA9DFA00F0F9EC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		7B1024FC22BA19A7008BF119 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 				7B94D1E522A0191700848832 /* ServicesProvider.swift */,
 				7B94D1E722A0194100848832 /* Constants.swift */,
 				7B94D1E922A0197900848832 /* AppSettings.swift */,
+				7B06D3A822EC8D27000D31B9 /* DataHandler.swift */,
 				7B93E38122A184ED00709971 /* LocationRecorder.swift */,
 				7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */,
 			);
@@ -515,6 +518,7 @@
 				7BE9FF9D22AC1BC6006DED15 /* RecordingsManager.swift in Sources */,
 				0F577FCD1020811300067838 /* GPXgpxType.m in Sources */,
 				7B94D1E222A0169600848832 /* AppDelegate.swift in Sources */,
+				7B06D3A922EC8D27000D31B9 /* DataHandler.swift in Sources */,
 				0F577FD01020816D00067838 /* XMLElement.m in Sources */,
 				7B94D1E822A0194100848832 /* Constants.swift in Sources */,
 				7B08CFC622BA96AF00BE6E3F /* RecordingDetailsViewController.swift in Sources */,

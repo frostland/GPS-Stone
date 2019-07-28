@@ -110,7 +110,8 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	}
 	
 	@IBAction func startRecording(_ sender: Any) {
-		locationRecorder.startNewRecording()
+		#warning("TODO: Handle the error if any")
+		try? locationRecorder.startNewRecording()
 	}
 	
 	@IBAction func pauseRecording(_ sender: Any) {
