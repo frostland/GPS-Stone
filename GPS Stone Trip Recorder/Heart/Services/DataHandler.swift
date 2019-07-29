@@ -35,6 +35,7 @@ final class DataHandler {
 				error = nil
 				tryCount += 1
 				do {
+//					NSLog("CoreData Store URL: \(c.urlToCoreDataStore.absoluteString)")
 					try coordinator.addPersistentStore(
 						ofType: NSSQLiteStoreType, configurationName: nil, at: c.urlToCoreDataStore,
 						options: [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true]

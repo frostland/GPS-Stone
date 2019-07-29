@@ -24,11 +24,15 @@ final class RecordingsManager : NSObject {
 		let gpxURL = createNextGPXFile()
 		let bookmarkData = try gpxURL.bookmarkData(options: [], includingResourceValuesForKeys: nil, relativeTo: c.urlToFolderWithGPXFiles)
 		
+		let s = NSEntityDescription.insertNewObject(forEntityName: "TimeSegment", into: dh.viewContext) as! TimeSegment
+		s.startTime = Date()
+		
 		let r: Recording
 		if #available(iOS 10.0, *) {r = Recording(context: dh.viewContext)}
 		else                       {r = NSEntityDescription.insertNewObject(forEntityName: "Recording", into: dh.viewContext) as! Recording}
 		r.name = NSLocalizedString("new recording", comment: "Default name for a recording")
 		r.gpxFileBookmark = bookmarkData
+		r.totalTimeSegment = s
 		try dh.saveContextOrRollback()
 		return (r, gpxURL)
 	}
@@ -36,6 +40,8 @@ final class RecordingsManager : NSObject {
 	func unsafeAddPoint(location: CLLocation, addedDistance: CLLocationDistance, to recording: Recording) throws {
 		NSLog("Adding new location in recording \(recording.name ?? "<no name>"): %@", location)
 		let recordingPoint = NSEntityDescription.insertNewObject(forEntityName: "RecordingPoint", into: dh.viewContext) as! RecordingPoint
+		recordingPoint.date = Date()
+		recordingPoint.location = location
 		recording.addToPoints(recordingPoint)
 		recording.totalDistance += Float(addedDistance)
 		recording.maxSpeed = max(Float(location.speed), recording.maxSpeed)

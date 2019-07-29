@@ -64,7 +64,9 @@ class DetailsViewController : UIViewController {
 		updateUnitsLabels()
 		
 		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_status), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
-			self?.updateRecordingUI()
+			guard let self = self else {return}
+			self.currentRecording = self.locationRecorder.status.recordingRef.flatMap{ self.recordingsManager.unsafeRecording(from: $0) }
+			self.updateRecordingUI()
 		})
 		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.currentLocation), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
 			self?.updateLocationUI()
@@ -98,11 +100,13 @@ class DetailsViewController : UIViewController {
 	private let c = S.sp.constants
 	private let appSettings = S.sp.appSettings
 	private let locationRecorder = S.sp.locationRecorder
+	private let recordingsManager = S.sp.recordingsManager
 	
 	private let kvObserver = KVObserver()
 	private var settingsObserver: NSObjectProtocol?
 	
 	private var timerUpdateTimeUI: Timer?
+	private var currentRecording: Recording?
 	
 	private func updateUnitsLabels() {
 		if appSettings.useMetricSystem {labelKmph.text = NSLocalizedString("km/h", comment: "")}
@@ -146,11 +150,11 @@ class DetailsViewController : UIViewController {
 		assert(Thread.isMainThread)
 		let numberFormatter = NumberFormatter()
 		
-		if let recordingInfo = locationRecorder.status.recording {
-			labelTrackName.text = recordingInfo.name
-			labelMaxSpeed.text = NSStringFromSpeed(recordingInfo.maxSpeed, false, !appSettings.useMetricSystem)
-			labelTotalDistance.text = NSStringFromDistance(recordingInfo.totalDistance, !appSettings.useMetricSystem)
-			labelNumberOfPoints.text = numberFormatter.string(for: recordingInfo.numberOfRecordedPoints) ?? "\(recordingInfo.numberOfRecordedPoints)"
+		if let recording = currentRecording {
+			labelTrackName.text = recording.name
+			labelMaxSpeed.text = NSStringFromSpeed(CLLocationSpeed(recording.maxSpeed), false, !appSettings.useMetricSystem)
+			labelTotalDistance.text = NSStringFromDistance(CLLocationDistance(recording.totalDistance), !appSettings.useMetricSystem)
+			labelNumberOfPoints.text = numberFormatter.string(for: recording.numberOfRecordedPoints) ?? "\(recording.numberOfRecordedPoints)"
 			
 			buttonRecord.isHidden = true
 			viewWithTrackInfos.isHidden = false
@@ -178,20 +182,21 @@ class DetailsViewController : UIViewController {
 	
 	@objc
 	private func updateTimeUI(_ timer: Timer?) {
-		guard var recordingInfo = locationRecorder.status.recordingInfo else {return}
+		assert(Thread.isMainThread)
+		guard let recording = currentRecording else {return}
 		
-		/* We cheat the time once */
-		recordingInfo.dateAndDuration.duration = -recordingInfo.dateAndDuration.dateStart.timeIntervalSinceNow
-		labelElapsedTime.text = NSStringFromTimeInterval(recordingInfo.totalRecordedTime)
+		/* We cheat on the time (the record is not updated all the time) */
+		var duration = -(recording.totalTimeSegment?.startTime?.timeIntervalSinceNow ?? 0)
+		labelElapsedTime.text = NSStringFromTimeInterval(duration)
 		
-		if let latestPointDate = recordingInfo.latestRecordedPoint?.date {
-			/* We cheat the time once twice (to avoid having the average speed that
+		if let latestPointDate = (recording.points?.lastObject as! RecordingPoint?)?.date {
+			/* We cheat the time twice (to avoid having the average speed that
 			 * moves all the time). */
-			recordingInfo.dateAndDuration.duration = -recordingInfo.dateAndDuration.dateStart.timeIntervalSince(latestPointDate)
+			duration = -(recording.totalTimeSegment?.startTime?.timeIntervalSince(latestPointDate) ?? 0)
 		}
-		guard recordingInfo.totalRecordedTime > 0.5 else {return}
+		guard duration > 0.5 else {return}
 		
-		labelAverageSpeed.text = NSStringFromSpeed(recordingInfo.totalDistance/recordingInfo.totalRecordedTime, false, !appSettings.useMetricSystem)
+		labelAverageSpeed.text = NSStringFromSpeed(Double(recording.totalDistance)/duration, false, !appSettings.useMetricSystem)
 	}
 	
 }
