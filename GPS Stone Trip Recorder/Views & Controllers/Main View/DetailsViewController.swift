@@ -6,6 +6,7 @@
  * Copyright © 2019 Frost Land. All rights reserved.
  */
 
+import CoreData
 import Foundation
 import UIKit
 
@@ -106,7 +107,21 @@ class DetailsViewController : UIViewController {
 	private var settingsObserver: NSObjectProtocol?
 	
 	private var timerUpdateTimeUI: Timer?
-	private var currentRecording: Recording?
+	private var currentRecordingObservationId: NSObjectProtocol?
+	private var currentRecording: Recording? {
+		willSet {
+			currentRecordingObservationId.flatMap{ NotificationCenter.default.removeObserver($0) }
+			currentRecordingObservationId = nil
+		}
+		didSet  {
+			guard let r = currentRecording, let c = r.managedObjectContext else {return}
+			currentRecordingObservationId = NotificationCenter.default.addObserver(forName: .NSManagedObjectContextObjectsDidChange, object: c, queue: .main, using: { [weak self] notif in
+				guard let updatedObjects = notif.userInfo?[NSUpdatedObjectsKey] as? Set<NSManagedObject> else {return}
+				guard updatedObjects.contains(r) else {return}
+				self?.updateRecordingUI()
+			})
+		}
+	}
 	
 	private func updateUnitsLabels() {
 		if appSettings.useMetricSystem {labelKmph.text = NSLocalizedString("km/h", comment: "")}
