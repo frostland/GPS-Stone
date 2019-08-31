@@ -139,7 +139,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 				distance = 0
 			}
 			
-			try? rm.unsafeAddPoint(location: newLocation, addedDistance: distance, to: currentRecording)
+			try? rm.unsafeAddPoint(location: newLocation, addedDistance: distance, segmentId: currentSegmentId, to: currentRecording)
 		}
 	}
 	
@@ -191,6 +191,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		assert(status.recordingRef == nil)
 		guard status.recordingRef == nil else {return}
 		
+		currentSegmentId = 0
+		
 		let (recording, _) = try rm.unsafeCreateNextRecording()
 		status = .recording(recordingRef: rm.recordingRef(from: recording.objectID))
 		assert(currentRecording === recording)
@@ -226,6 +228,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			return
 		}
 		
+		currentSegmentId += 1
 		status = .recording(recordingRef: rr)
 	}
 	
@@ -292,6 +295,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	always be non-nil while recording (the willSet of the status property makes
 	sure of this). */
 	private var currentGPXHandle: FileHandle!
+	
+	private var currentSegmentId: Int16 = 0
 	
 	/* *** Dependencies *** */
 	

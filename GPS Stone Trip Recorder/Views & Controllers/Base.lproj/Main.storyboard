@@ -827,7 +827,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="343" height="429"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="xKH-do-tx1">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xKH-do-tx1">
                                 <rect key="frame" x="0.0" y="0.0" width="343" height="429"/>
                                 <connections>
                                     <outlet property="delegate" destination="AEg-vC-tvX" id="MYv-PP-aSj"/>

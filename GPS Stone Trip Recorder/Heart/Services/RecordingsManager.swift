@@ -37,11 +37,12 @@ final class RecordingsManager : NSObject {
 		return (r, gpxURL)
 	}
 	
-	func unsafeAddPoint(location: CLLocation, addedDistance: CLLocationDistance, to recording: Recording) throws {
+	func unsafeAddPoint(location: CLLocation, addedDistance: CLLocationDistance, segmentId: Int16, to recording: Recording) throws {
 		NSLog("Adding new location in recording \(recording.name ?? "<no name>"): %@", location)
 		let recordingPoint = NSEntityDescription.insertNewObject(forEntityName: "RecordingPoint", into: dh.viewContext) as! RecordingPoint
 		recordingPoint.date = Date()
 		recordingPoint.location = location
+		recordingPoint.segmentId = segmentId
 		recording.addToPoints(recordingPoint)
 		recording.totalDistance += Float(addedDistance)
 		recording.maxSpeed = max(Float(location.speed), recording.maxSpeed)
