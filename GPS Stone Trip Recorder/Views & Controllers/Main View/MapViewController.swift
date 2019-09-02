@@ -30,6 +30,10 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		return .default
 	}
 	
+	deinit {
+		pointsProcessingQueue.cancelAllOperations()
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -41,7 +45,10 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	
 	func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
 		assert(overlay is MKPolyline)
-		return MKPolylineRenderer(overlay: overlay)
+		let r = MKPolylineRenderer(overlay: overlay)
+		r.strokeColor = UIColor(red: 92/255, green: 43/255, blue: 153/255, alpha: 0.75)
+		r.lineWidth = 5
+		return r
 	}
 	
 	/* *******************************************
@@ -55,9 +62,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		 *       to create non-trivial alorithms to reconcile the cache with the
 		 *       change notification we’d get from the controller). */
 		assert(controller === pointsFetchResultsController)
-		let op = ProcessPointsOperation(fetchedResultsController: pointsFetchResultsController!, polylinesCache: polylinesCache)
-		op.completionBlock = { [weak self] in self?.processPendingPolylines() }
-		pointsProcessingQueue.addOperation(op)
+		pointsProcessingQueue.addOperation(createProcessPointsOperation())
 	}
 	
 	/* ***************
@@ -85,6 +90,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 			pointsFetchResultsController?.delegate = nil
 			pointsFetchResultsController = nil
 			
+			pointsProcessingQueue.cancelAllOperations()
 			mapView.removeOverlays(mapView.overlays)
 			polylinesCache = PolylinesCache()
 		}
@@ -106,34 +112,62 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 			do {
 				try ctrl.performFetch()
 				
-				let op = ProcessPointsOperation(fetchedResultsController: ctrl, polylinesCache: polylinesCache)
-				op.completionBlock = { [weak self] in self?.processPendingPolylines() }
-				pointsProcessingQueue.addOperation(op)
-				
 				pointsFetchResultsController = ctrl
 				ctrl.delegate = self
+				
+				pointsProcessingQueue.addOperation(createProcessPointsOperation())
 			} catch {
 				/* We do nothing in case of an error. The map will simply never be updated… */
 			}
 		}
 	}
 	
+	private func createProcessPointsOperation() -> ProcessPointsOperation {
+		#warning("In Swift 5.1 we’ll probably be able to remove the return in the line below")
+		let getter = { [weak self] () -> PolylinesCache? in assert(Thread.isMainThread); return self?.polylinesCache }
+		let setter = { [weak self] (c: PolylinesCache)   in assert(Thread.isMainThread); self?.polylinesCache = c; self?.processPendingPolylines() }
+		return ProcessPointsOperation(fetchedResultsController: pointsFetchResultsController!, polylinesCacheGetter: getter, polylinesCacheSetter: setter)
+	}
+	
 	private func processPendingPolylines() {
+		assert(Thread.isMainThread)
+//		print("-----")
+//		print("current:    \(mapView.overlays.compactMap{ $0 as? MKPolyline }.map{ "\($0) (\($0.pointCount) points)" }))")
+//		print("remove:     \(polylinesCache.polylinesToRemoveFromMap.map{ "\($0) (\($0.pointCount) points)" }))")
+//		print("plain add:  \(polylinesCache.plainPolylinesToAddToMap.map{ "\($0) (\($0.pointCount) points)" })")
+//		print("dotted add: \(polylinesCache.dottedPolylinesToAddToMap.map{ "\($0) (\($0.pointCount) points)" }))")
+		mapView.addOverlays(Array(polylinesCache.plainPolylinesToAddToMap))
+		mapView.addOverlays(Array(polylinesCache.dottedPolylinesToAddToMap))
+		mapView.removeOverlays(Array(polylinesCache.polylinesToRemoveFromMap))
 		
+		polylinesCache.polylinesToRemoveFromMap.removeAll()
+		polylinesCache.plainPolylinesToAddToMap.removeAll()
+		polylinesCache.dottedPolylinesToAddToMap.removeAll()
 	}
 	
 }
 
-fileprivate class PolylinesCache {
+fileprivate struct PolylinesCache {
 	
 	var numberOfSections = 0
 	
+	/* The number of points currently added in the cache for a given section. */
 	var nPointsBySection = [Int]()
+	/* We break down each section to polylines of 100 points in order to avoid
+	 * having to redraw the whole path each time a new point is added. This is
+	 * why polylinesBySection is an array of array of polylines instead of a
+	 * simple array of polylines. */
 	var polylinesBySection = [[MKPolyline]]()
-	var interSectionPolylines = [MKPolyline]()
+	/* Between each sections we show a dotted line indicating missing information
+	 * (the recording was paused). This variable contains these polylines. They
+	 * optional because some section might not have any points in them, in which
+	 * case there are no dotted line to show, but we must still have an element
+	 * in the array to have the correct count of objects in the array. */
+	var interSectionPolylines = [MKPolyline?]()
 	
-	var plainPolylinesToAddToMap = [MKPolyline]()
-	var dottedPolylinesToAddToMap = [MKPolyline]()
+	var polylinesToRemoveFromMap = Set<MKPolyline>()
+	var plainPolylinesToAddToMap = Set<MKPolyline>()
+	var dottedPolylinesToAddToMap = Set<MKPolyline>()
 	
 }
 
@@ -142,29 +176,16 @@ fileprivate class PolylinesCache {
  * standard Operation would have been fine… */
 fileprivate class ProcessPointsOperation : RetryingOperation {
 	
-	var polylinesCache: PolylinesCache
-	let pointsToProcess: [[CLLocationCoordinate2D]]
+	let polylinesCacheGetter: () -> PolylinesCache?
+	let polylinesCacheSetter: (PolylinesCache) -> Void
+	let fetchedResultsController: NSFetchedResultsController<RecordingPoint>
 	
-	init(fetchedResultsController: NSFetchedResultsController<RecordingPoint>, polylinesCache pc: PolylinesCache) {
+	init(fetchedResultsController frc: NSFetchedResultsController<RecordingPoint>, polylinesCacheGetter pcg: @escaping () -> PolylinesCache?, polylinesCacheSetter pcs: @escaping (PolylinesCache) -> Void) {
 		assert(Thread.isMainThread)
 		
-		polylinesCache = pc
-		guard let sections = fetchedResultsController.sections else {
-			pointsToProcess = []
-			return
-		}
-		
-		var pointsToProcessBuilding = [[CLLocationCoordinate2D]]()
-		for i in max(pc.numberOfSections-1, 0)..<sections.count {
-			let section = sections[i]
-			guard let points = section.objects as! [RecordingPoint]? else {
-				pointsToProcessBuilding.append([])
-				continue
-			}
-			if pc.numberOfSections > i {pointsToProcessBuilding.append(points[pc.nPointsBySection[i]..<points.count].map{ $0.location!.coordinate })}
-			else                       {pointsToProcessBuilding.append(                                       points.map{ $0.location!.coordinate })}
-		}
-		pointsToProcess = pointsToProcessBuilding
+		polylinesCacheGetter = pcg
+		polylinesCacheSetter = pcs
+		fetchedResultsController = frc
 	}
 	
 	override var isAsynchronous: Bool {
@@ -172,8 +193,105 @@ fileprivate class ProcessPointsOperation : RetryingOperation {
 	}
 	
 	override func startBaseOperation(isRetry: Bool) {
-		print(pointsToProcess)
-		baseOperationEnded()
+		defer {baseOperationEnded()}
+		
+		guard let computationResult = computePointsToProcess() else {return}
+		var polylinesCache = computationResult.0
+		let pointsToProcess = computationResult.1
+		
+		let startSectionIndex = max(polylinesCache.numberOfSections-1, 0)
+		
+		for (sectionDelta, var pointsInSection) in pointsToProcess.enumerated() {
+			guard !isCancelled else {return}
+			
+			let sectionIndex = startSectionIndex + sectionDelta
+			assert(sectionIndex <= polylinesCache.numberOfSections)
+			
+			/* Add a section in the cache if needed */
+			if sectionIndex == polylinesCache.numberOfSections {
+				polylinesCache.numberOfSections += 1
+				polylinesCache.nPointsBySection.append(0)
+				polylinesCache.polylinesBySection.append([])
+				if sectionDelta+1 < pointsInSection.count {
+					if let p1 = pointsInSection.first, let p2 = pointsToProcess[sectionDelta+1].first {
+						let l = MKPolyline(coordinates: [p1, p2], count: 2)
+						polylinesCache.interSectionPolylines.append(l)
+						polylinesCache.dottedPolylinesToAddToMap.insert(l)
+					} else {
+						polylinesCache.interSectionPolylines.append(nil)
+					}
+				}
+			}
+			
+			/* Add the new points in the current section */
+			let polylinesMaxPointCount = 3
+			while pointsInSection.count > 0 {
+				guard !isCancelled else {return}
+				
+				let latestPolylineOfSection = polylinesCache.polylinesBySection[sectionIndex].popLast() ?? MKPolyline(points: [], count: 0)
+				let latestPoint = (latestPolylineOfSection.pointCount > 0 ? latestPolylineOfSection.points().advanced(by: latestPolylineOfSection.pointCount-1).pointee : nil)
+				let delta = (latestPoint == nil ? 0 : 1)
+				
+				let nPointsToAdd = min(pointsInSection.count, polylinesMaxPointCount - latestPolylineOfSection.pointCount - delta)
+				if nPointsToAdd < 0 {NSLog("WARNING: Found polyline with more than %d points", polylinesMaxPointCount)}
+				
+				let polylineToAdd: MKPolyline
+				if nPointsToAdd <= 0 {
+					polylinesCache.polylinesBySection[sectionIndex].append(latestPolylineOfSection)
+					
+					let nPointsToAdd = min(pointsInSection.count, polylinesMaxPointCount - delta)
+					let pointsToAdd = ((latestPoint.flatMap{ [$0.coordinate] } ?? []) + Array(pointsInSection[0..<nPointsToAdd]))
+					polylineToAdd = MKPolyline(coordinates: pointsToAdd, count: pointsToAdd.count)
+					
+					pointsInSection.removeFirst(nPointsToAdd)
+					
+					polylinesCache.nPointsBySection[sectionIndex] += nPointsToAdd
+					polylinesCache.polylinesBySection[sectionIndex].append(polylineToAdd)
+					polylinesCache.plainPolylinesToAddToMap.insert(polylineToAdd)
+				} else {
+					polylinesCache.polylinesToRemoveFromMap.insert(latestPolylineOfSection)
+					
+					let currentPoints = (latestPolylineOfSection.points()..<latestPolylineOfSection.points().advanced(by: latestPolylineOfSection.pointCount)).map{ $0.pointee.coordinate }
+					let pointsToAdd = (currentPoints + Array(pointsInSection[0..<nPointsToAdd]))
+					polylineToAdd = MKPolyline(coordinates: pointsToAdd, count: pointsToAdd.count)
+					
+					pointsInSection.removeFirst(nPointsToAdd)
+					
+					polylinesCache.nPointsBySection[sectionIndex] += nPointsToAdd
+					polylinesCache.polylinesBySection[sectionIndex].append(polylineToAdd)
+					polylinesCache.plainPolylinesToAddToMap.insert(polylineToAdd)
+				}
+			}
+		}
+		
+		polylinesCache.plainPolylinesToAddToMap.subtract(polylinesCache.polylinesToRemoveFromMap)
+		polylinesCache.dottedPolylinesToAddToMap.subtract(polylinesCache.polylinesToRemoveFromMap)
+		
+		DispatchQueue.main.sync{ polylinesCacheSetter(polylinesCache) }
+	}
+	
+	private func computePointsToProcess() -> (PolylinesCache, [[CLLocationCoordinate2D]])? {
+		return DispatchQueue.main.sync{
+			guard let pc = polylinesCacheGetter() else {
+				return nil
+			}
+			
+			guard let sections = fetchedResultsController.sections else {
+				return (pc, [])
+			}
+			
+			var pointsToProcessBuilding = [[CLLocationCoordinate2D]]()
+			for i in max(pc.numberOfSections-1, 0)..<sections.count {
+				let section = sections[i]
+				guard let points = section.objects as! [RecordingPoint]? else {
+					pointsToProcessBuilding.append([])
+					continue
+				}
+				if pc.numberOfSections > i {pointsToProcessBuilding.append(points[pc.nPointsBySection[i]..<points.count].map{ $0.location!.coordinate })}
+				else                       {pointsToProcessBuilding.append(                                       points.map{ $0.location!.coordinate })}
+			}
+			return (pc, pointsToProcessBuilding)
+		}
 	}
 	
 }
