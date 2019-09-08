@@ -132,10 +132,12 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	private func processPendingPolylines() {
 		assert(Thread.isMainThread)
 //		print("-----")
-//		print("current:    \(mapView.overlays.compactMap{ $0 as? MKPolyline }.map{ "\($0) (\($0.pointCount) points)" }))")
-//		print("remove:     \(polylinesCache.polylinesToRemoveFromMap.map{ "\($0) (\($0.pointCount) points)" }))")
+//		print("current:    \(mapView.overlays.compactMap{ $0 as? MKPolyline }.map{ "\($0) (\($0.pointCount) points)" })")
+//		print("n sections: \(polylinesCache.numberOfSections)")
+//		print("npts/sctn:  \(polylinesCache.nPointsBySection.map{ String($0) }.joined(separator: ", "))")
+//		print("remove:     \(polylinesCache.polylinesToRemoveFromMap.map{ "\($0) (\($0.pointCount) points)" })")
 //		print("plain add:  \(polylinesCache.plainPolylinesToAddToMap.map{ "\($0) (\($0.pointCount) points)" })")
-//		print("dotted add: \(polylinesCache.dottedPolylinesToAddToMap.map{ "\($0) (\($0.pointCount) points)" }))")
+//		print("dotted add: \(polylinesCache.dottedPolylinesToAddToMap.map{ "\($0) (\($0.pointCount) points)" })")
 		mapView.addOverlays(Array(polylinesCache.plainPolylinesToAddToMap))
 		mapView.addOverlays(Array(polylinesCache.dottedPolylinesToAddToMap))
 		mapView.removeOverlays(Array(polylinesCache.polylinesToRemoveFromMap))
@@ -160,9 +162,9 @@ fileprivate struct PolylinesCache {
 	var polylinesBySection = [[MKPolyline]]()
 	/* Between each sections we show a dotted line indicating missing information
 	 * (the recording was paused). This variable contains these polylines. They
-	 * optional because some section might not have any points in them, in which
-	 * case there are no dotted line to show, but we must still have an element
-	 * in the array to have the correct count of objects in the array. */
+	 * are optional because some section might not have any points in them, in
+	 * which case there are no dotted line to show, but we must still have an
+	 * element in the array to have the correct count of objects in the array. */
 	var interSectionPolylines = [MKPolyline?]()
 	
 	var polylinesToRemoveFromMap = Set<MKPolyline>()
@@ -212,7 +214,7 @@ fileprivate class ProcessPointsOperation : RetryingOperation {
 				polylinesCache.numberOfSections += 1
 				polylinesCache.nPointsBySection.append(0)
 				polylinesCache.polylinesBySection.append([])
-				if sectionDelta+1 < pointsInSection.count {
+				if sectionDelta+1 < pointsToProcess.count {
 					if let p1 = pointsInSection.first, let p2 = pointsToProcess[sectionDelta+1].first {
 						let l = MKPolyline(coordinates: [p1, p2], count: 2)
 						polylinesCache.interSectionPolylines.append(l)
@@ -228,44 +230,46 @@ fileprivate class ProcessPointsOperation : RetryingOperation {
 			while pointsInSection.count > 0 {
 				guard !isCancelled else {return}
 				
-				let latestPolylineOfSection = polylinesCache.polylinesBySection[sectionIndex].popLast() ?? MKPolyline(points: [], count: 0)
-				let latestPoint = (latestPolylineOfSection.pointCount > 0 ? latestPolylineOfSection.points().advanced(by: latestPolylineOfSection.pointCount-1).pointee : nil)
-				let delta = (latestPoint == nil ? 0 : 1)
-				
-				let nPointsToAdd = min(pointsInSection.count, polylinesMaxPointCount - latestPolylineOfSection.pointCount - delta)
-				if nPointsToAdd < 0 {NSLog("WARNING: Found polyline with more than %d points", polylinesMaxPointCount)}
-				
-				let polylineToAdd: MKPolyline
-				if nPointsToAdd <= 0 {
-					polylinesCache.polylinesBySection[sectionIndex].append(latestPolylineOfSection)
-					
-					let nPointsToAdd = min(pointsInSection.count, polylinesMaxPointCount - delta)
-					let pointsToAdd = ((latestPoint.flatMap{ [$0.coordinate] } ?? []) + Array(pointsInSection[0..<nPointsToAdd]))
-					polylineToAdd = MKPolyline(coordinates: pointsToAdd, count: pointsToAdd.count)
-					
-					pointsInSection.removeFirst(nPointsToAdd)
-					
-					polylinesCache.nPointsBySection[sectionIndex] += nPointsToAdd
-					polylinesCache.polylinesBySection[sectionIndex].append(polylineToAdd)
-					polylinesCache.plainPolylinesToAddToMap.insert(polylineToAdd)
+				if let latestPolylineOfSection = polylinesCache.polylinesBySection[sectionIndex].last {
+					assert(latestPolylineOfSection.pointCount > 0, "Got a polyline with no points in it for section \(sectionIndex) in cache \(polylinesCache)")
+					let latestPoint = latestPolylineOfSection.points().advanced(by: latestPolylineOfSection.pointCount-1).pointee
+					if latestPolylineOfSection.pointCount == polylinesMaxPointCount {
+						/* The latest polyline for the section has the maximum number
+						 * points allowed: we must create a new polyline. */
+						let nPointsToAdd = min(pointsInSection.count, polylinesMaxPointCount-1)
+						let pointsToAdd = [latestPoint.coordinate] + Array(pointsInSection[0..<nPointsToAdd])
+						let polyline = MKPolyline(coordinates: pointsToAdd, count: pointsToAdd.count)
+						polylinesCache.polylinesBySection[sectionIndex].append(polyline)
+						polylinesCache.plainPolylinesToAddToMap.insert(polyline)
+						polylinesCache.nPointsBySection[sectionIndex] += nPointsToAdd
+						pointsInSection.removeFirst(nPointsToAdd)
+					} else {
+						/* We can shove more points in the latest polyline of the
+						 * section. Let’s do it! */
+						let currentPoints = (latestPolylineOfSection.points()..<latestPolylineOfSection.points().advanced(by: latestPolylineOfSection.pointCount)).map{ $0.pointee.coordinate }
+						let nPointsToAdd = min(pointsInSection.count, polylinesMaxPointCount-latestPolylineOfSection.pointCount)
+						let pointsToAdd = currentPoints + Array(pointsInSection[0..<nPointsToAdd])
+						let polyline = MKPolyline(coordinates: pointsToAdd, count: pointsToAdd.count)
+						polylinesCache.polylinesBySection[sectionIndex].removeLast()
+						polylinesCache.polylinesBySection[sectionIndex].append(polyline)
+						polylinesCache.polylinesToRemoveFromMap.insert(latestPolylineOfSection)
+						polylinesCache.plainPolylinesToAddToMap.insert(polyline)
+						polylinesCache.nPointsBySection[sectionIndex] += nPointsToAdd
+						pointsInSection.removeFirst(nPointsToAdd)
+					}
 				} else {
-					polylinesCache.polylinesToRemoveFromMap.insert(latestPolylineOfSection)
-					
-					let currentPoints = (latestPolylineOfSection.points()..<latestPolylineOfSection.points().advanced(by: latestPolylineOfSection.pointCount)).map{ $0.pointee.coordinate }
-					let pointsToAdd = (currentPoints + Array(pointsInSection[0..<nPointsToAdd]))
-					polylineToAdd = MKPolyline(coordinates: pointsToAdd, count: pointsToAdd.count)
-					
-					pointsInSection.removeFirst(nPointsToAdd)
-					
+					/* There are no polylines at all for the moment in the current
+					 * section. We must add one. */
+					let nPointsToAdd = min(pointsInSection.count, polylinesMaxPointCount)
+					let pointsToAdd = Array(pointsInSection[0..<nPointsToAdd])
+					let polyline = MKPolyline(coordinates: pointsToAdd, count: pointsToAdd.count)
+					polylinesCache.polylinesBySection[sectionIndex].append(polyline)
+					polylinesCache.plainPolylinesToAddToMap.insert(polyline)
 					polylinesCache.nPointsBySection[sectionIndex] += nPointsToAdd
-					polylinesCache.polylinesBySection[sectionIndex].append(polylineToAdd)
-					polylinesCache.plainPolylinesToAddToMap.insert(polylineToAdd)
+					pointsInSection.removeFirst(nPointsToAdd)
 				}
 			}
 		}
-		
-		polylinesCache.plainPolylinesToAddToMap.subtract(polylinesCache.polylinesToRemoveFromMap)
-		polylinesCache.dottedPolylinesToAddToMap.subtract(polylinesCache.polylinesToRemoveFromMap)
 		
 		DispatchQueue.main.sync{ polylinesCacheSetter(polylinesCache) }
 	}
