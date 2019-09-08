@@ -48,6 +48,9 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		let r = MKPolylineRenderer(overlay: overlay)
 		r.strokeColor = UIColor(red: 92/255, green: 43/255, blue: 153/255, alpha: 0.75)
 		r.lineWidth = 5
+		if polylinesCache.dottedPolylinesToAddToMap.contains(where: { $0 === overlay }) {
+			r.lineDashPattern = [12, 16]
+		}
 		return r
 	}
 	
