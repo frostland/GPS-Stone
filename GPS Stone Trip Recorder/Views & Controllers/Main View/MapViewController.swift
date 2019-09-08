@@ -229,7 +229,7 @@ fileprivate class ProcessPointsOperation : RetryingOperation {
 			}
 			
 			/* Add the new points in the current section */
-			let polylinesMaxPointCount = 3
+			let polylinesMaxPointCount = 100
 			while pointsInSection.count > 0 {
 				guard !isCancelled else {return}
 				
