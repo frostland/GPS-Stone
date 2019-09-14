@@ -33,6 +33,7 @@ final class RecordingsManager : NSObject {
 		r.name = NSLocalizedString("new recording", comment: "Default name for a recording")
 		r.gpxFileBookmark = bookmarkData
 		r.totalTimeSegment = s
+		r.startDate = Date()
 		try dh.saveContextOrRollback()
 		return (r, gpxURL)
 	}

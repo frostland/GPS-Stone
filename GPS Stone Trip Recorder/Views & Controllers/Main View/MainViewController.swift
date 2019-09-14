@@ -126,7 +126,8 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	}
 	
 	@IBAction func stopRecording(_ sender: Any) {
-		_ = locationRecorder.stopCurrentRecording()
+		#warning("TODO: Handle the error if any")
+		_ = try? locationRecorder.stopCurrentRecording()
 	}
 	
 	/* ***************************************************

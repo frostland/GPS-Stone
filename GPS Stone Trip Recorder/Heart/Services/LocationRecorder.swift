@@ -236,9 +236,13 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	
 	This method is only valid to call while the location recorder is **not**
 	stopped (it has a current recording). Will crash if called at an invalid time */
-	func stopCurrentRecording() -> Recording {
+	func stopCurrentRecording() throws -> Recording {
 		assert(Thread.isMainThread)
+		
 		let r = currentRecording!
+		r.endDate = Date()
+		try dh.saveContextOrRollback()
+		
 		status = .stopped
 		return r
 	}

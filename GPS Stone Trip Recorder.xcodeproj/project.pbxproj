@@ -46,6 +46,7 @@
 		7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE81DCA975F007B5ABC /* Main.storyboard */; };
 		7B5108F722BA57E60038CEAC /* RecordingsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5108F622BA57E60038CEAC /* RecordingsListViewController.swift */; };
 		7B63B7691E227E96001FA33C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B63B7681E227E96001FA33C /* InfoPlist.strings */; };
+		7B749102232D3C0500386042 /* CollectionAndTableViewUpdateConveniences.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B749101232D3C0500386042 /* CollectionAndTableViewUpdateConveniences.framework */; };
 		7B93E38222A184ED00709971 /* LocationRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B93E38122A184ED00709971 /* LocationRecorder.swift */; };
 		7B93E38622A1CA4900709971 /* KVObserver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B93E38522A1CA4900709971 /* KVObserver.framework */; };
 		7B94D1E222A0169600848832 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E122A0169600848832 /* AppDelegate.swift */; };
@@ -135,6 +136,7 @@
 		7B482CE91DCA976E007B5ABC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7B5108F622BA57E60038CEAC /* RecordingsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsListViewController.swift; sourceTree = "<group>"; };
 		7B63B7681E227E96001FA33C /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		7B749101232D3C0500386042 /* CollectionAndTableViewUpdateConveniences.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CollectionAndTableViewUpdateConveniences.framework; sourceTree = "<group>"; };
 		7B93E38122A184ED00709971 /* LocationRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRecorder.swift; sourceTree = "<group>"; };
 		7B93E38522A1CA4900709971 /* KVObserver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KVObserver.framework; sourceTree = "<group>"; };
 		7B94D1E022A0169600848832 /* GPS Stone Trip Recorder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GPS Stone Trip Recorder-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			files = (
 				0F48CE7D1029AF9D008C524D /* AddressBook.framework in Frameworks */,
 				0F48CE5E1029AD88008C524D /* AddressBookUI.framework in Frameworks */,
+				7B749102232D3C0500386042 /* CollectionAndTableViewUpdateConveniences.framework in Frameworks */,
 				288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */,
 				0FBBCBA9100A9F67003679A8 /* CoreLocation.framework in Frameworks */,
 				7B93E38622A1CA4900709971 /* KVObserver.framework in Frameworks */,
@@ -409,6 +412,7 @@
 		7B93E38422A1C9E000709971 /* Carthage Static */ = {
 			isa = PBXGroup;
 			children = (
+				7B749101232D3C0500386042 /* CollectionAndTableViewUpdateConveniences.framework */,
 				7B93E38522A1CA4900709971 /* KVObserver.framework */,
 				7BCDD461231B06F8002F493F /* RetryingOperation.framework */,
 			);
