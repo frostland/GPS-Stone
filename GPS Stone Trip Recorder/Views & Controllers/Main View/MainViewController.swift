@@ -67,13 +67,17 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 				self.buttonPause.isHidden = true
 				self.buttonListRecords.isHidden = false
 				
-			case .recording:
+			case .recording, .pausedByBackground, .pausedByLocationDenied:
 				self.buttonRecord.isHidden = true
 				self.buttonStop.isHidden = false
 				self.buttonPause.isHidden = false
 				self.buttonListRecords.isHidden = true
 				
-			default: ()
+			case .pausedByUser:
+				self.buttonRecord.isHidden = false
+				self.buttonStop.isHidden = false
+				self.buttonPause.isHidden = true
+				self.buttonListRecords.isHidden = true
 			}
 		})
 	}
@@ -111,13 +115,18 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	
 	@IBAction func startRecording(_ sender: Any) {
 		#warning("TODO: Handle the error if any")
-		try? locationRecorder.startNewRecording()
+		switch self.locationRecorder.status {
+		case .stopped, .stoppedAndTracking: try? locationRecorder.startNewRecording()
+		default:                            locationRecorder.resumeCurrentRecording()
+		}
 	}
 	
 	@IBAction func pauseRecording(_ sender: Any) {
+		locationRecorder.pauseCurrentRecording()
 	}
 	
 	@IBAction func stopRecording(_ sender: Any) {
+		_ = locationRecorder.stopCurrentRecording()
 	}
 	
 	/* ***************************************************
