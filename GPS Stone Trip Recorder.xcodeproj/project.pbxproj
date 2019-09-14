@@ -123,8 +123,6 @@
 		288765580DF743DE002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		289233A80DB2D0DB0083E9F9 /* MainViewController_obs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController_obs.h; sourceTree = "<group>"; };
 		289233A90DB2D0DB0083E9F9 /* MainViewController_obs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController_obs.m; sourceTree = "<group>"; };
-		289233AC0DB2D0DB0083E9F9 /* VSOSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOSettingsViewController.h; sourceTree = "<group>"; };
-		289233AD0DB2D0DB0083E9F9 /* VSOSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOSettingsViewController.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* GPS_Stone_Trip_Recorder.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPS_Stone_Trip_Recorder.pch; sourceTree = "<group>"; };
 		7B06D3A822EC8D27000D31B9 /* DataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
 		7B08CFC522BA96AF00BE6E3F /* RecordingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingDetailsViewController.swift; sourceTree = "<group>"; };
@@ -263,8 +261,6 @@
 		281C6CD70DB2D82200F60ACC /* Settings View */ = {
 			isa = PBXGroup;
 			children = (
-				289233AC0DB2D0DB0083E9F9 /* VSOSettingsViewController.h */,
-				289233AD0DB2D0DB0083E9F9 /* VSOSettingsViewController.m */,
 				7B0F344B22BA9DFA00F0F9EC /* SettingsViewController.swift */,
 			);
 			path = "Settings View";
