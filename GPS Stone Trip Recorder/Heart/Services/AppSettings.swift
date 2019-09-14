@@ -94,7 +94,7 @@ final class AppSettings {
 	
 	var mapType: MKMapType {
 		get {return MKMapType(rawValue: UInt(ud.integer(forKey: SettingsKey.mapType.rawValue))) ?? .standard}
-		set {ud.set(newValue, forKey: SettingsKey.mapType.rawValue)}
+		set {ud.set(newValue.rawValue, forKey: SettingsKey.mapType.rawValue)}
 	}
 	
 	var mapRegion: MKCoordinateRegion? {
@@ -145,7 +145,7 @@ final class AppSettings {
 	
 	var distanceUnit: DistanceUnit {
 		get {return DistanceUnit(rawValue: ud.integer(forKey: SettingsKey.distanceUnit.rawValue)) ?? .automatic}
-		set {ud.set(newValue, forKey: SettingsKey.distanceUnit.rawValue)}
+		set {ud.set(newValue.rawValue, forKey: SettingsKey.distanceUnit.rawValue)}
 	}
 	
 	var useMetricSystem: Bool {
