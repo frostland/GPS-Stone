@@ -32,10 +32,23 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	
 	deinit {
 		pointsProcessingQueue.cancelAllOperations()
+		
+		if let o = settingsObserver {
+			NotificationCenter.default.removeObserver(o)
+			settingsObserver = nil
+		}
 	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		mapView.mapType = appSettings.mapType
+		
+		assert(settingsObserver == nil)
+		settingsObserver = NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main, using: { [weak self] _ in
+			guard let self = self else {return}
+			self.mapView.mapType = self.appSettings.mapType
+		})
 		
 		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_status), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
 			guard let self = self else {return}
@@ -73,6 +86,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	   *************** */
 	
 	private let c = S.sp.constants
+	private let appSettings = S.sp.appSettings
 	private let locationRecorder = S.sp.locationRecorder
 	private let recordingsManager = S.sp.recordingsManager
 	
@@ -84,6 +98,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	}()
 	
 	private let kvObserver = KVObserver()
+	private var settingsObserver: NSObjectProtocol?
 	private var pointsFetchResultsController: NSFetchedResultsController<RecordingPoint>?
 	
 	private var polylinesCache = PolylinesCache()
