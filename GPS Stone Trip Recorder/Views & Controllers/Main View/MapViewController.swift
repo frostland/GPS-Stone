@@ -26,6 +26,8 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	var boundingMapRect: MKMapRect = .null
 	var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
 	
+	var recording: Recording?
+	
 	override var preferredStatusBarStyle: UIStatusBarStyle {
 		return .default
 	}
@@ -50,10 +52,14 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 			self.mapView.mapType = self.appSettings.mapType
 		})
 		
-		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_status), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
-			guard let self = self else {return}
-			self.currentRecording = self.locationRecorder.status.recordingRef.flatMap{ self.recordingsManager.unsafeRecording(from: $0) }
-		})
+		if recording == nil {
+			_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_status), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
+				guard let self = self else {return}
+				self.currentRecording = self.locationRecorder.status.recordingRef.flatMap{ self.recordingsManager.unsafeRecording(from: $0) }
+			})
+		} else {
+			currentRecording = recording
+		}
 	}
 	
 	func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
