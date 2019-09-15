@@ -25,7 +25,7 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 	required init?(coder: NSCoder) {
 		let fr: NSFetchRequest<Recording> = Recording.fetchRequest()
 		fr.predicate = NSPredicate(format: "%K != NULL", #keyPath(Recording.endDate))
-		fr.sortDescriptors = [NSSortDescriptor(keyPath: \Recording.startDate, ascending: true)]
+		fr.sortDescriptors = [NSSortDescriptor(keyPath: \Recording.startDate, ascending: false)]
 		fetchedResultsController = NSFetchedResultsController<Recording>(fetchRequest: fr, managedObjectContext: dataHandler.viewContext, sectionNameKeyPath: nil, cacheName: nil)
 		try! fetchedResultsController.performFetch()
 		
