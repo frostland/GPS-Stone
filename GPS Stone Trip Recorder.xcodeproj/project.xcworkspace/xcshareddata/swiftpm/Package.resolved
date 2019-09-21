@@ -1,0 +1,52 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CollectionAndTableViewUpdateConveniences",
+        "repositoryURL": "git@github.com:happn-tech/CollectionAndTableViewUpdateConveniences.git",
+        "state": {
+          "branch": null,
+          "revision": "197327701dfa0b980851a25e4ab07513270553bc",
+          "version": "1.0.2"
+        }
+      },
+      {
+        "package": "DummyLinuxOSLog",
+        "repositoryURL": "https://github.com/happn-tech/DummyLinuxOSLog.git",
+        "state": {
+          "branch": null,
+          "revision": "ce7a3bc30d38640d2bea2a3a72a7866d8d13c538",
+          "version": "1.0.1"
+        }
+      },
+      {
+        "package": "KVObserver",
+        "repositoryURL": "git@github.com:happn-tech/KVObserver.git",
+        "state": {
+          "branch": null,
+          "revision": "3a8bd558a72c9ab393f94a6f947307e8d01c8c9e",
+          "version": "0.9.4"
+        }
+      },
+      {
+        "package": "RetryingOperation",
+        "repositoryURL": "git@github.com:happn-tech/RetryingOperation.git",
+        "state": {
+          "branch": null,
+          "revision": "5446d02abb27645d554f87269ed4710c7ac2c1ea",
+          "version": "1.1.4"
+        }
+      },
+      {
+        "package": "XibLoc",
+        "repositoryURL": "git@github.com:happn-tech/XibLoc.git",
+        "state": {
+          "branch": null,
+          "revision": "1dd4755ec0809fd5c0fcf37648a19aadb96fd1db",
+          "version": "0.9.8"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

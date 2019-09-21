@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -38,6 +38,9 @@
 		7B08CFC622BA96AF00BE6E3F /* RecordingDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B08CFC522BA96AF00BE6E3F /* RecordingDetailsViewController.swift */; };
 		7B0F344C22BA9DFA00F0F9EC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F344B22BA9DFA00F0F9EC /* SettingsViewController.swift */; };
 		7B1024FD22BA19A7008BF119 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1024FC22BA19A7008BF119 /* MapViewController.swift */; };
+		7B1AC2632335AABB00B6F06A /* KVObserver in Frameworks */ = {isa = PBXBuildFile; productRef = 7B1AC2622335AABB00B6F06A /* KVObserver */; };
+		7B1AC2662335AAD600B6F06A /* RetryingOperation in Frameworks */ = {isa = PBXBuildFile; productRef = 7B1AC2652335AAD600B6F06A /* RetryingOperation */; };
+		7B1AC2692335AB2000B6F06A /* XibLoc in Frameworks */ = {isa = PBXBuildFile; productRef = 7B1AC2682335AB2000B6F06A /* XibLoc */; };
 		7B23D9BA22B90BB20007BA61 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B23D9B922B90BB20007BA61 /* InfoViewController.swift */; };
 		7B23D9BB22B90DF00007BA61 /* VSOUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */; };
 		7B27B9291DCDF6B1006F44B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */; };
@@ -46,15 +49,13 @@
 		7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE81DCA975F007B5ABC /* Main.storyboard */; };
 		7B5108F722BA57E60038CEAC /* RecordingsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5108F622BA57E60038CEAC /* RecordingsListViewController.swift */; };
 		7B63B7691E227E96001FA33C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B63B7681E227E96001FA33C /* InfoPlist.strings */; };
-		7B749102232D3C0500386042 /* CollectionAndTableViewUpdateConveniences.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B749101232D3C0500386042 /* CollectionAndTableViewUpdateConveniences.framework */; };
 		7B93E38222A184ED00709971 /* LocationRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B93E38122A184ED00709971 /* LocationRecorder.swift */; };
-		7B93E38622A1CA4900709971 /* KVObserver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B93E38522A1CA4900709971 /* KVObserver.framework */; };
 		7B94D1E222A0169600848832 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E122A0169600848832 /* AppDelegate.swift */; };
 		7B94D1E622A0191700848832 /* ServicesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E522A0191700848832 /* ServicesProvider.swift */; };
 		7B94D1E822A0194100848832 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E722A0194100848832 /* Constants.swift */; };
 		7B94D1EA22A0197900848832 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E922A0197900848832 /* AppSettings.swift */; };
 		7BAE22DE22DB75C000AB6C33 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7BAE22DC22DB75C000AB6C33 /* Model.xcdatamodeld */; };
-		7BCDD462231B06F8002F493F /* RetryingOperation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BCDD461231B06F8002F493F /* RetryingOperation.framework */; };
+		7BC43307233624DD00C59752 /* CollectionAndTableViewUpdateConveniences in Frameworks */ = {isa = PBXBuildFile; productRef = 7BC43306233624DD00C59752 /* CollectionAndTableViewUpdateConveniences */; };
 		7BD0A05922B9576500934656 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD0A05822B9576500934656 /* DetailsViewController.swift */; };
 		7BD4B52A22C134A400EC9545 /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD4B52922C134A400EC9545 /* UIUtils.swift */; };
 		7BE9FF9D22AC1BC6006DED15 /* RecordingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */; };
@@ -136,9 +137,7 @@
 		7B482CE91DCA976E007B5ABC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7B5108F622BA57E60038CEAC /* RecordingsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsListViewController.swift; sourceTree = "<group>"; };
 		7B63B7681E227E96001FA33C /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
-		7B749101232D3C0500386042 /* CollectionAndTableViewUpdateConveniences.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CollectionAndTableViewUpdateConveniences.framework; sourceTree = "<group>"; };
 		7B93E38122A184ED00709971 /* LocationRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRecorder.swift; sourceTree = "<group>"; };
-		7B93E38522A1CA4900709971 /* KVObserver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KVObserver.framework; sourceTree = "<group>"; };
 		7B94D1E022A0169600848832 /* GPS Stone Trip Recorder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GPS Stone Trip Recorder-Bridging-Header.h"; sourceTree = "<group>"; };
 		7B94D1E122A0169600848832 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B94D1E522A0191700848832 /* ServicesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesProvider.swift; sourceTree = "<group>"; };
@@ -148,7 +147,6 @@
 		7B96A7CA229F1B5300267DBD /* GPS Stone Trip Recorder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GPS Stone Trip Recorder.entitlements"; sourceTree = "<group>"; };
 		7BA2A5EA1F2E013A0014603B /* Test Recording.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Test Recording.gpx"; sourceTree = "<group>"; };
 		7BAE22DD22DB75C000AB6C33 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		7BCDD461231B06F8002F493F /* RetryingOperation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RetryingOperation.framework; sourceTree = "<group>"; };
 		7BD0A05822B9576500934656 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		7BD4B52922C134A400EC9545 /* UIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
 		7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsManager.swift; sourceTree = "<group>"; };
@@ -162,16 +160,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B1AC2692335AB2000B6F06A /* XibLoc in Frameworks */,
 				0F48CE7D1029AF9D008C524D /* AddressBook.framework in Frameworks */,
 				0F48CE5E1029AD88008C524D /* AddressBookUI.framework in Frameworks */,
-				7B749102232D3C0500386042 /* CollectionAndTableViewUpdateConveniences.framework in Frameworks */,
 				288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */,
 				0FBBCBA9100A9F67003679A8 /* CoreLocation.framework in Frameworks */,
-				7B93E38622A1CA4900709971 /* KVObserver.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				0FB4B0FC10074B20005292C4 /* MapKit.framework in Frameworks */,
+				7B1AC2632335AABB00B6F06A /* KVObserver in Frameworks */,
 				0FA3D1DD10302ED80098760F /* MessageUI.framework in Frameworks */,
-				7BCDD462231B06F8002F493F /* RetryingOperation.framework in Frameworks */,
+				7BC43307233624DD00C59752 /* CollectionAndTableViewUpdateConveniences in Frameworks */,
+				7B1AC2662335AAD600B6F06A /* RetryingOperation in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,7 +288,6 @@
 				7B94D1EB22A0389400848832 /* Readme.md */,
 				7BA2A5EA1F2E013A0014603B /* Test Recording.gpx */,
 				7B27B9311DCF3D81006F44B7 /* GPS Stone Trip Recorder */,
-				7B93E38322A1C9C900709971 /* Dependencies */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -401,25 +399,6 @@
 			path = "XML Elements";
 			sourceTree = "<group>";
 		};
-		7B93E38322A1C9C900709971 /* Dependencies */ = {
-			isa = PBXGroup;
-			children = (
-				7B93E38422A1C9E000709971 /* Carthage Static */,
-			);
-			name = Dependencies;
-			sourceTree = "<group>";
-		};
-		7B93E38422A1C9E000709971 /* Carthage Static */ = {
-			isa = PBXGroup;
-			children = (
-				7B749101232D3C0500386042 /* CollectionAndTableViewUpdateConveniences.framework */,
-				7B93E38522A1CA4900709971 /* KVObserver.framework */,
-				7BCDD461231B06F8002F493F /* RetryingOperation.framework */,
-			);
-			name = "Carthage Static";
-			path = Carthage/Build/iOS/Static;
-			sourceTree = "<group>";
-		};
 		7B94D1E322A0172700848832 /* Application Lifecycle */ = {
 			isa = PBXGroup;
 			children = (
@@ -465,6 +444,12 @@
 			dependencies = (
 			);
 			name = "GPS Stone Trip Recorder";
+			packageProductDependencies = (
+				7B1AC2622335AABB00B6F06A /* KVObserver */,
+				7B1AC2652335AAD600B6F06A /* RetryingOperation */,
+				7B1AC2682335AB2000B6F06A /* XibLoc */,
+				7BC43306233624DD00C59752 /* CollectionAndTableViewUpdateConveniences */,
+			);
 			productName = "GPS Recorder";
 			productReference = 1D6058910D05DD3D006BFB54 /* GPS Stone Trip Recorder.app */;
 			productType = "com.apple.product-type.application";
@@ -501,6 +486,12 @@
 				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			packageReferences = (
+				7B1AC2612335AABB00B6F06A /* XCRemoteSwiftPackageReference "KVObserver" */,
+				7B1AC2642335AAD600B6F06A /* XCRemoteSwiftPackageReference "RetryingOperation" */,
+				7B1AC2672335AB2000B6F06A /* XCRemoteSwiftPackageReference "XibLoc" */,
+				7BC43305233624DD00C59752 /* XCRemoteSwiftPackageReference "CollectionAndTableViewUpdateConveniences" */,
+			);
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -601,16 +592,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = DVL8GW97S8;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS/Static",
-				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder.pch";
 				INFOPLIST_FILE = "GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.vso-software.GPSStoneTripRecorder";
 				PRODUCT_NAME = "GPS Stone Trip Recorder";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -630,14 +620,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = DVL8GW97S8;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS/Static",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder.pch";
 				INFOPLIST_FILE = "GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.vso-software.GPSStoneTripRecorder";
 				PRODUCT_NAME = "GPS Stone Trip Recorder";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -744,6 +733,64 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7B1AC2612335AABB00B6F06A /* XCRemoteSwiftPackageReference "KVObserver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:happn-tech/KVObserver.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.4;
+			};
+		};
+		7B1AC2642335AAD600B6F06A /* XCRemoteSwiftPackageReference "RetryingOperation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:happn-tech/RetryingOperation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.4;
+			};
+		};
+		7B1AC2672335AB2000B6F06A /* XCRemoteSwiftPackageReference "XibLoc" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:happn-tech/XibLoc.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.8;
+			};
+		};
+		7BC43305233624DD00C59752 /* XCRemoteSwiftPackageReference "CollectionAndTableViewUpdateConveniences" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:happn-tech/CollectionAndTableViewUpdateConveniences.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7B1AC2622335AABB00B6F06A /* KVObserver */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7B1AC2612335AABB00B6F06A /* XCRemoteSwiftPackageReference "KVObserver" */;
+			productName = KVObserver;
+		};
+		7B1AC2652335AAD600B6F06A /* RetryingOperation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7B1AC2642335AAD600B6F06A /* XCRemoteSwiftPackageReference "RetryingOperation" */;
+			productName = RetryingOperation;
+		};
+		7B1AC2682335AB2000B6F06A /* XibLoc */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7B1AC2672335AB2000B6F06A /* XCRemoteSwiftPackageReference "XibLoc" */;
+			productName = XibLoc;
+		};
+		7BC43306233624DD00C59752 /* CollectionAndTableViewUpdateConveniences */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7BC43305233624DD00C59752 /* XCRemoteSwiftPackageReference "CollectionAndTableViewUpdateConveniences" */;
+			productName = CollectionAndTableViewUpdateConveniences;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		7BAE22DC22DB75C000AB6C33 /* Model.xcdatamodeld */ = {
