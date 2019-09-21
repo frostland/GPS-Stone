@@ -147,7 +147,6 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	}
 	
 	private func createProcessPointsOperation() -> ProcessPointsOperation {
-		#warning("In Swift 5.1 we’ll probably be able to remove the return in the line below")
 		let getter = { [weak self] () -> PolylinesCache? in assert(Thread.isMainThread); return self?.polylinesCache }
 		let setter = { [weak self] (c: PolylinesCache)   in assert(Thread.isMainThread); self?.polylinesCache = c; self?.processPendingPolylines() }
 		return ProcessPointsOperation(fetchedResultsController: pointsFetchResultsController!, polylinesCacheGetter: getter, polylinesCacheSetter: setter)
