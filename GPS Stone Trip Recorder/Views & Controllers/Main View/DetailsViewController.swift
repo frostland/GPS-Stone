@@ -123,6 +123,13 @@ class DetailsViewController : UIViewController {
 		}
 	}
 	
+	private var labelColor: UIColor {
+		guard #available(iOS 13.0, *) else {
+			return .black
+		}
+		return .label
+	}
+	
 	private func updateUnitsLabels() {
 		if appSettings.useMetricSystem {labelKmph.text = NSLocalizedString("km/h", comment: "")}
 		else                           {labelKmph.text = NSLocalizedString("mph",  comment: "")}
@@ -140,7 +147,7 @@ class DetailsViewController : UIViewController {
 			labelLat.text  = NSStringFromDegrees(location.coordinate.latitude,  true)
 			labelLong.text = NSStringFromDegrees(location.coordinate.longitude, false)
 			labelHorizontalAccuracy.text = NSStringFromDistance(location.horizontalAccuracy, !appSettings.useMetricSystem)
-			labelHorizontalAccuracy.textColor = (location.horizontalAccuracy > c.maxAccuracyToRecordPoint ? .red : .black)
+			labelHorizontalAccuracy.textColor = (location.horizontalAccuracy > c.maxAccuracyToRecordPoint ? .red : labelColor)
 			if location.verticalAccuracy.sign == .plus {
 				labelAltitude.text = NSStringFromAltitude(location.altitude, !appSettings.useMetricSystem)
 				#warning("TODO: Use XibLoc!")
