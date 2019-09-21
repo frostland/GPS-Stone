@@ -21,7 +21,6 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	
 	@IBOutlet var buttonCenterMapOnCurLoc: UIButton!
 	@IBOutlet var mapView: MKMapView!
-	@IBOutlet var viewStatusBarBlur: UIView!
 	
 	var boundingMapRect: MKMapRect = .null
 	var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
@@ -60,6 +59,25 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		} else {
 			currentRecording = recording
 		}
+		
+		centerMapOnCurLoc(self)
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		locationRecorder.retainTracking()
+	}
+	
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+		
+		locationRecorder.releaseTracking()
+	}
+	
+	@IBAction func centerMapOnCurLoc(_ sender: Any) {
+		guard let pos = locationRecorder.currentLocation else {return}
+		mapView.setRegion(MKCoordinateRegion(center: pos.coordinate, latitudinalMeters: 500, longitudinalMeters: 500), animated: true)
 	}
 	
 	func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {

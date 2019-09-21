@@ -847,7 +847,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="343" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
-                                <blurEffect style="light"/>
+                                <blurEffect style="regular"/>
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -867,7 +867,6 @@
                     <connections>
                         <outlet property="buttonCenterMapOnCurLoc" destination="ibA-9y-tEc" id="aUU-dK-Xmn"/>
                         <outlet property="mapView" destination="xKH-do-tx1" id="Xjz-DP-UgF"/>
-                        <outlet property="viewStatusBarBlur" destination="dca-Wh-v9g" id="YKF-up-fwh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oo9-13-2DE" userLabel="First Responder" sceneMemberID="firstResponder"/>
