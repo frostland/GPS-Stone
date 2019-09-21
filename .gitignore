@@ -2,8 +2,6 @@
 .DS_Store
 xcuserdata/
 
-/Carthage/
-
 # Other
 /App Store/
 /gfx building/
