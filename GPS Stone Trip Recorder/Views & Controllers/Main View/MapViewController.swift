@@ -256,7 +256,7 @@ fileprivate class ProcessPointsOperation : RetryingOperation {
 				polylinesCache.nPointsBySection.append(0)
 				polylinesCache.polylinesBySection.append([])
 				if sectionDelta+1 < pointsToProcess.count {
-					if let p1 = pointsInSection.first, let p2 = pointsToProcess[sectionDelta+1].first {
+					if let p1 = pointsInSection.last, let p2 = pointsToProcess[sectionDelta+1].first {
 						let l = MKPolyline(coordinates: [p1, p2], count: 2)
 						polylinesCache.interSectionPolylines.append(l)
 						polylinesCache.dottedPolylinesToAddToMap.insert(l)
