@@ -129,6 +129,8 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	
 	private var currentRecording: Recording? {
 		willSet {
+			guard currentRecording != newValue else {return}
+			
 			pointsFetchResultsController?.delegate = nil
 			pointsFetchResultsController = nil
 			
@@ -137,6 +139,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 			polylinesCache = PolylinesCache()
 		}
 		didSet  {
+			guard currentRecording != oldValue else {return}
 			guard let r = currentRecording, let c = r.managedObjectContext else {return}
 			
 			let fetchRequest: NSFetchRequest<RecordingPoint> = RecordingPoint.fetchRequest()
