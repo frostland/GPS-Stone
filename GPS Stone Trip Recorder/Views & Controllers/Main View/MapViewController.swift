@@ -258,15 +258,6 @@ fileprivate class ProcessPointsOperation : RetryingOperation {
 				polylinesCache.numberOfSections += 1
 				polylinesCache.nPointsBySection.append(0)
 				polylinesCache.polylinesBySection.append([])
-				if sectionDelta+1 < pointsToProcess.count {
-					if let p1 = pointsInSection.last, let p2 = pointsToProcess[sectionDelta+1].first {
-						let l = MKPolyline(coordinates: [p1, p2], count: 2)
-						polylinesCache.interSectionPolylines.append(l)
-						polylinesCache.dottedPolylinesToAddToMap.insert(l)
-					} else {
-						polylinesCache.interSectionPolylines.append(nil)
-					}
-				}
 			}
 			
 			/* Add the new points in the current section */
@@ -311,6 +302,24 @@ fileprivate class ProcessPointsOperation : RetryingOperation {
 					polylinesCache.plainPolylinesToAddToMap.insert(polyline)
 					polylinesCache.nPointsBySection[sectionIndex] += nPointsToAdd
 					pointsInSection.removeFirst(nPointsToAdd)
+				}
+			}
+			
+			/* Add an inter-section polyline if needed */
+			if sectionIndex > 0 && sectionIndex == polylinesCache.numberOfSections-1 {
+				if
+					let firstPolylineOfSection = polylinesCache.polylinesBySection[sectionIndex].first,
+					let latestPolylineOfPreviousSection = polylinesCache.polylinesBySection[sectionIndex-1].last
+				{
+					assert(firstPolylineOfSection.pointCount > 0, "Got a polyline with no points in it for section \(sectionIndex) in cache \(polylinesCache)")
+					assert(latestPolylineOfPreviousSection.pointCount > 0, "Got a polyline with no points in it for section \(sectionIndex-1) in cache \(polylinesCache)")
+					let firstPointOfSection = firstPolylineOfSection.points().pointee
+					let latestPointOfPreviousSection = latestPolylineOfPreviousSection.points().advanced(by: latestPolylineOfPreviousSection.pointCount-1).pointee
+					let l = MKPolyline(coordinates: [latestPointOfPreviousSection.coordinate, firstPointOfSection.coordinate], count: 2)
+					polylinesCache.interSectionPolylines.append(l)
+					polylinesCache.dottedPolylinesToAddToMap.insert(l)
+				} else {
+					polylinesCache.interSectionPolylines.append(nil)
 				}
 			}
 		}
