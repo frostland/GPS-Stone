@@ -33,6 +33,8 @@ final class AppSettings {
 			.firstUnlock: true,
 			
 			.selectedPage: 0,
+			.latestMapRect: nil,
+			.followLocationOnMap: true,
 			.mapSwipeWarningShown: false,
 			
 			.mapType: MKMapType.standard.rawValue,
@@ -85,6 +87,52 @@ final class AppSettings {
 	var selectedPage: Int {
 		get {return ud.integer(forKey: SettingsKey.selectedPage.rawValue)}
 		set {ud.set(newValue, forKey: SettingsKey.selectedPage.rawValue)}
+	}
+	
+	var latestMapRect: MKCoordinateRegion? {
+		get {
+			guard let data = ud.data(forKey: SettingsKey.latestMapRect.rawValue) else {
+				return nil
+			}
+			
+			let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+			defer {unarchiver.finishDecoding()}
+			
+			let latitude = unarchiver.decodeDouble(forKey: "latitude")
+			let longitude = unarchiver.decodeDouble(forKey: "longitude")
+			let latitudeDelta = unarchiver.decodeDouble(forKey: "latitudeDelta")
+			let longitudeDelta = unarchiver.decodeDouble(forKey: "longitudeDelta")
+			
+			guard !latitude.isZero || !longitude.isZero || !latitudeDelta.isZero || !longitudeDelta.isZero else {
+				return nil
+			}
+			
+			return MKCoordinateRegion(
+				center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
+				span: MKCoordinateSpan(latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta)
+			)
+		}
+		set {
+			guard let rect = newValue else {
+				ud.removeObject(forKey: SettingsKey.latestMapRect.rawValue)
+				return
+			}
+			
+			let data = NSMutableData()
+			let archiver = NSKeyedArchiver(forWritingWith: data)
+			archiver.encode(rect.center.latitude, forKey: "latitude")
+			archiver.encode(rect.center.longitude, forKey: "longitude")
+			archiver.encode(rect.span.latitudeDelta, forKey: "latitudeDelta")
+			archiver.encode(rect.span.longitudeDelta, forKey: "longitudeDelta")
+			archiver.finishEncoding()
+			
+			ud.set(data, forKey: SettingsKey.latestMapRect.rawValue)
+		}
+	}
+	
+	var followLocationOnMap: Bool {
+		get {return ud.bool(forKey: SettingsKey.followLocationOnMap.rawValue)}
+		set {ud.set(newValue, forKey: SettingsKey.followLocationOnMap.rawValue)}
 	}
 	
 	var mapSwipeWarningShown: Bool {
@@ -166,6 +214,8 @@ final class AppSettings {
 		case firstUnlock = "VSO Screen Never Locked While This App Is Launched"
 		
 		case selectedPage = "VSO Selected Page"
+		case latestMapRect = "VSO Latest Map Rect"
+		case followLocationOnMap = "VSO Follow Location On Map"
 		case mapSwipeWarningShown = "VSO Map Swipe Warning Was Shown"
 		
 		case mapType = "VSO Map Type"

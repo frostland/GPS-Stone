@@ -80,6 +80,14 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		mapView.setRegion(MKCoordinateRegion(center: pos.coordinate, latitudinalMeters: 500, longitudinalMeters: 500), animated: true)
 	}
 	
+	/* *************************
+	   MARK: - Map View Delegate
+	   ************************* */
+	
+	func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+		appSettings.latestMapRect = MKCoordinateRegion(mapView.visibleMapRect)
+	}
+	
 	func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
 		assert(overlay is MKPolyline)
 		let r = MKPolylineRenderer(overlay: overlay)
