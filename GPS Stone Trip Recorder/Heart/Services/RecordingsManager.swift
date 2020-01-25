@@ -44,7 +44,8 @@ final class RecordingsManager : NSObject {
 		recordingPoint.date = Date()
 		recordingPoint.location = location
 		recordingPoint.segmentId = segmentId
-		recording.addToPoints(recordingPoint)
+//		recording.addToPoints(recordingPoint) /* Does not work on iOS 9, so we have to do the line below! */
+		recording.mutableOrderedSetValue(forKey: #keyPath(Recording.points)).add(recordingPoint)
 		recording.totalDistance += Float(addedDistance)
 		recording.maxSpeed = max(Float(location.speed), recording.maxSpeed)
 		try dh.saveContextOrRollback()
