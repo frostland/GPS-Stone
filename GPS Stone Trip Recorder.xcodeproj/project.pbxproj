@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0F48CE5E1029AD88008C524D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F48CE5D1029AD88008C524D /* AddressBookUI.framework */; };
-		0F48CE7D1029AF9D008C524D /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F48CE7C1029AF9D008C524D /* AddressBook.framework */; };
 		0F577FCD1020811300067838 /* GPXgpxType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F577FCC1020811300067838 /* GPXgpxType.m */; };
 		0F577FD01020816D00067838 /* XMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F577FCF1020816D00067838 /* XMLElement.m */; };
 		0F57809A1020925100067838 /* GPXmetadataType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5780991020925100067838 /* GPXmetadataType.m */; };
@@ -161,8 +159,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B1AC2692335AB2000B6F06A /* XibLoc in Frameworks */,
-				0F48CE7D1029AF9D008C524D /* AddressBook.framework in Frameworks */,
-				0F48CE5E1029AD88008C524D /* AddressBookUI.framework in Frameworks */,
 				288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */,
 				0FBBCBA9100A9F67003679A8 /* CoreLocation.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,

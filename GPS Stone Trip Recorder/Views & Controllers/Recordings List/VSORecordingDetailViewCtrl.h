@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <MessageUI/MessageUI.h>
-#import <AddressBookUI/AddressBookUI.h>
 
 #import "VSOMapViewController.h"
 #import "GPXgpxType.h"
