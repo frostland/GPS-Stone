@@ -93,7 +93,8 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		let r = MKPolylineRenderer(overlay: overlay)
 		r.strokeColor = UIColor(red: 92/255, green: 43/255, blue: 153/255, alpha: 0.75)
 		r.lineWidth = 5
-		if polylinesCache.dottedPolylinesToAddToMap.contains(where: { $0 === overlay }) {
+		if polylinesCache.interSectionPolylines.contains(where: { $0 === overlay }) {
+			r.strokeColor = UIColor(red: 92/255, green: 43/255, blue: 153/255, alpha: 0.5)
 			r.lineDashPattern = [12, 16]
 		}
 		return r
@@ -104,12 +105,12 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	   ******************************************* */
 	
 	func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+		assert(controller === pointsFetchResultsController)
 		/* Note: We could use the controller did change section/object methods,
 		 *       however, I don’t think we’d gain _anything at all_ in terms of
 		 *       performance, so let’s just do this instead (which avoids having
 		 *       to create non-trivial alorithms to reconcile the cache with the
 		 *       change notification we’d get from the controller). */
-		assert(controller === pointsFetchResultsController)
 		pointsProcessingQueue.addOperation(createProcessPointsOperation())
 	}
 	
@@ -121,6 +122,8 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	private let appSettings = S.sp.appSettings
 	private let locationRecorder = S.sp.locationRecorder
 	private let recordingsManager = S.sp.recordingsManager
+	
+	private let polylinesMaxPointCount = 100
 	
 	private let pointsProcessingQueue: OperationQueue = {
 		let ret = OperationQueue()
@@ -178,18 +181,25 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	private func createProcessPointsOperation() -> ProcessPointsOperation {
 		let getter = { [weak self] () -> PolylinesCache? in assert(Thread.isMainThread); return self?.polylinesCache }
 		let setter = { [weak self] (c: PolylinesCache)   in assert(Thread.isMainThread); self?.polylinesCache = c; self?.processPendingPolylines() }
-		return ProcessPointsOperation(fetchedResultsController: pointsFetchResultsController!, polylinesCacheGetter: getter, polylinesCacheSetter: setter)
+		return ProcessPointsOperation(fetchedResultsController: pointsFetchResultsController!, polylinesMaxPointCount: polylinesMaxPointCount, polylinesCacheGetter: getter, polylinesCacheSetter: setter)
 	}
 	
 	private func processPendingPolylines() {
 		assert(Thread.isMainThread)
+		
 //		print("-----")
-//		print("current:    \(mapView.overlays.compactMap{ $0 as? MKPolyline }.map{ "\($0) (\($0.pointCount) points)" })")
+//		print("current (on map): \(mapView.overlays.compactMap{ $0 as? MKPolyline }.map{ "\($0) (\($0.pointCount) points)" })")
 //		print("n sections: \(polylinesCache.numberOfSections)")
 //		print("npts/sctn:  \(polylinesCache.nPointsBySection.map{ String($0) }.joined(separator: ", "))")
 //		print("remove:     \(polylinesCache.polylinesToRemoveFromMap.map{ "\($0) (\($0.pointCount) points)" })")
 //		print("plain add:  \(polylinesCache.plainPolylinesToAddToMap.map{ "\($0) (\($0.pointCount) points)" })")
 //		print("dotted add: \(polylinesCache.dottedPolylinesToAddToMap.map{ "\($0) (\($0.pointCount) points)" })")
+		
+		/* Let’s do a few basic checks on the polylines cache. */
+		assert(polylinesCache.polylinesBySection.count == polylinesCache.numberOfSections)
+		assert(polylinesCache.interSectionPolylines.count == max(0, polylinesCache.numberOfSections-1))
+		assert(polylinesCache.polylinesBySection.allSatisfy{ $0.allSatisfy{ $0.pointCount <= polylinesMaxPointCount } })
+		
 		mapView.addOverlays(Array(polylinesCache.plainPolylinesToAddToMap))
 		mapView.addOverlays(Array(polylinesCache.dottedPolylinesToAddToMap))
 		mapView.removeOverlays(Array(polylinesCache.polylinesToRemoveFromMap))
@@ -210,13 +220,15 @@ fileprivate struct PolylinesCache {
 	/* We break down each section to polylines of 100 points in order to avoid
 	 * having to redraw the whole path each time a new point is added. This is
 	 * why polylinesBySection is an array of array of polylines instead of a
-	 * simple array of polylines. */
+	 * simple array of polylines.
+	 * The count of this array should always be `numberOfSections`. */
 	var polylinesBySection = [[MKPolyline]]()
 	/* Between each sections we show a dotted line indicating missing information
 	 * (the recording was paused). This variable contains these polylines. They
 	 * are optional because some section might not have any points in them, in
 	 * which case there are no dotted line to show, but we must still have an
-	 * element in the array to have the correct count of objects in the array. */
+	 * element in the array to have the correct count of objects in the array.
+	 * The count of this array should always be `max(0, numberOfSections-1)`. */
 	var interSectionPolylines = [MKPolyline?]()
 	
 	var polylinesToRemoveFromMap = Set<MKPolyline>()
@@ -230,12 +242,17 @@ fileprivate struct PolylinesCache {
  * standard Operation would have been fine… */
 fileprivate class ProcessPointsOperation : RetryingOperation {
 	
+	let polylinesMaxPointCount: Int
+	
 	let polylinesCacheGetter: () -> PolylinesCache?
 	let polylinesCacheSetter: (PolylinesCache) -> Void
 	let fetchedResultsController: NSFetchedResultsController<RecordingPoint>
 	
-	init(fetchedResultsController frc: NSFetchedResultsController<RecordingPoint>, polylinesCacheGetter pcg: @escaping () -> PolylinesCache?, polylinesCacheSetter pcs: @escaping (PolylinesCache) -> Void) {
+	init(fetchedResultsController frc: NSFetchedResultsController<RecordingPoint>, polylinesMaxPointCount pmpc: Int, polylinesCacheGetter pcg: @escaping () -> PolylinesCache?, polylinesCacheSetter pcs: @escaping (PolylinesCache) -> Void) {
 		assert(Thread.isMainThread)
+		assert(pmpc > 1, "Invalid max point count per polylines (a polyline w/ 1 point does not make sense to draw a path!)")
+		
+		polylinesMaxPointCount = pmpc
 		
 		polylinesCacheGetter = pcg
 		polylinesCacheSetter = pcs
@@ -269,7 +286,6 @@ fileprivate class ProcessPointsOperation : RetryingOperation {
 			}
 			
 			/* Add the new points in the current section */
-			let polylinesMaxPointCount = 100
 			while pointsInSection.count > 0 {
 				guard !isCancelled else {return}
 				
@@ -314,7 +330,7 @@ fileprivate class ProcessPointsOperation : RetryingOperation {
 			}
 			
 			/* Add an inter-section polyline if needed */
-			if sectionIndex > 0 && sectionIndex == polylinesCache.numberOfSections-1 {
+			if polylinesCache.interSectionPolylines.count == sectionIndex-1 {
 				if
 					let firstPolylineOfSection = polylinesCache.polylinesBySection[sectionIndex].first,
 					let latestPolylineOfPreviousSection = polylinesCache.polylinesBySection[sectionIndex-1].last
@@ -352,8 +368,8 @@ fileprivate class ProcessPointsOperation : RetryingOperation {
 					pointsToProcessBuilding.append([])
 					continue
 				}
-				if pc.numberOfSections > i {pointsToProcessBuilding.append(points[pc.nPointsBySection[i]..<points.count].map{ $0.location!.coordinate })}
-				else                       {pointsToProcessBuilding.append(                                       points.map{ $0.location!.coordinate })}
+				if i < pc.numberOfSections {pointsToProcessBuilding.append(points[pc.nPointsBySection[i]...].map{ $0.location!.coordinate })}
+				else                       {pointsToProcessBuilding.append(                           points.map{ $0.location!.coordinate })}
 			}
 			return (pc, pointsToProcessBuilding)
 		}
