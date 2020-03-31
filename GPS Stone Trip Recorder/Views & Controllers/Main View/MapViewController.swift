@@ -76,6 +76,8 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	}
 	
 	@IBAction func centerMapOnCurLoc(_ sender: Any) {
+		appSettings.followLocationOnMap = true
+		
 		guard let pos = locationRecorder.currentLocation else {return}
 		mapView.setRegion(MKCoordinateRegion(center: pos.coordinate, latitudinalMeters: 500, longitudinalMeters: 500), animated: true)
 	}
