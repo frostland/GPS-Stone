@@ -17,6 +17,13 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	
 	enum Status : Codable {
 		
+		case stopped
+		case stoppedAndTracking
+		case recording(recordingRef: URL)
+		case pausedByUser(recordingRef: URL)
+		case pausedByBackground(recordingRef: URL)
+		case pausedByLocationDenied(recordingRef: URL)
+		
 		init(from decoder: Decoder) throws {
 			assert(Thread.isMainThread)
 			let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -51,13 +58,6 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			try container.encode(stateStr, forKey: .state)
 			try container.encode(recordingRef, forKey: .recordingURI)
 		}
-		
-		case stopped
-		case stoppedAndTracking
-		case recording(recordingRef: URL)
-		case pausedByUser(recordingRef: URL)
-		case pausedByBackground(recordingRef: URL)
-		case pausedByLocationDenied(recordingRef: URL)
 		
 		var recordingRef: URL? {
 			switch self {
