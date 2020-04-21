@@ -18,7 +18,6 @@ final class Constants {
 	private(set) lazy var urlToNiceExitWitness:      URL = { return mainDataDir.appendingPathComponent("Unclean Exit Witness.witness", isDirectory: false) }()
 	private(set) lazy var urlToCurrentRecordingInfo: URL = { return mainDataDir.appendingPathComponent("Current Recording Info.plist", isDirectory: false) }()
 	private(set) lazy var urlToFolderWithGPXFiles:   URL = { return mainDataDir.appendingPathComponent("GPX Files", isDirectory: true) }()
-	private(set) lazy var urlToPausedRecWitness:     URL = { return mainDataDir.appendingPathComponent("Last Recording Is Paused.witness", isDirectory: false) }()
 	func urlToGPX(number: Int) -> URL {
 		return urlToFolderWithGPXFiles.appendingPathComponent("Recording #\(number)", isDirectory: false).appendingPathExtension("gpx")
 	}
