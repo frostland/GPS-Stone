@@ -61,39 +61,39 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 			self.viewMiniInfos.isHidden = !self.locationRecorder.status.isRecording
 			
 			switch self.locationRecorder.status {
-			case .stopped, .stoppedAndTracking:
-				self.buttonRecord.isHidden = false
-				self.buttonStop.isHidden = true
-				self.buttonPause.isHidden = true
-				self.buttonListRecords.isHidden = false
-				
-			case .recording, .pausedByBackground, .pausedByLocationDenied:
-				self.buttonRecord.isHidden = true
-				self.buttonStop.isHidden = false
-				self.buttonPause.isHidden = false
-				self.buttonListRecords.isHidden = true
-				
-			case .pausedByUser:
-				self.buttonRecord.isHidden = false
-				self.buttonStop.isHidden = false
-				self.buttonPause.isHidden = true
-				self.buttonListRecords.isHidden = true
+				case .stopped, .stoppedAndTracking:
+					self.buttonRecord.isHidden = false
+					self.buttonStop.isHidden = true
+					self.buttonPause.isHidden = true
+					self.buttonListRecords.isHidden = false
+					
+				case .recording, .pausedByBackground, .pausedByLocationDenied:
+					self.buttonRecord.isHidden = true
+					self.buttonStop.isHidden = false
+					self.buttonPause.isHidden = false
+					self.buttonListRecords.isHidden = true
+					
+				case .pausedByUser:
+					self.buttonRecord.isHidden = false
+					self.buttonStop.isHidden = false
+					self.buttonPause.isHidden = true
+					self.buttonListRecords.isHidden = true
 			}
 		})
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		switch segue.identifier {
-		case "MainPageViewControllerSegue"?:
-			pageViewController = (segue.destination as! UIPageViewController)
-			pageViewController.dataSource = self
-			pageViewController.delegate = self
-			
-			let viewController = viewControllerForPage(atIndex: 0)
-			pageViewController.setViewControllers([viewController], direction: .forward, animated: false, completion: nil)
-			setNeedsStatusBarAppearanceUpdate()
-			
-		default: (/*nop*/)
+			case "MainPageViewControllerSegue"?:
+				pageViewController = (segue.destination as! UIPageViewController)
+				pageViewController.dataSource = self
+				pageViewController.delegate = self
+				
+				let viewController = viewControllerForPage(atIndex: 0)
+				pageViewController.setViewControllers([viewController], direction: .forward, animated: false, completion: nil)
+				setNeedsStatusBarAppearanceUpdate()
+				
+			default: (/*nop*/)
 		}
 	}
 	
@@ -116,8 +116,8 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	@IBAction func startRecording(_ sender: Any) {
 		#warning("TODO: Handle the error if any")
 		switch self.locationRecorder.status {
-		case .stopped, .stoppedAndTracking: try? locationRecorder.startNewRecording()
-		default:                            locationRecorder.resumeCurrentRecording()
+			case .stopped, .stoppedAndTracking: try? locationRecorder.startNewRecording()
+			default:                            locationRecorder.resumeCurrentRecording()
 		}
 	}
 	
@@ -171,8 +171,8 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 		viewControllers[index] = ret
 		
 		switch ret {
-		case let infoViewController as InfoViewController: infoViewController.delegate = self
-		default: (/*nop*/)
+			case let infoViewController as InfoViewController: infoViewController.delegate = self
+			default: (/*nop*/)
 		}
 		
 		return ret

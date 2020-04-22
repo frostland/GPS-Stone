@@ -35,23 +35,23 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			
 			let recordingRef = try container.decode(URL.self, forKey: .recordingURI)
 			switch stateStr {
-			case "recording":              self = .recording(recordingRef: recordingRef)
-			case "pausedByUser":           self = .pausedByUser(recordingRef: recordingRef)
-			case "pausedByBackground":     self = .pausedByBackground(recordingRef: recordingRef)
-			case "pausedByLocationDenied": self = .pausedByLocationDenied(recordingRef: recordingRef)
-			default:
-				throw NSError(domain: "fr.vso-software.GPSStoneTripRecorder", code: 1, userInfo: nil)
+				case "recording":              self = .recording(recordingRef: recordingRef)
+				case "pausedByUser":           self = .pausedByUser(recordingRef: recordingRef)
+				case "pausedByBackground":     self = .pausedByBackground(recordingRef: recordingRef)
+				case "pausedByLocationDenied": self = .pausedByLocationDenied(recordingRef: recordingRef)
+				default:
+					throw NSError(domain: "fr.vso-software.GPSStoneTripRecorder", code: 1, userInfo: nil)
 			}
 		}
 		
 		func encode(to encoder: Encoder) throws {
 			let stateStr: String
 			switch self {
-			case .stopped, .stoppedAndTracking: stateStr = "stopped"
-			case .recording:                    stateStr = "recording"
-			case .pausedByUser:                 stateStr = "pausedByUser"
-			case .pausedByBackground:           stateStr = "pausedByBackground"
-			case .pausedByLocationDenied:       stateStr = "pausedByLocationDenied"
+				case .stopped, .stoppedAndTracking: stateStr = "stopped"
+				case .recording:                    stateStr = "recording"
+				case .pausedByUser:                 stateStr = "pausedByUser"
+				case .pausedByBackground:           stateStr = "pausedByBackground"
+				case .pausedByLocationDenied:       stateStr = "pausedByLocationDenied"
 			}
 			
 			var container = encoder.container(keyedBy: CodingKeys.self)
@@ -61,25 +61,25 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		var recordingRef: URL? {
 			switch self {
-			case .stopped, .stoppedAndTracking:
-				return nil
-				
-			case .recording(let rr), .pausedByUser(let rr), .pausedByBackground(let rr), .pausedByLocationDenied(let rr):
-				return rr
+				case .stopped, .stoppedAndTracking:
+					return nil
+					
+				case .recording(let rr), .pausedByUser(let rr), .pausedByBackground(let rr), .pausedByLocationDenied(let rr):
+					return rr
 			}
 		}
 		
 		var isTrackingUserPosition: Bool {
 			switch self {
-			case .stopped:                                                                                     return false
-			case .stoppedAndTracking, .recording, .pausedByUser, .pausedByBackground, .pausedByLocationDenied: return true
+				case .stopped:                                                                                     return false
+				case .stoppedAndTracking, .recording, .pausedByUser, .pausedByBackground, .pausedByLocationDenied: return true
 			}
 		}
 		
 		var isRecording: Bool {
 			switch self {
-			case .stopped,  .stoppedAndTracking:                                          return false
-			case .recording, .pausedByUser, .pausedByBackground, .pausedByLocationDenied: return true
+				case .stopped,  .stoppedAndTracking:                                          return false
+				case .recording, .pausedByUser, .pausedByBackground, .pausedByLocationDenied: return true
 			}
 		}
 		

@@ -47,13 +47,13 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		switch segue.identifier {
-		case "ShowDetails"?:
-			guard let detailsViewController = segue.destination as? RecordingDetailsViewController else {return}
-			guard let indexPath = tableView.indexPathForSelectedRow else {return}
-			
-			detailsViewController.recording = fetchedResultsController.object(at: indexPath)
-			
-		default: (/*nop*/)
+			case "ShowDetails"?:
+				guard let detailsViewController = segue.destination as? RecordingDetailsViewController else {return}
+				guard let indexPath = tableView.indexPathForSelectedRow else {return}
+				
+				detailsViewController.recording = fetchedResultsController.object(at: indexPath)
+				
+			default: (/*nop*/)
 		}
 	}
 	

@@ -53,8 +53,8 @@ final class AppSettings {
 		/* Let’s make sure all the cases have been registered in the defaults. */
 		for k in SettingsKey.allCases {
 			switch defaultValues[k] {
-			case .none: fatalError("No default value for default key “\(k)”")
-			case .some: (/*nop*/)
+				case .none: fatalError("No default value for default key “\(k)”")
+				case .some: (/*nop*/)
 			}
 		}
 		
@@ -198,9 +198,9 @@ final class AppSettings {
 	
 	var useMetricSystem: Bool {
 		switch distanceUnit {
-		case .metric:    return true
-		case .imperial:  return false
-		case .automatic: return Locale.autoupdatingCurrent.usesMetricSystem
+			case .metric:    return true
+			case .imperial:  return false
+			case .automatic: return Locale.autoupdatingCurrent.usesMetricSystem
 		}
 	}
 	
