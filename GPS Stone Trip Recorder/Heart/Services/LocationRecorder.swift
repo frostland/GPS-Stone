@@ -8,6 +8,7 @@
 
 import CoreLocation
 import Foundation
+import UIKit /* To get app and register to app fg/bg state */
 
 
 
@@ -22,6 +23,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		case recording(recordingRef: URL)
 		case pausedByUser(recordingRef: URL)
 		case pausedByBackground(recordingRef: URL)
+		#warning("TODO: Case below")
+		case pausedByLocationError(recordingRef: URL)
 		case pausedByLocationDenied(recordingRef: URL)
 		
 		init(from decoder: Decoder) throws {
@@ -51,6 +54,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 				case .recording:                    stateStr = "recording"
 				case .pausedByUser:                 stateStr = "pausedByUser"
 				case .pausedByBackground:           stateStr = "pausedByBackground"
+				case .pausedByLocationError:        stateStr = "pausedByLocationError"
 				case .pausedByLocationDenied:       stateStr = "pausedByLocationDenied"
 			}
 			
@@ -64,22 +68,22 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 				case .stopped, .stoppedAndTracking:
 					return nil
 					
-				case .recording(let rr), .pausedByUser(let rr), .pausedByBackground(let rr), .pausedByLocationDenied(let rr):
+				case .recording(let rr), .pausedByUser(let rr), .pausedByBackground(let rr), .pausedByLocationError(let rr), .pausedByLocationDenied(let rr):
 					return rr
 			}
 		}
 		
 		var isTrackingUserPosition: Bool {
 			switch self {
-				case .stopped:                                                                                     return false
-				case .stoppedAndTracking, .recording, .pausedByUser, .pausedByBackground, .pausedByLocationDenied: return true
+				case .stopped:                                                                                                             return false
+				case .stoppedAndTracking, .recording, .pausedByUser, .pausedByBackground, .pausedByLocationError, .pausedByLocationDenied: return true
 			}
 		}
 		
 		var isRecording: Bool {
 			switch self {
-				case .stopped,  .stoppedAndTracking:                                          return false
-				case .recording, .pausedByUser, .pausedByBackground, .pausedByLocationDenied: return true
+				case .stopped,  .stoppedAndTracking:                                                                  return false
+				case .recording, .pausedByUser, .pausedByBackground, .pausedByLocationError, .pausedByLocationDenied: return true
 			}
 		}
 		
@@ -114,9 +118,18 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	private(set) var status: Status {
 		willSet {
 			willChangeValue(for: \.objc_status)
-			handleStatusChange(from: status, to: newValue)
 		}
 		didSet {
+			/* MUST be done in didSet. Handling the status change can change the
+			 * status! If we do that in willSet, the value set in the handling will
+			 * be overridden. In the didSet block it is not.
+			 * Swift Note: The didSet block is not called when the value is changed
+			 *             from within the didSet block directly, but it is called
+			 *             if the value is changed in a function that is called in
+			 *             the didSet block! (Tested w/ Xcode 11.4.1)
+			 *             Not sure this is the expected behaviour nor if it will
+			 *             stay the same forever though… */
+			handleStatusChange(from: oldValue, to: status)
 			didChangeValue(for: \.objc_status)
 		}
 	}
@@ -144,6 +157,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	}
 	
 	init(locationManager: CLLocationManager, recordingsManager: RecordingsManager, dataHandler: DataHandler, appSettings: AppSettings, constants: Constants) {
+		assert(Thread.isMainThread)
+		
 		c = constants
 		s = appSettings
 		dh = dataHandler
@@ -155,7 +170,19 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		super.init()
 		
 		lm.delegate = self
+		/* KVO on \.applicationState does not work, so we observe the app notifications instead. */
+		notificationObservers.append(NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.applyGPSRestrictionsToStatus() }))
+		notificationObservers.append(NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.applyGPSRestrictionsToStatus() }))
+		notificationObservers.append(NotificationCenter.default.addObserver(forName: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.applyGPSRestrictionsToStatus() }))
+
+		/* The method below calls applyGPSRestrictionsToStatus() */
 		handleStatusChange(from: .stopped, to: status) /* willSet/didSet not called from init */
+	}
+	
+	deinit {
+		for o in notificationObservers {
+			NotificationCenter.default.removeObserver(o)
+		}
 	}
 	
 	/** Tell the location recorder a new client requires the user’s position.
@@ -195,6 +222,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		let (recording, _) = try rm.unsafeCreateNextRecording()
 		status = .recording(recordingRef: rm.recordingRef(from: recording.objectID))
+		guard currentRecording != nil else {return} /* If there was an error creating the output file or other, the status can go back to stopped. */
 		assert(currentRecording === recording)
 		
 		/* Writing the GPX header to the GPX file */
@@ -251,11 +279,14 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	   MARK: - Location Manager Delegate
 	   ********************************* */
 	
-	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-		canRecord = Set<CLAuthorizationStatus>(arrayLiteral: .notDetermined, .authorizedWhenInUse, .authorizedAlways).contains(status)
+	func locationManager(_ manager: CLLocationManager, didChangeAuthorization authStatus: CLAuthorizationStatus) {
+		assert(Thread.isMainThread)
+		canRecord = Set<CLAuthorizationStatus>(arrayLiteral: .notDetermined, .authorizedWhenInUse, .authorizedAlways).contains(authStatus)
+		applyGPSRestrictionsToStatus()
 	}
 	
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+		NSLog("%@", "Location manager error \(error)")
 		currentLocation = nil
 	}
 	
@@ -277,6 +308,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	/* ***************
 	   MARK: - Private
 	   *************** */
+	
+	private var notificationObservers = [NSObjectProtocol]()
 	
 	/** The current Recording CoreData object. Must always be used only on the
 	main thread.
@@ -314,6 +347,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	
 	private func handleStatusChange(from oldStatus: Status, to newStatus: Status) {
 		assert(Thread.isMainThread)
+		NSLog("%@", "Status change from \(oldStatus) to \(newStatus)")
 		if oldStatus.recordingRef == nil, let newRecordingRef = newStatus.recordingRef {
 			assert(currentGPX == nil && currentGPXHandle == nil && currentRecording == nil)
 			guard
@@ -326,7 +360,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 				return
 			}
 			
-			/* Set the currentRecording for future uses (to avoid dereferencing the
+			/* Set the currentRecording for future uses (to avoid resolving the
 			 * reference in the status at each use). */
 			currentRecording = r
 			
@@ -365,6 +399,15 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			lm.stopUpdatingLocation()
 		}
 		if #available(iOS 9.0, *) {lm.allowsBackgroundLocationUpdates = newStatus.isRecording}
+		
+		applyGPSRestrictionsToStatus()
+	}
+	
+	private func applyGPSRestrictionsToStatus() {
+//		assert(false, "todo")
+		NSLog("%@", "GPS status: \(CLLocationManager.authorizationStatus().rawValue)")
+		NSLog("%@", "application state: \(UIApplication.shared.applicationState.rawValue)")
+		NSLog("%@", "background refresh status: \(UIApplication.shared.backgroundRefreshStatus.rawValue)")
 	}
 	
 }

@@ -67,7 +67,7 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 					self.buttonPause.isHidden = true
 					self.buttonListRecords.isHidden = false
 					
-				case .recording, .pausedByBackground, .pausedByLocationDenied:
+				case .recording, .pausedByBackground, .pausedByLocationError, .pausedByLocationDenied:
 					self.buttonRecord.isHidden = true
 					self.buttonStop.isHidden = false
 					self.buttonPause.isHidden = false
