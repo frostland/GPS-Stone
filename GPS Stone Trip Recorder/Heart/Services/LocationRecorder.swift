@@ -202,36 +202,11 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	active) if called while the recording is recording. */
 	func startNewRecording() throws {
 		assert(Thread.isMainThread)
-		assert(recStatus.recordingRef == nil)
-		guard recStatus.recordingRef == nil else {return}
+		assert(recStatus.isStopped)
+		guard recStatus.isStopped else {return}
 		
-		let (recording, _) = try rm.unsafeCreateNextRecording()
+		let recording = try rm.unsafeCreateNextRecordingAndSaveContext(withGPXFile: false)
 		recStatus = .recording(recordingRef: rm.recordingRef(from: recording.objectID), segmentID: 0)
-		guard let wCache = cachedRecordingWriteObjects else {return} /* If there was an error creating the output file or other, the cache might be `nil`. */
-		assert(wCache.recording === recording)
-		
-		/* Writing the GPX header to the GPX file */
-		do {
-			if #available(iOS 13.0, *) {
-				try wCache.fileHandle?.write(contentsOf: wCache.gpx.xmlOutput(forTagOpening: 0))
-				try wCache.fileHandle?.write(contentsOf: wCache.gpx.firstTrack()!.xmlOutput(forTagOpening: 1))
-				try wCache.fileHandle?.write(contentsOf: wCache.gpx.firstTrack()!.lastTrackSegment()!.xmlOutput(forTagOpening: 2))
-			} else {
-				var error: Error?
-				objc_try({
-					wCache.fileHandle?.write(wCache.gpx.xmlOutput(forTagOpening: 0))
-					wCache.fileHandle?.write(wCache.gpx.firstTrack()!.xmlOutput(forTagOpening: 1))
-					wCache.fileHandle?.write(wCache.gpx.firstTrack()!.lastTrackSegment()!.xmlOutput(forTagOpening: 2))
-				}, { exception in
-					error = NSError(domain: "fr.vso-software.GPSStoneTripRecorder", code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot write to GPX output file."])
-				})
-				if let e = error {throw e}
-			}
-		} catch {
-			recording.gpxFileBookmark = nil
-			do    {try dh.saveContextOrRollback()}
-			catch {recStatus = .stopped}
-		}
 	}
 	
 	/** Pauses the current recording.
@@ -245,27 +220,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		guard let rrAndSID = recStatus.recordingRefAndSegmentID else {return}
 		
 		recStatus = .paused(recordingRef: rrAndSID.recordingRef, segmentID: rrAndSID.segmentID)
-		
-		/* Let’s add the end of the segment to the GPX */
-		if let wCache = try? recordingWriteObjects(for: rrAndSID.recordingRef) {
-			do {
-				if #available(iOS 13.0, *) {
-					try wCache.fileHandle?.write(contentsOf: wCache.gpx.firstTrack()!.lastTrackSegment()!.xmlOutput(forTagClosing: 2))
-				} else {
-					var error: Error?
-					objc_try({
-						wCache.fileHandle?.write(wCache.gpx.firstTrack()!.lastTrackSegment()!.xmlOutput(forTagClosing: 2))
-					}, { exception in
-						error = NSError(domain: "fr.vso-software.GPSStoneTripRecorder", code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot write to GPX output file."])
-					})
-					if let e = error {throw e}
-				}
-			} catch {
-				wCache.recording.gpxFileBookmark = nil
-				do    {try dh.saveContextOrRollback()}
-				catch {recStatus = .stopped}
-			}
-		}
+		#warning("TODO: Add the TimeSegment to the current recording (or in resume, to see)")
 	}
 	
 	/** Resumes the current recording.
@@ -275,70 +230,27 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	time. */
 	func resumeCurrentRecording() {
 		assert(Thread.isMainThread)
-		guard case .paused(let rr, var sid) = recStatus else {
+		guard case .paused(let rr, let sid) = recStatus else {
 			assertionFailure()
 			return
 		}
 		
-		sid += 1
-		recStatus = .recording(recordingRef: rr, segmentID: sid)
-		
-		/* Let’s add the start of the new segment to the GPX */
-		if let wCache = try? recordingWriteObjects(for: rr) {
-			do {
-				if #available(iOS 13.0, *) {
-					try wCache.fileHandle?.write(contentsOf: wCache.gpx.firstTrack()!.lastTrackSegment()!.xmlOutput(forTagOpening: 2))
-				} else {
-					var error: Error?
-					objc_try({
-						wCache.fileHandle?.write(wCache.gpx.firstTrack()!.lastTrackSegment()!.xmlOutput(forTagOpening: 2))
-					}, { exception in
-						error = NSError(domain: "fr.vso-software.GPSStoneTripRecorder", code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot write to GPX output file."])
-					})
-					if let e = error {throw e}
-				}
-			} catch {
-				wCache.recording.gpxFileBookmark = nil
-				do    {try dh.saveContextOrRollback()}
-				catch {recStatus = .stopped}
-			}
-		}
+		recStatus = .recording(recordingRef: rr, segmentID: sid + 1)
+		#warning("TODO: Add the TimeSegment to the current recording (or in pause, to see)")
 	}
 	
 	/** Stops the current recording.
 	
 	This method is only valid to call while the location recorder is **not**
-	stopped (it has a current recording). Will crash if called at an invalid time */
+	stopped (it has a current recording). Will crash if called at an invalid
+	time. */
 	func stopCurrentRecording() throws -> Recording {
 		assert(Thread.isMainThread)
 		
 		let r = try recordingWriteObjects(for: recStatus.recordingRef!)
 		r.recording.endDate = Date()
+		#warning("TODO: TimeSegment?")
 		try dh.saveContextOrRollback()
-		
-		/* Let’s save the end of the GPX */
-		if let wCache = try? recordingWriteObjects(for: recStatus.recordingRef!) {
-			do {
-				if #available(iOS 13.0, *) {
-					try wCache.fileHandle?.write(contentsOf: wCache.gpx.firstTrack()!.lastTrackSegment()!.xmlOutput(forTagClosing: 2))
-					try wCache.fileHandle?.write(contentsOf: wCache.gpx.firstTrack()!.xmlOutput(forTagClosing: 1))
-					try wCache.fileHandle?.write(contentsOf: wCache.gpx.xmlOutput(forTagClosing: 0))
-				} else {
-					var error: Error?
-					objc_try({
-						wCache.fileHandle?.write(wCache.gpx.firstTrack()!.lastTrackSegment()!.xmlOutput(forTagClosing: 2))
-						wCache.fileHandle?.write(wCache.gpx.firstTrack()!.xmlOutput(forTagClosing: 1))
-						wCache.fileHandle?.write(wCache.gpx.xmlOutput(forTagClosing: 0))
-					}, { exception in
-						error = NSError(domain: "fr.vso-software.GPSStoneTripRecorder", code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot write to GPX output file."])
-					})
-					if let e = error {throw e}
-				}
-			} catch {
-				wCache.recording.gpxFileBookmark = nil
-				try dh.saveContextOrRollback()
-			}
-		}
 		
 		recStatus = .stopped
 		return r.recording
@@ -377,65 +289,23 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	   MARK: - Private
 	   *************** */
 	
-	/** Contains a reference to the resolved CoreData Recording object, and the
-	FileHandle and the GPXpgxType object to write the GPX to. */
+	/** Contains a reference to the resolved CoreData Recording object. Currenlty
+	this struct is a bit of an overkill, but used to contain a FileHandle and a
+	GPXgpxType object. */
 	private struct RecordingWriteObjects {
 		
 		let recordingRef: URL
-		
 		let recording: Recording
-		
-		/* These are only used to update the GPX file cache. We could probably
-		 * skip those completely and say we only create the GPX file when the trip
-		 * is exported. */
-		let gpx: GPXgpxType
-		/* If `nil`, the recording did not have a GPX bookmark. If the recording
-		 * does have a bookmark, the FileHandle will never be `nil`. */
-		let fileHandle: FileHandle?
 		
 		init(recordingRef rr: URL, recordingsManager: RecordingsManager) throws {
 			assert(Thread.isMainThread)
-			recordingRef = rr
 			
 			guard let r = recordingsManager.unsafeRecording(from: rr) else {
 				throw NSError(domain: "fr.vso-software.GPSStoneTripRecorder", code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot retrieve the given recording when instantiating a RecordingWriteObjects."])
 			}
 			
+			recordingRef = rr
 			recording = r
-			
-			/* We create a new GPX object whether there was a file already present
-			 * (e.g. the app quit/relaunched while a recording was in progress).The
-			 * object is only used for its conveniences to write GPX XML. */
-			gpx = GPXgpxType(
-				attributes: [
-					"version": "1.1",
-					"creator": NSLocalizedString("gpx creator tag", comment: "The text that will appear in the “creator” attribute of the exported GPX files.")
-				],
-				elementName: "gpx"
-			)
-			gpx.addTrack()
-			gpx.firstTrack()!.addTrackSegment()
-			
-			if let bookmark = r.gpxFileBookmark {
-				guard let gpxURL = recordingsManager.gpxURL(from: bookmark) else {
-					throw NSError(domain: "fr.vso-software.GPSStoneTripRecorder", code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot retrieve the given recording’s GPX URL when instantiating a RecordingWriteObjects."])
-				}
-				let fh = try FileHandle(forWritingTo: gpxURL)
-				if #available(iOS 13.0, *) {
-					try fh.seekToEnd()
-				} else {
-					var error: Error?
-					objc_try({
-						fh.seekToEndOfFile()
-					}, { exception in
-						error = NSError(domain: "fr.vso-software.GPSStoneTripRecorder", code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot seek to end of output file."])
-					})
-					if let e = error {throw e}
-				}
-				fileHandle = fh
-			} else {
-				fileHandle = nil
-			}
 		}
 		
 	}
@@ -501,6 +371,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	private func handleNewLocations(_ locations: [CLLocation]) {
 		assert(Thread.isMainThread)
 		
+		var numberOfPointsFailed = 0
 		for newLocation in locations {
 			guard !s.skipNonAccuratePoints || newLocation.horizontalAccuracy > c.maxAccuracyToRecordPoint else {return}
 			
@@ -520,33 +391,10 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 				}
 				
 				rm.unsafeAddPoint(location: newLocation, addedDistance: distance, segmentID: segmentID, to: writeObjects.recording)
-				
-				writeObjects.gpx.firstTrack()!.lastTrackSegment()!.addTrackPoint(
-					withCoords: newLocation.coordinate,
-					hPrecision: newLocation.horizontalAccuracy,
-					elevation: newLocation.altitude,
-					vPrecision: newLocation.verticalAccuracy,
-					heading: newLocation.course,
-					date: newLocation.timestamp
-				)
-				do {
-					if #available(iOS 13.0, *) {
-						try writeObjects.fileHandle?.write(contentsOf: writeObjects.gpx.firstTrack()!.lastTrackSegment()!.lastTrackPoint()!.xmlOutput(3))
-					} else {
-						var error: Error?
-						objc_try({
-							writeObjects.fileHandle?.write(writeObjects.gpx.firstTrack()!.lastTrackSegment()!.lastTrackPoint()!.xmlOutput(3))
-						}, { exception in
-							error = NSError(domain: "fr.vso-software.GPSStoneTripRecorder", code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot write to output file."])
-						})
-						if let e = error {throw e}
-					}
-				} catch {
-					writeObjects.recording.gpxFileBookmark = nil
-				}
 			} catch {
 				/* Adding the location to the list of locations that couldn’t be
 				 * saved… */
+				numberOfPointsFailed += 1
 				saveFailedLocations.append((location: newLocation, error: error))
 			}
 		}
@@ -555,6 +403,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		} catch {
 			/* Adding ALL the locations to the list of locations that couldn’t be
 			 * saved… */
+			saveFailedLocations.removeLast(numberOfPointsFailed)
 			saveFailedLocations.append(contentsOf: locations.map{ (location: $0, error: error) })
 		}
 		

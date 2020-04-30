@@ -23,11 +23,16 @@ final class RecordingsManager : NSObject {
 	/** Creates the next recording.
 	
 	Must be called on the dataHandler’s viewContext’s queue (the main thread). */
-	func unsafeCreateNextRecording() throws -> (Recording, URL) {
+	func unsafeCreateNextRecordingAndSaveContext(withGPXFile createGPX: Bool) throws -> Recording {
 		assert(Thread.isMainThread)
 		
-		let gpxURL = createNextGPXFile()
-		let bookmarkData = try gpxURL.bookmarkData(options: [], includingResourceValuesForKeys: nil, relativeTo: c.urlToFolderWithGPXFiles)
+		let bookmarkData: Data?
+		if createGPX {
+			let gpxURL = createNextGPXFile()
+			bookmarkData = try gpxURL.bookmarkData(options: [], includingResourceValuesForKeys: nil, relativeTo: c.urlToFolderWithGPXFiles)
+		} else {
+			bookmarkData = nil
+		}
 		
 		let s = NSEntityDescription.insertNewObject(forEntityName: "TimeSegment", into: dh.viewContext) as! TimeSegment
 		s.startTime = Date()
@@ -39,8 +44,9 @@ final class RecordingsManager : NSObject {
 		r.gpxFileBookmark = bookmarkData
 		r.totalTimeSegment = s
 		r.startDate = Date()
+		
 		try dh.saveContextOrRollback()
-		return (r, gpxURL)
+		return r
 	}
 	
 	/** Adds a point to the given recording. Does **NOT** save the context.
