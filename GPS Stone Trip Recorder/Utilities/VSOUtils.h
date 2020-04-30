@@ -60,9 +60,5 @@ NSString *NSStringFromTimeInterval(NSTimeInterval i);
 NSString *NSStringFromDistance(CLLocationDistance d, BOOL useMiles);
 NSString *NSStringFromAltitude(CLLocationDistance a, BOOL useMiles);
 
-void *mallocTable(size_t size, size_t sizeOfElementsInTable);
-void **malloc2DTable(size_t xSize, size_t ySize, size_t sizeOfElementsInTable);
-void ***malloc3DTable(size_t xSize, size_t ySize, size_t zSize, size_t sizeOfElementsInTable);
 
-void free2DTable(void **b, size_t xSize);
-void free3DTable(void ***b, size_t xSize, size_t ySize);
+void objc_try(void (NS_NOESCAPE ^triedHandler)(void), void (NS_NOESCAPE ^caughtHandler)(NSException *e));

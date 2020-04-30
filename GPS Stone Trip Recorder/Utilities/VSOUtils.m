@@ -94,6 +94,14 @@ NSString *NSStringFromAltitude(CLLocationDistance a, BOOL useMiles) {
 	return [NSString stringWithFormat:NSLocalizedString(formatNonLoc, nil), a + 0.5];
 }
 
+void objc_try(void (NS_NOESCAPE ^triedHandler)(void), void (NS_NOESCAPE ^caughtHandler)(NSException *e)) {
+	@try {
+		triedHandler();
+	} @catch(NSException *e) {
+		caughtHandler(e);
+	}
+}
+
 #if 0
 NSString *fullPathFromRelativeForGPXFile(NSString *relativePath) {
 	return [c.urlToFolderWithGPXFiles stringByAppendingPathComponent:relativePath];
@@ -107,50 +115,5 @@ NSString *relativePathFromFullForGPXFile(NSString *fullPath) {
 	}
 #endif
 	return [fullPath lastPathComponent];
-}
-
-#pragma mark -
-/* *************************** */
-void *mallocTable(size_t size, size_t sizeOfElementsInTable) {
-	void *b = malloc(size*sizeOfElementsInTable);
-	if (!b) {
-		fprintf(stderr, "Cannot malloc %ld bytes. Exiting now.\n", size*sizeOfElementsInTable);
-		exit(1);
-	}
-	
-	return b;
-}
-
-void **malloc2DTable(size_t xSize, size_t ySize, size_t sizeOfElementsInTable) {
-	void **b = mallocTable(xSize, sizeof(void*));
-	
-	for (size_t i = 0; i<xSize; i++)
-		b[i] = mallocTable(ySize, sizeOfElementsInTable);
-	
-	return b;
-}
-
-void ***malloc3DTable(size_t xSize, size_t ySize, size_t zSize, size_t sizeOfElementsInTable) {
-	void ***b = (void ***)malloc2DTable(xSize, ySize, sizeof(void*));
-	
-	for (size_t i = 0; i<xSize; i++)
-		for (size_t j = 0; j<ySize; j++)
-			b[i][j] = mallocTable(zSize, sizeOfElementsInTable);
-	
-	return b;
-}
-
-void free2DTable(void **b, size_t xSize) {
-	for (size_t i = 0; i<xSize; i++)
-		free(b[i]);
-	
-	free(b);
-}
-
-void free3DTable(void ***b, size_t xSize, size_t ySize) {
-	for (size_t i = 0; i<xSize; i++)
-		free2DTable(b[i], ySize);
-	
-	free(b);
 }
 #endif

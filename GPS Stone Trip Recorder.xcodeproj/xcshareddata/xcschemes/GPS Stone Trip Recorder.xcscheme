@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-               BuildableName = "GPS Stone Trip Recorder.app"
+               BuildableName = "GPS Stone.app"
                BlueprintName = "GPS Stone Trip Recorder"
                ReferencedContainer = "container:GPS Stone Trip Recorder.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "GPS Stone Trip Recorder.app"
+            BuildableName = "GPS Stone.app"
             BlueprintName = "GPS Stone Trip Recorder"
             ReferencedContainer = "container:GPS Stone Trip Recorder.xcodeproj">
          </BuildableReference>
@@ -66,7 +66,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "GPS Stone Trip Recorder.app"
+            BuildableName = "GPS Stone.app"
             BlueprintName = "GPS Stone Trip Recorder"
             ReferencedContainer = "container:GPS Stone Trip Recorder.xcodeproj">
          </BuildableReference>

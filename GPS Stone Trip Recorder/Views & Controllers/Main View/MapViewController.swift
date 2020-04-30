@@ -52,9 +52,9 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		})
 		
 		if recording == nil {
-			_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_status), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
+			_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_recStatus), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
 				guard let self = self else {return}
-				self.currentRecording = self.locationRecorder.status.recordingRef.flatMap{ self.recordingsManager.unsafeRecording(from: $0) }
+				self.currentRecording = self.locationRecorder.recStatus.recordingRef.flatMap{ self.recordingsManager.unsafeRecording(from: $0) }
 			})
 		} else {
 			currentRecording = recording
@@ -158,12 +158,12 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 			let fetchRequest: NSFetchRequest<RecordingPoint> = RecordingPoint.fetchRequest()
 			fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(RecordingPoint.recording), r)
 			fetchRequest.sortDescriptors = [
-				NSSortDescriptor(keyPath: \RecordingPoint.segmentId, ascending: true),
+				NSSortDescriptor(keyPath: \RecordingPoint.segmentID, ascending: true),
 				NSSortDescriptor(keyPath: \RecordingPoint.date, ascending: true)
 			]
 			let ctrl = NSFetchedResultsController<RecordingPoint>(
 				fetchRequest: fetchRequest, managedObjectContext: c,
-				sectionNameKeyPath: #keyPath(RecordingPoint.segmentId),
+				sectionNameKeyPath: #keyPath(RecordingPoint.segmentID),
 				cacheName: r.objectID.uriRepresentation().absoluteString
 			)
 			

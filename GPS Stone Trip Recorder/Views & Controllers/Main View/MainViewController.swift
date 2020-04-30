@@ -55,25 +55,25 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_status), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
+		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_recStatus), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
 			guard let self = self else {return}
 			
-			self.viewMiniInfos.isHidden = !self.locationRecorder.status.isRecording
+			self.viewMiniInfos.isHidden = self.locationRecorder.recStatus.isStopped
 			
-			switch self.locationRecorder.status {
-				case .stopped, .stoppedAndTracking:
+			switch self.locationRecorder.recStatus {
+				case .stopped:
 					self.buttonRecord.isHidden = false
 					self.buttonStop.isHidden = true
 					self.buttonPause.isHidden = true
 					self.buttonListRecords.isHidden = false
 					
-				case .recording, .pausedByBackground, .pausedByLocationError, .pausedByLocationDenied:
+				case .recording:
 					self.buttonRecord.isHidden = true
 					self.buttonStop.isHidden = false
 					self.buttonPause.isHidden = false
 					self.buttonListRecords.isHidden = true
 					
-				case .pausedByUser:
+				case .paused:
 					self.buttonRecord.isHidden = false
 					self.buttonStop.isHidden = false
 					self.buttonPause.isHidden = true
@@ -115,9 +115,9 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	
 	@IBAction func startRecording(_ sender: Any) {
 		#warning("TODO: Handle the error if any")
-		switch self.locationRecorder.status {
-			case .stopped, .stoppedAndTracking: try? locationRecorder.startNewRecording()
-			default:                            locationRecorder.resumeCurrentRecording()
+		switch self.locationRecorder.recStatus {
+			case .stopped: try? locationRecorder.startNewRecording()
+			default:       locationRecorder.resumeCurrentRecording()
 		}
 	}
 	

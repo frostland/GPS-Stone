@@ -39,9 +39,9 @@ class InfoViewController : UIViewController {
 			constraintMarginTopTitle.constant = 25
 		}
 		
-		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_status), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
+		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_recStatus), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
 			guard let self = self else {return}
-			self.buttonRecord.isHidden = self.locationRecorder.status.isRecording
+			self.buttonRecord.isHidden = (self.locationRecorder.recStatus.isRecording || self.locationRecorder.recStatus.isPaused)
 		})
 	}
 	

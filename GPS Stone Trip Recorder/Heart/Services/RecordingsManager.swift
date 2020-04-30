@@ -20,7 +20,12 @@ final class RecordingsManager : NSObject {
 		dh = dataHandler
 	}
 	
+	/** Creates the next recording.
+	
+	Must be called on the dataHandler’s viewContext’s queue (the main thread). */
 	func unsafeCreateNextRecording() throws -> (Recording, URL) {
+		assert(Thread.isMainThread)
+		
 		let gpxURL = createNextGPXFile()
 		let bookmarkData = try gpxURL.bookmarkData(options: [], includingResourceValuesForKeys: nil, relativeTo: c.urlToFolderWithGPXFiles)
 		
@@ -38,24 +43,52 @@ final class RecordingsManager : NSObject {
 		return (r, gpxURL)
 	}
 	
-	func unsafeAddPoint(location: CLLocation, addedDistance: CLLocationDistance, segmentId: Int16, to recording: Recording) throws {
-		NSLog("Adding new location in recording \(recording.name ?? "<no name>"): %@", location)
+	/** Adds a point to the given recording. Does **NOT** save the context.
+	
+	Must be called on the dataHandler’s viewContext’s queue (the main thread). */
+	@discardableResult
+	func unsafeAddPoint(location: CLLocation, addedDistance: CLLocationDistance, segmentID: Int16, to recording: Recording) -> RecordingPoint {
+		assert(Thread.isMainThread)
+		
+		NSLog("Adding new location in recording %@: %@", recording.name ?? "<no name>", location)
+		
 		let recordingPoint = NSEntityDescription.insertNewObject(forEntityName: "RecordingPoint", into: dh.viewContext) as! RecordingPoint
-		recordingPoint.date = Date()
+		recordingPoint.date = location.timestamp
 		recordingPoint.location = location
-		recordingPoint.segmentId = segmentId
+		recordingPoint.segmentID = segmentID
+		
 //		recording.addToPoints(recordingPoint) /* Does not work on iOS 9, so we have to do the line below! */
 		recording.mutableOrderedSetValue(forKey: #keyPath(Recording.points)).add(recordingPoint)
 		recording.totalDistance += Float(addedDistance)
 		recording.maxSpeed = max(Float(location.speed), recording.maxSpeed)
-		try dh.saveContextOrRollback()
+		
+		return recordingPoint
+	}
+	
+	/** Removes the given point from the given recording. Does **NOT** save the
+	context. Will not revert the max speed to the previous max speed (we can’t
+	really know it, can we?)
+	
+	Must be called on the dataHandler’s viewContext’s queue (the main thread). */
+	func unsafeRemovePoint(point: RecordingPoint, removedDistance: CLLocationDistance, from recording: Recording) {
+		assert(Thread.isMainThread)
+		
+		NSLog("Removing point in recording %@: %@", recording.name ?? "<no name>")
+		
+		dh.viewContext.delete(point)
+		recording.totalDistance -= Float(removedDistance)
 	}
 	
 	func recordingRef(from recordingID: NSManagedObjectID) -> URL {
 		return recordingID.uriRepresentation()
 	}
 	
+	/** Fetches the recording corresponding to the given ref.
+	
+	Must be called on the dataHandler’s viewContext’s queue (the main thread). */
 	func unsafeRecording(from recordingRef: URL) -> Recording? {
+		assert(Thread.isMainThread)
+		
 		guard let recordingID = dh.persistentStoreCoordinator.managedObjectID(forURIRepresentation: recordingRef) else {
 			return nil
 		}
