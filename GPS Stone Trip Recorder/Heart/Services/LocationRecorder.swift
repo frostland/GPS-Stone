@@ -16,7 +16,7 @@ import UIKit /* To get app and register to app fg/bg state */
  * TODO: Switch to Combine! */
 final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	
-	enum RecordingStatus : Codable {
+	enum RecordingStatus : Codable, Equatable {
 		
 		case stopped
 		
@@ -130,8 +130,10 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			 *             if the value is changed in a function that is called in
 			 *             the didSet block! (Tested w/ Xcode 11.4.1)
 			 *             Not sure this is the expected behaviour nor if it will
-			 *             stay the same forever though… */
-			handleStatusChange(from: oldValue, to: recStatus, saveInHistory: true)
+			 *             stay the same forever though…
+			 *             @jckarter says yes it is the expected behavior:
+			 *             https://twitter.com/jckarter/status/1255509948127215616*/
+			handleStatusChange(from: (recStatus: oldValue, trackingRetained: numberOfClientsRequiringTracking > 0), to: (recStatus: recStatus, trackingRetained: numberOfClientsRequiringTracking > 0))
 			didChangeValue(for: \.objc_recStatus)
 		}
 	}
@@ -156,9 +158,6 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		#warning("TODO: Set pausesLocationUpdatesAutomatically to true")
 		#warning("TODO: Use allowDeferredLocationUpdatesUntilTraveled:timeout:")
-		#warning("TODO: Monitor the AppSettings for changes on the minPathDistance property")
-		lm.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-		lm.distanceFilter = appSettings.minPathDistance
 		lm.activityType = .fitness
 		lm.delegate = self
 		/* KVO on \.applicationState does not work, so we observe the app notifications instead. */
@@ -167,7 +166,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		notificationObservers.append(NotificationCenter.default.addObserver(forName: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.applyGPSRestrictionsToStatus() }))
 		
 		/* The method below calls applyGPSRestrictionsToStatus() */
-		handleStatusChange(from: .stopped, to: recStatus, saveInHistory: false) /* willSet/didSet not called from init */
+		handleStatusChange(from: (recStatus: .stopped, trackingRetained: false), to: (recStatus: recStatus, trackingRetained: false)) /* willSet/didSet not called from init */
 	}
 	
 	deinit {
@@ -183,7 +182,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		numberOfClientsRequiringTracking += 1
 		if numberOfClientsRequiringTracking == 1 {
 			/* Nobody was requesting tracking, now someone does. */
-			#warning("TODO")
+			handleStatusChange(from: (recStatus: recStatus, trackingRetained: false), to: (recStatus: recStatus, trackingRetained: true))
 		}
 	}
 	
@@ -191,7 +190,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		numberOfClientsRequiringTracking -= 1
 		if numberOfClientsRequiringTracking == 0 {
 			/* Nobody needs the tracking anymore. */
-			#warning("TODO")
+			handleStatusChange(from: (recStatus: recStatus, trackingRetained: true), to: (recStatus: recStatus, trackingRetained: false))
 		}
 	}
 	
@@ -411,47 +410,59 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		else                                                {currentLocation = nil}
 	}
 	
-	private func handleStatusChange(from oldStatus: RecordingStatus, to newStatus: RecordingStatus, saveInHistory: Bool) {
+	private func handleStatusChange(from oldStatus: (recStatus: RecordingStatus, trackingRetained: Bool), to newStatus: (recStatus: RecordingStatus, trackingRetained: Bool)) {
 		assert(Thread.isMainThread)
 		NSLog("%@", "Status change from \(oldStatus) to \(newStatus)")
 		
 		/* Let’s save the current status */
-		if saveInHistory {
-			recStatusesHistory.append(RecordingStatusHistoryEntry(date: Date(), status: newStatus))
+		if oldStatus.recStatus != newStatus.recStatus {
+			recStatusesHistory.append(RecordingStatusHistoryEntry(date: Date(), status: newStatus.recStatus))
 			_ = try? PropertyListEncoder().encode(recStatusesHistory).write(to: c.urlToCurrentRecordingInfo)
 		}
 		
-		if oldStatus.recordingRef == nil, let newRecordingRef = newStatus.recordingRef {
+		if oldStatus.recStatus.recordingRef == nil, let newRecordingRef = newStatus.recStatus.recordingRef {
 			cachedRecordingWriteObjects = try? RecordingWriteObjects(recordingRef: newRecordingRef, recordingsManager: rm)
 			guard cachedRecordingWriteObjects != nil else {
 				recStatus = .stopped
 				return
 			}
-		} else if oldStatus.recordingRef != nil && newStatus.recordingRef == nil {
+		} else if oldStatus.recStatus.recordingRef != nil && newStatus.recStatus.recordingRef == nil {
 			cachedRecordingWriteObjects = nil
 		}
 		
-		#warning("TODO: Not recording but location should be tracked anyway")
-		if newStatus.isRecording {
-			if newStatus.isRecording {lm.requestAlwaysAuthorization()}
-			else                     {lm.requestWhenInUseAuthorization()}
+		let needsTracking = newStatus.recStatus.isRecording || newStatus.trackingRetained
+		let neededTracking = oldStatus.recStatus.isRecording || oldStatus.trackingRetained
+		if needsTracking {
+			/* When we need the tracking, we ask for the permissions. If we’re
+			 * recording a trip it’s better to have the always permission (though
+			 * apparently not really needed; it seems to only rid of the blue bar
+			 * telling an app is actively using one’s position). */
+			if newStatus.recStatus.isRecording {lm.requestAlwaysAuthorization()}
+			else                               {lm.requestWhenInUseAuthorization()}
 		}
-		if newStatus.isRecording && !oldStatus.isRecording {
+		if newStatus.recStatus.isRecording && !oldStatus.recStatus.isRecording {
+			/* We assume the user won’t change these settings during a trip
+			 * recording. If he does, well too bad! */
+			lm.desiredAccuracy = (s.skipNonAccuratePoints && c.maxAccuracyToRecordPoint < 10 ? kCLLocationAccuracyBest : kCLLocationAccuracyNearestTenMeters)
+			lm.distanceFilter = max(0, min(50, s.minPathDistance - 5))
+			
+			/* This should launch the app when it gets a significant location
+			 * changes even if the user has force quit it. It should. */
+			lm.startMonitoringSignificantLocationChanges()
+		} else if !newStatus.recStatus.isRecording && oldStatus.recStatus.isRecording {
+			lm.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+			lm.distanceFilter = 50
+			
+			lm.stopMonitoringSignificantLocationChanges()
+		}
+		if needsTracking && !neededTracking {
 			lm.startUpdatingLocation()
 			lm.startUpdatingHeading()
-			if newStatus.isRecording && !oldStatus.isRecording {
-				/* This should launch the app when it gets a significant location
-				 * changes even if the user has force quit it. It should. */
-				lm.startMonitoringSignificantLocationChanges()
-			}
-		} else if !newStatus.isRecording && oldStatus.isRecording {
+		} else if !needsTracking && neededTracking {
 			lm.stopUpdatingHeading()
 			lm.stopUpdatingLocation()
-			if !newStatus.isRecording && oldStatus.isRecording {
-				lm.stopMonitoringSignificantLocationChanges()
-			}
 		}
-		if #available(iOS 9.0, *) {lm.allowsBackgroundLocationUpdates = newStatus.isRecording}
+		if #available(iOS 9.0, *) {lm.allowsBackgroundLocationUpdates = newStatus.recStatus.isRecording}
 		
 		applyGPSRestrictionsToStatus()
 	}
