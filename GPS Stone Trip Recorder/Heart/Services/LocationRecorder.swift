@@ -372,19 +372,19 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		var numberOfPointsFailed = 0
 		for newLocation in locations {
-			guard !s.skipNonAccuratePoints || newLocation.horizontalAccuracy > c.maxAccuracyToRecordPoint else {return}
+			guard !s.skipNonAccuratePoints || newLocation.horizontalAccuracy > c.maxAccuracyToRecordPoint else {continue}
 			
 			let checkedRecStatus = recStatus(at: newLocation.timestamp)
-			guard case .recording(let recordingRef, let segmentID) = checkedRecStatus else {return}
+			guard case .recording(let recordingRef, let segmentID) = checkedRecStatus else {continue}
 			
 			do {
 				let writeObjects = try recordingWriteObjects(for: recordingRef)
 				
 				let distance: CLLocationDistance
 				if let latestRecordedPoint = writeObjects.recording.points?.lastObject as! RecordingPoint?, let latestPointDate = latestRecordedPoint.date, let latestPointLocation = latestRecordedPoint.location {
-					guard -latestPointDate.timeIntervalSinceNow >= s.minTimeForUpdate else {return}
+					guard -latestPointDate.timeIntervalSinceNow >= s.minTimeForUpdate else {continue}
 					distance = newLocation.distance(from: latestPointLocation)
-					guard distance >= s.minPathDistance else {return}
+					guard distance >= s.minPathDistance else {continue}
 				} else {
 					distance = 0
 				}
