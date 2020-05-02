@@ -80,13 +80,15 @@ class DetailsViewController : UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		locationRecorder.retainTracking()
+		locationRecorder.retainLocationTracking()
+		locationRecorder.retainHeadingTracking()
 	}
 	
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 		
-		locationRecorder.releaseTracking()
+		locationRecorder.releaseHeadingTracking()
+		locationRecorder.releaseLocationTracking()
 	}
 	
 	@IBAction func startRecording(_ sender: Any) {

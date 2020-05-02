@@ -66,13 +66,13 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		locationRecorder.retainTracking()
+		locationRecorder.retainLocationTracking()
 	}
 	
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 		
-		locationRecorder.releaseTracking()
+		locationRecorder.releaseLocationTracking()
 	}
 	
 	@IBAction func centerMapOnCurLoc(_ sender: Any) {
