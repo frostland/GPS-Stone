@@ -370,6 +370,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	private func handleNewLocations(_ locations: [CLLocation]) {
 		assert(Thread.isMainThread)
 		
+		var changedContext = false
 		var numberOfPointsFailed = 0
 		for newLocation in locations {
 			guard !s.skipNonAccuratePoints || newLocation.horizontalAccuracy > c.maxAccuracyToRecordPoint else {continue}
@@ -390,6 +391,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 				}
 				
 				rm.unsafeAddPoint(location: newLocation, addedDistance: distance, segmentID: segmentID, to: writeObjects.recording)
+				changedContext = true
 			} catch {
 				/* Adding the location to the list of locations that couldn’t be
 				 * saved… */
@@ -397,13 +399,18 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 				saveFailedLocations.append((location: newLocation, error: error))
 			}
 		}
-		do {
-			try dh.saveContextOrRollback()
-		} catch {
-			/* Adding ALL the locations to the list of locations that couldn’t be
-			 * saved… */
-			saveFailedLocations.removeLast(numberOfPointsFailed)
-			saveFailedLocations.append(contentsOf: locations.map{ (location: $0, error: error) })
+		/* Not fully convinced checking whether we changed the context is useful
+		 * before saving it (CoreData should be optimized so that it wouldn’t do
+		 * anything at all if saving no modifications IMHO). */
+		if changedContext {
+			do {
+				try dh.saveContextOrRollback()
+			} catch {
+				/* Adding ALL the locations to the list of locations that couldn’t
+				 * be saved… */
+				saveFailedLocations.removeLast(numberOfPointsFailed)
+				saveFailedLocations.append(contentsOf: locations.map{ (location: $0, error: error) })
+			}
 		}
 		
 		if locations.last?.horizontalAccuracy.sign == .plus {currentLocation = locations.last}
