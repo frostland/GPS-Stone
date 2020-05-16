@@ -20,13 +20,13 @@
     </entity>
     <entity name="TimeSegment" representedClassName="TimeSegment" syncable="YES" codeGenerationType="class">
         <attribute name="duration" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="startTime" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="startDate" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="pauseSegmentRecording" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recording" inverseName="pauses" inverseEntity="Recording"/>
         <relationship name="totalTimeSegmentRecording" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recording" inverseName="totalTimeSegment" inverseEntity="Recording"/>
     </entity>
     <elements>
         <element name="Recording" positionX="-63" positionY="-18" width="128" height="193"/>
         <element name="RecordingPoint" positionX="110.109375" positionY="90.20703125" width="128" height="103"/>
-        <element name="TimeSegment" positionX="-288.609375" positionY="63.1875" width="160.51953125" height="105"/>
+        <element name="TimeSegment" positionX="-288.609375" positionY="63.1875" width="160.51953125" height="103"/>
     </elements>
 </model>

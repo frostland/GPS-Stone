@@ -35,7 +35,7 @@ final class RecordingsManager : NSObject {
 		}
 		
 		let s = NSEntityDescription.insertNewObject(forEntityName: "TimeSegment", into: dh.viewContext) as! TimeSegment
-		s.startTime = Date()
+		s.startDate = Date()
 		
 		let r: Recording
 		if #available(iOS 10.0, *) {r = Recording(context: dh.viewContext)}

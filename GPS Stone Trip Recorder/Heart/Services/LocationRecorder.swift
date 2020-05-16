@@ -158,7 +158,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		}
 	}
 	
-	/** Tells the location recorder a new client requires the user’s position.
+	/**
+	Tells the location recorder a new client requires the user’s position.
 	
 	When you don’t need the position anymore, call `releaseLocationTracking()` */
 	func retainLocationTracking() {
@@ -173,7 +174,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		status.nClientsRequiringLocTracking -= 1
 	}
 	
-	/** Tells the location recorder a new client requires the user’s heading.
+	/**
+	Tells the location recorder a new client requires the user’s heading.
 	
 	When you don’t need the position anymore, call `releaseHeadingTracking()` */
 	func retainHeadingTracking() {
@@ -188,7 +190,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		status.nClientsRequiringHeadingTracking -= 1
 	}
 	
-	/** Starts a new recording.
+	/**
+	Starts a new recording.
 	
 	This method is only valid to call while the location recorder is **stopped**
 	(it does not have a current recording). Will crash in debug mode (assert
@@ -202,7 +205,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		status.recordingStatus = .recording(recordingRef: rm.recordingRef(from: recording.objectID), segmentID: 0)
 	}
 	
-	/** Pauses the current recording.
+	/**
+	Pauses the current recording.
 	
 	This method is only valid to call while the location recorder is **not**
 	stopped (it has a current recording). Will crash in debug mode (assert
@@ -216,7 +220,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		#warning("TODO: Add the TimeSegment to the current recording (or in resume, to see)")
 	}
 	
-	/** Resumes the current recording.
+	/**
+	Resumes the current recording.
 	
 	This method is only valid to call while the location recorder is **paused by
 	the user**. Will crash in debug mode (assert active) if called at an invalid
@@ -232,7 +237,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		#warning("TODO: Add the TimeSegment to the current recording (or in pause, to see)")
 	}
 	
-	/** Stops the current recording.
+	/**
+	Stops the current recording.
 	
 	This method is only valid to call while the location recorder is **not**
 	stopped (it has a current recording). Will crash if called at an invalid
@@ -366,7 +372,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		}
 	}
 	
-	/** The history of recording statuses w/ the date of change.
+	/**
+	The history of recording statuses w/ the date of change.
 	
 	We need this because we can receive delayed location events, so we need to
 	know what _was_ our recording status at the event date. */
@@ -375,7 +382,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	private var cachedRecordingWriteObjects: RecordingWriteObjects?
 	
 	/** The locations that couldn’t be saved, with the save error. */
-	#warning("TODO: Do something with those? For now they’re just saved here, doing nothing, being erased when theh app is terminated…")
+	#warning("TODO: Do something with those? For now they’re just saved here, doing nothing, being erased when the app is terminated…")
 	private var saveFailedLocations = [(location: CLLocation, error: Error)]()
 	
 	private var notificationObservers = [NSObjectProtocol]()
@@ -388,7 +395,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	private let lm: CLLocationManager
 	private let rm: RecordingsManager
 	
-	/** Returns the recording status at the given date.
+	/**
+	Returns the recording status at the given date.
 	
 	If there is no recording status for the given date (the date is anterior to
 	the first date we have in the statuses history), the function returns

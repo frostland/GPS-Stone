@@ -210,13 +210,13 @@ class DetailsViewController : UIViewController {
 		guard let recording = currentRecording else {return}
 		
 		/* We cheat on the time (the record is not updated all the time) */
-		var duration = -(recording.totalTimeSegment?.startTime?.timeIntervalSinceNow ?? 0)
+		var duration = -(recording.totalTimeSegment?.startDate?.timeIntervalSinceNow ?? 0)
 		labelElapsedTime.text = NSStringFromTimeInterval(duration)
 		
 		if let latestPointDate = (recording.points?.lastObject as! RecordingPoint?)?.date {
 			/* We cheat the time twice (to avoid having the average speed that
 			 * moves all the time). */
-			duration = -(recording.totalTimeSegment?.startTime?.timeIntervalSince(latestPointDate) ?? 0)
+			duration = -(recording.totalTimeSegment?.startDate?.timeIntervalSince(latestPointDate) ?? 0)
 		}
 		guard duration > 0.5 else {return}
 		
