@@ -19,7 +19,7 @@
         <relationship name="recording" maxCount="1" deletionRule="Nullify" destinationEntity="Recording" inverseName="points" inverseEntity="Recording"/>
     </entity>
     <entity name="TimeSegment" representedClassName="TimeSegment" syncable="YES" codeGenerationType="class">
-        <attribute name="duration" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO"/>
         <attribute name="startDate" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="pauseSegmentRecording" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recording" inverseName="pauses" inverseEntity="Recording"/>
         <relationship name="totalTimeSegmentRecording" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recording" inverseName="totalTimeSegment" inverseEntity="Recording"/>

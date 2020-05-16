@@ -19,10 +19,11 @@ extension Recording {
 	/**
 	The total time of the recording (including the pauses). */
 	var recordingDuration: TimeInterval {
-		if totalTimeSegment == nil {
+		guard let totalTimeSegment = totalTimeSegment else {
 			NSLog("***** ERROR - Got an invalid recording (nil totalTimeSegment): %@", self)
+			return 0
 		}
-		return TimeInterval(totalTimeSegment?.duration ?? 0)
+		return totalTimeSegment.effectiveDuration
 	}
 	
 	/**
@@ -40,7 +41,7 @@ extension Recording {
 			}
 			/* We do not validate the pause is indeed in the total time segment. We
 			 * could but what would we do in case of invaid pause? */
-			return current - pauseTimeSegment.duration
+			return current - pauseTimeSegment.effectiveDuration
 		})
 		/* Let’s still verify we have a positive duration! */
 		guard totalTimeMinusPauses >= 0 else {
