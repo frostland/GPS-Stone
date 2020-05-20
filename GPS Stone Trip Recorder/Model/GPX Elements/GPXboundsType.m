@@ -8,8 +8,6 @@
 
 #import "GPXboundsType.h"
 
-#import "Constants.h"
-
 
 
 @implementation GPXboundsType
@@ -18,19 +16,19 @@
 {
 	if ((self = [super initWithAttributes:dic elementName:en]) != nil) {
 		NSString *str = [dic valueForKey:@"minlat"];
-		if (str == nil) NSXMLLog(@"Warning, invalid GPX file: No minlat attribute in \"bounds\"");
+		if (str == nil) NSLog(@"Warning, invalid GPX file: No minlat attribute in \"bounds\"");
 		else            _minCoords.latitude = [str doubleValue];
 		
 		str = [dic valueForKey:@"minlon"];
-		if (str == nil) NSXMLLog(@"Warning, invalid GPX file: No minlon attribute in \"wpt\"");
+		if (str == nil) NSLog(@"Warning, invalid GPX file: No minlon attribute in \"wpt\"");
 		else            _minCoords.longitude = [str doubleValue];
 		
 		str = [dic valueForKey:@"maxlat"];
-		if (str == nil) NSXMLLog(@"Warning, invalid GPX file: No maxlat attribute in \"bounds\"");
+		if (str == nil) NSLog(@"Warning, invalid GPX file: No maxlat attribute in \"bounds\"");
 		else            _maxCoords.latitude = [str doubleValue];
 		
 		str = [dic valueForKey:@"maxlon"];
-		if (str == nil) NSXMLLog(@"Warning, invalid GPX file: No maxlon attribute in \"wpt\"");
+		if (str == nil) NSLog(@"Warning, invalid GPX file: No maxlon attribute in \"wpt\"");
 		else            _maxCoords.longitude = [str doubleValue];
 	}
 	

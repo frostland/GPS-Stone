@@ -42,9 +42,9 @@
 
 - (void)removeAllTrackPoints
 {
-	NSDLog(@"Removing track points");
+	NSLog(@"Removing track points");
 	[self removeAllChildrenWithElementName:@"trkpt"];
-	NSDLog(@"Done removing track points");
+	NSLog(@"Done removing track points");
 }
 
 - (BOOL)addTrackPointWithCoords:(CLLocationCoordinate2D)coords hPrecision:(CLLocationAccuracy)hPrecision

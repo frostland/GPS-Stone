@@ -40,8 +40,12 @@
 		7B1AC2662335AAD600B6F06A /* RetryingOperation in Frameworks */ = {isa = PBXBuildFile; productRef = 7B1AC2652335AAD600B6F06A /* RetryingOperation */; };
 		7B1AC2692335AB2000B6F06A /* XibLoc in Frameworks */ = {isa = PBXBuildFile; productRef = 7B1AC2682335AB2000B6F06A /* XibLoc */; };
 		7B23D9BA22B90BB20007BA61 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B23D9B922B90BB20007BA61 /* InfoViewController.swift */; };
-		7B23D9BB22B90DF00007BA61 /* VSOUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */; };
 		7B27B9291DCDF6B1006F44B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */; };
+		7B4487A0247199CC00B6DB7B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B44879F247199CC00B6DB7B /* Utils.swift */; };
+		7B4487A1247199EA00B6DB7B /* VSOUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */; };
+		7B4487A324719ADF00B6DB7B /* Utils+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4487A224719ADF00B6DB7B /* Utils+UI.swift */; };
+		7B4487A524719C5000B6DB7B /* Utils+Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4487A424719C5000B6DB7B /* Utils+Language.swift */; };
+		7B4487A72471CA1100B6DB7B /* GPSStoneLocTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4487A62471CA1100B6DB7B /* GPSStoneLocTokens.swift */; };
 		7B482CE11DCA8ADD007B5ABC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CDF1DCA8ADD007B5ABC /* Localizable.strings */; };
 		7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */; };
 		7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE81DCA975F007B5ABC /* Main.storyboard */; };
@@ -89,7 +93,6 @@
 		0FA3D1DC10302ED80098760F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		0FB4B0FB10074B20005292C4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0FBBCBA8100A9F67003679A8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		0FBBCBC6100A9FDD003679A8 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		0FC907BC1023107F009EA1B1 /* VSORecordingsListViewCtlr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSORecordingsListViewCtlr.m; sourceTree = "<group>"; };
 		0FC907BD1023107F009EA1B1 /* VSORecordingsListViewCtlr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSORecordingsListViewCtlr.h; sourceTree = "<group>"; };
 		0FE8B0D810218740009A321A /* XMLDecimalElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLDecimalElement.h; sourceTree = "<group>"; };
@@ -124,13 +127,17 @@
 		288765580DF743DE002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		289233A80DB2D0DB0083E9F9 /* MainViewController_obs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController_obs.h; sourceTree = "<group>"; };
 		289233A90DB2D0DB0083E9F9 /* MainViewController_obs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController_obs.m; sourceTree = "<group>"; };
-		32CA4F630368D1EE00C91783 /* GPS_Stone_Trip_Recorder.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPS_Stone_Trip_Recorder.pch; sourceTree = "<group>"; };
 		7B06D3A822EC8D27000D31B9 /* DataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
 		7B08CFC522BA96AF00BE6E3F /* RecordingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingDetailsViewController.swift; sourceTree = "<group>"; };
 		7B0F344B22BA9DFA00F0F9EC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		7B1024FC22BA19A7008BF119 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		7B23D9B922B90BB20007BA61 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7B44879F247199CC00B6DB7B /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		7B4487A224719ADF00B6DB7B /* Utils+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utils+UI.swift"; sourceTree = "<group>"; };
+		7B4487A424719C5000B6DB7B /* Utils+Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utils+Language.swift"; sourceTree = "<group>"; };
+		7B4487A62471CA1100B6DB7B /* GPSStoneLocTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSStoneLocTokens.swift; sourceTree = "<group>"; };
+		7B4487AA247285C600B6DB7B /* XibLoc */ = {isa = PBXFileReference; lastKnownFileType = folder; name = XibLoc; path = ../../../happn/happnOpenSource/XibLoc; sourceTree = "<group>"; };
 		7B482CE01DCA8ADD007B5ABC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B482CE91DCA976E007B5ABC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -283,6 +290,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				7B4487AA247285C600B6DB7B /* XibLoc */,
 				7B94D1EB22A0389400848832 /* Readme.md */,
 				7BA2A5EA1F2E013A0014603B /* Test Recording.gpx */,
 				7B27B9311DCF3D81006F44B7 /* GPS Stone Trip Recorder */,
@@ -332,6 +340,10 @@
 		7B27B9321DCF3DC6006F44B7 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				7B44879F247199CC00B6DB7B /* Utils.swift */,
+				7B4487A224719ADF00B6DB7B /* Utils+UI.swift */,
+				7B4487A424719C5000B6DB7B /* Utils+Language.swift */,
+				7B4487A62471CA1100B6DB7B /* GPSStoneLocTokens.swift */,
 				0F79F69E10203DAE00AF7FF1 /* VSOUtils.h */,
 				0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */,
 			);
@@ -365,8 +377,6 @@
 			children = (
 				7B27B9361DCF3E3D006F44B7 /* Localizables */,
 				7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */,
-				0FBBCBC6100A9FDD003679A8 /* Constants.h */,
-				32CA4F630368D1EE00C91783 /* GPS_Stone_Trip_Recorder.pch */,
 				7B94D1E022A0169600848832 /* GPS Stone Trip Recorder-Bridging-Header.h */,
 				8D1107310486CEB800E47090 /* GPS_Stone_Trip_Recorder-Info.plist */,
 			);
@@ -521,14 +531,15 @@
 				7B1024FD22BA19A7008BF119 /* MapViewController.swift in Sources */,
 				7BEF77FC22EFA23B001B79DB /* Recording+Utils.swift in Sources */,
 				7BE9FF9D22AC1BC6006DED15 /* RecordingsManager.swift in Sources */,
+				7B4487A324719ADF00B6DB7B /* Utils+UI.swift in Sources */,
 				0F577FCD1020811300067838 /* GPXgpxType.m in Sources */,
 				7B94D1E222A0169600848832 /* AppDelegate.swift in Sources */,
+				7B4487A0247199CC00B6DB7B /* Utils.swift in Sources */,
 				7B06D3A922EC8D27000D31B9 /* DataHandler.swift in Sources */,
 				0F577FD01020816D00067838 /* XMLElement.m in Sources */,
 				7B94D1E822A0194100848832 /* Constants.swift in Sources */,
 				7B08CFC622BA96AF00BE6E3F /* RecordingDetailsViewController.swift in Sources */,
 				7B93E38222A184ED00709971 /* LocationRecorder.swift in Sources */,
-				7B23D9BB22B90DF00007BA61 /* VSOUtils.m in Sources */,
 				7B5108F722BA57E60038CEAC /* RecordingsListViewController.swift in Sources */,
 				0F57809A1020925100067838 /* GPXmetadataType.m in Sources */,
 				0F5780B51020939900067838 /* XMLStringElement.m in Sources */,
@@ -537,6 +548,7 @@
 				7B23D9BA22B90BB20007BA61 /* InfoViewController.swift in Sources */,
 				0F5780E51020988800067838 /* GPXwptType.m in Sources */,
 				7B75989C246EF7BA00BC7EB1 /* TimeSegment+Utils.swift in Sources */,
+				7B4487A1247199EA00B6DB7B /* VSOUtils.m in Sources */,
 				0FE8B0DA10218740009A321A /* XMLDecimalElement.m in Sources */,
 				0FE8B11610218965009A321A /* GPXrteType.m in Sources */,
 				0FE8B12C10218AFA009A321A /* XMLIntegerElement.m in Sources */,
@@ -554,6 +566,8 @@
 				7BD4B52A22C134A400EC9545 /* UIUtils.swift in Sources */,
 				0FE8B1C41021964F009A321A /* GPXboundsType.m in Sources */,
 				7B94D1E622A0191700848832 /* ServicesProvider.swift in Sources */,
+				7B4487A524719C5000B6DB7B /* Utils+Language.swift in Sources */,
+				7B4487A72471CA1100B6DB7B /* GPSStoneLocTokens.swift in Sources */,
 				7B94D1EA22A0197900848832 /* AppSettings.swift in Sources */,
 				7BD0A05922B9576500934656 /* DetailsViewController.swift in Sources */,
 			);
@@ -594,7 +608,6 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder.pch";
 				INFOPLIST_FILE = "GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -620,7 +633,6 @@
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = DVL8GW97S8;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder.pch";
 				INFOPLIST_FILE = "GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -755,7 +767,7 @@
 			repositoryURL = "git@github.com:happn-tech/XibLoc.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.8;
+				minimumVersion = "1.0.0-rc";
 			};
 		};
 		7BC43305233624DD00C59752 /* XCRemoteSwiftPackageReference "CollectionAndTableViewUpdateConveniences" */ = {

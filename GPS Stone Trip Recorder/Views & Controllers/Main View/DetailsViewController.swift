@@ -11,6 +11,7 @@ import Foundation
 import UIKit
 
 import KVObserver
+import XibLoc
 
 
 
@@ -133,30 +134,29 @@ class DetailsViewController : UIViewController {
 	}
 	
 	private func updateUnitsLabels() {
-		if appSettings.useMetricSystem {labelKmph.text = NSLocalizedString("km/h", comment: "")}
-		else                           {labelKmph.text = NSLocalizedString("mph",  comment: "")}
+		labelKmph.text = Utils.speedSymbol(usingMetricSystem: appSettings.useMetricSystem)
 	}
 	
 	private func updateLocationUI() {
 		labelLat.text = NSLocalizedString("getting loc", comment: "")
 		labelLong.text = ""
-		labelSpeed.text = NSStringFromSpeed(0, false, !appSettings.useMetricSystem)
+		labelSpeed.text = Utils.stringFrom(speedValue: 0, useMetricSystem: appSettings.useMetricSystem)
 		labelAltitude.text = NSLocalizedString("nd", comment: "")
 		labelVerticalAccuracy.text = ""
 		labelHorizontalAccuracy.text = NSLocalizedString("nd", comment: "")
 		
 		if let location = locationRecorder.currentLocation {
-			labelLat.text  = NSStringFromDegrees(location.coordinate.latitude,  true)
-			labelLong.text = NSStringFromDegrees(location.coordinate.longitude, false)
-			labelHorizontalAccuracy.text = NSStringFromDistance(location.horizontalAccuracy, !appSettings.useMetricSystem)
+			labelLat.text  = Utils.stringFrom(latitudeDegrees:  location.coordinate.latitude)
+			labelLong.text = Utils.stringFrom(longitudeDegrees: location.coordinate.longitude)
+			labelHorizontalAccuracy.text = Utils.stringFrom(distance: location.horizontalAccuracy, useMetricSystem: appSettings.useMetricSystem)
 			labelHorizontalAccuracy.textColor = (location.horizontalAccuracy > c.maxAccuracyToRecordPoint ? .red : labelColor)
 			if location.verticalAccuracy.sign == .plus {
-				labelAltitude.text = NSStringFromAltitude(location.altitude, !appSettings.useMetricSystem)
+				labelAltitude.text = Utils.stringFrom(altitude: location.altitude, useMetricSystem: appSettings.useMetricSystem)
 				#warning("TODO: Use XibLoc!")
 				labelVerticalAccuracy.text = abs(location.altitude) < 0.001 ? "" : String(format: NSLocalizedString("plus minus n percent format", comment: ""), Int((location.verticalAccuracy/abs(location.altitude)) * 100))
 			}
 			if location.speed.sign == .plus {
-				labelSpeed.text = NSStringFromSpeed(location.speed, false, !appSettings.useMetricSystem)
+				labelSpeed.text = Utils.stringFrom(speedValue: location.speed, useMetricSystem: appSettings.useMetricSystem)
 			}
 		}
 	}
@@ -172,13 +172,12 @@ class DetailsViewController : UIViewController {
 	
 	private func updateRecordingUI() {
 		assert(Thread.isMainThread)
-		let numberFormatter = NumberFormatter()
 		
 		if let recording = currentRecording {
 			labelTrackName.text = recording.name
-			labelMaxSpeed.text = NSStringFromSpeed(CLLocationSpeed(recording.maxSpeed), false, !appSettings.useMetricSystem)
-			labelTotalDistance.text = NSStringFromDistance(CLLocationDistance(recording.totalDistance), !appSettings.useMetricSystem)
-			labelNumberOfPoints.text = numberFormatter.string(for: recording.numberOfRecordedPoints) ?? "\(recording.numberOfRecordedPoints)"
+			labelMaxSpeed.text = Utils.stringFrom(speedValue: CLLocationSpeed(recording.maxSpeed), useMetricSystem: appSettings.useMetricSystem)
+			labelTotalDistance.text = Utils.stringFrom(distance: Double(recording.totalDistance), useMetricSystem: appSettings.useMetricSystem)
+			labelNumberOfPoints.text = XibLocNumber(recording.numberOfRecordedPoints).localizedString
 			
 			buttonRecord.isHidden = true
 			viewWithTrackInfos.isHidden = false
@@ -194,7 +193,7 @@ class DetailsViewController : UIViewController {
 			labelNumberOfPoints.text = NSLocalizedString("nd", comment: "")
 			
 			labelAverageSpeed.text = NSLocalizedString("nd", comment: "")
-			labelElapsedTime.text = "00:00:00"
+			labelElapsedTime.text = Utils.stringFrom(timeInterval: 0)
 			
 			buttonRecord.isHidden = false
 			viewWithTrackInfos.isHidden = true
@@ -211,7 +210,7 @@ class DetailsViewController : UIViewController {
 		
 		/* We cheat on the time (the record is not updated all the time) */
 		var duration = -(recording.totalTimeSegment?.startDate?.timeIntervalSinceNow ?? 0)
-		labelElapsedTime.text = NSStringFromTimeInterval(duration)
+		labelElapsedTime.text = Utils.stringFrom(timeInterval: duration)
 		
 		if let latestPointDate = (recording.points?.lastObject as! RecordingPoint?)?.date {
 			/* We cheat the time twice (to avoid having the average speed that
@@ -220,7 +219,7 @@ class DetailsViewController : UIViewController {
 		}
 		guard duration > 0.5 else {return}
 		
-		labelAverageSpeed.text = NSStringFromSpeed(Double(recording.totalDistance)/duration, false, !appSettings.useMetricSystem)
+		labelAverageSpeed.text = Utils.stringFrom(speedValue: Double(recording.totalDistance)/duration, useMetricSystem: appSettings.useMetricSystem)
 	}
 	
 }

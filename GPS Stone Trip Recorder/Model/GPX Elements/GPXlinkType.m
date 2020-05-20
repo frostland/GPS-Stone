@@ -26,7 +26,7 @@
 {
 	if ((self = [super initWithAttributes:dic elementName:en]) != nil) {
 		self.href = [dic valueForKey:@"href"];
-		if (self.href == nil) NSXMLLog(@"Invalid GPX file: no href in a link");
+		if (self.href == nil) NSLog(@"Invalid GPX file: no href in a link");
 	}
 	
 	return self;

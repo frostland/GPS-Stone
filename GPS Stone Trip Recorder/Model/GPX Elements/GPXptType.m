@@ -8,8 +8,6 @@
 
 #import "GPXptType.h"
 
-#import "Constants.h"
-
 #import "XMLDateElement.h"
 #import "XMLDecimalElement.h"
 
@@ -29,11 +27,11 @@
 {
 	if ((self = [super initWithAttributes:dic elementName:en]) != nil) {
 		NSString *latStr = [dic valueForKey:@"lat"];
-		if (latStr == nil) NSXMLLog(@"Warning, invalid GPX file: No lat attribute in \"pt\"");
+		if (latStr == nil) NSLog(@"Warning, invalid GPX file: No lat attribute in \"pt\"");
 		else               _coords.latitude = [latStr doubleValue];
 		
 		NSString *lonStr = [dic valueForKey:@"lon"];
-		if (lonStr == nil) NSXMLLog(@"Warning, invalid GPX file: No lon attribute in \"pt\"");
+		if (lonStr == nil) NSLog(@"Warning, invalid GPX file: No lon attribute in \"pt\"");
 		else               _coords.longitude = [lonStr doubleValue];
 	}
 	

@@ -60,7 +60,7 @@
 	if (!childClass) {
 		NSString *className = NSStringFromClass(childClass);
 		if (!className) className = elementName;
-		NSXMLLog(@"Warning: invalid file; no known element \"%@\" in \"%@\"", elementName, self.elementName);
+		NSLog(@"Warning: invalid file; no known element \"%@\" in \"%@\"", elementName, self.elementName);
 		return;
 	}
 	id child = [[childClass alloc] initWithAttributes:attributeDict elementName:elementName];
@@ -69,13 +69,13 @@
 		[self.children addObject:child];
 		parser.delegate = child;
 		childrenChanged = YES;
-	} else NSXMLLog(@"Cannot create object of class \"%@\"", NSStringFromClass(childClass));
+	} else NSLog(@"Cannot create object of class \"%@\"", NSStringFromClass(childClass));
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
 	if (![elementName isEqualToString:self.elementName]) {
-		NSXMLLog(@"Warning: invalid file: closing element \"%@\" in a \"%@\"", elementName, self.elementName);
+		NSLog(@"Warning: invalid file: closing element \"%@\" in a \"%@\"", elementName, self.elementName);
 		return;
 	}
 	parser.delegate = self.parent;
@@ -165,7 +165,7 @@
 	NSUInteger n = [self.children count];
 	
 	if ([self.class.elementToClassRelations valueForKey:c.elementName] == nil) {
-		NSDLog(@"Warning: trying to add an unknown element \"%@\" in a \"%@\"", c.elementName, self.elementName);
+		NSLog(@"Warning: trying to add an unknown element \"%@\" in a \"%@\"", c.elementName, self.elementName);
 		return NO;
 	}
 	

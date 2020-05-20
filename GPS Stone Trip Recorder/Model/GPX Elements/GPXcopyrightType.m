@@ -27,7 +27,7 @@
 {
 	if ((self = [super initWithAttributes:dic elementName:en]) != nil) {
 		self.author = [dic valueForKey:@"author"];
-		if (self.author == nil) NSXMLLog(@"Warning, invalid GPX file: no author in a copyright");
+		if (self.author == nil) NSLog(@"Warning, invalid GPX file: no author in a copyright");
 	}
 	
 	return self;

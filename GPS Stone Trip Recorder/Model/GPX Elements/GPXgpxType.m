@@ -33,9 +33,9 @@
 	if ((self = [super initWithAttributes:dic elementName:en]) != nil) {
 		self.creator = [dic valueForKey:@"creator"];
 		self.version = [dic valueForKey:@"version"];
-		if (self.creator == nil) NSXMLLog(@"Warning: invalid GPX file; no name attribute to the gpx root element");
-		if (self.version == nil) NSXMLLog(@"Warning: invalid GPX file; no version attribute to the gpx root element");
-		if (![self.version isEqualToString:@"1.1"]) NSXMLLog(@"Warning: GPX file version is not 1.1. There may be errors when parsing it.");
+		if (self.creator == nil) NSLog(@"Warning: invalid GPX file; no name attribute to the gpx root element");
+		if (self.version == nil) NSLog(@"Warning: invalid GPX file; no version attribute to the gpx root element");
+		if (![self.version isEqualToString:@"1.1"]) NSLog(@"Warning: GPX file version is not 1.1. There may be errors when parsing it.");
 	}
 	
 	return self;

@@ -28,12 +28,12 @@
 
 - (NSData *)dataForStuffBetweenTags:(NSUInteger)indent
 {
-	return [[NSString stringWithFormat:@"%"NSINT_FMT, self.value] dataUsingEncoding:VSO_XML_ENCODING];
+	return [[NSString stringWithFormat:@"%ld", (long)self.value] dataUsingEncoding:VSO_XML_ENCODING];
 }
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"%@ object; integer value = \"%"NSINT_FMT"\"", self.elementName, self.value];
+	return [NSString stringWithFormat:@"%@ object; integer value = \"%ld\"", self.elementName, (long)self.value];
 }
 
 @end

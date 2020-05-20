@@ -6,6 +6,7 @@
  * Copyright 2009 VSO-Software. All rights reserved.
  */
 
+#import <CoreGraphics/CoreGraphics.h>
 #import <Foundation/Foundation.h>
 
 #import "XMLElement.h"

@@ -8,8 +8,6 @@
 
 #import "GPXwptType.h"
 
-#import "Constants.h"
-
 #import "XMLDateElement.h"
 #import "XMLStringElement.h"
 #import "XMLIntegerElement.h"
@@ -72,11 +70,11 @@
 {
 	if ((self = [super initWithAttributes:dic elementName:en]) != nil) {
 		NSString *latStr = [dic valueForKey:@"lat"];
-		if (!latStr) NSXMLLog(@"Warning, invalid GPX file: No lat attribute in \"wpt\"");
+		if (!latStr) NSLog(@"Warning, invalid GPX file: No lat attribute in \"wpt\"");
 		else         _coords.latitude = latStr.doubleValue;
 		
 		NSString *lonStr = [dic valueForKey:@"lon"];
-		if (!lonStr) NSXMLLog(@"Warning, invalid GPX file: No lon attribute in \"wpt\"");
+		if (!lonStr) NSLog(@"Warning, invalid GPX file: No lon attribute in \"wpt\"");
 		else         _coords.longitude = lonStr.doubleValue;
 	}
 	

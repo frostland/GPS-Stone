@@ -107,7 +107,7 @@
 	errWhenDecoding = NO;
 err:
 	if (!errWhenDecoding) self.date = [gregorian dateFromComponents:comps];
-	else                  NSXMLLog(@"Cannot read date: %@", buf);
+	else                  NSLog(@"Cannot read date: %@", buf);
 	
 	[super parser:parser didEndElement:elementName namespaceURI:namespaceURI qualifiedName:qName];
 }

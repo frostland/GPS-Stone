@@ -43,7 +43,7 @@
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"%@ object; decimal value = \"%"CGFLOAT_FMT"\"", self.elementName, self.value];
+	return [NSString stringWithFormat:@"%@ object; decimal value = \"%g\"", self.elementName, self.value];
 }
 
 @end
