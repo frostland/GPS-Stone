@@ -140,6 +140,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		super.init()
 		
 		#warning("TODO: Use allowDeferredLocationUpdatesUntilTraveled:timeout:")
+		configureLocationManagerWhenIdle()
 		lm.pausesLocationUpdatesAutomatically = true
 		lm.activityType = .fitness
 		lm.delegate = self
@@ -513,8 +514,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			 * changes even if the user has force quit it. It should. */
 			lm.startMonitoringSignificantLocationChanges()
 		} else if !newStatus.recordingStatus.isRecording && oldStatus.recordingStatus.isRecording {
-			lm.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-			lm.distanceFilter = 50
+			/* Sets accuracy and distance filter. */
+			configureLocationManagerWhenIdle()
 			
 			lm.stopMonitoringSignificantLocationChanges()
 		}
@@ -536,6 +537,11 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		}
 		
 		applyGPSRestrictionsToStatus()
+	}
+	
+	private func configureLocationManagerWhenIdle() {
+		lm.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+		lm.distanceFilter = 50
 	}
 	
 	private func applyGPSRestrictionsToStatus() {
