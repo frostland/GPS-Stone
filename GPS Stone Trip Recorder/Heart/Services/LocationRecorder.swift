@@ -521,13 +521,13 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		if needsTracking && !neededTracking {
 			lm.startUpdatingLocation()
 		} else if !needsTracking && neededTracking {
-			lm.stopUpdatingHeading()
+			lm.stopUpdatingLocation()
 		}
 		/* Only clients use the heading; we don’t use it while recording a trip. */
 		if newStatus.requiresHeadingTrackingForClients && !oldStatus.requiresHeadingTrackingForClients {
 			lm.startUpdatingHeading()
 		} else if !newStatus.requiresHeadingTrackingForClients && oldStatus.requiresHeadingTrackingForClients {
-			lm.stopUpdatingLocation()
+			lm.stopUpdatingHeading()
 		}
 		
 		if #available(iOS 9.0, *) {
