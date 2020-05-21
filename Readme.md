@@ -12,24 +12,3 @@ by some text asking the user to enable the app to know the user location).
 
 We should use the `locationServicesEnabled` at some point. Just ask location services
 when location services are disabled if the user explicitely tapped the recording button.
-
-## Archived Note (Deleted When I’m sure I Won’t need It Anymore)
-```objective-c
-/* Here is the code to parse a GPX file. gpxElement is an instance variable. */
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict
-{
-	if ([elementName isEqualToString:@"gpx"]) {
-		gpxElement = [[GPXgpxType alloc] initWithAttributes:attributeDict elementName:elementName];
-		parser.delegate = gpxElement;
-	}
-}
-
-- (void)startParsing
-{
-	NSString *path = @"Path to gpx file";
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]];
-	[parser setDelegate:self];
-	[parser parse];
-	[gpxElement release];
-}
-```
