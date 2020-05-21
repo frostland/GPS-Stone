@@ -22,6 +22,6 @@ final class Constants {
 	/* Constants for UI */
 	let pageNumberWithMap = 2
 	let pageNumberWithDetailedInfo = 1
-	let animTime = TimeInterval(0.3)
+	let animTime = TimeInterval(0.25)
 	
 }
