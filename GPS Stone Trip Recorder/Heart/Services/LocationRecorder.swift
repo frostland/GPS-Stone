@@ -52,6 +52,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			
 			var container = encoder.container(keyedBy: CodingKeys.self)
 			try container.encode(stateStr, forKey: .state)
+			try container.encode(segmentID, forKey: .segmentID)
 			try container.encode(recordingRef, forKey: .recordingURI)
 		}
 		
