@@ -22,6 +22,7 @@
 		7B1AC2692335AB2000B6F06A /* XibLoc in Frameworks */ = {isa = PBXBuildFile; productRef = 7B1AC2682335AB2000B6F06A /* XibLoc */; };
 		7B23D9BA22B90BB20007BA61 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B23D9B922B90BB20007BA61 /* InfoViewController.swift */; };
 		7B27B9291DCDF6B1006F44B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */; };
+		7B28FFD82476E9590063E26A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B28FFDA2476E9590063E26A /* InfoPlist.strings */; };
 		7B4487A0247199CC00B6DB7B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B44879F247199CC00B6DB7B /* Utils.swift */; };
 		7B4487A1247199EA00B6DB7B /* VSOUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */; };
 		7B4487A324719ADF00B6DB7B /* Utils+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4487A224719ADF00B6DB7B /* Utils+UI.swift */; };
@@ -31,7 +32,6 @@
 		7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */; };
 		7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE81DCA975F007B5ABC /* Main.storyboard */; };
 		7B5108F722BA57E60038CEAC /* RecordingsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5108F622BA57E60038CEAC /* RecordingsListViewController.swift */; };
-		7B63B7691E227E96001FA33C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B63B7681E227E96001FA33C /* InfoPlist.strings */; };
 		7B75989C246EF7BA00BC7EB1 /* TimeSegment+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B75989B246EF7BA00BC7EB1 /* TimeSegment+Utils.swift */; };
 		7B93E38222A184ED00709971 /* LocationRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B93E38122A184ED00709971 /* LocationRecorder.swift */; };
 		7B94D1E222A0169600848832 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E122A0169600848832 /* AppDelegate.swift */; };
@@ -76,6 +76,7 @@
 		7B1024FC22BA19A7008BF119 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		7B23D9B922B90BB20007BA61 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7B28FFD92476E9590063E26A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7B44879F247199CC00B6DB7B /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		7B4487A224719ADF00B6DB7B /* Utils+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utils+UI.swift"; sourceTree = "<group>"; };
 		7B4487A424719C5000B6DB7B /* Utils+Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utils+Language.swift"; sourceTree = "<group>"; };
@@ -84,7 +85,6 @@
 		7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B482CE91DCA976E007B5ABC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7B5108F622BA57E60038CEAC /* RecordingsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsListViewController.swift; sourceTree = "<group>"; };
-		7B63B7681E227E96001FA33C /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		7B75989B246EF7BA00BC7EB1 /* TimeSegment+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeSegment+Utils.swift"; sourceTree = "<group>"; };
 		7B93E38122A184ED00709971 /* LocationRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRecorder.swift; sourceTree = "<group>"; };
 		7B94D1E122A0169600848832 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -286,7 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				7B482CDF1DCA8ADD007B5ABC /* Localizable.strings */,
-				7B63B7681E227E96001FA33C /* InfoPlist.strings */,
+				7B28FFDA2476E9590063E26A /* InfoPlist.strings */,
 			);
 			path = Localizables;
 			sourceTree = "<group>";
@@ -396,7 +396,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B63B7691E227E96001FA33C /* InfoPlist.strings in Resources */,
+				7B28FFD82476E9590063E26A /* InfoPlist.strings in Resources */,
 				7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */,
 				7B482CE11DCA8ADD007B5ABC /* Localizable.strings in Resources */,
 				7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */,
@@ -440,6 +440,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		7B28FFDA2476E9590063E26A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7B28FFD92476E9590063E26A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		7B482CDF1DCA8ADD007B5ABC /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
