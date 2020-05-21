@@ -145,11 +145,13 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		lm.activityType = .fitness
 		lm.delegate = self
 		/* KVO on \.applicationState does not work, so we observe the app notifications instead. */
-		notificationObservers.append(NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.applyGPSRestrictionsToStatus() }))
-		notificationObservers.append(NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.applyGPSRestrictionsToStatus() }))
-		notificationObservers.append(NotificationCenter.default.addObserver(forName: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.applyGPSRestrictionsToStatus() }))
+		notificationObservers.append(NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.appStateChanged() }))
+		notificationObservers.append(NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.appStateChanged() }))
+		notificationObservers.append(NotificationCenter.default.addObserver(forName: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.appStateChanged() }))
+		/* No need to call appStateChanged() (at least for now). Only the
+		 * appIsInBg property is modified by the method, and this property is
+		 * correctly initialized. */
 		
-		/* The method below calls applyGPSRestrictionsToStatus() */
 		handleStatusChange(from: Status(recordingStatus: .stopped), to: status) /* willSet/didSet not called from init */
 	}
 	
@@ -263,7 +265,6 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	func locationManager(_ manager: CLLocationManager, didChangeAuthorization authStatus: CLAuthorizationStatus) {
 		assert(Thread.isMainThread)
 		canRecord = Set<CLAuthorizationStatus>(arrayLiteral: .notDetermined, .authorizedWhenInUse, .authorizedAlways).contains(authStatus)
-		applyGPSRestrictionsToStatus()
 	}
 	
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -330,12 +331,14 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		var nClientsRequiringLocTracking = 0
 		var nClientsRequiringHeadingTracking = 0
 		
+		var appIsInBg = (UIApplication.shared.applicationState == .background)
+		
 		var requiresLocationTrackingForClients: Bool {
-			return nClientsRequiringLocTracking > 0
+			return nClientsRequiringLocTracking > 0 && !appIsInBg
 		}
 		
 		var requiresHeadingTrackingForClients: Bool {
-			return nClientsRequiringHeadingTracking > 0
+			return nClientsRequiringHeadingTracking > 0 && !appIsInBg
 		}
 		
 	}
@@ -535,8 +538,6 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			/* We allow background location updates when recording a trip. */
 			lm.allowsBackgroundLocationUpdates = newStatus.recordingStatus.isRecording
 		}
-		
-		applyGPSRestrictionsToStatus()
 	}
 	
 	private func configureLocationManagerWhenIdle() {
@@ -544,13 +545,10 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		lm.distanceFilter = 50
 	}
 	
-	private func applyGPSRestrictionsToStatus() {
-		guard recStatus.isRecording else {return}
+	private func appStateChanged() {
+		status.appIsInBg = (UIApplication.shared.applicationState == .background)
 		
-		/* We do not use the background refresh status because I don’t know yet
-		 * how it can modify the bg behaviour of receiving the events.
-		
-		 * From https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/LocationAwarenessPG/CoreLocation/CoreLocation.html#//apple_ref/doc/uid/TP40009497-CH2-SW11
+		/* From https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/LocationAwarenessPG/CoreLocation/CoreLocation.html#//apple_ref/doc/uid/TP40009497-CH2-SW11
 		 *    Note: When a user disables the Background App Refresh setting either
 		 *          globally or for your app, the significant-change location
 		 *          service doesn’t relaunch your app. Further, while Background
@@ -565,23 +563,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		 *               background by checking the value of the
 		 *               backgroundRefreshStatus property of the UIApplication
 		 *               class. */
-		#warning("TODO. This will probably change a “locationWarning” property clients will be able to monitor to get a sense on whether the recording will work correctly and be able to warn the user accordingly.")
-//		switch (CLLocationManager.authorizationStatus(), UIApplication.shared.applicationState, UIApplication.shared.backgroundRefreshStatus) {
-//			case (.notDetermined, _, _), (.restricted, _, _), (.denied, _, _), (.authorizedWhenInUse, .background, _):
-//				/* Note: In the restricted case, the user won’t be able to activate
-//				 * the location services. */
-//				guard !status.isPausedByLocationDenied else {return}
-//				status = .pausedByLocationDenied(recordingRef: rr)
-//
-//			case (.authorizedAlways, _, _), (.authorizedWhenInUse, .active, _), (.authorizedWhenInUse, .inactive, _):
-//				guard !status.isRecording else {return}
-//				status = .recording(recordingRef: rr)
-//
-//			@unknown default:
-//				/* We’ll assume we’re recording 🤷‍♂️ */
-//				guard !status.isRecording else {return}
-//				status = .recording(recordingRef: rr)
-//		}
+		#warning("TODO. Warn the user depending on the background app refresh status?")
 	}
 	
 }
