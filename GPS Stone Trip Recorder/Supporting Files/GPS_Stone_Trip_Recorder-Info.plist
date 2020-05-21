@@ -17,17 +17,17 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>4.5</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>8</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Recording your trip requires knowing your position at all times. We will never use your position in background when the App is not recording a trip.</string>
+	<string>LOCALIZED IN InfoPlist.strings FILE. If you can see this, there is a problem.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Recording your trip requires knowing your position at all times. We will never use your position in background when the App is not recording a trip.</string>
+	<string>LOCALIZED IN InfoPlist.strings FILE. If you can see this, there is a problem.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Showing your speed, altitude and GPS coordinate requires getting your position.</string>
+	<string>LOCALIZED IN InfoPlist.strings FILE. If you can see this, there is a problem.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

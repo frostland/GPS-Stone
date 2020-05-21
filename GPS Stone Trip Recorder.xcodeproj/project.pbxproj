@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0FA3D1DD10302ED80098760F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA3D1DC10302ED80098760F /* MessageUI.framework */; };
 		0FB4B0FC10074B20005292C4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB4B0FB10074B20005292C4 /* MapKit.framework */; };
 		0FBBCBA9100A9F67003679A8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FBBCBA8100A9F67003679A8 /* CoreLocation.framework */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -109,14 +108,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B1AC2692335AB2000B6F06A /* XibLoc in Frameworks */,
+				7B1AC2632335AABB00B6F06A /* KVObserver in Frameworks */,
+				7BC43307233624DD00C59752 /* CollectionAndTableViewUpdateConveniences in Frameworks */,
+				7B1AC2662335AAD600B6F06A /* RetryingOperation in Frameworks */,
 				288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */,
 				0FBBCBA9100A9F67003679A8 /* CoreLocation.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				0FB4B0FC10074B20005292C4 /* MapKit.framework in Frameworks */,
-				7B1AC2632335AABB00B6F06A /* KVObserver in Frameworks */,
-				0FA3D1DD10302ED80098760F /* MessageUI.framework in Frameworks */,
-				7BC43307233624DD00C59752 /* CollectionAndTableViewUpdateConveniences in Frameworks */,
-				7B1AC2662335AAD600B6F06A /* RetryingOperation in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -476,6 +474,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = DVL8GW97S8;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -485,6 +484,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 4.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.vso-software.GPSStoneTripRecorder";
 				PRODUCT_NAME = "GPS Stone";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -502,6 +502,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = DVL8GW97S8;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder-Info.plist";
@@ -509,6 +510,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 4.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.vso-software.GPSStoneTripRecorder";
 				PRODUCT_NAME = "GPS Stone";
 				PROVISIONING_PROFILE_SPECIFIER = "";
