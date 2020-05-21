@@ -137,7 +137,6 @@
 		7B4487A224719ADF00B6DB7B /* Utils+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utils+UI.swift"; sourceTree = "<group>"; };
 		7B4487A424719C5000B6DB7B /* Utils+Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utils+Language.swift"; sourceTree = "<group>"; };
 		7B4487A62471CA1100B6DB7B /* GPSStoneLocTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSStoneLocTokens.swift; sourceTree = "<group>"; };
-		7B4487AA247285C600B6DB7B /* XibLoc */ = {isa = PBXFileReference; lastKnownFileType = folder; name = XibLoc; path = ../../../happn/happnOpenSource/XibLoc; sourceTree = "<group>"; };
 		7B482CE01DCA8ADD007B5ABC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B482CE91DCA976E007B5ABC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -290,7 +289,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				7B4487AA247285C600B6DB7B /* XibLoc */,
 				7B94D1EB22A0389400848832 /* Readme.md */,
 				7BA2A5EA1F2E013A0014603B /* Test Recording.gpx */,
 				7B27B9311DCF3D81006F44B7 /* GPS Stone Trip Recorder */,

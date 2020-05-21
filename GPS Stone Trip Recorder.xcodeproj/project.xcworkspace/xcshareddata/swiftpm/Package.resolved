@@ -51,8 +51,8 @@
         "repositoryURL": "git@github.com:happn-tech/XibLoc.git",
         "state": {
           "branch": null,
-          "revision": "acfc5120ef46982d92fe64d998c43d719f1ccbd2",
-          "version": "1.0.0-rc.2"
+          "revision": "f77df4693d3fb87c9dbedaa939306f36262d93fb",
+          "version": "1.0.0-rc.3"
         }
       }
     ]
