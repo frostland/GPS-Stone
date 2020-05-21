@@ -99,7 +99,7 @@
 		7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsManager.swift; sourceTree = "<group>"; };
 		7BEED1BE22B6C0F700A055B9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7BEF77FB22EFA23B001B79DB /* Recording+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recording+Utils.swift"; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* GPS_Stone_Trip_Recorder-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GPS_Stone_Trip_Recorder-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* GPSStone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GPSStone-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,7 +275,7 @@
 			children = (
 				7B27B9361DCF3E3D006F44B7 /* Localizables */,
 				7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */,
-				8D1107310486CEB800E47090 /* GPS_Stone_Trip_Recorder-Info.plist */,
+				8D1107310486CEB800E47090 /* GPSStone-Info.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -479,7 +479,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				INFOPLIST_FILE = "GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder-Info.plist";
+				INFOPLIST_FILE = "GPS Stone Trip Recorder/Supporting Files/GPSStone-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -505,7 +505,7 @@
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = DVL8GW97S8;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				INFOPLIST_FILE = "GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder-Info.plist";
+				INFOPLIST_FILE = "GPS Stone Trip Recorder/Supporting Files/GPSStone-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
