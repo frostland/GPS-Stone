@@ -9,21 +9,19 @@
 import Foundation
 import UIKit
 
+import XibLoc
+
 
 
 class SettingsViewController : UITableViewController {
 	
 	@IBOutlet var segmentedCtrlMapType: UISegmentedControl!
 	@IBOutlet var textFieldMinDist: UITextField!
-	@IBOutlet var textFieldMinTime: UITextField!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		let formatter = NumberFormatter()
-		formatter.numberStyle = .none
-		textFieldMinDist.text = formatter.string(from: NSNumber(value: appSettings.minPathDistance))  ?? String(appSettings.minPathDistance)
-		textFieldMinTime.text = formatter.string(from: NSNumber(value: appSettings.minTimeForUpdate)) ?? String(appSettings.minTimeForUpdate)
+		textFieldMinDist.text = XibLocNumber(Int(appSettings.distanceFilter+1)).localizedString
 		
 		switch appSettings.mapType {
 			case .satellite, .satelliteFlyover: segmentedCtrlMapType.selectedSegmentIndex = 1
@@ -49,14 +47,7 @@ class SettingsViewController : UITableViewController {
 		guard let v = sender.text.flatMap({ Int($0) }) else {
 			return
 		}
-		appSettings.minPathDistance = CLLocationDistance(v)
-	}
-	
-	@IBAction func minTimeChanged(_ sender: UITextField) {
-		guard let v = sender.text.flatMap({ Int($0) }) else {
-			return
-		}
-		appSettings.minTimeForUpdate = TimeInterval(v)
+		appSettings.distanceFilter = CLLocationDistance(v)
 	}
 	
 	/* ****************************************************
@@ -68,7 +59,7 @@ class SettingsViewController : UITableViewController {
 		switch indexPath.section {
 			case 1:
 				switch indexPath.row {
-					case 2: cell.accessoryType = (appSettings.skipNonAccuratePoints ? .checkmark : .none)
+					case 2: cell.accessoryType = (appSettings.useBestGPSAccuracy ? .checkmark : .none)
 					default: (/*nop*/)
 				}
 				
@@ -97,8 +88,8 @@ class SettingsViewController : UITableViewController {
 			case 1:
 				switch indexPath.row {
 					case 2:
-						appSettings.skipNonAccuratePoints = !appSettings.skipNonAccuratePoints
-						tableView.cellForRow(at: indexPath)?.accessoryType = (appSettings.skipNonAccuratePoints ? .checkmark : .none)
+						appSettings.useBestGPSAccuracy = !appSettings.useBestGPSAccuracy
+						tableView.cellForRow(at: indexPath)?.accessoryType = (appSettings.useBestGPSAccuracy ? .checkmark : .none)
 					default: (/*nop*/)
 				}
 				

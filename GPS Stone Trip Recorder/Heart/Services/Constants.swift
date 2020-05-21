@@ -22,7 +22,7 @@ final class Constants {
 		return urlToFolderWithGPXFiles.appendingPathComponent("Recording #\(number)", isDirectory: false).appendingPathExtension("gpx")
 	}
 	
-	let maxAccuracyToRecordPoint = CLLocationDistance(50)
+	let accuracyWarningThreshold = CLLocationDistance(50)
 	
 	/* Constants for UI */
 	let pageNumberWithMap = 2

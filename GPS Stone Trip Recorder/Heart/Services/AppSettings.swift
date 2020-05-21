@@ -29,9 +29,6 @@ final class AppSettings {
 	func registerDefaultSettings() {
 		/* Registering default user defaults */
 		let defaultValues: [SettingsKey: Any?] = [
-			.firstRun: true,
-			.firstUnlock: true,
-			
 			.selectedPage: 0,
 			.latestMapRect: nil,
 			.followLocationOnMap: true,
@@ -40,13 +37,8 @@ final class AppSettings {
 			.mapType: MKMapType.standard.rawValue,
 			.mapRegion: nil,
 			
-			.showMemoryClearWarning: true,
-			.memoryWarningPathCutShown: false,
-			
-			.pauseOnQuit: true,
-			.skipNonAccuratePoints: false,
-			.minPathDistance: CLLocationDistance(25),
-			.minTimeForUpdate: TimeInterval(2),
+			.useBestGPSAccuracy: false,
+			.distanceFilter: CLLocationDistance(5),
 			.distanceUnit: DistanceUnit.automatic.rawValue
 		]
 		
@@ -73,16 +65,6 @@ final class AppSettings {
 	/* **************************
 	   MARK: - Settings Accessors
 	   ************************** */
-	
-	var firstRun: Bool {
-		get {return ud.bool(forKey: SettingsKey.firstRun.rawValue)}
-		set {ud.set(newValue, forKey: SettingsKey.firstRun.rawValue)}
-	}
-	
-	var firstUnlock: Bool {
-		get {return ud.bool(forKey: SettingsKey.firstRun.rawValue)}
-		set {ud.set(newValue, forKey: SettingsKey.firstRun.rawValue)}
-	}
 	
 	var selectedPage: Int {
 		get {return ud.integer(forKey: SettingsKey.selectedPage.rawValue)}
@@ -161,34 +143,14 @@ final class AppSettings {
 		}
 	}
 	
-	var showMemoryClearWarning: Bool {
-		get {return ud.bool(forKey: SettingsKey.showMemoryClearWarning.rawValue)}
-		set {ud.set(newValue, forKey: SettingsKey.showMemoryClearWarning.rawValue)}
+	var useBestGPSAccuracy: Bool {
+		get {return ud.bool(forKey: SettingsKey.useBestGPSAccuracy.rawValue)}
+		set {ud.set(newValue, forKey: SettingsKey.useBestGPSAccuracy.rawValue)}
 	}
 	
-	var memoryWarningPathCutShown: Bool {
-		get {return ud.bool(forKey: SettingsKey.memoryWarningPathCutShown.rawValue)}
-		set {ud.set(newValue, forKey: SettingsKey.memoryWarningPathCutShown.rawValue)}
-	}
-	
-	var pauseOnQuit: Bool {
-		get {return ud.bool(forKey: SettingsKey.pauseOnQuit.rawValue)}
-		set {ud.set(newValue, forKey: SettingsKey.pauseOnQuit.rawValue)}
-	}
-	
-	var skipNonAccuratePoints: Bool {
-		get {return ud.bool(forKey: SettingsKey.skipNonAccuratePoints.rawValue)}
-		set {ud.set(newValue, forKey: SettingsKey.skipNonAccuratePoints.rawValue)}
-	}
-	
-	var minPathDistance: CLLocationDistance {
-		get {return ud.double(forKey: SettingsKey.minPathDistance.rawValue)}
-		set {ud.set(newValue, forKey: SettingsKey.minPathDistance.rawValue)}
-	}
-	
-	var minTimeForUpdate: TimeInterval {
-		get {return ud.double(forKey: SettingsKey.minTimeForUpdate.rawValue)}
-		set {ud.set(newValue, forKey: SettingsKey.minTimeForUpdate.rawValue)}
+	var distanceFilter: CLLocationDistance {
+		get {return ud.double(forKey: SettingsKey.distanceFilter.rawValue)}
+		set {ud.set(newValue, forKey: SettingsKey.distanceFilter.rawValue)}
 	}
 	
 	var distanceUnit: DistanceUnit {
@@ -210,9 +172,6 @@ final class AppSettings {
 	
 	private enum SettingsKey : String, CaseIterable {
 		
-		case firstRun = "VSO First Run"
-		case firstUnlock = "VSO Screen Never Locked While This App Is Launched"
-		
 		case selectedPage = "VSO Selected Page"
 		case latestMapRect = "VSO Latest Map Rect"
 		case followLocationOnMap = "VSO Follow Location On Map"
@@ -221,13 +180,8 @@ final class AppSettings {
 		case mapType = "VSO Map Type"
 		case mapRegion = "VSO Map Region"
 		
-		case showMemoryClearWarning = "VSO Stored Points Clearing Wrarning"
-		case memoryWarningPathCutShown = "VSO Path Cut Memory Warning Shown"
-		
-		case pauseOnQuit = "VSO Pause When Quitting Instead Of Stopping"
-		case skipNonAccuratePoints = "VSO Skip Non Accurate Points"
-		case minPathDistance = "VSO Min Distance Before Adding Point"
-		case minTimeForUpdate = "VSO Min Time Between Updates"
+		case useBestGPSAccuracy = "VSO Use Best GPS Accuracy"
+		case distanceFilter = "VSO Distance Filter"
 		case distanceUnit = "VSO Distance Unit"
 		
 	}

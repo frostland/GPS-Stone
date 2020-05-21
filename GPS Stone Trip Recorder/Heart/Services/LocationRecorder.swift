@@ -433,8 +433,6 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		var changedContext = false
 		var numberOfPointsFailed = 0
 		for newLocation in locations {
-			guard !s.skipNonAccuratePoints || newLocation.horizontalAccuracy > c.maxAccuracyToRecordPoint else {continue}
-			
 			let checkedRecStatus = recStatus(at: newLocation.timestamp)
 			guard case .recording(let recordingRef, let segmentID) = checkedRecStatus else {continue}
 			
@@ -442,10 +440,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 				let writeObjects = try recordingWriteObjects(for: recordingRef)
 				
 				let distance: CLLocationDistance
-				if let latestRecordedPoint = writeObjects.recording.points?.lastObject as! RecordingPoint?, let latestPointDate = latestRecordedPoint.date, let latestPointLocation = latestRecordedPoint.location {
-					guard -latestPointDate.timeIntervalSinceNow >= s.minTimeForUpdate else {continue}
+				if let latestRecordedPoint = writeObjects.recording.points?.lastObject as! RecordingPoint?, let latestPointLocation = latestRecordedPoint.location {
 					distance = newLocation.distance(from: latestPointLocation)
-					guard distance >= s.minPathDistance else {continue}
 				} else {
 					distance = 0
 				}
@@ -508,13 +504,17 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			else                                     {lm.requestWhenInUseAuthorization()}
 		}
 		if newStatus.recordingStatus.isRecording && !oldStatus.recordingStatus.isRecording {
-			/* We assume the user won’t change these settings during a trip
-			 * recording. If he does, well too bad! */
-			lm.desiredAccuracy = (s.skipNonAccuratePoints && c.maxAccuracyToRecordPoint < 10 ? kCLLocationAccuracyBest : kCLLocationAccuracyNearestTenMeters)
-			lm.distanceFilter = max(0, min(50, s.minPathDistance - 5))
+			/* We assume the user won’t change the settings during a trip
+			 * recording. If he does, the new settings won’t be reflected in the
+			 * location manager config. */
+			#warning("TODO: Fix comment above")
+			let desiredDistanceFilter = max(0, s.distanceFilter)
+			lm.desiredAccuracy = (s.useBestGPSAccuracy ? kCLLocationAccuracyBest : kCLLocationAccuracyNearestTenMeters)
+			lm.distanceFilter = newStatus.requiresLocationTrackingForClients ? min(50, desiredDistanceFilter) : desiredDistanceFilter
 			
 			/* This should launch the app when it gets a significant location
-			 * changes even if the user has force quit it. It should. */
+			 * changes even if the user has force quit it, if the background app
+			 * refresh is on. */
 			lm.startMonitoringSignificantLocationChanges()
 		} else if !newStatus.recordingStatus.isRecording && oldStatus.recordingStatus.isRecording {
 			/* Sets accuracy and distance filter. */

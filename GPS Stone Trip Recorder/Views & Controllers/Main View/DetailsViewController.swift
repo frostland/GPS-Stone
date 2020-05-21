@@ -149,7 +149,7 @@ class DetailsViewController : UIViewController {
 			labelLat.text  = Utils.stringFrom(latitudeDegrees:  location.coordinate.latitude)
 			labelLong.text = Utils.stringFrom(longitudeDegrees: location.coordinate.longitude)
 			labelHorizontalAccuracy.text = Utils.stringFrom(distance: location.horizontalAccuracy, useMetricSystem: appSettings.useMetricSystem)
-			labelHorizontalAccuracy.textColor = (location.horizontalAccuracy > c.maxAccuracyToRecordPoint ? .red : labelColor)
+			labelHorizontalAccuracy.textColor = (location.horizontalAccuracy > c.accuracyWarningThreshold ? .red : labelColor)
 			if location.verticalAccuracy.sign == .plus {
 				labelAltitude.text = Utils.stringFrom(altitude: location.altitude, useMetricSystem: appSettings.useMetricSystem)
 				#warning("TODO: Use XibLoc!")
