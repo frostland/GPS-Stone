@@ -21,7 +21,7 @@ class SettingsViewController : UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		textFieldMinDist.text = XibLocNumber(Int(appSettings.distanceFilter+1)).localizedString
+		textFieldMinDist.text = XibLocNumber(Int(appSettings.distanceFilter+0.5)).localizedString
 		
 		switch appSettings.mapType {
 			case .satellite, .satelliteFlyover: segmentedCtrlMapType.selectedSegmentIndex = 1
@@ -59,7 +59,7 @@ class SettingsViewController : UITableViewController {
 		switch indexPath.section {
 			case 1:
 				switch indexPath.row {
-					case 2: cell.accessoryType = (appSettings.useBestGPSAccuracy ? .checkmark : .none)
+					case 1: cell.accessoryType = (appSettings.useBestGPSAccuracy ? .checkmark : .none)
 					default: (/*nop*/)
 				}
 				
@@ -77,7 +77,7 @@ class SettingsViewController : UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-		return indexPath == IndexPath(row: 2, section: 1) || indexPath.section == 2
+		return indexPath == IndexPath(row: 1, section: 1) || indexPath.section == 2
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -87,7 +87,7 @@ class SettingsViewController : UITableViewController {
 		switch indexPath.section {
 			case 1:
 				switch indexPath.row {
-					case 2:
+					case 1:
 						appSettings.useBestGPSAccuracy = !appSettings.useBestGPSAccuracy
 						tableView.cellForRow(at: indexPath)?.accessoryType = (appSettings.useBestGPSAccuracy ? .checkmark : .none)
 					default: (/*nop*/)
