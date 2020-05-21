@@ -3,7 +3,6 @@
     <entity name="Recording" representedClassName=".Recording" syncable="YES" codeGenerationType="class">
         <attribute name="averageSpeed" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="gpxFileBookmark" optional="YES" attributeType="Binary"/>
         <attribute name="maxSpeed" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="startDate" attributeType="Date" usesScalarValueType="NO"/>
@@ -25,8 +24,8 @@
         <relationship name="totalTimeSegmentRecording" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recording" inverseName="totalTimeSegment" inverseEntity="Recording"/>
     </entity>
     <elements>
-        <element name="Recording" positionX="-63" positionY="-18" width="128" height="193"/>
+        <element name="Recording" positionX="-63" positionY="-18" width="128" height="178"/>
         <element name="RecordingPoint" positionX="110.109375" positionY="90.20703125" width="128" height="103"/>
-        <element name="TimeSegment" positionX="-288.609375" positionY="63.1875" width="160.51953125" height="103"/>
+        <element name="TimeSegment" positionX="-283.2109375" positionY="50.54296875" width="160.51953125" height="103"/>
     </elements>
 </model>

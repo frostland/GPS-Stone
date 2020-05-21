@@ -204,7 +204,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		assert(recStatus.isStopped)
 		guard recStatus.isStopped else {return}
 		
-		let recording = try rm.unsafeCreateNextRecordingAndSaveContext(withGPXFile: false)
+		let recording = try rm.unsafeCreateNextRecordingAndSaveContext()
 		status.recordingStatus = .recording(recordingRef: rm.recordingRef(from: recording.objectID), segmentID: 0)
 	}
 	

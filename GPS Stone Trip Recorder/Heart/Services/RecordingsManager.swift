@@ -15,24 +15,16 @@ import Foundation
  * TODO: Switch to Combine! */
 final class RecordingsManager : NSObject {
 	
-	init(dataHandler: DataHandler, constants: Constants) {
-		c = constants
+	init(dataHandler: DataHandler) {
 		dh = dataHandler
 	}
 	
-	/** Creates the next recording.
+	/**
+	Creates the next recording.
 	
 	Must be called on the dataHandler’s viewContext’s queue (the main thread). */
-	func unsafeCreateNextRecordingAndSaveContext(withGPXFile createGPX: Bool) throws -> Recording {
+	func unsafeCreateNextRecordingAndSaveContext() throws -> Recording {
 		assert(Thread.isMainThread)
-		
-		let bookmarkData: Data?
-		if createGPX {
-			let gpxURL = createNextGPXFile()
-			bookmarkData = try gpxURL.bookmarkData(options: [], includingResourceValuesForKeys: nil, relativeTo: c.urlToFolderWithGPXFiles)
-		} else {
-			bookmarkData = nil
-		}
 		
 		let s = NSEntityDescription.insertNewObject(forEntityName: "TimeSegment", into: dh.viewContext) as! TimeSegment
 		s.startDate = Date()
@@ -41,7 +33,6 @@ final class RecordingsManager : NSObject {
 		if #available(iOS 10.0, *) {r = Recording(context: dh.viewContext)}
 		else                       {r = NSEntityDescription.insertNewObject(forEntityName: "Recording", into: dh.viewContext) as! Recording}
 		r.name = NSLocalizedString("new recording", comment: "Default name for a recording")
-		r.gpxFileBookmark = bookmarkData
 		r.totalTimeSegment = s
 		r.startDate = Date()
 		
@@ -49,7 +40,8 @@ final class RecordingsManager : NSObject {
 		return r
 	}
 	
-	/** Adds a point to the given recording. Does **NOT** save the context.
+	/**
+	Adds a point to the given recording. Does **NOT** save the context.
 	
 	Must be called on the dataHandler’s viewContext’s queue (the main thread). */
 	@discardableResult
@@ -71,9 +63,12 @@ final class RecordingsManager : NSObject {
 		return recordingPoint
 	}
 	
-	/** Removes the given point from the given recording. Does **NOT** save the
-	context. Will not revert the max speed to the previous max speed (we can’t
-	really know it, can we?)
+	/**
+	Removes the given point from the given recording. Does **NOT** save the
+	context.
+	
+	Will not revert the max speed to the previous max speed (we can’t really know
+	it w/ our current model, but we don’t really care).
 	
 	Must be called on the dataHandler’s viewContext’s queue (the main thread). */
 	func unsafeRemovePoint(point: RecordingPoint, removedDistance: CLLocationDistance, from recording: Recording) {
@@ -89,7 +84,8 @@ final class RecordingsManager : NSObject {
 		return recordingID.uriRepresentation()
 	}
 	
-	/** Fetches the recording corresponding to the given ref.
+	/**
+	Fetches the recording corresponding to the given ref.
 	
 	Must be called on the dataHandler’s viewContext’s queue (the main thread). */
 	func unsafeRecording(from recordingRef: URL) -> Recording? {
@@ -101,26 +97,12 @@ final class RecordingsManager : NSObject {
 		return try? dh.viewContext.existingObject(with: recordingID) as? Recording
 	}
 	
-	func gpxURL(from bookmarkData: Data) -> URL? {
-		return try? NSURL(resolvingBookmarkData: bookmarkData, options: [.withoutUI], relativeTo: c.urlToFolderWithGPXFiles, bookmarkDataIsStale: nil) as URL?
-	}
-	
 	/* ***************
 	   MARK: - Private
 	   *************** */
 	
 	/* *** Dependencies *** */
 	
-	private let c: Constants
 	private let dh: DataHandler
-	
-	private func createNextGPXFile() -> URL {
-		let fm = FileManager.default
-		
-		let url = (1...).lazy.map{ self.c.urlToGPX(number: $0) }.first{ !fm.fileExists(atPath: $0.path) }!
-		/* TODO: This is bad, to just assume the file creation will work… */
-		_ = fm.createFile(atPath: url.path, contents: nil, attributes: nil)
-		return url
-	}
 	
 }
