@@ -7,6 +7,7 @@
  */
 
 import CoreData
+import CoreLocation
 import Foundation
 import UIKit
 

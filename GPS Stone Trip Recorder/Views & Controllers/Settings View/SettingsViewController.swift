@@ -6,6 +6,7 @@
  * Copyright © 2019 Frost Land. All rights reserved.
  */
 
+import CoreLocation
 import Foundation
 import UIKit
 

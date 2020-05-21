@@ -13,7 +13,7 @@
     </entity>
     <entity name="RecordingPoint" representedClassName="RecordingPoint" syncable="YES" codeGenerationType="class">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="location" attributeType="Transformable" customClassName="CLLocation"/>
+        <attribute name="location" attributeType="Transformable" customClassName="CoreLocation.CLLocation"/>
         <attribute name="segmentID" attributeType="Integer 16" usesScalarValueType="YES"/>
         <relationship name="recording" maxCount="1" deletionRule="Nullify" destinationEntity="Recording" inverseName="points" inverseEntity="Recording"/>
     </entity>
