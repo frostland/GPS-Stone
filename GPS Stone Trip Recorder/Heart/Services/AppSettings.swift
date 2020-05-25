@@ -12,7 +12,15 @@ import MapKit
 
 
 
+/** A wrapper around UserDefaults for our App Settings.
+
+Will post a notification when the settings are changed through this object. The
+notification is posted whether the setting was actually changed or not. But will
+**not** post a notification if the user defaults are modified without using this
+object. */
 final class AppSettings {
+	
+	static let changedNotification = Notification.Name(Constants.appDomain + ".AppSettings.ChangedNotif")
 	
 	enum DistanceUnit : Int {
 		case automatic = 255
@@ -21,9 +29,11 @@ final class AppSettings {
 	}
 	
 	let ud: UserDefaults
+	let nc: NotificationCenter
 	
-	init(userDefaults: UserDefaults = .standard) {
+	init(userDefaults: UserDefaults = .standard, notificationCenter: NotificationCenter = .default) {
 		ud = userDefaults
+		nc = notificationCenter
 	}
 	
 	func registerDefaultSettings() {
@@ -67,8 +77,8 @@ final class AppSettings {
 	   ************************** */
 	
 	var selectedPage: Int {
-		get {return ud.integer(forKey: SettingsKey.selectedPage.rawValue)}
-		set {ud.set(newValue, forKey: SettingsKey.selectedPage.rawValue)}
+		get {ud.integer(forKey: SettingsKey.selectedPage.rawValue)}
+		set {ud.set(newValue, forKey: SettingsKey.selectedPage.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
 	}
 	
 	var latestMapRect: MKCoordinateRegion? {
@@ -95,6 +105,10 @@ final class AppSettings {
 			)
 		}
 		set {
+			defer {
+				nc.post(name: AppSettings.changedNotification, object: self)
+			}
+			
 			guard let rect = newValue else {
 				ud.removeObject(forKey: SettingsKey.latestMapRect.rawValue)
 				return
@@ -113,18 +127,18 @@ final class AppSettings {
 	}
 	
 	var followLocationOnMap: Bool {
-		get {return ud.bool(forKey: SettingsKey.followLocationOnMap.rawValue)}
-		set {ud.set(newValue, forKey: SettingsKey.followLocationOnMap.rawValue)}
+		get {ud.bool(forKey: SettingsKey.followLocationOnMap.rawValue)}
+		set {ud.set(newValue, forKey: SettingsKey.followLocationOnMap.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
 	}
 	
 	var mapSwipeWarningShown: Bool {
-		get {return ud.bool(forKey: SettingsKey.mapSwipeWarningShown.rawValue)}
-		set {ud.set(newValue, forKey: SettingsKey.mapSwipeWarningShown.rawValue)}
+		get {ud.bool(forKey: SettingsKey.mapSwipeWarningShown.rawValue)}
+		set {ud.set(newValue, forKey: SettingsKey.mapSwipeWarningShown.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
 	}
 	
 	var mapType: MKMapType {
-		get {return MKMapType(rawValue: UInt(ud.integer(forKey: SettingsKey.mapType.rawValue))) ?? .standard}
-		set {ud.set(newValue.rawValue, forKey: SettingsKey.mapType.rawValue)}
+		get {MKMapType(rawValue: UInt(ud.integer(forKey: SettingsKey.mapType.rawValue))) ?? .standard}
+		set {ud.set(newValue.rawValue, forKey: SettingsKey.mapType.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
 	}
 	
 	var mapRegion: MKCoordinateRegion? {
@@ -136,6 +150,7 @@ final class AppSettings {
 			}
 		}
 		set {
+			defer {nc.post(name: AppSettings.changedNotification, object: self)}
 			guard var region = newValue else {ud.removeObject(forKey: SettingsKey.mapRegion.rawValue); return}
 			
 			let data = Data(bytes: &region, count: MemoryLayout<MKCoordinateRegion>.size)
@@ -144,18 +159,18 @@ final class AppSettings {
 	}
 	
 	var useBestGPSAccuracy: Bool {
-		get {return ud.bool(forKey: SettingsKey.useBestGPSAccuracy.rawValue)}
-		set {ud.set(newValue, forKey: SettingsKey.useBestGPSAccuracy.rawValue)}
+		get {ud.bool(forKey: SettingsKey.useBestGPSAccuracy.rawValue)}
+		set {ud.set(newValue, forKey: SettingsKey.useBestGPSAccuracy.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
 	}
 	
 	var distanceFilter: CLLocationDistance {
-		get {return ud.double(forKey: SettingsKey.distanceFilter.rawValue)}
-		set {ud.set(newValue, forKey: SettingsKey.distanceFilter.rawValue)}
+		get {ud.double(forKey: SettingsKey.distanceFilter.rawValue)}
+		set {ud.set(newValue, forKey: SettingsKey.distanceFilter.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
 	}
 	
 	var distanceUnit: DistanceUnit {
-		get {return DistanceUnit(rawValue: ud.integer(forKey: SettingsKey.distanceUnit.rawValue)) ?? .automatic}
-		set {ud.set(newValue.rawValue, forKey: SettingsKey.distanceUnit.rawValue)}
+		get {DistanceUnit(rawValue: ud.integer(forKey: SettingsKey.distanceUnit.rawValue)) ?? .automatic}
+		set {ud.set(newValue.rawValue, forKey: SettingsKey.distanceUnit.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
 	}
 	
 	var useMetricSystem: Bool {

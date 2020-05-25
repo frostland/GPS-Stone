@@ -38,7 +38,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 				case "paused":    self = .paused(recordingRef: recordingRef, segmentID: segmentID)
 				case "recording": self = .recording(recordingRef: recordingRef, segmentID: segmentID)
 				default:
-					throw NSError(domain: "fr.vso-software.GPSStoneTripRecorder", code: 1, userInfo: nil)
+					throw NSError(domain: Constants.appDomain, code: 1, userInfo: nil)
 			}
 		}
 		
@@ -126,7 +126,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	@objc dynamic private(set) var currentHeading: CLHeading?
 	@objc dynamic private(set) var currentLocation: CLLocation?
 	
-	init(locationManager: CLLocationManager, recordingsManager: RecordingsManager, dataHandler: DataHandler, appSettings: AppSettings, constants: Constants) {
+	init(locationManager: CLLocationManager, recordingsManager: RecordingsManager, dataHandler: DataHandler, appSettings: AppSettings, constants: Constants, notificationCenter: NotificationCenter = .default) {
 		assert(Thread.isMainThread)
 		
 		c = constants
@@ -134,31 +134,34 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		dh = dataHandler
 		lm = locationManager
 		rm = recordingsManager
+		nc = notificationCenter
 		canRecord = Set<CLAuthorizationStatus>(arrayLiteral: .notDetermined, .authorizedWhenInUse, .authorizedAlways).contains(CLLocationManager.authorizationStatus())
 		recStatusesHistory = (try? PropertyListDecoder().decode([RecordingStatusHistoryEntry].self, from: Data(contentsOf: constants.urlToCurrentRecordingInfo))) ?? []
-		status = Status(recordingStatus: recStatusesHistory.last?.status ?? .stopped)
+		status = Status(recordingStatus: recStatusesHistory.last?.status ?? .stopped, appSettingBestAccuracy: appSettings.useBestGPSAccuracy, appSettingDistanceFilter: appSettings.distanceFilter)
 		
 		super.init()
 		
 		#warning("TODO: Use allowDeferredLocationUpdatesUntilTraveled:timeout:")
-		configureLocationManagerWhenIdle()
 		lm.pausesLocationUpdatesAutomatically = true
+		lm.desiredAccuracy = status.distanceFilter
+		lm.distanceFilter = status.distanceFilter
 		lm.activityType = .fitness
 		lm.delegate = self
 		/* KVO on \.applicationState does not work, so we observe the app notifications instead. */
-		notificationObservers.append(NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.appStateChanged() }))
-		notificationObservers.append(NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.appStateChanged() }))
-		notificationObservers.append(NotificationCenter.default.addObserver(forName: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.appStateChanged() }))
+		notificationObservers.append(nc.addObserver(forName: AppSettings.changedNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.appSettingsChanged() }))
+		notificationObservers.append(nc.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.appStateChanged() }))
+		notificationObservers.append(nc.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.appStateChanged() }))
+		notificationObservers.append(nc.addObserver(forName: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.appStateChanged() }))
 		/* No need to call appStateChanged() (at least for now). Only the
 		 * appIsInBg property is modified by the method, and this property is
 		 * correctly initialized. */
 		
-		handleStatusChange(from: Status(recordingStatus: .stopped), to: status) /* willSet/didSet not called from init */
+		handleStatusChange(from: Status(recordingStatus: .stopped, appSettingBestAccuracy: appSettings.useBestGPSAccuracy, appSettingDistanceFilter: appSettings.distanceFilter), to: status) /* willSet/didSet not called from init */
 	}
 	
 	deinit {
 		for o in notificationObservers {
-			NotificationCenter.default.removeObserver(o)
+			nc.removeObserver(o)
 		}
 	}
 	
@@ -312,7 +315,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			assert(Thread.isMainThread)
 			
 			guard let r = recordingsManager.unsafeRecording(from: rr) else {
-				throw NSError(domain: "fr.vso-software.GPSStoneTripRecorder", code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot retrieve the given recording when instantiating a RecordingWriteObjects."])
+				throw NSError(domain: Constants.appDomain, code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot retrieve the given recording when instantiating a RecordingWriteObjects."])
 			}
 			
 			recordingRef = rr
@@ -325,7 +328,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	the values of the properties of this struct, when this struct changes. */
 	private struct Status {
 		
-		var recordingStatus : RecordingStatus
+		var recordingStatus: RecordingStatus
 		
 		var locationManagerPausedUpdates = false
 		
@@ -334,12 +337,54 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		var appIsInBg = (UIApplication.shared.applicationState == .background)
 		
+		var appSettingBestAccuracy: Bool
+		var appSettingDistanceFilter: CLLocationDistance
+		
+		var isRecording: Bool {
+			return recordingStatus.isRecording
+		}
+		
+		var needsAlwaysAuth: Bool {
+			/* When we need the tracking, we ask for the permissions. If we’re
+			 * recording a trip it might better to have the always permission
+			 * (though apparently not really needed; it seems to only rid of the
+			 * blue bar telling an app is actively using one’s position; we must
+			 * test this fully and maybe drop the always). */
+			return isRecording
+		}
+		
+		var needsSignificantLocationChangesTracking: Bool {
+			return isRecording
+		}
+		
+		var needsBackgroundLocationUpdates: Bool {
+			/* We allow background location updates when recording a trip. */
+			return isRecording
+		}
+		
 		var requiresLocationTrackingForClients: Bool {
-			return nClientsRequiringLocTracking > 0 && !appIsInBg
+			return nClientsRequiringLocTracking > 0
 		}
 		
 		var requiresHeadingTrackingForClients: Bool {
-			return nClientsRequiringHeadingTracking > 0 && !appIsInBg
+			return nClientsRequiringHeadingTracking > 0
+		}
+		
+		var needsLocationTracking: Bool {
+			return isRecording || (requiresLocationTrackingForClients && !appIsInBg)
+		}
+		
+		var needsHeadingTracking: Bool {
+			/* Only clients use the heading; we don’t use it while recording a trip */
+			return requiresHeadingTrackingForClients && !appIsInBg
+		}
+		
+		var desiredAccuracy: CLLocationAccuracy {
+			return ((isRecording && appSettingBestAccuracy) ? kCLLocationAccuracyBest : kCLLocationAccuracyNearestTenMeters)
+		}
+		
+		var distanceFilter: CLLocationDistance {
+			return (requiresLocationTrackingForClients ? 0 : appSettingDistanceFilter)
 		}
 		
 	}
@@ -386,8 +431,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	
 	private var cachedRecordingWriteObjects: RecordingWriteObjects?
 	
-	/** The locations that couldn’t be saved, with the save error. */
 	#warning("TODO: Do something with those? For now they’re just saved here, doing nothing, being erased when the app is terminated…")
+	/** The locations that couldn’t be saved, with the save error. */
 	private var saveFailedLocations = [(location: CLLocation, error: Error)]()
 	
 	private var notificationObservers = [NSObjectProtocol]()
@@ -399,6 +444,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	private let dh: DataHandler
 	private let lm: CLLocationManager
 	private let rm: RecordingsManager
+	private let nc: NotificationCenter
 	
 	/**
 	Returns the recording status at the given date.
@@ -443,6 +489,12 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 				let distance: CLLocationDistance
 				if let latestRecordedPoint = writeObjects.recording.points?.lastObject as! RecordingPoint?, let latestPointLocation = latestRecordedPoint.location {
 					distance = newLocation.distance(from: latestPointLocation)
+					/* If the distance filter of the location manager is greater or
+					 * equal to the distance filter required by the client, we take
+					 * everything we can get, otherwise we check the distance from
+					 * the previous point to be indeed greater than the one the
+					 * client wants. */
+					guard status.distanceFilter >= s.distanceFilter || distance >= s.distanceFilter else {continue}
 				} else {
 					distance = 0
 				}
@@ -494,56 +546,52 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			cachedRecordingWriteObjects = nil
 		}
 		
-		let needsTracking = newStatus.recordingStatus.isRecording || newStatus.requiresLocationTrackingForClients
-		let neededTracking = oldStatus.recordingStatus.isRecording || oldStatus.requiresLocationTrackingForClients
-		if needsTracking {
-			/* When we need the tracking, we ask for the permissions. If we’re
-			 * recording a trip it’s better to have the always permission (though
-			 * apparently not really needed; it seems to only rid of the blue bar
-			 * telling an app is actively using one’s position). */
-			if newStatus.recordingStatus.isRecording {lm.requestAlwaysAuthorization()}
-			else                                     {lm.requestWhenInUseAuthorization()}
+		let needsHeadingTracking = newStatus.needsHeadingTracking
+		let neededHeadingTracking = oldStatus.needsHeadingTracking
+		let needsLocationTracking = newStatus.needsLocationTracking
+		let neededLocationTracking = oldStatus.needsLocationTracking
+		let needsBackgroundLocationUpdates = newStatus.needsBackgroundLocationUpdates
+		let neededBackgroundLocationUpdates = oldStatus.needsBackgroundLocationUpdates
+		let needsSignificantLocationChangesTracking = newStatus.needsSignificantLocationChangesTracking
+		let neededSignificantLocationChangesTracking = oldStatus.needsSignificantLocationChangesTracking
+		
+		let needsAlwaysAuth = newStatus.needsAlwaysAuth
+		
+		let distanceFilter = newStatus.distanceFilter
+		let prevDistanceFilter = oldStatus.distanceFilter
+		
+		let desiredAccuracy = newStatus.desiredAccuracy
+		let prevDesiredAccuracy = oldStatus.desiredAccuracy
+		
+		if needsLocationTracking {
+			if needsAlwaysAuth {lm.requestAlwaysAuthorization()}
+			else               {lm.requestWhenInUseAuthorization()}
 		}
-		if newStatus.recordingStatus.isRecording && !oldStatus.recordingStatus.isRecording {
-			/* We assume the user won’t change the settings during a trip
-			 * recording. If he does, the new settings won’t be reflected in the
-			 * location manager config. */
-			#warning("TODO: Fix comment above")
-			let desiredDistanceFilter = max(0, s.distanceFilter)
-			lm.desiredAccuracy = (s.useBestGPSAccuracy ? kCLLocationAccuracyBest : kCLLocationAccuracyNearestTenMeters)
-			lm.distanceFilter = newStatus.requiresLocationTrackingForClients ? min(50, desiredDistanceFilter) : desiredDistanceFilter
-			
+		if distanceFilter != prevDistanceFilter {lm.distanceFilter = distanceFilter}
+		if desiredAccuracy != prevDesiredAccuracy {lm.desiredAccuracy = desiredAccuracy}
+		if needsSignificantLocationChangesTracking && !neededSignificantLocationChangesTracking {
 			/* This should launch the app when it gets a significant location
 			 * changes even if the user has force quit it, if the background app
 			 * refresh is on. */
 			lm.startMonitoringSignificantLocationChanges()
-		} else if !newStatus.recordingStatus.isRecording && oldStatus.recordingStatus.isRecording {
-			/* Sets accuracy and distance filter. */
-			configureLocationManagerWhenIdle()
-			
+		} else if !needsSignificantLocationChangesTracking && neededSignificantLocationChangesTracking {
 			lm.stopMonitoringSignificantLocationChanges()
 		}
-		if needsTracking && !neededTracking {
-			lm.startUpdatingLocation()
-		} else if !needsTracking && neededTracking {
-			lm.stopUpdatingLocation()
-		}
-		/* Only clients use the heading; we don’t use it while recording a trip. */
-		if newStatus.requiresHeadingTrackingForClients && !oldStatus.requiresHeadingTrackingForClients {
-			lm.startUpdatingHeading()
-		} else if !newStatus.requiresHeadingTrackingForClients && oldStatus.requiresHeadingTrackingForClients {
-			lm.stopUpdatingHeading()
-		}
+		if       needsLocationTracking && !neededLocationTracking {lm.startUpdatingLocation()}
+		else if !needsLocationTracking &&  neededLocationTracking {lm.stopUpdatingLocation()}
+		if       needsHeadingTracking && !neededHeadingTracking {lm.startUpdatingHeading()}
+		else if !needsHeadingTracking &&  neededHeadingTracking {lm.stopUpdatingHeading()}
 		
 		if #available(iOS 9.0, *) {
-			/* We allow background location updates when recording a trip. */
-			lm.allowsBackgroundLocationUpdates = newStatus.recordingStatus.isRecording
+			if needsBackgroundLocationUpdates != neededBackgroundLocationUpdates {
+				lm.allowsBackgroundLocationUpdates = needsBackgroundLocationUpdates
+			}
 		}
 	}
 	
-	private func configureLocationManagerWhenIdle() {
-		lm.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-		lm.distanceFilter = 50
+	private func appSettingsChanged() {
+		if status.appSettingBestAccuracy   != s.useBestGPSAccuracy {status.appSettingBestAccuracy   = s.useBestGPSAccuracy}
+		if status.appSettingDistanceFilter != s.distanceFilter     {status.appSettingDistanceFilter = s.distanceFilter}
 	}
 	
 	private func appStateChanged() {
