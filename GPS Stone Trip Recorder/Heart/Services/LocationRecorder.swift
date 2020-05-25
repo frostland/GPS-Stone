@@ -530,15 +530,22 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		assert(Thread.isMainThread)
 		NSLog("%@", "Status change from \(oldStatus) to \(newStatus)")
 		
-		/* Let’s save the current status */
+		/* *** Let’s save the current status *** */
 		if oldStatus.recordingStatus != newStatus.recordingStatus {
 			recStatusesHistory.append(RecordingStatusHistoryEntry(date: Date(), status: newStatus.recordingStatus))
 			_ = try? PropertyListEncoder().encode(recStatusesHistory).write(to: c.urlToCurrentRecordingInfo)
 		}
 		
+		/* *** Get or clear the current RecordingWriteObjects *** */
 		if oldStatus.recordingStatus.recordingRef == nil, let newRecordingRef = newStatus.recordingStatus.recordingRef {
 			cachedRecordingWriteObjects = try? RecordingWriteObjects(recordingRef: newRecordingRef, recordingsManager: rm)
 			guard cachedRecordingWriteObjects != nil else {
+				/* If we cannot get a RecordingWriteObjects recording won’t work. We
+				 * change our status to stopped.
+				 * We should provide a way to retrieve the error… maybe move the get
+				 * of this object in the start method? But there is the case of the
+				 * app launching in a recording state, which will not call the start
+				 * method… */
 				status.recordingStatus = .stopped
 				return
 			}
@@ -546,29 +553,28 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			cachedRecordingWriteObjects = nil
 		}
 		
-		let needsHeadingTracking = newStatus.needsHeadingTracking
-		let neededHeadingTracking = oldStatus.needsHeadingTracking
 		let needsLocationTracking = newStatus.needsLocationTracking
-		let neededLocationTracking = oldStatus.needsLocationTracking
-		let needsBackgroundLocationUpdates = newStatus.needsBackgroundLocationUpdates
-		let neededBackgroundLocationUpdates = oldStatus.needsBackgroundLocationUpdates
-		let needsSignificantLocationChangesTracking = newStatus.needsSignificantLocationChangesTracking
-		let neededSignificantLocationChangesTracking = oldStatus.needsSignificantLocationChangesTracking
 		
-		let needsAlwaysAuth = newStatus.needsAlwaysAuth
-		
-		let distanceFilter = newStatus.distanceFilter
-		let prevDistanceFilter = oldStatus.distanceFilter
-		
-		let desiredAccuracy = newStatus.desiredAccuracy
-		let prevDesiredAccuracy = oldStatus.desiredAccuracy
-		
+		/* *** Ask for location authorization if needed *** */
 		if needsLocationTracking {
+			let needsAlwaysAuth = newStatus.needsAlwaysAuth
 			if needsAlwaysAuth {lm.requestAlwaysAuthorization()}
 			else               {lm.requestWhenInUseAuthorization()}
 		}
+		
+		/* *** Update location manager distance filter *** */
+		let distanceFilter = newStatus.distanceFilter
+		let prevDistanceFilter = oldStatus.distanceFilter
 		if distanceFilter != prevDistanceFilter {lm.distanceFilter = distanceFilter}
+		
+		/* *** Update location manager desired accuracy *** */
+		let desiredAccuracy = newStatus.desiredAccuracy
+		let prevDesiredAccuracy = oldStatus.desiredAccuracy
 		if desiredAccuracy != prevDesiredAccuracy {lm.desiredAccuracy = desiredAccuracy}
+		
+		/* *** Start or stop significant location changes if needed *** */
+		let needsSignificantLocationChangesTracking = newStatus.needsSignificantLocationChangesTracking
+		let neededSignificantLocationChangesTracking = oldStatus.needsSignificantLocationChangesTracking
 		if needsSignificantLocationChangesTracking && !neededSignificantLocationChangesTracking {
 			/* This should launch the app when it gets a significant location
 			 * changes even if the user has force quit it, if the background app
@@ -577,12 +583,22 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		} else if !needsSignificantLocationChangesTracking && neededSignificantLocationChangesTracking {
 			lm.stopMonitoringSignificantLocationChanges()
 		}
+		
+		/* *** Start or stop location tracking if needed *** */
+		let neededLocationTracking = oldStatus.needsLocationTracking
 		if       needsLocationTracking && !neededLocationTracking {lm.startUpdatingLocation()}
 		else if !needsLocationTracking &&  neededLocationTracking {lm.stopUpdatingLocation()}
+		
+		/* *** Start or stop heading tracking if needed *** */
+		let needsHeadingTracking = newStatus.needsHeadingTracking
+		let neededHeadingTracking = oldStatus.needsHeadingTracking
 		if       needsHeadingTracking && !neededHeadingTracking {lm.startUpdatingHeading()}
 		else if !needsHeadingTracking &&  neededHeadingTracking {lm.stopUpdatingHeading()}
 		
+		/* *** Enable/disable bg location udpates if needed *** */
 		if #available(iOS 9.0, *) {
+			let needsBackgroundLocationUpdates = newStatus.needsBackgroundLocationUpdates
+			let neededBackgroundLocationUpdates = oldStatus.needsBackgroundLocationUpdates
 			if needsBackgroundLocationUpdates != neededBackgroundLocationUpdates {
 				lm.allowsBackgroundLocationUpdates = needsBackgroundLocationUpdates
 			}
