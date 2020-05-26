@@ -24,8 +24,8 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 	
 	required init?(coder: NSCoder) {
 		let fr: NSFetchRequest<Recording> = Recording.fetchRequest()
-		fr.predicate = NSPredicate(format: "%K != NULL", #keyPath(Recording.endDate))
-		fr.sortDescriptors = [NSSortDescriptor(keyPath: \Recording.startDate, ascending: false)]
+		fr.predicate = NSPredicate(format: "%K != NULL", #keyPath(Recording.totalTimeSegment.duration))
+		fr.sortDescriptors = [NSSortDescriptor(keyPath: \Recording.totalTimeSegment?.startDate, ascending: false)]
 		fetchedResultsController = NSFetchedResultsController<Recording>(fetchRequest: fr, managedObjectContext: dataHandler.viewContext, sectionNameKeyPath: nil, cacheName: nil)
 		try! fetchedResultsController.performFetch()
 		
@@ -115,7 +115,7 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 		dateFormatter.timeStyle = .short
 		
 		cell.textLabel?.text = object.name
-		cell.detailTextLabel?.text = object.startDate.flatMap{ dateFormatter.string(from: $0) }
+		cell.detailTextLabel?.text = object.totalTimeSegment?.startDate.flatMap{ dateFormatter.string(from: $0) }
 	}
 	
 }

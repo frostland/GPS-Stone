@@ -218,13 +218,16 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	This method is only valid to call while the location recorder is **not**
 	stopped (it has a current recording). Will crash in debug mode (assert
 	active) if called at an invalid time. */
-	func pauseCurrentRecording() {
+	func pauseCurrentRecording() throws {
 		assert(Thread.isMainThread)
 		assert(recStatus.recordingRef != nil)
 		guard let rrAndSID = recStatus.recordingRefAndSegmentID else {return}
 		
+		let r = try recordingWriteObjects(for: rrAndSID.recordingRef)
+		assert(r.recording.pauses?.count ?? 0 == rrAndSID.segmentID)
+		try rm.unsafeAddPauseAndSaveContext(to: r.recording)
+		
 		status.recordingStatus = .paused(recordingRef: rrAndSID.recordingRef, segmentID: rrAndSID.segmentID)
-		#warning("TODO: Add the TimeSegment to the current recording (or in resume, to see)")
 	}
 	
 	/**
@@ -233,15 +236,18 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	This method is only valid to call while the location recorder is **paused by
 	the user**. Will crash in debug mode (assert active) if called at an invalid
 	time. */
-	func resumeCurrentRecording() {
+	func resumeCurrentRecording() throws {
 		assert(Thread.isMainThread)
 		guard case .paused(let rr, let sid) = recStatus else {
 			assertionFailure()
 			return
 		}
 		
+		let r = try recordingWriteObjects(for: rr)
+		assert(r.recording.pauses?.count ?? 0 == sid + 1)
+		try rm.unsafeFinishLatestPauseAndSaveContext(in: r.recording)
+		
 		status.recordingStatus = .recording(recordingRef: rr, segmentID: sid + 1)
-		#warning("TODO: Add the TimeSegment to the current recording (or in pause, to see)")
 	}
 	
 	/**
@@ -254,9 +260,12 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		assert(Thread.isMainThread)
 		
 		let r = try recordingWriteObjects(for: recStatus.recordingRef!)
-		r.recording.endDate = Date()
-		#warning("TODO: TimeSegment?")
-		try dh.saveContextOrRollback()
+		
+		if case .paused = recStatus {
+			/* If we were paused we close the latest pause time segment. */
+			try rm.unsafeFinishLatestPauseAndSaveContext(in: r.recording)
+		}
+		try rm.unsafeFinishRecordingAndSaveContext(r.recording)
 		
 		status.recordingStatus = .stopped
 		return r.recording
@@ -487,7 +496,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 				let writeObjects = try recordingWriteObjects(for: recordingRef)
 				
 				let distance: CLLocationDistance
-				if let latestRecordedPoint = writeObjects.recording.points?.lastObject as! RecordingPoint?, let latestPointLocation = latestRecordedPoint.location {
+				if let latestRecordedPoint = try writeObjects.recording.latestPoint(before: newLocation.timestamp), let latestPointLocation = latestRecordedPoint.location {
 					distance = newLocation.distance(from: latestPointLocation)
 					/* If the distance filter of the location manager is greater or
 					 * equal to the distance filter required by the client, we take

@@ -35,7 +35,6 @@ final class RecordingsManager : NSObject {
 		else                       {r = NSEntityDescription.insertNewObject(forEntityName: "Recording", into: dh.viewContext) as! Recording}
 		r.name = NSLocalizedString("new recording", comment: "Default name for a recording")
 		r.totalTimeSegment = s
-		r.startDate = Date()
 		
 		try dh.saveContextOrRollback()
 		return r
@@ -57,7 +56,7 @@ final class RecordingsManager : NSObject {
 		recordingPoint.segmentID = segmentID
 		
 //		recording.addToPoints(recordingPoint) /* Does not work on iOS 9, so we have to do the line below! */
-		recording.mutableOrderedSetValue(forKey: #keyPath(Recording.points)).add(recordingPoint)
+		recording.mutableSetValue(forKey: #keyPath(Recording.points)).add(recordingPoint)
 		recording.totalDistance += Float(addedDistance)
 		recording.maxSpeed = max(Float(location.speed), recording.maxSpeed)
 		
@@ -79,6 +78,53 @@ final class RecordingsManager : NSObject {
 		
 		dh.viewContext.delete(point)
 		recording.totalDistance -= Float(removedDistance)
+	}
+	
+	func unsafeFinishRecordingAndSaveContext(_ recording: Recording) throws {
+		assert(Thread.isMainThread)
+		
+		if let ts = recording.totalTimeSegment {
+			ts.closeTimeSegment()
+		} else {
+			NSLog("***** ERROR: Current recording does not have a totalTimeSegment; this should not be possible. We will add a total time segment with an arbitrary duration of 1s.")
+			NSLog("*****        Recording: \(recording)")
+			let ts = NSEntityDescription.insertNewObject(forEntityName: "TimeSegment", into: dh.viewContext) as! TimeSegment
+			ts.startDate = Date(timeIntervalSinceNow: -1)
+			ts.duration = NSNumber(value: 1)
+			recording.totalTimeSegment = ts
+		}
+		try dh.saveContextOrRollback()
+	}
+	
+	@discardableResult
+	func unsafeAddPauseAndSaveContext(to recording: Recording) throws -> TimeSegment {
+		assert(Thread.isMainThread)
+		
+		let pause = NSEntityDescription.insertNewObject(forEntityName: "TimeSegment", into: dh.viewContext) as! TimeSegment
+		pause.startDate = Date()
+		pause.pauseSegmentRecording = recording
+		
+		try dh.saveContextOrRollback()
+		return pause
+	}
+	
+	@discardableResult
+	func unsafeFinishLatestPauseAndSaveContext(in recording: Recording) throws -> TimeSegment? {
+		assert(Thread.isMainThread)
+		
+		guard let pause = recording.pauses?.sortedArray(using: [NSSortDescriptor(keyPath: \TimeSegment.startDate, ascending: true)]).last as! TimeSegment? else {
+			NSLog("%@", "*** WARNING: Recording does not have a pause; cannot finish pausing the recording")
+			return nil
+		}
+		guard pause.duration == nil else {
+			NSLog("%@", "*** WARNING: Latest pause in time is already finished; cannot finish recording pause; leaving as-is")
+			return pause
+		}
+		
+		pause.closeTimeSegment()
+		
+		try dh.saveContextOrRollback()
+		return pause
 	}
 	
 	func recordingRef(from recordingID: NSManagedObjectID) -> URL {

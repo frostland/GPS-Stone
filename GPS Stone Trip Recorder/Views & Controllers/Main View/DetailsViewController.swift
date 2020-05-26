@@ -213,7 +213,7 @@ class DetailsViewController : UIViewController {
 		var duration = -(recording.totalTimeSegment?.startDate?.timeIntervalSinceNow ?? 0)
 		labelElapsedTime.text = Utils.stringFrom(timeInterval: duration)
 		
-		if let latestPointDate = (recording.points?.lastObject as! RecordingPoint?)?.date {
+		if let latestPointDate = try? recording.latestPointInTime()?.date {
 			/* We cheat the time twice (to avoid having the average speed that
 			 * moves all the time). */
 			duration = -(recording.totalTimeSegment?.startDate?.timeIntervalSince(latestPointDate) ?? 0)

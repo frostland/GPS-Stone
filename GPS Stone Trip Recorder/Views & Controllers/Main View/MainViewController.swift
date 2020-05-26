@@ -117,12 +117,13 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 		#warning("TODO: Handle the error if any")
 		switch self.locationRecorder.recStatus {
 			case .stopped: try? locationRecorder.startNewRecording()
-			default:       locationRecorder.resumeCurrentRecording()
+			default:       try? locationRecorder.resumeCurrentRecording()
 		}
 	}
 	
 	@IBAction func pauseRecording(_ sender: Any) {
-		locationRecorder.pauseCurrentRecording()
+		#warning("TODO: Handle the error if any")
+		_ = try? locationRecorder.pauseCurrentRecording()
 	}
 	
 	@IBAction func stopRecording(_ sender: Any) {

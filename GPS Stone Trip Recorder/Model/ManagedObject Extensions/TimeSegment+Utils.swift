@@ -42,4 +42,14 @@ extension TimeSegment {
 		}
 	}
 	
+	func closeTimeSegment() {
+		if let startDate = startDate {
+			duration = NSNumber(value: -startDate.timeIntervalSinceNow)
+		} else {
+			NSLog("***** ERROR: Given time segment does not have a start date. We will set the time segment’s duration to an arbitrary 1s.")
+			startDate = Date(timeIntervalSinceNow: -1)
+			duration = NSNumber(value: 1)
+		}
+	}
+	
 }
