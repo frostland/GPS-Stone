@@ -7,9 +7,7 @@
  *
  */
 
-//#import <Foundation/Foundation.h>
-
-#define VSO_COORD_PRINT_FORMAT @"%.10f"
+#import <Foundation/Foundation.h>
 
 
 
