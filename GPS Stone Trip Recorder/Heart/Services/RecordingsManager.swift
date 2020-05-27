@@ -18,6 +18,11 @@ final class RecordingsManager : NSObject {
 	
 	init(dataHandler: DataHandler) {
 		dh = dataHandler
+		
+		super.init()
+		
+		do    {try checkForModelInconsistencies()}
+		catch {NSLog("%@", "*** WARNING: Cannot check model for inconsistencies")}
 	}
 	
 	/**
@@ -142,6 +147,95 @@ final class RecordingsManager : NSObject {
 			return nil
 		}
 		return try? dh.viewContext.existingObject(with: recordingID) as? Recording
+	}
+	
+	/**
+	Checks for inconsistencies in the model.
+	
+	The model can have some inconsistencies, due to crashes or code errors. This
+	method will search for such inconsistencies and report them back.
+	
+	In details, the following will be checked:
+	- All the recordings have a total time segment, and at most one of these time
+	  segments is open;
+	- All the recordings have valid pause segments (fit within the total time
+	  segment, are closed (except for the recording that have an open time
+	  segment if any), do not overlap);
+	- All the points in a recording are within the total time segment, and not in
+	  any pause time segment;
+	- No points nor time segments are orphans;
+	- All points have a valid date (same as the location’s timestamp) and a
+	location. */
+	func checkForModelInconsistencies() throws {
+		var recordingWithOpenTimeSegment: Recording?
+		for recording: Recording in try dh.viewContext.fetch(Recording.fetchRequest()) {
+			guard let totalTimeSegment = recording.totalTimeSegment else {
+				NSLog("%@", "Recording \(recording.objectID) does not have a total time segment.")
+				continue
+			}
+			guard totalTimeSegment.startDate != nil else {
+				NSLog("%@", "Recording \(recording.objectID) does not have a start date.")
+				continue
+			}
+			if totalTimeSegment.isOpen {
+				if let r = recordingWithOpenTimeSegment {
+					NSLog("%@", "Recording \(r.objectID) and \(recording.objectID) both have open total time segments.")
+				}
+				recordingWithOpenTimeSegment = recording
+			}
+			
+			var seenPauses = [TimeSegment]()
+			for (pauseIndex, pause) in ((recording.pauses?.sortedArray(using: [NSSortDescriptor(keyPath: \TimeSegment.startDate, ascending: false)]) ?? []) as! [TimeSegment]).enumerated() {
+				let isLatestPauseInTime = (pauseIndex == 0)
+				if pause.isOpen && (!isLatestPauseInTime || !totalTimeSegment.isOpen) {
+					NSLog("%@", "Recording \(recording.objectID) contains an open time segment pause \(pause.objectID) but this pause is not the latest, or the recording is finished.")
+				}
+				if !(totalTimeSegment.contains(pause) ?? false) {
+					NSLog("%@", "Recording \(recording.objectID) contains pause \(pause.objectID) which is not contained in the total time segment (or either segment is invalid).")
+				}
+				for p in seenPauses {
+					if pause.intersects(p) ?? true {
+						NSLog("%@", "Recording \(recording.objectID) contains two pauses \(pause.objectID) and \(p.objectID) which intersect (or either are invalid).")
+					}
+				}
+				seenPauses.append(pause)
+			}
+			for point in recording.points ?? [] {
+				let point = point as! RecordingPoint
+				guard let pointDate = point.date else {
+					NSLog("%@", "Recording \(recording.objectID) contains a point \(point.objectID) which does not have a date.")
+					continue
+				}
+				if !(totalTimeSegment.contains(pointDate) ?? false) {
+					NSLog("%@", "Recording \(recording.objectID) contains a point whose date is not contained in the total time segment.")
+				}
+				for pause in recording.pauses ?? [] {
+					let pause = pause as! TimeSegment
+					if pause.contains(pointDate) ?? false {
+						NSLog("%@", "Recording \(recording.objectID) contains a point whose date is in pause segment \(pause.objectID).")
+					}
+				}
+			}
+		}
+		for point: RecordingPoint in try dh.viewContext.fetch(RecordingPoint.fetchRequest()) {
+			if point.recording == nil {
+				NSLog("%@", "Found orphan recording point \(point.objectID).")
+			}
+			if point.date == nil {
+				NSLog("%@", "Found a recording point without a date: \(point.objectID).")
+			}
+			if point.location == nil {
+				NSLog("%@", "Found a recording point without a location: \(point.objectID).")
+			}
+			if point.date != point.location?.timestamp {
+				NSLog("%@", "Found a recording point whose date is not the same as its location’s timestamp \(point.objectID).")
+			}
+		}
+		for timeSegment: TimeSegment in try dh.viewContext.fetch(TimeSegment.fetchRequest()) {
+			if timeSegment.pauseSegmentRecording == nil && timeSegment.totalTimeSegmentRecording == nil {
+				NSLog("%@", "Found orphan time segment \(timeSegment.objectID).")
+			}
+		}
 	}
 	
 	/* ***************
