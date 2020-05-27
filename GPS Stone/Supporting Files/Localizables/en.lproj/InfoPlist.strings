@@ -1,0 +1,12 @@
+/* 
+  InfoPlist.strings
+  GPS Stone
+
+  Created by François Lamboley on 08/01/2017.
+
+*/
+
+NSLocationWhenInUseUsageDescription = "Showing your speed, altitude and GPS coordinate requires getting your position.";
+NSLocationAlwaysUsageDescription = "Recording your trip requires knowing your position at all times. We will never use your position in background when the App is not recording a trip.";
+
+NSLocationAlwaysAndWhenInUseUsageDescription = "Recording your trip requires knowing your position at all times. We will never use your position in background when the App is not recording a trip.";

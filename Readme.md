@@ -1,4 +1,4 @@
-# GPS Stone Trip Recorder
+# GPS Stone
 Register your trips and export them as GPX files.
 
 ## Notes
