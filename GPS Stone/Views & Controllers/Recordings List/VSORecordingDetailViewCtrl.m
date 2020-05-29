@@ -120,7 +120,7 @@
 - (IBAction)exportGPX:(id)sender
 {
 	if (!MFMailComposeViewController.canSendMail) {
-		[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"configure mail", nil) message:[NSString stringWithFormat:NSLocalizedString(@"to export a GPX file, you must configure at least one email address in your phone settings", nil), 1] delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] show];
+		[[[UIAlertView alloc] initWithTitle:LocalizedString(@"configure mail", nil) message:[NSString stringWithFormat:LocalizedString(@"to export a GPX file, you must configure at least one email address in your phone settings", nil), 1] delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil), nil] show];
 		return;
 	}
 	

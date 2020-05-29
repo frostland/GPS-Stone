@@ -1,0 +1,139 @@
+/* ••••••••••••••••••••••••••••••••••••• DO NOT TOUCH THIS BLOCK ••••••••••••••••••••••••••••••••••••• */
+
+"1ZG-Og-GBx.text" = ""; "8OL-lM-L62.text" = ""; "8dJ-My-syJ.text" = ""; "ATJ-qY-cjq.text" = "";
+"LPW-XC-jV5.text" = ""; "Lef-w0-avQ.text" = ""; "NdL-Wu-GAh.text" = ""; "Q06-FC-fXt.text" = "";
+"QhS-K4-jCZ.text" = ""; "Quy-J2-vBR.text" = ""; "S8Z-O0-QRh.text" = ""; "Usl-v7-ghZ.text" = "";
+"WIG-O3-CHn.text" = ""; "aN4-8g-iDj.text" = ""; "b6X-DE-ZF5.text" = ""; "dge-6h-kMQ.text" = "";
+"dut-bB-BrT.text" = ""; "pbi-3A-Uy1.text" = "";
+
+/* ••••••••••••••••••••••••••••••••••••• END OF THE BLOCK ••••••••••••••••••••••••••••••••••••• */
+
+
+
+/* •••••••••••••••••••••••••••••••••• */
+/*            Welcome View            */
+/* •••••••••••••••••••••••••••••••••• */
+
+/* Title of the welcome view */
+"qcP-b5-dt1.text" = "Welcome to GPS Stone";
+
+/* Title of the “Go to GPS info” button in the welcome view */
+"Ihm-A0-PIq.normalTitle" = "Go to GPS Info";
+
+/* Title of the “Go to the Map” button in the welcome view */
+"d9c-1j-3iO.normalTitle" = "Go to the Map";
+
+/* Title of the “Preferences” button in the welcome view */
+"rt2-Cp-J6Z.normalTitle" = "Preferences";
+
+/* Title of the “Start a New Recording” button in the welcome view */
+"hJ1-H4-4Tu.normalTitle" = "Start a New Recording";
+
+
+/* •••••••••••••••••••••••••••••••••••••••••••••• */
+/*            Mini Recording Info View            */
+/* •••••••••••••••••••••••••••••••••••••••••••••• */
+
+/* Text displayed in the mini recording info view when no points are recorded yet */
+"jfU-Oc-jun.text" = "…";
+
+
+/* ••••••••••••••••••••••••••••••••••• */
+/*            GPS Info View            */
+/* ••••••••••••••••••••••••••••••••••• */
+
+/* Title of the GPS info view */
+"hJn-HR-FhD.text" = "GPS Info";
+
+/* Max speed info title in the GPS info view */
+"aWF-4w-Mff.text" = "Max:";
+
+/* Average speed info title in the GPS info view */
+"hFX-DU-4kU.text" = "Avg:";
+
+/* Accuracy info title in the GPS info view */
+"UlH-ws-QU0.text" = "Accuracy:";
+
+/* Altitude info title in the GPS info view */
+"WSh-SN-AvW.text" = "Altitude:";
+
+/* Title of the start recording button in the GPS info view */
+"HdH-9k-jLJ.normalTitle" = "Start Recording";
+
+/* The title of the current recording part of the GPS info view */
+"Bkk-x0-wDc.text" = "Current Recording";
+
+/* The elapsed time info title for the current recording in the GPS info view */
+"81J-mM-565.text" = "Elapsed time:";
+
+/* The total distance info title for the current recording in the GPS info view */
+"Y5g-x4-hVO.text" = "Total distance:";
+
+/* The number of points recorded info title for the current recording in the GPS info view */
+"ZJL-Db-YFa.text" = "Points recorded:";
+
+
+/* •••••••••••••••••••••••••••••••••••••••••• */
+/*            Recordings List View            */
+/* •••••••••••••••••••••••••••••••••••••••••• */
+
+/* Title of the recordings list view */
+"PbE-Zs-ECC.title" = "Recordings";
+
+
+/* ••••••••••••••••••••••••••••••••••••••••• */
+/*            Recording Info View            */
+/* ••••••••••••••••••••••••••••••••••••••••• */
+
+/* Title of the name info in the recording info view */
+"hNz-be-lW8.text" = "Name:";
+
+/* Title of the date info in the recording info view */
+"nx0-6U-mxA.text" = "Date";
+
+/* Title of the export GPX button in the recordings list view */
+"flL-9s-beR.normalTitle" = "Export GPX…";
+
+
+/* ••••••••••••••••••••••••••••••••••• */
+/*            Settings View            */
+/* ••••••••••••••••••••••••••••••••••• */
+
+/* Title of the settings view (navigation bar title) */
+"msU-NN-tCv.title" = "Settings";
+/* Title of the settings view (title of the view controller specifically, probably ignored) */
+"SoB-3e-nBh.title" = "Settings";
+
+/* The title of the map style section of the settings view */
+"Rzv-9A-gBV.headerTitle" = "Map Style";
+
+/* Map style selection (in settings view): map */
+"II6-S0-e6b.segmentTitles[0]" = "Map";
+/* Map style selection (in settings view): satellite */
+"II6-S0-e6b.segmentTitles[1]" = "Satellite";
+/* Map style selection (in settings view): hybrid */
+"II6-S0-e6b.segmentTitles[2]" = "Hybrid";
+
+/* The title of the points recording section of the settings view */
+"EDx-Rx-oei.headerTitle" = "Points Recording";
+
+/* The distance filter setting title in the settings view */
+"ILj-V9-W2v.text" = "Distance filter:";
+
+/* Unit (always meters) for the distance filter in the settings view */
+"S4X-xD-J78.text" = "meters";
+
+/* The “Use Best GPS Accuracy” setting in the settings view */
+"whs-ZC-GYE.text" = "Use Best GPS Accuracy";
+/* Subtitle for the “best GPS accuracy” setting in the settings view */
+"xA6-DX-yki.text" = "Best accuracy is more precise but uses more energy.";
+
+/* The title of the distance unit section of the settings view */
+"eaI-xq-KGu.headerTitle" = "Distance Unit";
+
+/* The “System Default” entry for selecting the Distance Unit */
+"hen-Lf-ENK.text" = "System Default";
+/* The “Metric” entry for selecting the Distance Unit */
+"w9q-0E-GLN.text" = "Metric";
+/* The “Imperial” entry for selecting the Distance Unit */
+"5xq-UZ-Gkp.text" = "Imperial";
