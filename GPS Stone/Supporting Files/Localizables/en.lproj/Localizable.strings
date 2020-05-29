@@ -54,7 +54,7 @@
 "#n#mi" = "#n#mi";
 
 /* The symbol for arcminute (usually “’”). */
-"arcminute symbol" = "‘";
+"arcminute symbol" = "’";
 
 /* The symbol for arcsecond (usually ‘”’). */
 "arcsecond symbol" = "”";
