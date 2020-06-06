@@ -47,13 +47,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0F13A60D102AE7E800D1C9BE /* VSOInfoGenericController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOInfoGenericController.h; sourceTree = "<group>"; };
-		0F2B6086102842F300FC0595 /* VSORecordingDetailViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSORecordingDetailViewCtrl.h; sourceTree = "<group>"; };
-		0F2B6087102842F300FC0595 /* VSORecordingDetailViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSORecordingDetailViewCtrl.m; sourceTree = "<group>"; };
-		0F34802810089A9700E88124 /* VSOMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOMapViewController.h; sourceTree = "<group>"; };
-		0F34802910089A9700E88124 /* VSOMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSOMapViewController.m; sourceTree = "<group>"; };
-		0F3480F61008A83B00E88124 /* VSODetailsViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSODetailsViewCtrl.h; sourceTree = "<group>"; };
-		0F3480F71008A83B00E88124 /* VSODetailsViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSODetailsViewCtrl.m; sourceTree = "<group>"; };
+		0F34802810089A9700E88124 /* Obs_MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Obs_MapViewController.h; sourceTree = "<group>"; };
+		0F34802910089A9700E88124 /* Obs_MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Obs_MapViewController.m; sourceTree = "<group>"; };
 		0F48CE5D1029AD88008C524D /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		0F48CE7C1029AF9D008C524D /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		0F79F69E10203DAE00AF7FF1 /* VSOUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSOUtils.h; sourceTree = "<group>"; };
@@ -61,14 +56,10 @@
 		0FA3D1DC10302ED80098760F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		0FB4B0FB10074B20005292C4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0FBBCBA8100A9F67003679A8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		0FC907BC1023107F009EA1B1 /* VSORecordingsListViewCtlr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSORecordingsListViewCtlr.m; sourceTree = "<group>"; };
-		0FC907BD1023107F009EA1B1 /* VSORecordingsListViewCtlr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSORecordingsListViewCtlr.h; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* GPS Stone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GPS Stone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765580DF743DE002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		289233A80DB2D0DB0083E9F9 /* MainViewController_obs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController_obs.h; sourceTree = "<group>"; };
-		289233A90DB2D0DB0083E9F9 /* MainViewController_obs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController_obs.m; sourceTree = "<group>"; };
 		7B06D3A822EC8D27000D31B9 /* DataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
 		7B08CFC522BA96AF00BE6E3F /* RecordingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingDetailsViewController.swift; sourceTree = "<group>"; };
 		7B0F344B22BA9DFA00F0F9EC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -126,26 +117,10 @@
 		0F2B6084102842C500FC0595 /* Recordings List */ = {
 			isa = PBXGroup;
 			children = (
-				0FC907BD1023107F009EA1B1 /* VSORecordingsListViewCtlr.h */,
-				0FC907BC1023107F009EA1B1 /* VSORecordingsListViewCtlr.m */,
 				7B5108F622BA57E60038CEAC /* RecordingsListViewController.swift */,
-				0F2B6086102842F300FC0595 /* VSORecordingDetailViewCtrl.h */,
-				0F2B6087102842F300FC0595 /* VSORecordingDetailViewCtrl.m */,
 				7B08CFC522BA96AF00BE6E3F /* RecordingDetailsViewController.swift */,
 			);
 			path = "Recordings List";
-			sourceTree = "<group>";
-		};
-		0F3480261008996800E88124 /* PageControl Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				0F13A60D102AE7E800D1C9BE /* VSOInfoGenericController.h */,
-				0F3480F61008A83B00E88124 /* VSODetailsViewCtrl.h */,
-				0F3480F71008A83B00E88124 /* VSODetailsViewCtrl.m */,
-				0F34802810089A9700E88124 /* VSOMapViewController.h */,
-				0F34802910089A9700E88124 /* VSOMapViewController.m */,
-			);
-			path = "PageControl Controllers";
 			sourceTree = "<group>";
 		};
 		0F6F2FF410175F33006C7495 /* Model */ = {
@@ -176,9 +151,8 @@
 		289233A00DB2D0730083E9F9 /* Main View */ = {
 			isa = PBXGroup;
 			children = (
-				0F3480261008996800E88124 /* PageControl Controllers */,
-				289233A80DB2D0DB0083E9F9 /* MainViewController_obs.h */,
-				289233A90DB2D0DB0083E9F9 /* MainViewController_obs.m */,
+				0F34802810089A9700E88124 /* Obs_MapViewController.h */,
+				0F34802910089A9700E88124 /* Obs_MapViewController.m */,
 				7BEED1BE22B6C0F700A055B9 /* MainViewController.swift */,
 				7B23D9B922B90BB20007BA61 /* InfoViewController.swift */,
 				7BD0A05822B9576500934656 /* DetailsViewController.swift */,
