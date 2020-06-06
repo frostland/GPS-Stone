@@ -1,58 +1,83 @@
-"really stop?" = "Recording will be stopped here. Continue?";
-"really pause?" = "Recording will be paused until the record button is hit. Continue?";
+/* This file contains the generic strings for the application */
 
-"dont show again" = "Don’t show again";
-"yes" = "Yes";
-"no" = "No";
 
-"ok" = "OK";
 
-"gpx creator tag" = "GPS Stone for iPhone by VSO-Software";
+/* ••••••••••••••••••••••••••• */
+/*       Generic Strings       */
+/* ••••••••••••••••••••••••••• */
 
-"cannot get location" = "Unable to get your location";
-"record cancelled: cant get location" = "The recording was cancelled because your current location can’t be gotten. Please enable the iPhone to know your location for GPS Stone.";
 
-"getting loc" = "Getting location";
-"waiting for gps" = "Waiting for GPS";
-"recording paused" = "Recording Paused";
-"plus minus n percent format" = "± %d%%";
-"km/h" = "km/h";
-"mph" = "mph";
+/* Undefined symbol (in English: “N/D”). */
 "nd" = "N/D";
+
+
+
+/* •••••••••••••••••••••••••• */
+/*       Format Strings       */
+/* •••••••••••••••••••••••••• */
+
+
+/* The format for a degrees minute seconds positive latitude */
+"|degrees| /minutes/ -seconds- N" = "|degrees| /minutes/ -seconds- N";
+/* The format for a degrees minute seconds negative latitude */
+"|degrees| /minutes/ -seconds- S" = "|degrees| /minutes/ -seconds- S";
+/* The format for a degrees minute seconds positive longitude */
+"|degrees| /minutes/ -seconds- E" = "|degrees| /minutes/ -seconds- E";
+/* The format for a degrees minute seconds negative longitude */
+"|degrees| /minutes/ -seconds- W" = "|degrees| /minutes/ -seconds- W";
+
+/* The kilometers per hour symbol in a speed (usually km/h). Will only be
+ * displayed next to the speed in the details view of the app. The system symbol
+ * (which we cannot easily retrieve) will be used anywhere else, so this value
+ * should be the same as the system symbol. */
+"km/h" = "km/h";
+/* The miles per hour symbol in a speed (mph in English). Will only be displayed
+ * next to the speed in the details view of the app. The system symbol (which we
+ * cannot easily retrieve) will be used anywhere else, so this value should be
+ * the same as the system symbol. */
+"mph" = "mph";
+
+
+
+/* ••••••••••••••••••••••••••••••••••••• */
+/*       Pre-iOS 10 Format Strings       */
+/* ••••••••••••••••••••••••••••••••••••• */
+
+
+/* Abbreviated meters format where #n# is the number of meters. For instance “#n#m”. */
+"#n#m" = "#n#m";
+/* Abbreviated kilometers format where #n# is the number of kilometers. For instance “#n#km”. */
+"#n#km" = "#n#km";
+
+/* Abbreviated feet format where #n# is the number of feet. For instance “#n#ft”. */
+"#n#ft" = "#n#ft";
+/* Abbreviated miles format where #n# is the number of miles. For instance “#n#mi”. */
+"#n#mi" = "#n#mi";
+
+/* The symbol for degrees (usually “º”). */
+"degree symbol" = "º";
+/* The symbol for arcminute (usually “’”). */
+"arcminute symbol" = "’";
+/* The symbol for arcsecond (usually ‘”’). */
+"arcsecond symbol" = "”";
+
+
+
+/* •••••••••••••••••••••••••••••••••• */
+/*       Other App Translations       */
+/* •••••••••••••••••••••••••••••••••• */
 
 
 /* Default name for a recording */
 "new recording" = "New Recording";
 
-/* Abbreviated feet format where #n# is the number of feet. For instance “#n#ft”. */
-"#n#ft" = "#n#ft";
 
-/* Abbreviated kilometers format where #n# is the number of kilometers. For instance “#n#km”. */
-"#n#km" = "#n#km";
 
-/* Abbreviated meters format where #n# is the number of meters. For instance “#n#m”. */
-"#n#m" = "#n#m";
+/* •••••••••••••••• */
+/*       TODO       */
+/* •••••••••••••••• */
 
-/* Abbreviated miles format where #n# is the number of miles. For instance “#n#mi”. */
-"#n#mi" = "#n#mi";
 
-/* The symbol for arcminute (usually “’”). */
-"arcminute symbol" = "’";
+"getting loc" = "Getting location";
+"plus minus n percent format" = "± %d%%";
 
-/* The symbol for arcsecond (usually ‘”’). */
-"arcsecond symbol" = "”";
-
-/* The symbol for degrees (usually “º”). */
-"degree symbol" = "º";
-
-/* The format for a degrees minute seconds positive longitude */
-"|degrees| /minutes/ -seconds- E" = "|degrees| /minutes/ -seconds- E";
-
-/* The format for a degrees minute seconds positive latitude */
-"|degrees| /minutes/ -seconds- N" = "|degrees| /minutes/ -seconds- N";
-
-/* The format for a degrees minute seconds negative latitude */
-"|degrees| /minutes/ -seconds- S" = "|degrees| /minutes/ -seconds- S";
-
-/* The format for a degrees minute seconds negative longitude */
-"|degrees| /minutes/ -seconds- W" = "|degrees| /minutes/ -seconds- W";

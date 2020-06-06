@@ -38,6 +38,7 @@
 		7B94D1E822A0194100848832 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E722A0194100848832 /* Constants.swift */; };
 		7B94D1EA22A0197900848832 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E922A0197900848832 /* AppSettings.swift */; };
 		7BAE22DE22DB75C000AB6C33 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7BAE22DC22DB75C000AB6C33 /* Model.xcdatamodeld */; };
+		7BB90DC7248BECFD001ED9E7 /* Obs_Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7BB90DC9248BECFD001ED9E7 /* Obs_Localizable.strings */; };
 		7BC43307233624DD00C59752 /* CollectionAndTableViewUpdateConveniences in Frameworks */ = {isa = PBXBuildFile; productRef = 7BC43306233624DD00C59752 /* CollectionAndTableViewUpdateConveniences */; };
 		7BD0A05922B9576500934656 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD0A05822B9576500934656 /* DetailsViewController.swift */; };
 		7BE9FF9D22AC1BC6006DED15 /* RecordingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */; };
@@ -85,6 +86,7 @@
 		7B9CD98F2481296200CF4E14 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		7BA2A5EA1F2E013A0014603B /* Test Recording.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Test Recording.gpx"; sourceTree = "<group>"; };
 		7BAE22DD22DB75C000AB6C33 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		7BB90DC8248BECFD001ED9E7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Obs_Localizable.strings; sourceTree = "<group>"; };
 		7BD0A05822B9576500934656 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsManager.swift; sourceTree = "<group>"; };
 		7BEED1BE22B6C0F700A055B9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 		7B27B9361DCF3E3D006F44B7 /* Localizables */ = {
 			isa = PBXGroup;
 			children = (
+				7BB90DC9248BECFD001ED9E7 /* Obs_Localizable.strings */,
 				7B482CDF1DCA8ADD007B5ABC /* Localizable.strings */,
 				7B28FFDA2476E9590063E26A /* InfoPlist.strings */,
 			);
@@ -362,6 +365,7 @@
 				7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */,
 				7B482CE11DCA8ADD007B5ABC /* Localizable.strings in Resources */,
 				7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */,
+				7BB90DC7248BECFD001ED9E7 /* Obs_Localizable.strings in Resources */,
 				7B27B9291DCDF6B1006F44B7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -424,6 +428,14 @@
 				7B9CD98F2481296200CF4E14 /* en */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7BB90DC9248BECFD001ED9E7 /* Obs_Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7BB90DC8248BECFD001ED9E7 /* en */,
+			);
+			name = Obs_Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

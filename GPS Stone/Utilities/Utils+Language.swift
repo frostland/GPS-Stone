@@ -22,8 +22,8 @@ extension Utils {
 	static func speedSymbol(usingMetricSystem: Bool) -> String {
 		/* See stringFrom(speedValue:, useMiles:) for a rationale about not using
 		 * formatter.string(from: useMetricSystem ? UnitSpeed.kilometersPerHour : .milesPerHour) */
-		if !usingMetricSystem {return NSLocalizedString("km/h", comment: "The kilometers per hour symbol in a speed (usually km/h). Will only be displayed next to the speed in the details view of the app. The system symbol (which we cannot easily retrieve) will be used anywhere else.")}
-		else                  {return NSLocalizedString("mph",  comment: "The miles per hour symbol in a speed (mph in English). Will only be displayed next to the speed in the details view of the app. The system symbol (which we cannot easily retrieve) will be used anywhere else.")}
+		if !usingMetricSystem {return NSLocalizedString("km/h", comment: "The kilometers per hour symbol in a speed (usually km/h). Will only be displayed next to the speed in the details view of the app. The system symbol (which we cannot easily retrieve) will be used anywhere else, so this value should be the same as the system symbol.")}
+		else                  {return NSLocalizedString("mph",  comment: "The miles per hour symbol in a speed (mph in English). Will only be displayed next to the speed in the details view of the app. The system symbol (which we cannot easily retrieve) will be used anywhere else, so this value should be the same as the system symbol.")}
 	}
 	
 	/* We could (should?) create a formatter for this, actually */
