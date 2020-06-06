@@ -40,7 +40,6 @@
 		7BAE22DE22DB75C000AB6C33 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7BAE22DC22DB75C000AB6C33 /* Model.xcdatamodeld */; };
 		7BC43307233624DD00C59752 /* CollectionAndTableViewUpdateConveniences in Frameworks */ = {isa = PBXBuildFile; productRef = 7BC43306233624DD00C59752 /* CollectionAndTableViewUpdateConveniences */; };
 		7BD0A05922B9576500934656 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD0A05822B9576500934656 /* DetailsViewController.swift */; };
-		7BD4B52A22C134A400EC9545 /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD4B52922C134A400EC9545 /* UIUtils.swift */; };
 		7BE9FF9D22AC1BC6006DED15 /* RecordingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */; };
 		7BEED1BF22B6C0F700A055B9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEED1BE22B6C0F700A055B9 /* MainViewController.swift */; };
 		7BEF77FC22EFA23B001B79DB /* Recording+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEF77FB22EFA23B001B79DB /* Recording+Utils.swift */; };
@@ -87,7 +86,6 @@
 		7BA2A5EA1F2E013A0014603B /* Test Recording.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Test Recording.gpx"; sourceTree = "<group>"; };
 		7BAE22DD22DB75C000AB6C33 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		7BD0A05822B9576500934656 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
-		7BD4B52922C134A400EC9545 /* UIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
 		7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsManager.swift; sourceTree = "<group>"; };
 		7BEED1BE22B6C0F700A055B9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7BEF77FB22EFA23B001B79DB /* Recording+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recording+Utils.swift"; sourceTree = "<group>"; };
@@ -237,7 +235,6 @@
 			children = (
 				7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */,
 				7B482CE81DCA975F007B5ABC /* Main.storyboard */,
-				7BD4B52822C1348D00EC9545 /* Global */,
 				289233A00DB2D0730083E9F9 /* Main View */,
 				0F2B6084102842C500FC0595 /* Recordings List */,
 				281C6CD70DB2D82200F60ACC /* Settings View */,
@@ -283,14 +280,6 @@
 				7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		7BD4B52822C1348D00EC9545 /* Global */ = {
-			isa = PBXGroup;
-			children = (
-				7BD4B52922C134A400EC9545 /* UIUtils.swift */,
-			);
-			path = Global;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -401,7 +390,6 @@
 				7B4487A1247199EA00B6DB7B /* VSOUtils.m in Sources */,
 				7BAE22DE22DB75C000AB6C33 /* Model.xcdatamodeld in Sources */,
 				7B0F344C22BA9DFA00F0F9EC /* SettingsViewController.swift in Sources */,
-				7BD4B52A22C134A400EC9545 /* UIUtils.swift in Sources */,
 				7B94D1E622A0191700848832 /* ServicesProvider.swift in Sources */,
 				7B4487A524719C5000B6DB7B /* Utils+Language.swift in Sources */,
 				7B4487A72471CA1100B6DB7B /* GPSStoneLocTokens.swift in Sources */,
