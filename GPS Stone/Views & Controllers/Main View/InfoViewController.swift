@@ -24,6 +24,7 @@ protocol InfoViewControllerDelegate : class {
 class InfoViewController : UIViewController {
 	
 	@IBOutlet var constraintMarginTopTitle: NSLayoutConstraint!
+	@IBOutlet var labelTitle: UILabel!
 	@IBOutlet var buttonRecord: UIButton!
 	
 	weak var delegate: InfoViewControllerDelegate?
@@ -34,6 +35,12 @@ class InfoViewController : UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		if #available(iOS 9, *) {} else {
+			/* On iOS 8, I don’t know why, but the title font does not work… */
+			labelTitle.font = UIFont.systemFont(ofSize: 27)
+			buttonRecord.titleLabel?.font = UIFont.systemFont(ofSize: 22)
+		}
 		
 		if !Utils.isDeviceScreenTallerThanOriginalIPhone {
 			constraintMarginTopTitle.constant = 25

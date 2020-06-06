@@ -937,6 +937,7 @@
                     <connections>
                         <outlet property="buttonRecord" destination="hJ1-H4-4Tu" id="wlh-ak-h0r"/>
                         <outlet property="constraintMarginTopTitle" destination="6bu-mA-pN1" id="Jy4-Ab-i2k"/>
+                        <outlet property="labelTitle" destination="qcP-b5-dt1" id="rig-fi-Juk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QDM-9F-ChZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
