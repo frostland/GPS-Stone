@@ -153,8 +153,7 @@ class DetailsViewController : UIViewController {
 			labelHorizontalAccuracy.textColor = (location.horizontalAccuracy > c.accuracyWarningThreshold ? .red : labelColor)
 			if location.verticalAccuracy.sign == .plus {
 				labelAltitude.text = Utils.stringFrom(altitude: location.altitude, useMetricSystem: appSettings.useMetricSystem)
-				#warning("TODO: Use XibLoc!")
-				labelVerticalAccuracy.text = abs(location.altitude) < 0.001 ? "" : String(format: NSLocalizedString("plus minus n percent format", comment: ""), Int((location.verticalAccuracy/abs(location.altitude)) * 100))
+				labelVerticalAccuracy.text = abs(location.altitude) < 0.001 ? "" : NSLocalizedString("more or less #n# percent", comment: "").applyingCommonTokens(number: XibLocNumber(Int((location.verticalAccuracy/abs(location.altitude)) * 100)))
 			}
 			if location.speed.sign == .plus {
 				labelSpeed.text = Utils.stringFrom(speedValue: location.speed, useMetricSystem: appSettings.useMetricSystem)

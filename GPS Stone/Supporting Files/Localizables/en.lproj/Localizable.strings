@@ -7,8 +7,10 @@
 /* ••••••••••••••••••••••••••• */
 
 
-/* Undefined symbol (in English: “N/D”). */
+/* Undefined symbol (in English: “N/D”) */
 "nd" = "N/D";
+/* More or less #n# percent (e.g. “± #n#%”) */
+"more or less #n# percent" = "± #n#%";
 
 
 
@@ -79,5 +81,3 @@
 
 
 "getting loc" = "Getting location";
-"plus minus n percent format" = "± %d%%";
-
