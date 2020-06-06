@@ -293,8 +293,8 @@ end:
 	[self allocNewPointInfos];
 	
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:VSO_UDK_SHOW_MEMORY_CLEAR_WARNING])
-		[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"memory performances", nil) message:NSLocalizedString(@"removing stored points cache for map", nil)
-											delegate:self cancelButtonTitle:NSLocalizedString(@"dont show again", nil) otherButtonTitles:NSLocalizedString(@"ok", nil), nil] show];
+		[[[UIAlertView alloc] initWithTitle:OldNSLocalizedString(@"memory performances", nil) message:OldNSLocalizedString(@"removing stored points cache for map", nil)
+											delegate:self cancelButtonTitle:OldNSLocalizedString(@"dont show again", nil) otherButtonTitles:OldNSLocalizedString(@"ok", nil), nil] show];
 }
 
 - (void)dealloc

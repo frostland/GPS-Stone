@@ -1,29 +1,12 @@
-"internal error" = "Internal Error";
-
-/*"cannot delete recording. leaking. continue or cancel? please contact developer error code #" =
-	"Due to an internal error, the file containing datas of the GPX cannot be deleted. Please contact VSO-Software with error code \"%d\". Do you want to remove the reference to the recording anyway (you may loose disk space definitely)?";*/
-"cannot delete recording. please contact developer error code #" =
-	"Due to an internal error, the file containing the datas of the recording cannot be deleted. Please contact VSO-Software with error code \"%d\".";
-
-"app crashed" = "Relaunch after crash";
-"recovering last recording" = "GPS Stone unexpectedly quit while recording a trip. The recording will be recovered and continued automatically.";
-
-"record in progress" = "Record In Progress";
 "really stop?" = "Recording will be stopped here. Continue?";
 "really pause?" = "Recording will be paused until the record button is hit. Continue?";
-
-"memory performances" = "Memory Issue";
-"removing stored points cache for map" = "Due to harware limitations, all the points cannot be shown on the map. The map will be cleared and the path will be drawn again from where you are. But don’t worry, the recording won’t be cut when exported!";
 
 "dont show again" = "Don’t show again";
 "yes" = "Yes";
 "no" = "No";
 
-"gpx file sent" = "Here is your trip";
-
 "ok" = "OK";
 
-/* In outputted gpx files, the gpx "creator" tag */
 "gpx creator tag" = "GPS Stone for iPhone by VSO-Software";
 
 "cannot get location" = "Unable to get your location";
