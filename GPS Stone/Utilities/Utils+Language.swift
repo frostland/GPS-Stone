@@ -61,8 +61,12 @@ extension Utils {
 			shownValue = speed
 		}
 		
-		let log = log10(speed)
-		let nFractionDigits = log.isFinite ? max(0, 2 - Int(log)) : 0
+		/* I could try and think to find the exact value, but I’ll say we will get
+		 * the value wrong sufficently rarely so that “+ 0.01” is an acceptable
+		 * hack (case is 9.9 for instance; log is < 1, but when value is rounded,
+		 * we’ll show 10 and should only show 1 fraction digit, not two). */
+		let log = log10(shownValue + 0.1)
+		let nFractionDigits = (log.isFinite && log.sign == .plus) ? max(0, 2 - Int(log)) : 0
 		
 		let numberFormatter = NumberFormatter()
 		numberFormatter.numberStyle = .decimal
