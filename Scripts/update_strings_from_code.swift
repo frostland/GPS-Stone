@@ -21,6 +21,7 @@ do {
 	
 	try runAndPrint(
 		"locmapper", "update_xcode_strings_from_code",
+		"--colored-output",
 		"--encoding=utf8", "--delete-missing-keys",
 		"--unlocalized-xibs-files-list=.locmapper__unlocalized_xibs",
 		"--unused-stringsfiles-files-list=.locmapper__unused_stringfiles",
