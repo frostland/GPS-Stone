@@ -43,6 +43,10 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		if #available(iOS 13.0, *) {
+			buttonCenterMapOnCurLoc.setImage(UIImage(systemName: "location"), for: .normal)
+		}
+		
 		mapView.mapType = appSettings.mapType
 		
 		assert(settingsObserver == nil)

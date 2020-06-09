@@ -787,7 +787,7 @@
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ibA-9y-tEc">
                                 <rect key="frame" x="312" y="10" width="21" height="22"/>
                                 <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <state key="normal" image="location" catalog="system">
+                                <state key="normal" image="sf_location">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -949,12 +949,12 @@
         <segue reference="c8c-NA-ABV"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="location" catalog="system" width="128" height="115"/>
         <image name="north" width="85" height="85"/>
         <image name="pause_button" width="45" height="45"/>
         <image name="recList_button" width="45" height="45"/>
         <image name="record_button" width="45" height="45"/>
         <image name="road" width="845.5" height="1221"/>
+        <image name="sf_location" width="21" height="21"/>
         <image name="stop_button" width="45" height="45"/>
     </resources>
 </document>
