@@ -62,7 +62,6 @@ class DetailsViewController : UIViewController {
 			self.updateUnitsLabels()
 			self.updateRecordingUI()
 			self.updateLocationUI()
-			self.updateHeadingUI()
 		})
 		updateUnitsLabels()
 		
@@ -159,13 +158,20 @@ class DetailsViewController : UIViewController {
 				labelSpeed.text = Utils.stringFrom(speedValue: location.speed, useMetricSystem: appSettings.useMetricSystem)
 			}
 		}
+		/* If the location has a heading but we do not receive heading updates
+		 * (e.g. simulator), we still want to update the heading UI! */
+		updateHeadingUI()
 	}
 	
 	private func updateHeadingUI() {
-		if let h = locationRecorder.currentLocation?.course ?? locationRecorder.currentHeading?.trueHeading, h.sign == .plus {
+		if let h = locationRecorder.currentHeading?.trueHeading ?? locationRecorder.currentLocation?.course, h.sign == .plus {
 			UIView.animate(withDuration: c.animTime, animations: {
 				self.imageNorth.alpha = 1
 				self.imageNorth.transform = CGAffineTransform(rotationAngle: -2 * CGFloat.pi * CGFloat(h/360))
+			})
+		} else if imageNorth.alpha > 0.5 {
+			UIView.animate(withDuration: c.animTime, animations: {
+				self.imageNorth.alpha = 0
 			})
 		}
 	}
