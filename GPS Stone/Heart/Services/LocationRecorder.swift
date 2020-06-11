@@ -540,7 +540,15 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 					 *      that is even possible…)
 					 *    - A change in the distance filter will probably be a rare
 					 *      event, and some missing or additional points recorded are
-					 *      not, IMHO, such a big deal! */
+					 *      not, IMHO, such a big deal!
+					 *
+					 * One final distance filter note!
+					 * After some thinking, maybe we could have two location
+					 * managers; one for the UI, and one for the recordings. This way
+					 * we would only configure the distance filter of the location
+					 * manager for the recordings, and leave the other alone, which
+					 * would solve all of the deferred updates problems, as well as
+					 * some other issues. */
 					guard distance >= s.distanceFilter else {continue}
 				} else {
 					distance = 0
