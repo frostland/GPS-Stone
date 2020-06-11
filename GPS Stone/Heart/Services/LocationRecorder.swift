@@ -137,14 +137,13 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		nc = notificationCenter
 		canRecord = Set<CLAuthorizationStatus>(arrayLiteral: .notDetermined, .authorizedWhenInUse, .authorizedAlways).contains(CLLocationManager.authorizationStatus())
 		recStatusesHistory = (try? PropertyListDecoder().decode([RecordingStatusHistoryEntry].self, from: Data(contentsOf: constants.urlToCurrentRecordingInfo))) ?? []
-		status = Status(recordingStatus: recStatusesHistory.last?.status ?? .stopped, appSettingBestAccuracy: appSettings.useBestGPSAccuracy, appSettingDistanceFilter: appSettings.distanceFilter)
+		status = Status(recordingStatus: recStatusesHistory.last?.status ?? .stopped, appSettingBestAccuracy: appSettings.useBestGPSAccuracy)
 		
 		super.init()
 		
-		#warning("TODO: Use allowDeferredLocationUpdatesUntilTraveled:timeout:")
 		lm.pausesLocationUpdatesAutomatically = true
 		lm.desiredAccuracy = status.desiredAccuracy
-		lm.distanceFilter = status.distanceFilter
+		lm.distanceFilter = kCLDistanceFilterNone
 		lm.activityType = .fitness
 		lm.delegate = self
 		/* KVO on \.applicationState does not work, so we observe the app notifications instead. */
@@ -156,7 +155,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		 * appIsInBg property is modified by the method, and this property is
 		 * correctly initialized. */
 		
-		handleStatusChange(from: Status(recordingStatus: .stopped, appSettingBestAccuracy: appSettings.useBestGPSAccuracy, appSettingDistanceFilter: appSettings.distanceFilter), to: status) /* willSet/didSet not called from init */
+		handleStatusChange(from: Status(recordingStatus: .stopped, appSettingBestAccuracy: appSettings.useBestGPSAccuracy), to: status) /* willSet/didSet not called from init */
 	}
 	
 	deinit {
@@ -347,7 +346,6 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		var appIsInBg = (UIApplication.shared.applicationState == .background)
 		
 		var appSettingBestAccuracy: Bool
-		var appSettingDistanceFilter: CLLocationDistance
 		
 		var isRecording: Bool {
 			return recordingStatus.isRecording
@@ -390,10 +388,6 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		var desiredAccuracy: CLLocationAccuracy {
 			return ((isRecording && appSettingBestAccuracy) ? kCLLocationAccuracyBest : kCLLocationAccuracyNearestTenMeters)
-		}
-		
-		var distanceFilter: CLLocationDistance {
-			return (requiresLocationTrackingForClients ? 0 : appSettingDistanceFilter)
 		}
 		
 	}
@@ -496,14 +490,58 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 				let writeObjects = try recordingWriteObjects(for: recordingRef)
 				
 				let distance: CLLocationDistance
-				if let latestRecordedPoint = try writeObjects.recording.latestPoint(before: newLocation.timestamp), let latestPointLocation = latestRecordedPoint.location {
-					distance = newLocation.distance(from: latestPointLocation)
-					/* If the distance filter of the location manager is greater or
-					 * equal to the distance filter required by the client, we take
-					 * everything we can get, otherwise we check the distance from
-					 * the previous point to be indeed greater than the one the
-					 * client wants. */
-					guard status.distanceFilter >= s.distanceFilter || distance >= s.distanceFilter else {continue}
+				if let previousPoint = try writeObjects.recording.latestPoint(before: newLocation.timestamp),
+					let previousPointLocation = previousPoint.location
+				{
+					distance = newLocation.distance(from: previousPointLocation)
+					/* I’m aware of the distance filter property of the location
+					 * manager, however it’s not really a good fit for us:
+					 *    - If the client requires location tracking (the users is
+					 *      looking at the map or the GPS info), we must not apply a
+					 *      distance filter. In itself, this is not enough to justify
+					 *      dropping the system’s, however,
+					 *    - When we don’t apply a distance filter, we still have to
+					 *      apply the distance filter to the recording of the points,
+					 *      so we have to implement the distance filter ourself
+					 *      anyway, AND check we’re indeed not filtering with the
+					 *      system to apply our own filter (or we could drop points
+					 *      because of a desynchronisation between our latest
+					 *      recorded point and the one the system knows about, or
+					 *      algorithmic differences between our filter and the
+					 *      system’s);
+					 *    - Which also means we should know for points from the past
+					 *      (deferred updates) whether the distance filter was on or
+					 *      not! Which is currently not possible because we save the
+					 *      recording status history but not the location recorder
+					 *      status history. (Although doc says we should only receive
+					 *      deferred location update when the app is in the bg, time
+					 *      during which the distance filter status should not
+					 *      change.)
+					 *    - Finally, I don’t see any gain that would oppose to the
+					 *      arguments above for using the distance filter. We should
+					 *      measure it to be certain, but there is in theory no
+					 *      battery gain when using the distance filter… (Doc does
+					 *      not say there is at least.)
+					 * Another note about the distance filter: We do not save the
+					 * history of the distance filter value, which means if the user
+					 * changes the distance filter, we can potentially receive an
+					 * update from a point in time before the user has changed it,
+					 * and thus have an incorrect distance filter value when we
+					 * process the point.
+					 * In practice we do not really care because:
+					 *    - Deferred location updates should only happen in the bg,
+					 *      in which case the user cannot change the distance filter
+					 *      (at least from the time the deferred location updates API
+					 *      was not deprecated, deferred location udpates could only
+					 *      happen in the bg; now I think we cannot manually opt-in
+					 *      to deferred location updates, but they happen anyway, and
+					 *      I guess they would not do deferred location update when
+					 *      the app in the fg. All of this remains to be proven, if
+					 *      that is even possible…)
+					 *    - A change in the distance filter will probably be a rare
+					 *      event, and some missing or additional points recorded are
+					 *      not, IMHO, such a big deal! */
+					guard distance >= s.distanceFilter else {continue}
 				} else {
 					distance = 0
 				}
@@ -571,11 +609,6 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			else               {lm.requestWhenInUseAuthorization()}
 		}
 		
-		/* *** Update location manager distance filter *** */
-		let distanceFilter = newStatus.distanceFilter
-		let prevDistanceFilter = oldStatus.distanceFilter
-		if distanceFilter != prevDistanceFilter {lm.distanceFilter = distanceFilter}
-		
 		/* *** Update location manager desired accuracy *** */
 		let desiredAccuracy = newStatus.desiredAccuracy
 		let prevDesiredAccuracy = oldStatus.desiredAccuracy
@@ -616,7 +649,6 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	
 	private func appSettingsChanged() {
 		if status.appSettingBestAccuracy   != s.useBestGPSAccuracy {status.appSettingBestAccuracy   = s.useBestGPSAccuracy}
-		if status.appSettingDistanceFilter != s.distanceFilter     {status.appSettingDistanceFilter = s.distanceFilter}
 	}
 	
 	private func appStateChanged() {
