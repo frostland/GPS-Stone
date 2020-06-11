@@ -143,7 +143,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		#warning("TODO: Use allowDeferredLocationUpdatesUntilTraveled:timeout:")
 		lm.pausesLocationUpdatesAutomatically = true
-		lm.desiredAccuracy = status.distanceFilter
+		lm.desiredAccuracy = status.desiredAccuracy
 		lm.distanceFilter = status.distanceFilter
 		lm.activityType = .fitness
 		lm.delegate = self
