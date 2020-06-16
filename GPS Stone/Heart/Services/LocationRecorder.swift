@@ -289,6 +289,11 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		NSLog("%@", "Received new locations \(locations)")
 		handleNewLocations(locations)
+		
+		/* We start deferred updates here because the doc recommends so. */
+		if status.allowDeferredUpdates && !isDeferringUpdates {
+			startDeferredLocationUpdates()
+		}
 	}
 	
 	func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
@@ -297,6 +302,34 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			status.recordingStatus = .paused(recordingRef: rr, segmentID: si)
 		} else {
 			/* TODO */
+		}
+	}
+	
+	func locationManager(_ manager: CLLocationManager, didFinishDeferredUpdatesWithError error: Error?) {
+		assert(Thread.isMainThread)
+		
+		/* Note: We do not set `gotFatalDeferredUpdatesError` directly to the
+		 * value of the test below because I want to be certain the status does
+		 * not changes if it does not have to. */
+		if let e = error, ((e as? CLError)?.code != .deferredCanceled) {
+			/* For now (and probably forever), any error is a fatal error for
+			 * deferred location updates, except the cancellation error.
+			 * The “accuracy is not big enough” error is handled somewhere else and
+			 * should not happen, we do not have a distance filter on the location
+			 * manager so we should not get the distance filter error and all other
+			 * errors are fatal (AFAIK). */
+			status.gotFatalDeferredUpdatesError = true
+		} else {
+			/* Technically this should never be reached because we prevent deferred
+			 * updates once we got a fatal error. */
+			status.gotFatalDeferredUpdatesError = false
+		}
+		
+		isDeferringUpdates = false
+		
+		/* Restart deferred updates if we still need them. */
+		if status.allowDeferredUpdates {
+			startDeferredLocationUpdates()
 		}
 	}
 	
@@ -347,6 +380,9 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		var appSettingBestAccuracy: Bool
 		
+		/* We block all further location update deferring once we get an error. */
+		var gotFatalDeferredUpdatesError = false
+		
 		var isRecording: Bool {
 			return recordingStatus.isRecording
 		}
@@ -390,6 +426,17 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			return ((isRecording && appSettingBestAccuracy) ? kCLLocationAccuracyBest : kCLLocationAccuracyNearestTenMeters)
 		}
 		
+		var allowDeferredUpdates: Bool {
+			guard !gotFatalDeferredUpdatesError else {return false}
+			
+			/* When the app is in the fg the location updates are not deferred (doc
+			 * says), so we do not check whether the app is in the bg.
+			 * If the desired accuracy is not enough, the system will not allow
+			 * deferred updates, so we check for desired accuracy first. */
+			let hasSufficientAccuracy = (desiredAccuracy == kCLLocationAccuracyBest || desiredAccuracy == kCLLocationAccuracyBestForNavigation)
+			return isRecording && hasSufficientAccuracy
+		}
+		
 	}
 	
 	private struct RecordingStatusHistoryEntry : Codable {
@@ -424,6 +471,10 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			}
 		}
 	}
+	/* **NOT** in the status because change. We want to avoid triggering a status
+	 * change handling when we modify this property (among other things, we can
+	 * modify this property from within a status change handling). */
+	private var isDeferringUpdates = false
 	
 	/**
 	The history of recording statuses w/ the date of change.
@@ -617,6 +668,19 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			else               {lm.requestWhenInUseAuthorization()}
 		}
 		
+		/* We disable deferred updates (if needed) before changing the desired
+		 * accuracy because deferred updates depend on desired accuracy.
+		 * Doc recommends enabling deferred updates when receiving a new location,
+		 * so that’s what we do (and that’s why the deferred location updates are
+		 * not started in this method). */
+		if !newStatus.allowDeferredUpdates && isDeferringUpdates {
+			lm.disallowDeferredLocationUpdates()
+			#warning("Comment below")
+			/* To be verified, but in theory the delegate method should still be
+			 * called when manually stopping deferred location updates, so we do
+			 * not set isDeferringUpdates to false here. */
+		}
+		
 		/* *** Update location manager desired accuracy *** */
 		let desiredAccuracy = newStatus.desiredAccuracy
 		let prevDesiredAccuracy = oldStatus.desiredAccuracy
@@ -656,7 +720,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	}
 	
 	private func appSettingsChanged() {
-		if status.appSettingBestAccuracy   != s.useBestGPSAccuracy {status.appSettingBestAccuracy   = s.useBestGPSAccuracy}
+		if status.appSettingBestAccuracy != s.useBestGPSAccuracy {status.appSettingBestAccuracy = s.useBestGPSAccuracy}
 	}
 	
 	private func appStateChanged() {
@@ -678,6 +742,13 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		 *               backgroundRefreshStatus property of the UIApplication
 		 *               class. */
 		#warning("TODO. Warn the user depending on the background app refresh status?")
+	}
+	
+	private func startDeferredLocationUpdates() {
+		guard CLLocationManager.deferredLocationUpdatesAvailable() else {return}
+		
+		lm.allowDeferredLocationUpdates(untilTraveled: CLLocationDistanceMax, timeout: CLTimeIntervalMax)
+		isDeferringUpdates = true
 	}
 	
 }
