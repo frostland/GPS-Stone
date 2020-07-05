@@ -428,6 +428,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		var allowDeferredUpdates: Bool {
 			guard !gotFatalDeferredUpdatesError else {return false}
+			guard CLLocationManager.deferredLocationUpdatesAvailable() else {return false}
 			
 			/* When the app is in the fg the location updates are not deferred (doc
 			 * says), so we do not check whether the app is in the bg.
@@ -636,6 +637,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		assert(Thread.isMainThread)
 		NSLog("%@", "Status change from \(oldStatus) to \(newStatus)")
 		
+		#warning("Use locationServicesEnabled somehow")
+		
 		/* *** Let’s save the current status *** */
 		if oldStatus.recordingStatus != newStatus.recordingStatus {
 			recStatusesHistory.append(RecordingStatusHistoryEntry(date: Date(), status: newStatus.recordingStatus))
@@ -687,17 +690,20 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		if desiredAccuracy != prevDesiredAccuracy {lm.desiredAccuracy = desiredAccuracy}
 		
 		/* *** Start or stop significant location changes if needed *** */
-		let needsSignificantLocationChangesTracking = newStatus.needsSignificantLocationChangesTracking
-		let neededSignificantLocationChangesTracking = oldStatus.needsSignificantLocationChangesTracking
-		if needsSignificantLocationChangesTracking && !neededSignificantLocationChangesTracking {
-			/* This should launch the app when it gets a significant location
-			 * changes even if the user has force quit it, if the background app
-			 * refresh is on.
-			 * After some testing, the app seems to be relaunched even with bg app
-			 * refresh off! */
-			lm.startMonitoringSignificantLocationChanges()
-		} else if !needsSignificantLocationChangesTracking && neededSignificantLocationChangesTracking {
-			lm.stopMonitoringSignificantLocationChanges()
+		#warning("TODO: We must warn the user when significant location change monitoring is not available that he may loose some points")
+		if CLLocationManager.significantLocationChangeMonitoringAvailable() {
+			let needsSignificantLocationChangesTracking = newStatus.needsSignificantLocationChangesTracking
+			let neededSignificantLocationChangesTracking = oldStatus.needsSignificantLocationChangesTracking
+			if needsSignificantLocationChangesTracking && !neededSignificantLocationChangesTracking {
+				/* This should launch the app when it gets a significant location
+				  * changes even if the user has force quit it, if the background app
+				  * refresh is on.
+				  * After some testing, the app seems to be relaunched even with bg app
+				  * refresh off! */
+				lm.startMonitoringSignificantLocationChanges()
+			} else if !needsSignificantLocationChangesTracking && neededSignificantLocationChangesTracking {
+				lm.stopMonitoringSignificantLocationChanges()
+			}
 		}
 		
 		/* *** Start or stop location tracking if needed *** */
@@ -706,10 +712,13 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		else if !needsLocationTracking &&  neededLocationTracking {lm.stopUpdatingLocation()}
 		
 		/* *** Start or stop heading tracking if needed *** */
-		let needsHeadingTracking = newStatus.needsHeadingTracking
-		let neededHeadingTracking = oldStatus.needsHeadingTracking
-		if       needsHeadingTracking && !neededHeadingTracking {lm.startUpdatingHeading()}
-		else if !needsHeadingTracking &&  neededHeadingTracking {lm.stopUpdatingHeading()}
+		#warning("TODO: We must warn the user if unavailable")
+		if CLLocationManager.headingAvailable() {
+			let needsHeadingTracking = newStatus.needsHeadingTracking
+			let neededHeadingTracking = oldStatus.needsHeadingTracking
+			if       needsHeadingTracking && !neededHeadingTracking {lm.startUpdatingHeading()}
+			else if !needsHeadingTracking &&  neededHeadingTracking {lm.stopUpdatingHeading()}
+		}
 		
 		/* *** Enable/disable bg location udpates if needed *** */
 		if #available(iOS 9.0, *) {
