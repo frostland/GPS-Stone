@@ -31,12 +31,14 @@
 		7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */; };
 		7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE81DCA975F007B5ABC /* Main.storyboard */; };
 		7B5108F722BA57E60038CEAC /* RecordingsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5108F622BA57E60038CEAC /* RecordingsListViewController.swift */; };
+		7B68688224A8F0B800C77DC1 /* MemoryEater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B68688124A8F0B800C77DC1 /* MemoryEater.swift */; };
 		7B75989C246EF7BA00BC7EB1 /* TimeSegment+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B75989B246EF7BA00BC7EB1 /* TimeSegment+Utils.swift */; };
 		7B93E38222A184ED00709971 /* LocationRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B93E38122A184ED00709971 /* LocationRecorder.swift */; };
 		7B94D1E222A0169600848832 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E122A0169600848832 /* AppDelegate.swift */; };
 		7B94D1E622A0191700848832 /* ServicesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E522A0191700848832 /* ServicesProvider.swift */; };
 		7B94D1E822A0194100848832 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E722A0194100848832 /* Constants.swift */; };
 		7B94D1EA22A0197900848832 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E922A0197900848832 /* AppSettings.swift */; };
+		7B9C5D32249AA02800996C4D /* Utils+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9C5D31249AA02800996C4D /* Utils+Debug.swift */; };
 		7BAE22DE22DB75C000AB6C33 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7BAE22DC22DB75C000AB6C33 /* Model.xcdatamodeld */; };
 		7BB90DC7248BECFD001ED9E7 /* Obs_Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7BB90DC9248BECFD001ED9E7 /* Obs_Localizable.strings */; };
 		7BC43307233624DD00C59752 /* CollectionAndTableViewUpdateConveniences in Frameworks */ = {isa = PBXBuildFile; productRef = 7BC43306233624DD00C59752 /* CollectionAndTableViewUpdateConveniences */; };
@@ -75,6 +77,7 @@
 		7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B482CE91DCA976E007B5ABC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7B5108F622BA57E60038CEAC /* RecordingsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsListViewController.swift; sourceTree = "<group>"; };
+		7B68688124A8F0B800C77DC1 /* MemoryEater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryEater.swift; sourceTree = "<group>"; };
 		7B75989B246EF7BA00BC7EB1 /* TimeSegment+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeSegment+Utils.swift"; sourceTree = "<group>"; };
 		7B93E38122A184ED00709971 /* LocationRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRecorder.swift; sourceTree = "<group>"; };
 		7B94D1E122A0169600848832 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +86,7 @@
 		7B94D1E922A0197900848832 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		7B94D1EB22A0389400848832 /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 		7B96A7CA229F1B5300267DBD /* GPS Stone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GPS Stone.entitlements"; sourceTree = "<group>"; };
+		7B9C5D31249AA02800996C4D /* Utils+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utils+Debug.swift"; sourceTree = "<group>"; };
 		7B9CD98F2481296200CF4E14 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		7BA2A5EA1F2E013A0014603B /* Test Recording.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Test Recording.gpx"; sourceTree = "<group>"; };
 		7BAE22DD22DB75C000AB6C33 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -219,6 +223,7 @@
 				7B4487A224719ADF00B6DB7B /* Utils+UI.swift */,
 				7B4487A424719C5000B6DB7B /* Utils+Language.swift */,
 				7B4487A62471CA1100B6DB7B /* GPSStoneLocTokens.swift */,
+				7B68688324B254C400C77DC1 /* DebugUtils */,
 				0F79F69E10203DAE00AF7FF1 /* VSOUtils.h */,
 				0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */,
 			);
@@ -264,6 +269,15 @@
 				7B28FFDA2476E9590063E26A /* InfoPlist.strings */,
 			);
 			path = Localizables;
+			sourceTree = "<group>";
+		};
+		7B68688324B254C400C77DC1 /* DebugUtils */ = {
+			isa = PBXGroup;
+			children = (
+				7B9C5D31249AA02800996C4D /* Utils+Debug.swift */,
+				7B68688124A8F0B800C77DC1 /* MemoryEater.swift */,
+			);
+			path = DebugUtils;
 			sourceTree = "<group>";
 		};
 		7B94D1E322A0172700848832 /* Application Lifecycle */ = {
@@ -384,6 +398,7 @@
 				7BE9FF9D22AC1BC6006DED15 /* RecordingsManager.swift in Sources */,
 				7B4487A324719ADF00B6DB7B /* Utils+UI.swift in Sources */,
 				7B94D1E222A0169600848832 /* AppDelegate.swift in Sources */,
+				7B9C5D32249AA02800996C4D /* Utils+Debug.swift in Sources */,
 				7B4487A0247199CC00B6DB7B /* Utils.swift in Sources */,
 				7B06D3A922EC8D27000D31B9 /* DataHandler.swift in Sources */,
 				7B94D1E822A0194100848832 /* Constants.swift in Sources */,
@@ -392,6 +407,7 @@
 				7B5108F722BA57E60038CEAC /* RecordingsListViewController.swift in Sources */,
 				7BEED1BF22B6C0F700A055B9 /* MainViewController.swift in Sources */,
 				7B23D9BA22B90BB20007BA61 /* InfoViewController.swift in Sources */,
+				7B68688224A8F0B800C77DC1 /* MemoryEater.swift in Sources */,
 				7B75989C246EF7BA00BC7EB1 /* TimeSegment+Utils.swift in Sources */,
 				7B4487A1247199EA00B6DB7B /* VSOUtils.m in Sources */,
 				7BAE22DE22DB75C000AB6C33 /* Model.xcdatamodeld in Sources */,

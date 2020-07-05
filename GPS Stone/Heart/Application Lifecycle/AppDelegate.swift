@@ -28,11 +28,13 @@ class AppDelegate : NSObject, UIApplicationDelegate {
 	}
 	
 	func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+//		Utils.debugLog("APP WILL FINISH LAUNCHING \(launchOptions)", to: "logs")
 		/* Nothing to do! */
 		return true
 	}
 	
 	func applicationWillTerminate(_ application: UIApplication) {
+//		Utils.debugLog("APP WILL TERMINATE", to: "logs")
 		/* Nothing to do! */
 	}
 	

@@ -692,7 +692,9 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		if needsSignificantLocationChangesTracking && !neededSignificantLocationChangesTracking {
 			/* This should launch the app when it gets a significant location
 			 * changes even if the user has force quit it, if the background app
-			 * refresh is on. */
+			 * refresh is on.
+			 * After some testing, the app seems to be relaunched even with bg app
+			 * refresh off! */
 			lm.startMonitoringSignificantLocationChanges()
 		} else if !needsSignificantLocationChangesTracking && neededSignificantLocationChangesTracking {
 			lm.stopMonitoringSignificantLocationChanges()
