@@ -245,6 +245,7 @@ extension Utils {
 	static func stringFrom(timeInterval: TimeInterval) -> String {
 		let formatter = DateComponentsFormatter()
 		formatter.allowedUnits = [.hour, .minute, .second]
+		formatter.zeroFormattingBehavior = .pad
 		formatter.unitsStyle = .positional
 		
 		guard let formattedString = formatter.string(from: timeInterval) else {

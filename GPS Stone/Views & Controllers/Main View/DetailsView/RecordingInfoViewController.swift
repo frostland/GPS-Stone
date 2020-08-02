@@ -52,6 +52,7 @@ class RecordingInfoViewController : UIViewController {
 	var model: Model? {
 		didSet {
 			updateUI()
+			updateDurationLabel()
 			if model != nil {
 				if timerUpdateDuration == nil {
 					if #available(iOS 10.0, *) {
