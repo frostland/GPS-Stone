@@ -52,6 +52,20 @@ extension Recording {
 		return totalTimeMinusPauses
 	}
 	
+	var activeRecordingDurationCappedToLatestPoint: TimeInterval {
+		guard let latestPointInterval = try? latestPointInTime()?.date?.timeIntervalSinceNow else {return 0}
+		if latestPointInterval > 0 {
+			NSLog("***** ERROR - Got a latest point in the future in recording %@", self)
+		}
+		
+		let duration = activeRecordingDuration + min(0, latestPointInterval)
+		guard duration >= 0 else {
+			NSLog("***** ERROR - The active recording duration minus the time from the latest point to now is negative in recording %@", self)
+			return 0
+		}
+		return duration
+	}
+	
 	func latestPointInTime() throws -> RecordingPoint? {
 		guard let context = managedObjectContext else {
 			return nil

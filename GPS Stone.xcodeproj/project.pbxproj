@@ -31,6 +31,9 @@
 		7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */; };
 		7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE81DCA975F007B5ABC /* Main.storyboard */; };
 		7B5108F722BA57E60038CEAC /* RecordingsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5108F622BA57E60038CEAC /* RecordingsListViewController.swift */; };
+		7B596E1624D2082E00E98260 /* GPSInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B596E1524D2082E00E98260 /* GPSInfoViewController.swift */; };
+		7B596E1824D20D9800E98260 /* RecordingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B596E1724D20D9700E98260 /* RecordingInfoViewController.swift */; };
+		7B596E1A24D536D600E98260 /* GPSErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B596E1924D536D600E98260 /* GPSErrorViewController.swift */; };
 		7B68688224A8F0B800C77DC1 /* MemoryEater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B68688124A8F0B800C77DC1 /* MemoryEater.swift */; };
 		7B75989C246EF7BA00BC7EB1 /* TimeSegment+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B75989B246EF7BA00BC7EB1 /* TimeSegment+Utils.swift */; };
 		7B93E38222A184ED00709971 /* LocationRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B93E38122A184ED00709971 /* LocationRecorder.swift */; };
@@ -77,6 +80,9 @@
 		7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B482CE91DCA976E007B5ABC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7B5108F622BA57E60038CEAC /* RecordingsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsListViewController.swift; sourceTree = "<group>"; };
+		7B596E1524D2082E00E98260 /* GPSInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSInfoViewController.swift; sourceTree = "<group>"; };
+		7B596E1724D20D9700E98260 /* RecordingInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingInfoViewController.swift; sourceTree = "<group>"; };
+		7B596E1924D536D600E98260 /* GPSErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSErrorViewController.swift; sourceTree = "<group>"; };
 		7B68688124A8F0B800C77DC1 /* MemoryEater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryEater.swift; sourceTree = "<group>"; };
 		7B75989B246EF7BA00BC7EB1 /* TimeSegment+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeSegment+Utils.swift"; sourceTree = "<group>"; };
 		7B93E38122A184ED00709971 /* LocationRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRecorder.swift; sourceTree = "<group>"; };
@@ -160,7 +166,7 @@
 				0F34802910089A9700E88124 /* Obs_MapViewController.m */,
 				7BEED1BE22B6C0F700A055B9 /* MainViewController.swift */,
 				7B23D9B922B90BB20007BA61 /* InfoViewController.swift */,
-				7BD0A05822B9576500934656 /* DetailsViewController.swift */,
+				7B5C896A24CCB4EC006E6319 /* DetailsView */,
 				7B1024FC22BA19A7008BF119 /* MapViewController.swift */,
 			);
 			path = "Main View";
@@ -269,6 +275,17 @@
 				7B28FFDA2476E9590063E26A /* InfoPlist.strings */,
 			);
 			path = Localizables;
+			sourceTree = "<group>";
+		};
+		7B5C896A24CCB4EC006E6319 /* DetailsView */ = {
+			isa = PBXGroup;
+			children = (
+				7BD0A05822B9576500934656 /* DetailsViewController.swift */,
+				7B596E1524D2082E00E98260 /* GPSInfoViewController.swift */,
+				7B596E1924D536D600E98260 /* GPSErrorViewController.swift */,
+				7B596E1724D20D9700E98260 /* RecordingInfoViewController.swift */,
+			);
+			path = DetailsView;
 			sourceTree = "<group>";
 		};
 		7B68688324B254C400C77DC1 /* DebugUtils */ = {
@@ -402,6 +419,7 @@
 				7B4487A0247199CC00B6DB7B /* Utils.swift in Sources */,
 				7B06D3A922EC8D27000D31B9 /* DataHandler.swift in Sources */,
 				7B94D1E822A0194100848832 /* Constants.swift in Sources */,
+				7B596E1A24D536D600E98260 /* GPSErrorViewController.swift in Sources */,
 				7B08CFC622BA96AF00BE6E3F /* RecordingDetailsViewController.swift in Sources */,
 				7B93E38222A184ED00709971 /* LocationRecorder.swift in Sources */,
 				7B5108F722BA57E60038CEAC /* RecordingsListViewController.swift in Sources */,
@@ -413,9 +431,11 @@
 				7BAE22DE22DB75C000AB6C33 /* Model.xcdatamodeld in Sources */,
 				7B0F344C22BA9DFA00F0F9EC /* SettingsViewController.swift in Sources */,
 				7B94D1E622A0191700848832 /* ServicesProvider.swift in Sources */,
+				7B596E1824D20D9800E98260 /* RecordingInfoViewController.swift in Sources */,
 				7B4487A524719C5000B6DB7B /* Utils+Language.swift in Sources */,
 				7B4487A72471CA1100B6DB7B /* GPSStoneLocTokens.swift in Sources */,
 				7B94D1EA22A0197900848832 /* AppSettings.swift in Sources */,
+				7B596E1624D2082E00E98260 /* GPSInfoViewController.swift in Sources */,
 				7BD0A05922B9576500934656 /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
