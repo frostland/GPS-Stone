@@ -18,6 +18,8 @@ import XibLoc
 
 class DetailsViewController : UIViewController {
 	
+	@IBOutlet var labelTitle: UILabel!
+	
 	@IBOutlet var viewGPSInfo: UIView!
 	@IBOutlet var viewGPSError: UIView!
 	@IBOutlet var viewRecordingInfo: UIView!
@@ -42,6 +44,11 @@ class DetailsViewController : UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		if #available(iOS 9, *) {} else {
+			/* On iOS 8, I don’t know why, but the title font does not work… */
+			labelTitle.font = UIFont.systemFont(ofSize: 27)
+		}
 		
 		assert(settingsObserver == nil)
 		settingsObserver = NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main, using: { [weak self] _ in

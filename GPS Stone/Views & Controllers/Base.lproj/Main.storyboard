@@ -603,6 +603,7 @@
                     </view>
                     <connections>
                         <outlet property="buttonRecord" destination="HdH-9k-jLJ" id="gRY-wc-tL7"/>
+                        <outlet property="labelTitle" destination="hJn-HR-FhD" id="PMq-qb-tia"/>
                         <outlet property="viewGPSError" destination="Cd1-Vl-oPX" id="fY6-6l-DWQ"/>
                         <outlet property="viewGPSInfo" destination="Xzg-rq-1pa" id="wze-E4-HAm"/>
                         <outlet property="viewRecordingInfo" destination="IxY-nM-gRV" id="6dV-XA-S2L"/>
