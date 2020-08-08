@@ -940,7 +940,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2B8-4Q-Fre" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1688" y="-51"/>
+            <point key="canvasLocation" x="1649" y="91"/>
         </scene>
         <!--Recording Info View Controller-->
         <scene sceneID="MAX-XP-XnH">
@@ -1027,7 +1027,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wG0-xQ-5FE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1688" y="299"/>
+            <point key="canvasLocation" x="1647" y="372"/>
         </scene>
         <!--Error View Controller-->
         <scene sceneID="FBi-eI-29L">
@@ -1042,8 +1042,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⚠️" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDY-Fu-lOB">
-                                <rect key="frame" x="150.5" y="84" width="74" height="82.5"/>
+                                <rect key="frame" x="150.5" y="35" width="74" height="82.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="69"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Error Message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sQ4-xB-dbK">
+                                <rect key="frame" x="16" y="125.5" width="343" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1051,13 +1057,16 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="eDY-Fu-lOB" firstAttribute="centerX" secondItem="m5Q-6S-XKl" secondAttribute="centerX" id="MQA-jV-5hu"/>
-                            <constraint firstItem="eDY-Fu-lOB" firstAttribute="centerY" secondItem="m5Q-6S-XKl" secondAttribute="centerY" id="Zlg-cK-DS6"/>
+                            <constraint firstItem="sQ4-xB-dbK" firstAttribute="leading" secondItem="m5Q-6S-XKl" secondAttribute="leadingMargin" id="NsW-nb-3jF"/>
+                            <constraint firstItem="sQ4-xB-dbK" firstAttribute="top" secondItem="eDY-Fu-lOB" secondAttribute="bottom" constant="8" symbolic="YES" id="PeJ-1x-HxL"/>
+                            <constraint firstItem="eDY-Fu-lOB" firstAttribute="top" secondItem="ZS8-TV-CyB" secondAttribute="bottom" constant="35" id="hse-pF-5oA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="sQ4-xB-dbK" secondAttribute="trailing" id="lcU-jr-8i6"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pei-xL-Uan" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1688" y="-469"/>
+            <point key="canvasLocation" x="1647" y="-224"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

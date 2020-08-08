@@ -1,10 +1,12 @@
 /* ••••••••••••••••••••••••••••••••••••• DO NOT TOUCH THIS BLOCK ••••••••••••••••••••••••••••••••••••• */
 
-"1ZG-Og-GBx.text" = ""; "8OL-lM-L62.text" = ""; "8dJ-My-syJ.text" = ""; "ATJ-qY-cjq.text" = "";
-"LPW-XC-jV5.text" = ""; "Lef-w0-avQ.text" = ""; "NdL-Wu-GAh.text" = ""; "Q06-FC-fXt.text" = "";
-"QhS-K4-jCZ.text" = ""; "Quy-J2-vBR.text" = ""; "S8Z-O0-QRh.text" = ""; "Usl-v7-ghZ.text" = "";
-"WIG-O3-CHn.text" = ""; "aN4-8g-iDj.text" = ""; "b6X-DE-ZF5.text" = ""; "dge-6h-kMQ.text" = "";
-"dut-bB-BrT.text" = ""; "pbi-3A-Uy1.text" = "";
+"8OL-lM-L62.text" = ""; "8dJ-My-syJ.text" = ""; "ATJ-qY-cjq.text" = "";
+"Quy-J2-vBR.text" = ""; "dge-6h-kMQ.text" = ""; "pbi-3A-Uy1.text" = "";
+"4y0-lb-b42.text" = ""; "0vV-xc-wQG.text" = ""; "89N-Ki-FV7.text" = "";
+"8Qn-sa-lzg.text" = ""; "LYW-nS-3hb.text" = ""; "RUV-5a-erO.text" = "";
+"hqD-kd-G95.text" = ""; "ySd-3R-I8n.text" = ""; "TmC-3c-Ktl.text" = "";
+"biR-0I-rf9.text" = ""; "lrD-hq-dEM.text" = ""; "sQ4-xB-dbK.text" = "";
+"Eyh-Si-z3k.text" = ""; "tVa-d3-1ix.text" = "";
 
 /* ••••••••••••••••••••••••••••••••••••• END OF THE BLOCK ••••••••••••••••••••••••••••••••••••• */
 
@@ -38,39 +40,45 @@
 "jfU-Oc-jun.text" = "…";
 
 
-/* ••••••••••••••••••••••••••••••••••• */
-/*            GPS Info View            */
-/* ••••••••••••••••••••••••••••••••••• */
+/* •••••••••••••••••••••••••••••••••• */
+/*            Details View            */
+/* •••••••••••••••••••••••••••••••••• */
 
 /* Title of the GPS info view */
-"hJn-HR-FhD.text" = "GPS Info";
-
-/* Max speed info title in the GPS info view */
-"aWF-4w-Mff.text" = "Max:";
-
-/* Average speed info title in the GPS info view */
-"hFX-DU-4kU.text" = "Avg:";
-
-/* Accuracy info title in the GPS info view */
-"UlH-ws-QU0.text" = "Accuracy:";
-
-/* Altitude info title in the GPS info view */
-"WSh-SN-AvW.text" = "Altitude:";
+"hJn-HR-FhD.text" = "GPS";
 
 /* Title of the start recording button in the GPS info view */
 "HdH-9k-jLJ.normalTitle" = "Start Recording";
 
-/* The title of the current recording part of the GPS info view */
-"Bkk-x0-wDc.text" = "Current Recording";
+/* •••••••••• GPS Info Subview •••••••••• */
+
+/* Max speed info title in the GPS info view */
+"9rS-oh-4od.text" = "Max:";
+
+/* Average speed info title in the GPS info view */
+"yyT-bv-XPe.text" = "Avg:";
+
+/* Accuracy info title in the GPS info view */
+"gxv-S2-4Eo.text" = "Accuracy:";
+
+/* Altitude info title in the GPS info view */
+"QXo-OB-4fC.text" = "Altitude:";
+
+/* •••••••••• GPS Error Subview •••••••••• */
+
+/* The warning label (unless there’s a good reason, should always be a warning emoji). */
+"eDY-Fu-lOB.text" = "⚠️";
+
+/* •••••••••• Recording Info Subview •••••••••• */
 
 /* The elapsed time info title for the current recording in the GPS info view */
-"81J-mM-565.text" = "Elapsed time:";
+"tyh-NO-RZt.text" = "Elapsed time:";
 
 /* The total distance info title for the current recording in the GPS info view */
-"Y5g-x4-hVO.text" = "Total distance:";
+"qql-wQ-bxL.text" = "Total distance:";
 
 /* The number of points recorded info title for the current recording in the GPS info view */
-"ZJL-Db-YFa.text" = "Points recorded:";
+"2ea-Ya-3Oy.text" = "Points recorded:";
 
 
 /* •••••••••••••••••••••••••••••••••••••••••• */
