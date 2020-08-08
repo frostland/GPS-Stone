@@ -69,6 +69,9 @@
 /* The warning label (unless there’s a good reason, should always be a warning emoji). */
 "eDY-Fu-lOB.text" = "⚠️";
 
+/* The button to open the settings when location is disabled. */
+"Ieu-An-cDv.normalTitle" = "Go to Settings…";
+
 /* •••••••••• Recording Info Subview •••••••••• */
 
 /* The elapsed time info title for the current recording in the GPS info view */

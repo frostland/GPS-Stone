@@ -146,6 +146,7 @@ class DetailsViewController : UIViewController {
 			}
 		} else {
 			/* We hide the GPS Info controller and show the GPS troubleshoot view. */
+			gpsErrorViewController?.error = locationRecorder.currentLocationManagerError
 			if viewGPSInfo.alpha > 0.5 {
 				assert(viewGPSError.alpha < 0.5)
 				UIView.animate(withDuration: c.animTime, animations: {

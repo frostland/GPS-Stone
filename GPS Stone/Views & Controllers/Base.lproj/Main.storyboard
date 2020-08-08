@@ -1053,6 +1053,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ieu-An-cDv">
+                                <rect key="frame" x="132.5" y="154" width="110" height="30"/>
+                                <state key="normal" title="Go to Settings…"/>
+                                <connections>
+                                    <action selector="goToSettings:" destination="lDv-Xb-iBU" eventType="touchUpInside" id="79U-jC-LRt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -1060,9 +1067,16 @@
                             <constraint firstItem="sQ4-xB-dbK" firstAttribute="leading" secondItem="m5Q-6S-XKl" secondAttribute="leadingMargin" id="NsW-nb-3jF"/>
                             <constraint firstItem="sQ4-xB-dbK" firstAttribute="top" secondItem="eDY-Fu-lOB" secondAttribute="bottom" constant="8" symbolic="YES" id="PeJ-1x-HxL"/>
                             <constraint firstItem="eDY-Fu-lOB" firstAttribute="top" secondItem="ZS8-TV-CyB" secondAttribute="bottom" constant="35" id="hse-pF-5oA"/>
+                            <constraint firstItem="Ieu-An-cDv" firstAttribute="centerX" secondItem="m5Q-6S-XKl" secondAttribute="centerX" id="lRn-Ov-M6s"/>
                             <constraint firstAttribute="trailingMargin" secondItem="sQ4-xB-dbK" secondAttribute="trailing" id="lcU-jr-8i6"/>
+                            <constraint firstItem="Ieu-An-cDv" firstAttribute="top" secondItem="sQ4-xB-dbK" secondAttribute="bottom" constant="8" symbolic="YES" id="niX-G4-rSi"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="buttonGoToSettings" destination="Ieu-An-cDv" id="Uwr-QB-AgT"/>
+                        <outlet property="labelReason" destination="sQ4-xB-dbK" id="sIz-dP-lNl"/>
+                        <outlet property="labelWarning" destination="eDY-Fu-lOB" id="Oba-jA-HCu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pei-xL-Uan" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -15,6 +15,4 @@
 "record cancelled: cant get location" = "The recording was cancelled because your current location can’t be gotten. Please enable the iPhone to know your location for GPS Stone.";
 
 
-
-"waiting for gps" = "Waiting for GPS";
 "recording paused" = "Recording Paused";

@@ -125,6 +125,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	@objc dynamic private(set) var canRecord: Bool
 	@objc dynamic private(set) var currentHeading: CLHeading?
 	@objc dynamic private(set) var currentLocation: CLLocation?
+	@objc dynamic private(set) var currentLocationManagerError: NSError?
 	
 	init(locationManager: CLLocationManager, recordingsManager: RecordingsManager, dataHandler: DataHandler, appSettings: AppSettings, constants: Constants, notificationCenter: NotificationCenter = .default) {
 		assert(Thread.isMainThread)
@@ -281,6 +282,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 		NSLog("%@", "Location manager error \(error)")
+		currentLocationManagerError = error as NSError
 		currentLocation = nil
 	}
 	
@@ -288,6 +290,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		assert(Thread.isMainThread)
 		
 		NSLog("%@", "Received new locations \(locations)")
+		currentLocationManagerError = nil
 		handleNewLocations(locations)
 		
 		/* We start deferred updates here because the doc recommends so. */
@@ -464,7 +467,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			 *             Not sure this is the expected behaviour nor if it will
 			 *             stay the same forever though…
 			 *             @jckarter says yes it is the expected behavior:
-			 *             https://twitter.com/jckarter/status/1255509948127215616*/
+			 *             https://twitter.com/jckarter/status/1255509948127215616 */
 			handleStatusChange(from: oldValue, to: status)
 			
 			if oldValue.recordingStatus != status.recordingStatus {

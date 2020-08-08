@@ -41,6 +41,22 @@
 
 
 
+/* ••••••••••••••••••••••••••••••••••• */
+/*       Location Error Messages       */
+/* ••••••••••••••••••••••••••••••••••• */
+
+
+/* The message shown to the user when no GPS info are available yet, but there are no errors getting the user’s position. */
+"getting loc" = "Getting Your Location…";
+
+/* The message shown to the user when no GPS info because the permission was denied. */
+"error getting location: denied" = "Please allow GPS Stone to access your location for the app to work 😉";
+
+/* The message shown to the user when no GPS info because of an unknown error. */
+"unknown error getting location" = "Your location could not be retrieved because of an unknown error.\n\n|err msg|";
+
+
+
 /* ••••••••••••••••••••••••••••••••••••• */
 /*       Pre-iOS 10 Format Strings       */
 /* ••••••••••••••••••••••••••••••••••••• */
@@ -72,12 +88,3 @@
 
 /* Default name for a recording */
 "new recording" = "New Recording";
-
-
-
-/* •••••••••••••••• */
-/*       TODO       */
-/* •••••••••••••••• */
-
-
-"getting loc" = "Getting location";
