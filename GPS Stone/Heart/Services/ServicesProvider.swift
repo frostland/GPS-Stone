@@ -29,4 +29,6 @@ class ServicesProvider {
 	private(set) lazy var recordingsManager = RecordingsManager(dataHandler: dataHandler)
 	private(set) lazy var locationRecorder = LocationRecorder(locationManager: CLLocationManager(), recordingsManager: recordingsManager, dataHandler: dataHandler, appSettings: appSettings, constants: constants)
 	
+	private(set) lazy var notificationsManager = NotificationsManager(locationRecorder: locationRecorder)
+	
 }

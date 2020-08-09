@@ -52,6 +52,9 @@
 /* The message shown to the user when no GPS info because the permission was denied. */
 "error getting location: denied" = "Please allow GPS Stone to access your location for the app to work 😉";
 
+/* The message shown to the user when no GPS info because the system paused location updates for battery reasons. */
+"location updates are paused" = "It seems you haven’t moved for a while. To preserve battery life, the system paused location update.";
+
 /* The message shown to the user when no GPS info because of an unknown error. */
 "unknown error getting location" = "Your location could not be retrieved because of an unknown error.\n\n|err msg|";
 

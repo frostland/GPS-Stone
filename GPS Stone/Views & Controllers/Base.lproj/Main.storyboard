@@ -1061,13 +1061,22 @@
                                     <action selector="goToSettings:" destination="lDv-Xb-iBU" eventType="touchUpInside" id="79U-jC-LRt"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hyA-s0-EQi">
+                                <rect key="frame" x="97.5" y="154" width="180" height="30"/>
+                                <state key="normal" title="Resume Location Updates"/>
+                                <connections>
+                                    <action selector="resumeLocationUpdates:" destination="lDv-Xb-iBU" eventType="touchUpInside" id="2OS-JO-4lK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="hyA-s0-EQi" firstAttribute="centerX" secondItem="m5Q-6S-XKl" secondAttribute="centerX" id="4BK-sR-Hl4"/>
                             <constraint firstItem="eDY-Fu-lOB" firstAttribute="centerX" secondItem="m5Q-6S-XKl" secondAttribute="centerX" id="MQA-jV-5hu"/>
                             <constraint firstItem="sQ4-xB-dbK" firstAttribute="leading" secondItem="m5Q-6S-XKl" secondAttribute="leadingMargin" id="NsW-nb-3jF"/>
                             <constraint firstItem="sQ4-xB-dbK" firstAttribute="top" secondItem="eDY-Fu-lOB" secondAttribute="bottom" constant="8" symbolic="YES" id="PeJ-1x-HxL"/>
                             <constraint firstItem="eDY-Fu-lOB" firstAttribute="top" secondItem="ZS8-TV-CyB" secondAttribute="bottom" constant="35" id="hse-pF-5oA"/>
+                            <constraint firstItem="hyA-s0-EQi" firstAttribute="top" secondItem="sQ4-xB-dbK" secondAttribute="bottom" constant="8" symbolic="YES" id="jzv-f2-8C6"/>
                             <constraint firstItem="Ieu-An-cDv" firstAttribute="centerX" secondItem="m5Q-6S-XKl" secondAttribute="centerX" id="lRn-Ov-M6s"/>
                             <constraint firstAttribute="trailingMargin" secondItem="sQ4-xB-dbK" secondAttribute="trailing" id="lcU-jr-8i6"/>
                             <constraint firstItem="Ieu-An-cDv" firstAttribute="top" secondItem="sQ4-xB-dbK" secondAttribute="bottom" constant="8" symbolic="YES" id="niX-G4-rSi"/>
@@ -1075,6 +1084,7 @@
                     </view>
                     <connections>
                         <outlet property="buttonGoToSettings" destination="Ieu-An-cDv" id="Uwr-QB-AgT"/>
+                        <outlet property="buttonResumeLocationUpdates" destination="hyA-s0-EQi" id="kqD-GJ-khR"/>
                         <outlet property="labelReason" destination="sQ4-xB-dbK" id="sIz-dP-lNl"/>
                         <outlet property="labelWarning" destination="eDY-Fu-lOB" id="Oba-jA-HCu"/>
                     </connections>

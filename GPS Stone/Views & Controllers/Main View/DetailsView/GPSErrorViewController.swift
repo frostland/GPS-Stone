@@ -18,8 +18,9 @@ class GPSErrorViewController : UIViewController {
 	@IBOutlet var labelReason: UILabel!
 	
 	@IBOutlet var buttonGoToSettings: UIButton!
+	@IBOutlet var buttonResumeLocationUpdates: UIButton!
 	
-	var error: Error? {
+	var error = GPSStoneLocationError.locationNotFoundYet {
 		didSet {
 			assert(Thread.isMainThread)
 			updateUI()
@@ -40,23 +41,18 @@ class GPSErrorViewController : UIViewController {
 		UIApplication.shared.openURL(url)
 	}
 	
+	@IBAction func resumeLocationUpdates(_ sender: Any) {
+		locationRecorder.resumeLocationTracking()
+	}
+	
+	private let locationRecorder = S.sp.locationRecorder
+	
 	private func updateUI() {
-		let reasonText: String
-		let isDeniedError: Bool
-		if let error = error as NSError? {
-			switch (error.domain, CLError.Code(rawValue: error.code)) {
-			case (kCLErrorDomain, .denied): isDeniedError = true;  reasonText = NSLocalizedString("error getting location: denied", comment: "The message shown to the user when no GPS info because the permission was denied.")
-			default:                        isDeniedError = false; reasonText = NSLocalizedString("unknown error getting location", comment: "The message shown to the user when no GPS info because of an unknown error.").applyingCommonTokens(simpleReplacement1: error.localizedDescription)
-			}
-		} else {
-			isDeniedError = false
-			reasonText = NSLocalizedString("getting loc", comment: "The message shown to the user when no GPS info are available yet, but there are no errors getting the user’s position.")
-		}
+		labelReason.text = error.localizedDescription
 		
-		labelWarning.isHidden = (error == nil)
-		labelReason.text = reasonText
-		
-		buttonGoToSettings.isHidden = !isDeniedError
+		labelWarning.isHidden = error.isLocationNotFoundYet
+		buttonGoToSettings.isHidden = !error.isPermissionDeniedError
+		buttonResumeLocationUpdates.isHidden = !error.isUpdatesPaused
 	}
 	
 }

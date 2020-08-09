@@ -29,7 +29,11 @@ class AppDelegate : NSObject, UIApplicationDelegate {
 	
 	func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
 //		Utils.debugLog("APP WILL FINISH LAUNCHING \(launchOptions)", to: "logs")
-		/* Nothing to do! */
+		
+		/* We force init this manager because it monitors stuff and needs to be up
+		 * early. */
+		_ = S.sp.notificationsManager
+		
 		return true
 	}
 	

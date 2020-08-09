@@ -72,6 +72,9 @@
 /* The button to open the settings when location is disabled. */
 "Ieu-An-cDv.normalTitle" = "Go to Settings…";
 
+/* The button to resume location tracking when the system paused it. */
+"hyA-s0-EQi.normalTitle" = "Resume Location Updates";
+
 /* •••••••••• Recording Info Subview •••••••••• */
 
 /* The elapsed time info title for the current recording in the GPS info view */

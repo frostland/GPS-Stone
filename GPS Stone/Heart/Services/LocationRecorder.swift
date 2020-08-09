@@ -16,6 +16,10 @@ import UIKit /* To get app and register to app fg/bg state */
  * TODO: Switch to Combine! */
 final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	
+	public static let errorDomain = Constants.appDomain + ".LocationRecorder"
+	public static let errorCodeUnknown = 1
+	public static let errorCodeLocationManagerPausedUpdates = 42
+	
 	enum RecordingStatus : Codable, Equatable {
 		
 		case stopped
@@ -38,7 +42,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 				case "paused":    self = .paused(recordingRef: recordingRef, segmentID: segmentID)
 				case "recording": self = .recording(recordingRef: recordingRef, segmentID: segmentID)
 				default:
-					throw NSError(domain: Constants.appDomain, code: 1, userInfo: nil)
+					throw NSError(domain: LocationRecorder.errorDomain, code: LocationRecorder.errorCodeUnknown, userInfo: nil)
 			}
 		}
 		
@@ -247,6 +251,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		assert(r.recording.pauses?.count ?? 0 == sid + 1)
 		try rm.unsafeFinishLatestPauseAndSaveContext(in: r.recording)
 		
+		status.locationTrackingPaused = false
 		status.recordingStatus = .recording(recordingRef: rr, segmentID: sid + 1)
 	}
 	
@@ -269,6 +274,11 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		status.recordingStatus = .stopped
 		return r.recording
+	}
+	
+	/** Call this to resume location tracking after the system paused it. */
+	func resumeLocationTracking() {
+		status.locationTrackingPaused = false
 	}
 	
 	/* *********************************
@@ -300,12 +310,11 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	}
 	
 	func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
-		#warning("TODO")
-		if case .recording(let rr, let si) = recStatus {
-			status.recordingStatus = .paused(recordingRef: rr, segmentID: si)
-		} else {
-			/* TODO */
-		}
+		status.locationTrackingPaused = true
+		_ = try? pauseCurrentRecording()
+		
+		currentLocationManagerError = NSError(domain: LocationRecorder.errorDomain, code: LocationRecorder.errorCodeLocationManagerPausedUpdates, userInfo: nil)
+		currentLocation = nil
 	}
 	
 	func locationManager(_ manager: CLLocationManager, didFinishDeferredUpdatesWithError error: Error?) {
@@ -359,7 +368,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			assert(Thread.isMainThread)
 			
 			guard let r = recordingsManager.unsafeRecording(from: rr) else {
-				throw NSError(domain: Constants.appDomain, code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot retrieve the given recording when instantiating a RecordingWriteObjects."])
+				throw NSError(domain: LocationRecorder.errorDomain, code: LocationRecorder.errorCodeUnknown, userInfo: [NSLocalizedDescriptionKey: "Cannot retrieve the given recording when instantiating a RecordingWriteObjects."])
 			}
 			
 			recordingRef = rr
@@ -374,7 +383,9 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		var recordingStatus: RecordingStatus
 		
-		var locationManagerPausedUpdates = false
+		/* Set to true when location manager pauses location tracking. Must be set
+		 * to false to resume location tracking. */
+		var locationTrackingPaused = false
 		
 		var nClientsRequiringLocTracking = 0
 		var nClientsRequiringHeadingTracking = 0
@@ -417,7 +428,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		}
 		
 		var needsLocationTracking: Bool {
-			return isRecording || (requiresLocationTrackingForClients && !appIsInBg)
+			return !locationTrackingPaused && (isRecording || (requiresLocationTrackingForClients && !appIsInBg))
 		}
 		
 		var needsHeadingTracking: Bool {
@@ -715,7 +726,6 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		else if !needsLocationTracking &&  neededLocationTracking {lm.stopUpdatingLocation()}
 		
 		/* *** Start or stop heading tracking if needed *** */
-		#warning("TODO: We must warn the user if unavailable")
 		if CLLocationManager.headingAvailable() {
 			let needsHeadingTracking = newStatus.needsHeadingTracking
 			let neededHeadingTracking = oldStatus.needsHeadingTracking

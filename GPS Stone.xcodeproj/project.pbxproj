@@ -22,6 +22,7 @@
 		7B23D9BA22B90BB20007BA61 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B23D9B922B90BB20007BA61 /* InfoViewController.swift */; };
 		7B27B9291DCDF6B1006F44B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */; };
 		7B28FFD82476E9590063E26A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B28FFDA2476E9590063E26A /* InfoPlist.strings */; };
+		7B40B09A24DF3768008FADB1 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B40B09924DF3768008FADB1 /* NotificationsManager.swift */; };
 		7B4487A0247199CC00B6DB7B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B44879F247199CC00B6DB7B /* Utils.swift */; };
 		7B4487A1247199EA00B6DB7B /* VSOUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */; };
 		7B4487A324719ADF00B6DB7B /* Utils+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4487A224719ADF00B6DB7B /* Utils+UI.swift */; };
@@ -42,6 +43,7 @@
 		7B94D1E822A0194100848832 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E722A0194100848832 /* Constants.swift */; };
 		7B94D1EA22A0197900848832 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E922A0197900848832 /* AppSettings.swift */; };
 		7B9C5D32249AA02800996C4D /* Utils+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9C5D31249AA02800996C4D /* Utils+Debug.swift */; };
+		7B9F689624E063AD009A0BDB /* GPSStoneLocationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9F689524E063AD009A0BDB /* GPSStoneLocationError.swift */; };
 		7BAE22DE22DB75C000AB6C33 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7BAE22DC22DB75C000AB6C33 /* Model.xcdatamodeld */; };
 		7BB90DC7248BECFD001ED9E7 /* Obs_Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7BB90DC9248BECFD001ED9E7 /* Obs_Localizable.strings */; };
 		7BC43307233624DD00C59752 /* CollectionAndTableViewUpdateConveniences in Frameworks */ = {isa = PBXBuildFile; productRef = 7BC43306233624DD00C59752 /* CollectionAndTableViewUpdateConveniences */; };
@@ -72,6 +74,7 @@
 		7B23D9B922B90BB20007BA61 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		7B27B9281DCDF6B1006F44B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B28FFD92476E9590063E26A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7B40B09924DF3768008FADB1 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		7B44879F247199CC00B6DB7B /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		7B4487A224719ADF00B6DB7B /* Utils+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utils+UI.swift"; sourceTree = "<group>"; };
 		7B4487A424719C5000B6DB7B /* Utils+Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utils+Language.swift"; sourceTree = "<group>"; };
@@ -94,6 +97,7 @@
 		7B96A7CA229F1B5300267DBD /* GPS Stone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GPS Stone.entitlements"; sourceTree = "<group>"; };
 		7B9C5D31249AA02800996C4D /* Utils+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utils+Debug.swift"; sourceTree = "<group>"; };
 		7B9CD98F2481296200CF4E14 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		7B9F689524E063AD009A0BDB /* GPSStoneLocationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSStoneLocationError.swift; sourceTree = "<group>"; };
 		7BA2A5EA1F2E013A0014603B /* Test Recording.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Test Recording.gpx"; sourceTree = "<group>"; };
 		7BAE22DD22DB75C000AB6C33 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		7BB90DC8248BECFD001ED9E7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Obs_Localizable.strings; sourceTree = "<group>"; };
@@ -229,6 +233,7 @@
 				7B4487A224719ADF00B6DB7B /* Utils+UI.swift */,
 				7B4487A424719C5000B6DB7B /* Utils+Language.swift */,
 				7B4487A62471CA1100B6DB7B /* GPSStoneLocTokens.swift */,
+				7B9F689524E063AD009A0BDB /* GPSStoneLocationError.swift */,
 				7B68688324B254C400C77DC1 /* DebugUtils */,
 				0F79F69E10203DAE00AF7FF1 /* VSOUtils.h */,
 				0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */,
@@ -314,6 +319,7 @@
 				7B06D3A822EC8D27000D31B9 /* DataHandler.swift */,
 				7B93E38122A184ED00709971 /* LocationRecorder.swift */,
 				7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */,
+				7B40B09924DF3768008FADB1 /* NotificationsManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -424,6 +430,7 @@
 				7B93E38222A184ED00709971 /* LocationRecorder.swift in Sources */,
 				7B5108F722BA57E60038CEAC /* RecordingsListViewController.swift in Sources */,
 				7BEED1BF22B6C0F700A055B9 /* MainViewController.swift in Sources */,
+				7B9F689624E063AD009A0BDB /* GPSStoneLocationError.swift in Sources */,
 				7B23D9BA22B90BB20007BA61 /* InfoViewController.swift in Sources */,
 				7B68688224A8F0B800C77DC1 /* MemoryEater.swift in Sources */,
 				7B75989C246EF7BA00BC7EB1 /* TimeSegment+Utils.swift in Sources */,
@@ -432,6 +439,7 @@
 				7B0F344C22BA9DFA00F0F9EC /* SettingsViewController.swift in Sources */,
 				7B94D1E622A0191700848832 /* ServicesProvider.swift in Sources */,
 				7B596E1824D20D9800E98260 /* RecordingInfoViewController.swift in Sources */,
+				7B40B09A24DF3768008FADB1 /* NotificationsManager.swift in Sources */,
 				7B4487A524719C5000B6DB7B /* Utils+Language.swift in Sources */,
 				7B4487A72471CA1100B6DB7B /* GPSStoneLocTokens.swift in Sources */,
 				7B94D1EA22A0197900848832 /* AppSettings.swift in Sources */,
