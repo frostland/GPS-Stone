@@ -41,6 +41,19 @@
 
 
 
+/* ••••••••••••••••••••••••• */
+/*       Notifications       */
+/* ••••••••••••••••••••••••• */
+
+
+/* The title of the notification when location updates are paused by the system. */
+"notif title: location updates paused" = "Location Updates Paused";
+
+/* The body of the notification when location updates are paused by the system. */
+"notif body: location updates paused" = "It seems you haven’t moved for a while. To preserve battery life, the system paused location update. Re-open the app to resume the recording.";
+
+
+
 /* ••••••••••••••••••••••••••••••••••• */
 /*       Location Error Messages       */
 /* ••••••••••••••••••••••••••••••••••• */

@@ -32,7 +32,7 @@ class AppDelegate : NSObject, UIApplicationDelegate {
 		
 		/* We force init this manager because it monitors stuff and needs to be up
 		 * early. */
-		_ = S.sp.notificationsManager
+		_ = notifsManager
 		
 		return true
 	}
@@ -42,11 +42,20 @@ class AppDelegate : NSObject, UIApplicationDelegate {
 		/* Nothing to do! */
 	}
 	
+	/* ***********************************
+	   MARK: - Pre-iOS 10 delegate methods
+	   *********************************** */
+	
+	func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
+		notifsManager.application(application, didRegister: notificationSettings)
+	}
+	
 	/* ***************
 	   MARK: - Private
 	   *************** */
 	
 	/* Dependencies */
 	private let settings = S.sp.appSettings
+	private lazy var notifsManager = S.sp.notificationsManager
 	
 }
