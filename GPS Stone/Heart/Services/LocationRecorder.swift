@@ -153,7 +153,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		notificationObservers.append(nc.addObserver(forName: AppSettings.changedNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.appSettingsChanged() }))
 		notificationObservers.append(nc.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.appStateChanged() }))
 		notificationObservers.append(nc.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.appStateChanged() }))
-		notificationObservers.append(nc.addObserver(forName: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.appStateChanged() }))
+		/* See comment in appStateChanged for explanation of the removal of the observation below. */
+//		notificationObservers.append(nc.addObserver(forName: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.appStateChanged() }))
 		/* No need to call appStateChanged() (at least for now). Only the
 		 * appIsInBg property is modified by the method, and this property is
 		 * correctly initialized. */
@@ -754,6 +755,11 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	private func appStateChanged() {
 		status.appIsInBg = (UIApplication.shared.applicationState == .background)
 		
+		/* The comment below is the doc. It seems to be an outrageous lie (I have
+		 * done some tests and got the app to receive significant location changes
+		 * when bg app refresh was disabled), so we simply ignore modifications of
+		 * the background app refresh status. */
+		
 		/* From https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/LocationAwarenessPG/CoreLocation/CoreLocation.html#//apple_ref/doc/uid/TP40009497-CH2-SW11
 		 *    Note: When a user disables the Background App Refresh setting either
 		 *          globally or for your app, the significant-change location
@@ -769,7 +775,6 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		 *               background by checking the value of the
 		 *               backgroundRefreshStatus property of the UIApplication
 		 *               class. */
-		#warning("TODO. Warn the user depending on the background app refresh status?")
 	}
 	
 	private func startDeferredLocationUpdates() {
