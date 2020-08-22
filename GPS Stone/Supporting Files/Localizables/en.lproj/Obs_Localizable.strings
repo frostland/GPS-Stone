@@ -1,6 +1,6 @@
-/* Obsolete translations (basically these are TODOs) */
-
+/* TODO: Do we really want to do this? */
 "really stop?" = "Recording will be stopped here. Continue?";
 "really pause?" = "Recording will be paused until the record button is hit. Continue?";
 
-"gpx creator tag" = "GPS Stone for iPhone by VSO-Software";
+/* TODO */
+"gpx creator tag" = "GPS Stone for iPhone by Frost Land";
