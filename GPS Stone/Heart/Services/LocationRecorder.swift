@@ -698,10 +698,12 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		 * not started in this method). */
 		if !newStatus.allowDeferredUpdates && isDeferringUpdates {
 			lm.disallowDeferredLocationUpdates()
-			#warning("Comment below")
-			/* To be verified, but in theory the delegate method should still be
-			 * called when manually stopping deferred location updates, so we do
-			 * not set isDeferringUpdates to false here. */
+			/* In theory (doc says) the delegate method should still be called when
+			 * manually stopping deferred location updates, so we do not set
+			 * isDeferringUpdates to false here.
+			 * We maybe should verify this, but how? I do not have access to a
+			 * device that supports deferred updates (they were dropped
+			 * unofficially in iOS 9 IIUC). */
 		}
 		
 		/* *** Update location manager desired accuracy *** */
