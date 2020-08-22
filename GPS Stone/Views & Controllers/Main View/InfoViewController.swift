@@ -62,8 +62,7 @@ class InfoViewController : UIViewController {
 	
 	@IBAction func startRecording(_ sender: Any) {
 		delegate?.showDetailedInfo()
-		#warning("TODO: Handle the error if any")
-		try? locationRecorder.startNewRecording()
+		Utils.executeOrShowAlertIn(self, { try locationRecorder.startNewRecording() })
 	}
 	
 	/* ***************
