@@ -500,8 +500,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	
 	private var cachedRecordingWriteObjects: RecordingWriteObjects?
 	
-	#warning("TODO: Do something with those? For now they’re just saved here, doing nothing, being erased when the app is terminated…")
-	/** The locations that couldn’t be saved, with the save error. */
+	/** The locations that couldn’t be saved, with the save error.
+	Currently unused; see issue https://github.com/frostland/GPS-Stone/issues/1 */
 	private var saveFailedLocations = [(location: CLLocation, error: Error)]()
 	
 	private var notificationObservers = [NSObjectProtocol]()
