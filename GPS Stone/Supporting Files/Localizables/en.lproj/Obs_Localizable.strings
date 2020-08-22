@@ -3,16 +3,4 @@
 "really stop?" = "Recording will be stopped here. Continue?";
 "really pause?" = "Recording will be paused until the record button is hit. Continue?";
 
-"dont show again" = "Don’t show again";
-"yes" = "Yes";
-"no" = "No";
-
-"ok" = "OK";
-
 "gpx creator tag" = "GPS Stone for iPhone by VSO-Software";
-
-"cannot get location" = "Unable to get your location";
-"record cancelled: cant get location" = "The recording was cancelled because your current location can’t be gotten. Please enable the iPhone to know your location for GPS Stone.";
-
-
-"recording paused" = "Recording Paused";
