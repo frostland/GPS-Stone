@@ -70,7 +70,7 @@ class InfoViewController : UIViewController {
 	   MARK: - Private
 	   *************** */
 	
-	#warning("TODO: In Xcode 11 apparently we can do injection from Storyboard. To be tested. (I put the warning here, it’s true everywhere indeed…)")
+	@available(iOS, deprecated: 13, message: "In Xcode 11 apparently we can do injection from Storyboard. To be tested. (I put the warning here, it’s true everywhere indeed…)")
 	private let locationRecorder = S.sp.locationRecorder
 	
 	private let kvObserver = KVObserver()
