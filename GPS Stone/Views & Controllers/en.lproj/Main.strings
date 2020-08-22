@@ -140,7 +140,7 @@
 /* The “Use Best GPS Accuracy” setting in the settings view */
 "whs-ZC-GYE.text" = "Use Best GPS Accuracy";
 /* Subtitle for the “best GPS accuracy” setting in the settings view */
-"xA6-DX-yki.text" = "Best accuracy is more precise but uses more energy.";
+"xA6-DX-yki.text" = "⚠️ May drain your battery fast!";
 
 /* The title of the distance unit section of the settings view */
 "eaI-xq-KGu.headerTitle" = "Distance Unit";
