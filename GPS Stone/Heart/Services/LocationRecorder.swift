@@ -709,7 +709,6 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		if desiredAccuracy != prevDesiredAccuracy {lm.desiredAccuracy = desiredAccuracy}
 		
 		/* *** Start or stop significant location changes if needed *** */
-		#warning("TODO: We must warn the user when significant location change monitoring is not available that he may loose some points")
 		if CLLocationManager.significantLocationChangeMonitoringAvailable() {
 			let needsSignificantLocationChangesTracking = newStatus.needsSignificantLocationChangesTracking
 			let neededSignificantLocationChangesTracking = oldStatus.needsSignificantLocationChangesTracking
