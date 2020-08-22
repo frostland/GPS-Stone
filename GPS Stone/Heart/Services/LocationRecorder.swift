@@ -305,7 +305,11 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		currentLocationManagerError = nserror
 		currentLocation = nil
 		
-		/* Doc says we should stop the location service in case we get a denied. */
+		/* Doc says we should stop the location service in case we get a denied.
+		 * But we don’t because we want the tracking to resume automatically when
+		 * the location services are enabled again and it’s easier this way than
+		 * using the did change authorization status method.
+		 * Maybe I’m missing something but everything seems to work ok this way. */
 	}
 	
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
