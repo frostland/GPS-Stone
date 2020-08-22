@@ -45,7 +45,6 @@
 		7B9C5D32249AA02800996C4D /* Utils+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9C5D31249AA02800996C4D /* Utils+Debug.swift */; };
 		7B9F689624E063AD009A0BDB /* GPSStoneLocationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9F689524E063AD009A0BDB /* GPSStoneLocationError.swift */; };
 		7BAE22DE22DB75C000AB6C33 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7BAE22DC22DB75C000AB6C33 /* Model.xcdatamodeld */; };
-		7BB90DC7248BECFD001ED9E7 /* Obs_Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7BB90DC9248BECFD001ED9E7 /* Obs_Localizable.strings */; };
 		7BC43307233624DD00C59752 /* CollectionAndTableViewUpdateConveniences in Frameworks */ = {isa = PBXBuildFile; productRef = 7BC43306233624DD00C59752 /* CollectionAndTableViewUpdateConveniences */; };
 		7BD0A05922B9576500934656 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD0A05822B9576500934656 /* DetailsViewController.swift */; };
 		7BE9FF9D22AC1BC6006DED15 /* RecordingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */; };
@@ -404,7 +403,6 @@
 				7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */,
 				7B482CE11DCA8ADD007B5ABC /* Localizable.strings in Resources */,
 				7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */,
-				7BB90DC7248BECFD001ED9E7 /* Obs_Localizable.strings in Resources */,
 				7B27B9291DCDF6B1006F44B7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
