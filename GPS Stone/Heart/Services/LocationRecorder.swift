@@ -126,7 +126,6 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		return status.recordingStatus
 	}
 	
-	@objc dynamic private(set) var canRecord: Bool
 	@objc dynamic private(set) var currentHeading: CLHeading?
 	@objc dynamic private(set) var currentLocation: CLLocation?
 	@objc dynamic private(set) var currentLocationManagerError: NSError?
@@ -140,7 +139,6 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		lm = locationManager
 		rm = recordingsManager
 		nc = notificationCenter
-		canRecord = Set<CLAuthorizationStatus>(arrayLiteral: .notDetermined, .authorizedWhenInUse, .authorizedAlways).contains(CLLocationManager.authorizationStatus())
 		recStatusesHistory = (try? PropertyListDecoder().decode([RecordingStatusHistoryEntry].self, from: Data(contentsOf: constants.urlToCurrentRecordingInfo))) ?? []
 		status = Status(recordingStatus: recStatusesHistory.last?.status ?? .stopped, appSettingBestAccuracy: appSettings.useBestGPSAccuracy)
 		
@@ -287,13 +285,22 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	
 	func locationManager(_ manager: CLLocationManager, didChangeAuthorization authStatus: CLAuthorizationStatus) {
 		assert(Thread.isMainThread)
-		canRecord = Set<CLAuthorizationStatus>(arrayLiteral: .notDetermined, .authorizedWhenInUse, .authorizedAlways).contains(authStatus)
+		/* Nothing to do here, because we use errors to show messages to the user. */
 	}
 	
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 		NSLog("%@", "Location manager error \(error)")
-		currentLocationManagerError = error as NSError
+		
+		let nserror = error as NSError
+		guard nserror.domain != kCLErrorDomain || nserror.code != CLError.Code.locationUnknown.rawValue else {
+			/* Doc says this error can be ignored. */
+			return
+		}
+		
+		currentLocationManagerError = nserror
 		currentLocation = nil
+		
+		/* Doc says we should stop the location service in case we get a denied. */
 	}
 	
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -651,8 +658,6 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		assert(Thread.isMainThread)
 		NSLog("%@", "Status change from \(oldStatus) to \(newStatus)")
 		
-		#warning("Use locationServicesEnabled somehow")
-		
 		/* *** Let’s save the current status *** */
 		if oldStatus.recordingStatus != newStatus.recordingStatus {
 			recStatusesHistory.append(RecordingStatusHistoryEntry(date: Date(), status: newStatus.recordingStatus))
@@ -710,10 +715,10 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			let neededSignificantLocationChangesTracking = oldStatus.needsSignificantLocationChangesTracking
 			if needsSignificantLocationChangesTracking && !neededSignificantLocationChangesTracking {
 				/* This should launch the app when it gets a significant location
-				  * changes even if the user has force quit it, if the background app
-				  * refresh is on.
-				  * After some testing, the app seems to be relaunched even with bg app
-				  * refresh off! */
+				 * changes even if the user has force quit it, if the background app
+				 * refresh is on.
+				 * After some testing, the app seems to be relaunched even with bg
+				 * app refresh off! */
 				lm.startMonitoringSignificantLocationChanges()
 			} else if !needsSignificantLocationChangesTracking && neededSignificantLocationChangesTracking {
 				lm.stopMonitoringSignificantLocationChanges()

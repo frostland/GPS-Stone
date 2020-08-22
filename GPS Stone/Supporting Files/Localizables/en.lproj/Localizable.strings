@@ -65,6 +65,9 @@
 /* The message shown to the user when no GPS info because the permission was denied. */
 "error getting location: denied" = "Please allow GPS Stone to access your location for the app to work 😉";
 
+/* The message shown to the user when no GPS info because the location services are disabled. */
+"location services disabled" = "This app cannot work when location services are disabled. Please go to your phone settings, in Privacy, and enable location services.";
+
 /* The message shown to the user when no GPS info because the system paused location updates for battery reasons. */
 "location updates are paused" = "It seems you haven’t moved for a while. To preserve battery life, the system paused location update.";
 
