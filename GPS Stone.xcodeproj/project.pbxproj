@@ -24,7 +24,6 @@
 		7B28FFD82476E9590063E26A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B28FFDA2476E9590063E26A /* InfoPlist.strings */; };
 		7B40B09A24DF3768008FADB1 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B40B09924DF3768008FADB1 /* NotificationsManager.swift */; };
 		7B4487A0247199CC00B6DB7B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B44879F247199CC00B6DB7B /* Utils.swift */; };
-		7B4487A1247199EA00B6DB7B /* VSOUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F79F69F10203DAE00AF7FF1 /* VSOUtils.m */; };
 		7B4487A324719ADF00B6DB7B /* Utils+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4487A224719ADF00B6DB7B /* Utils+UI.swift */; };
 		7B4487A524719C5000B6DB7B /* Utils+Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4487A424719C5000B6DB7B /* Utils+Language.swift */; };
 		7B4487A72471CA1100B6DB7B /* GPSStoneLocTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4487A62471CA1100B6DB7B /* GPSStoneLocTokens.swift */; };
@@ -432,7 +431,6 @@
 				7B23D9BA22B90BB20007BA61 /* InfoViewController.swift in Sources */,
 				7B68688224A8F0B800C77DC1 /* MemoryEater.swift in Sources */,
 				7B75989C246EF7BA00BC7EB1 /* TimeSegment+Utils.swift in Sources */,
-				7B4487A1247199EA00B6DB7B /* VSOUtils.m in Sources */,
 				7BAE22DE22DB75C000AB6C33 /* Model.xcdatamodeld in Sources */,
 				7B0F344C22BA9DFA00F0F9EC /* SettingsViewController.swift in Sources */,
 				7B94D1E622A0191700848832 /* ServicesProvider.swift in Sources */,
