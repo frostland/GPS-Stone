@@ -294,7 +294,11 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		let nserror = error as NSError
 		guard nserror.domain != kCLErrorDomain || nserror.code != CLError.Code.locationUnknown.rawValue else {
-			/* Doc says this error can be ignored. */
+			/* Doc says this error can be ignored. I do not fully agree; if the
+			 * location is out of date, we’ll show a “Getting Location…” message to
+			 * the user instead of showing an out of date location. But we won’t
+			 * show an error. */
+			currentLocation = nil
 			return
 		}
 		
