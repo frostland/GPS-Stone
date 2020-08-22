@@ -20,6 +20,9 @@ class GPSErrorViewController : UIViewController {
 	@IBOutlet var buttonGoToSettings: UIButton!
 	@IBOutlet var buttonResumeLocationUpdates: UIButton!
 	
+	@IBOutlet var constraintDescrToBottomView: NSLayoutConstraint!
+	@IBOutlet var constraintButtonToBottomView: NSLayoutConstraint!
+	
 	var error = GPSStoneLocationError.locationNotFoundYet {
 		didSet {
 			assert(Thread.isMainThread)
@@ -53,6 +56,17 @@ class GPSErrorViewController : UIViewController {
 		labelWarning.isHidden = error.isLocationNotFoundYet
 		buttonGoToSettings.isHidden = !error.isPermissionDeniedError
 		buttonResumeLocationUpdates.isHidden = !error.isUpdatesPaused
+		
+		/* Layout Note: We use an if instead of directly setting the `isActive`
+		 * property with the boolean value used in the if, because **the order in
+		 * which we (de-)activate the constraints matters**! */
+		if error.isPermissionDeniedError || error.isUpdatesPaused {
+			constraintDescrToBottomView.isActive = false
+			constraintButtonToBottomView.isActive = true
+		} else {
+			constraintButtonToBottomView.isActive = false
+			constraintDescrToBottomView.isActive = true
+		}
 	}
 	
 }
