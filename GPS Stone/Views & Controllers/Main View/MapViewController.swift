@@ -77,12 +77,15 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 					}
 				}
 				let borderInset = CGFloat(50)
+				mapRegionBeingSetByApp = true
 				mapView.setRegion(region, animated: false)
 				mapView.setVisibleMapRect(mapView.visibleMapRect, edgePadding: UIEdgeInsets(top: borderInset, left: borderInset, bottom: borderInset, right: borderInset), animated: false)
 			}
 		} else {
 			if let region = appSettings.latestMapRegion {
+				mapRegionBeingSetByApp = true
 				mapView.setRegion(region, animated: false)
+				restoredMapRegion = true
 			}
 			
 			mapView.showsUserLocation = true
@@ -120,9 +123,20 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	   MARK: - Map View Delegate
 	   ************************* */
 	
+	func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+	}
+	
+	func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+		if recording == nil && restoredMapRegion {
+			appSettings.latestMapRegion = MKCoordinateRegion(mapView.visibleMapRect)
+		}
+		mapRegionBeingSetByApp = false
+	}
+	
 	func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-		guard recording == nil else {return}
-		appSettings.latestMapRegion = MKCoordinateRegion(mapView.visibleMapRect)
+		if !mapRegionBeingSetByApp {
+			appSettings.followLocationOnMap = false
+		}
 	}
 	
 	func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -175,6 +189,9 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	private var pointsFetchResultsController: NSFetchedResultsController<RecordingPoint>?
 	
 	private var polylinesCache = PolylinesCache()
+	
+	private var restoredMapRegion = false
+	private var mapRegionBeingSetByApp = false
 	
 	private var currentRecording: Recording? {
 		willSet {
@@ -234,7 +251,10 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 					guard self.appSettings.followLocationOnMap else {return}
 					guard let loc = self.locationRecorder.currentLocation else {return}
 					
-					self.mapView.setRegion(MKCoordinateRegion(center: loc.coordinate, latitudinalMeters: Self.defaultMapSpan, longitudinalMeters: Self.defaultMapSpan), animated: true)
+					if !self.mapRegionBeingSetByApp {
+						self.mapRegionBeingSetByApp = true
+						self.mapView.setRegion(MKCoordinateRegion(center: loc.coordinate, latitudinalMeters: Self.defaultMapSpan, longitudinalMeters: Self.defaultMapSpan), animated: true)
+					}
 				})
 			} else if !appSettings.followLocationOnMap, let o = locationObserver {
 				kvObserver.stopObserving(id: o)
