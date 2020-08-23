@@ -19,6 +19,8 @@ import RetryingOperation
 
 class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsControllerDelegate {
 	
+	static let defaultMapSpan = CLLocationDistance(500)
+	
 	@IBOutlet var buttonCenterMapOnCurLoc: UIButton!
 	@IBOutlet var mapView: MKMapView!
 	
@@ -43,8 +45,51 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		if let region = appSettings.latestMapRegion {
-			mapView.setRegion(region, animated: false)
+		if let r = recording {
+			buttonCenterMapOnCurLoc.isHidden = true
+			mapView.showsUserLocation = false
+			currentRecording = recording
+			
+			/* Let’s compute the region to show for the recording */
+			if let coordinates = (r.points as! Set<RecordingPoint>?)?.compactMap({ $0.location?.coordinate }), let startingPointCoord = coordinates.first {
+				/* We have a recording which has at least one point. */
+				var region = MKCoordinateRegion(center: startingPointCoord, latitudinalMeters: 1, longitudinalMeters: 1)
+				for coordinate in coordinates.dropFirst() {
+					let d1 = coordinate.latitude - (region.center.latitude - region.span.latitudeDelta/2)
+					if d1 < 0 {
+						region.center.latitude    -= -d1/2
+						region.span.latitudeDelta += -d1
+					}
+					let d2 = coordinate.longitude - (region.center.longitude - region.span.longitudeDelta/2)
+					if d2 < 0 {
+						region.center.longitude    -= -d2/2
+						region.span.longitudeDelta += -d2
+					}
+					let d3 = (region.center.latitude + region.span.latitudeDelta/2) - coordinate.latitude
+					if d3 < 0 {
+						region.center.latitude    += -d3/2
+						region.span.latitudeDelta += -d3
+					}
+					let d4 = (region.center.longitude + region.span.longitudeDelta/2) - coordinate.longitude
+					if d4 < 0 {
+						region.center.longitude    += -d4/2
+						region.span.longitudeDelta += -d4
+					}
+				}
+				let borderInset = CGFloat(50)
+				mapView.setRegion(region, animated: false)
+				mapView.setVisibleMapRect(mapView.visibleMapRect, edgePadding: UIEdgeInsets(top: borderInset, left: borderInset, bottom: borderInset, right: borderInset), animated: false)
+			}
+		} else {
+			if let region = appSettings.latestMapRegion {
+				mapView.setRegion(region, animated: false)
+			}
+			
+			mapView.showsUserLocation = true
+			_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_recStatus), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
+				guard let self = self else {return}
+				self.currentRecording = self.locationRecorder.recStatus.recordingRef.flatMap{ self.recordingsManager.unsafeRecording(from: $0) }
+			})
 		}
 		
 		assert(settingsObserver == nil)
@@ -53,17 +98,6 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 			self.processUserDefaultsChange()
 		})
 		processUserDefaultsChange()
-		
-		if recording == nil {
-			mapView.showsUserLocation = true
-			_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_recStatus), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
-				guard let self = self else {return}
-				self.currentRecording = self.locationRecorder.recStatus.recordingRef.flatMap{ self.recordingsManager.unsafeRecording(from: $0) }
-			})
-		} else {
-			mapView.showsUserLocation = false
-			currentRecording = recording
-		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -186,23 +220,25 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		
 		mapView.mapType = appSettings.mapType
 		
-		if #available(iOS 13.0, *) {
-			buttonCenterMapOnCurLoc.setImage(UIImage(systemName: appSettings.followLocationOnMap ? "location.fill" : "location"), for: .normal)
-		} else {
-			buttonCenterMapOnCurLoc.setImage(appSettings.followLocationOnMap ? #imageLiteral(resourceName: "sf_location·fill"): #imageLiteral(resourceName: "sf_location"), for: .normal)
-		}
-		
-		if appSettings.followLocationOnMap && locationObserver == nil {
-			locationObserver = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.currentLocation), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
-				guard let self = self else {return}
-				guard self.appSettings.followLocationOnMap else {return}
-				guard let loc = self.locationRecorder.currentLocation else {return}
-				
-				self.mapView.setRegion(MKCoordinateRegion(center: loc.coordinate, latitudinalMeters: 500, longitudinalMeters: 500), animated: true)
-			})
-		} else if !appSettings.followLocationOnMap, let o = locationObserver {
-			kvObserver.stopObserving(id: o)
-			locationObserver = nil
+		if recording == nil {
+			if #available(iOS 13.0, *) {
+				buttonCenterMapOnCurLoc.setImage(UIImage(systemName: appSettings.followLocationOnMap ? "location.fill" : "location"), for: .normal)
+			} else {
+				buttonCenterMapOnCurLoc.setImage(appSettings.followLocationOnMap ? #imageLiteral(resourceName: "sf_location·fill"): #imageLiteral(resourceName: "sf_location"), for: .normal)
+			}
+			
+			if appSettings.followLocationOnMap && locationObserver == nil {
+				locationObserver = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.currentLocation), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
+					guard let self = self else {return}
+					guard self.appSettings.followLocationOnMap else {return}
+					guard let loc = self.locationRecorder.currentLocation else {return}
+					
+					self.mapView.setRegion(MKCoordinateRegion(center: loc.coordinate, latitudinalMeters: Self.defaultMapSpan, longitudinalMeters: Self.defaultMapSpan), animated: true)
+				})
+			} else if !appSettings.followLocationOnMap, let o = locationObserver {
+				kvObserver.stopObserving(id: o)
+				locationObserver = nil
+			}
 		}
 	}
 	
