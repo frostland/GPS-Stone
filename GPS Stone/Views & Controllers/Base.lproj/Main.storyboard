@@ -643,7 +643,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="centerMapOnCurLoc:" destination="AEg-vC-tvX" eventType="touchUpInside" id="zMy-aL-41L"/>
+                                    <action selector="followLocButtonTapped:" destination="AEg-vC-tvX" eventType="touchUpInside" id="VFZ-QH-aXQ"/>
                                 </connections>
                             </button>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dca-Wh-v9g">

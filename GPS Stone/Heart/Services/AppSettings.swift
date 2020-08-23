@@ -40,7 +40,7 @@ final class AppSettings {
 		/* Registering default user defaults */
 		let defaultValues: [SettingsKey: Any?] = [
 			.selectedPage: 0,
-			.latestMapRect: nil,
+			.latestMapRegion: nil,
 			.followLocationOnMap: true,
 			.mapSwipeWarningShown: false,
 			
@@ -81,9 +81,9 @@ final class AppSettings {
 		set {ud.set(newValue, forKey: SettingsKey.selectedPage.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
 	}
 	
-	var latestMapRect: MKCoordinateRegion? {
+	var latestMapRegion: MKCoordinateRegion? {
 		get {
-			guard let data = ud.data(forKey: SettingsKey.latestMapRect.rawValue) else {
+			guard let data = ud.data(forKey: SettingsKey.latestMapRegion.rawValue) else {
 				return nil
 			}
 			
@@ -110,7 +110,7 @@ final class AppSettings {
 			}
 			
 			guard let rect = newValue else {
-				ud.removeObject(forKey: SettingsKey.latestMapRect.rawValue)
+				ud.removeObject(forKey: SettingsKey.latestMapRegion.rawValue)
 				return
 			}
 			
@@ -122,7 +122,7 @@ final class AppSettings {
 			archiver.encode(rect.span.longitudeDelta, forKey: "longitudeDelta")
 			archiver.finishEncoding()
 			
-			ud.set(data, forKey: SettingsKey.latestMapRect.rawValue)
+			ud.set(data, forKey: SettingsKey.latestMapRegion.rawValue)
 		}
 	}
 	
@@ -188,7 +188,7 @@ final class AppSettings {
 	private enum SettingsKey : String, CaseIterable {
 		
 		case selectedPage = "VSO Selected Page"
-		case latestMapRect = "VSO Latest Map Rect"
+		case latestMapRegion = "VSO Latest Map Region"
 		case followLocationOnMap = "VSO Follow Location On Map"
 		case mapSwipeWarningShown = "VSO Map Swipe Warning Was Shown"
 		

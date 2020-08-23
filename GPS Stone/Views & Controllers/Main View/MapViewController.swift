@@ -43,17 +43,16 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		if #available(iOS 13.0, *) {
-			buttonCenterMapOnCurLoc.setImage(UIImage(systemName: "location"), for: .normal)
+		if let region = appSettings.latestMapRegion {
+			mapView.setRegion(region, animated: false)
 		}
-		
-		mapView.mapType = appSettings.mapType
 		
 		assert(settingsObserver == nil)
 		settingsObserver = NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main, using: { [weak self] _ in
 			guard let self = self else {return}
-			self.mapView.mapType = self.appSettings.mapType
+			self.processUserDefaultsChange()
 		})
+		processUserDefaultsChange()
 		
 		if recording == nil {
 			mapView.showsUserLocation = true
@@ -65,8 +64,6 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 			mapView.showsUserLocation = false
 			currentRecording = recording
 		}
-		
-		centerMapOnCurLoc(self)
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -81,11 +78,8 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		locationRecorder.releaseLocationTracking()
 	}
 	
-	@IBAction func centerMapOnCurLoc(_ sender: Any) {
-		appSettings.followLocationOnMap = true
-		
-		guard let pos = locationRecorder.currentLocation else {return}
-		mapView.setRegion(MKCoordinateRegion(center: pos.coordinate, latitudinalMeters: 500, longitudinalMeters: 500), animated: true)
+	@IBAction func followLocButtonTapped(_ sender: Any) {
+		appSettings.followLocationOnMap = !appSettings.followLocationOnMap
 	}
 	
 	/* *************************
@@ -93,7 +87,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	   ************************* */
 	
 	func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-		appSettings.latestMapRect = MKCoordinateRegion(mapView.visibleMapRect)
+		appSettings.latestMapRegion = MKCoordinateRegion(mapView.visibleMapRect)
 	}
 	
 	func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -142,6 +136,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	
 	private let kvObserver = KVObserver()
 	private var settingsObserver: NSObjectProtocol?
+	private var locationObserver: KVObserver.ObservingId?
 	private var pointsFetchResultsController: NSFetchedResultsController<RecordingPoint>?
 	
 	private var polylinesCache = PolylinesCache()
@@ -183,6 +178,31 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 			} catch {
 				/* We do nothing in case of an error. The map will simply never be updated… */
 			}
+		}
+	}
+	
+	private func processUserDefaultsChange() {
+		assert(Thread.isMainThread)
+		
+		mapView.mapType = appSettings.mapType
+		
+		if #available(iOS 13.0, *) {
+			buttonCenterMapOnCurLoc.setImage(UIImage(systemName: appSettings.followLocationOnMap ? "location.fill" : "location"), for: .normal)
+		} else {
+			buttonCenterMapOnCurLoc.setImage(appSettings.followLocationOnMap ? #imageLiteral(resourceName: "sf_location·fill"): #imageLiteral(resourceName: "sf_location"), for: .normal)
+		}
+		
+		if appSettings.followLocationOnMap && locationObserver == nil {
+			locationObserver = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.currentLocation), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
+				guard let self = self else {return}
+				guard self.appSettings.followLocationOnMap else {return}
+				guard let loc = self.locationRecorder.currentLocation else {return}
+				
+				self.mapView.setRegion(MKCoordinateRegion(center: loc.coordinate, latitudinalMeters: 500, longitudinalMeters: 500), animated: true)
+			})
+		} else if !appSettings.followLocationOnMap, let o = locationObserver {
+			kvObserver.stopObserving(id: o)
+			locationObserver = nil
 		}
 	}
 	
