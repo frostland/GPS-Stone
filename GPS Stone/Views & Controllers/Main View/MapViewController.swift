@@ -107,15 +107,19 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		mapView.showsUserLocation = (recording == nil)
-		locationRecorder.retainLocationTracking()
+		if recording == nil {
+			mapView.showsUserLocation = true
+			locationRecorder.retainLocationTracking()
+		}
 	}
 	
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 		
-		mapView.showsUserLocation = false
-		locationRecorder.releaseLocationTracking()
+		if recording == nil {
+			mapView.showsUserLocation = false
+			locationRecorder.releaseLocationTracking()
+		}
 	}
 	
 	@IBAction func followLocButtonTapped(_ sender: Any) {
