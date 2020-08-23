@@ -121,6 +121,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	   ************************* */
 	
 	func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+		guard recording == nil else {return}
 		appSettings.latestMapRegion = MKCoordinateRegion(mapView.visibleMapRect)
 	}
 	
