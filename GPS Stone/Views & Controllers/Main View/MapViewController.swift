@@ -56,11 +56,13 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		})
 		
 		if recording == nil {
+			mapView.showsUserLocation = true
 			_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_recStatus), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
 				guard let self = self else {return}
 				self.currentRecording = self.locationRecorder.recStatus.recordingRef.flatMap{ self.recordingsManager.unsafeRecording(from: $0) }
 			})
 		} else {
+			mapView.showsUserLocation = false
 			currentRecording = recording
 		}
 		
