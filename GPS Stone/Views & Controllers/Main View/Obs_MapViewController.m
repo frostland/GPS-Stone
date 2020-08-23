@@ -7,7 +7,6 @@
  */
 
 #define DEFAULT_SPAN 3000.
-#define PERCENT_FOR_MAP_BORDER 15
 
 
 //@interface VSOMapViewController (Private)
@@ -306,16 +305,16 @@ end:
 //
 //@implementation VSOMapViewController (Private)
 //
-- (BOOL)isCurLocOnBordersOfMap
-{
-	CGPoint p = [mapView convertCoordinate:currentLocation.coordinate toPointToView:mapView];
-	if (p.x < mapView.frame.size.width  * PERCENT_FOR_MAP_BORDER/100.) return YES;
-	if (p.y < mapView.frame.size.height * PERCENT_FOR_MAP_BORDER/100.) return YES;
-	if (p.x > mapView.frame.size.width  - mapView.frame.size.width  * PERCENT_FOR_MAP_BORDER/100.) return YES;
-	if (p.y > mapView.frame.size.height - mapView.frame.size.height * PERCENT_FOR_MAP_BORDER/100.) return YES;
-	
-	return NO;
-}
+//- (BOOL)isCurLocOnBordersOfMap
+//{
+//	CGPoint p = [mapView convertCoordinate:currentLocation.coordinate toPointToView:mapView];
+//	if (p.x < mapView.frame.size.width  * PERCENT_FOR_MAP_BORDER/100.) return YES;
+//	if (p.y < mapView.frame.size.height * PERCENT_FOR_MAP_BORDER/100.) return YES;
+//	if (p.x > mapView.frame.size.width  - mapView.frame.size.width  * PERCENT_FOR_MAP_BORDER/100.) return YES;
+//	if (p.y > mapView.frame.size.height - mapView.frame.size.height * PERCENT_FOR_MAP_BORDER/100.) return YES;
+//	
+//	return NO;
+//}
 //
 //- (void)expandBoundsFrom:(MKCoordinateRegion *)r with:(CLLocationCoordinate2D)c
 //{

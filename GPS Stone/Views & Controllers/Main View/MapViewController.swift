@@ -19,6 +19,7 @@ import RetryingOperation
 
 class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsControllerDelegate {
 	
+	static let percentForMapBorders = CGFloat(15)
 	static let defaultMapSpan = CLLocationDistance(500)
 	
 	@IBOutlet var buttonCenterMapOnCurLoc: UIButton!
@@ -218,6 +219,17 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		return false
 	}
 	
+	private var isCurLocOnBordersOfMap: Bool {
+		guard let currentLocationCoords = locationRecorder.currentLocation?.coordinate else {return false}
+		
+		let p = mapView.convert(currentLocationCoords, toPointTo: mapView)
+		if p.x < mapView.frame.width  * Self.percentForMapBorders/100 {return true}
+		if p.y < mapView.frame.height * Self.percentForMapBorders/100 {return true}
+		if p.x > mapView.frame.width  - mapView.frame.width  * Self.percentForMapBorders/100 {return true}
+		if p.y > mapView.frame.height - mapView.frame.height * Self.percentForMapBorders/100 {return true}
+		return false
+	}
+	
 	private var currentRecording: Recording? {
 		willSet {
 			guard currentRecording != newValue else {return}
@@ -275,6 +287,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 					guard let self = self else {return}
 					guard self.appSettings.followLocationOnMap else {return}
 					guard let loc = self.locationRecorder.currentLocation else {return}
+					guard !self.locationRecorder.recStatus.isRecording || self.isCurLocOnBordersOfMap else {return}
 					
 					if !self.mapRegionBeingSetByApp {
 						self.mapRegionSetByAppDate = Date()
