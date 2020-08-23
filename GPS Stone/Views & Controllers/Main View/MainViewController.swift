@@ -55,6 +55,11 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		/* Select the previously selected page */
+		pageControl.currentPage = min(pageControl.numberOfPages, max(0, appSettings.selectedPage))
+		pageViewController.setViewControllers([viewControllerForPage(atIndex: pageControl.currentPage)], direction: .forward, animated: false, completion: nil)
+		setNeedsStatusBarAppearanceUpdate()
+		
 		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_recStatus), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
 			guard let self = self else {return}
 			
@@ -108,6 +113,8 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 		let newIdx = pageControl.currentPage
 		let oldIdx = pageViewController.viewControllers?.first?.restorationIdentifier.flatMap{ pageViewControllerIdentifiers.firstIndex(of: $0) } ?? -1
 		
+		appSettings.selectedPage = newIdx
+		
 		let viewController = viewControllerForPage(atIndex: newIdx)
 		pageViewController.setViewControllers([viewController], direction: oldIdx < newIdx ? .forward : .reverse, animated: true, completion: nil)
 		setNeedsStatusBarAppearanceUpdate()
@@ -148,6 +155,7 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 		/* Update the page control selected index */
 		if let id = pageViewController.viewControllers?.first?.restorationIdentifier, let idx = pageViewControllerIdentifiers.firstIndex(of: id) {
 			pageControl.currentPage = idx
+			appSettings.selectedPage = idx
 		}
 		
 		setNeedsStatusBarAppearanceUpdate()
@@ -156,6 +164,8 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	/* ***************
 	   MARK: - Private
 	   *************** */
+	
+	private let appSettings = S.sp.appSettings
 	
 	private let locationRecorder = S.sp.locationRecorder
 	
