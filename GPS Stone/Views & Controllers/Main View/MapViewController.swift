@@ -187,7 +187,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 			mapView.removeOverlays(mapView.overlays)
 			polylinesCache = PolylinesCache()
 		}
-		didSet  {
+		didSet {
 			guard currentRecording != oldValue else {return}
 			guard let r = currentRecording, let c = r.managedObjectContext else {return}
 			
