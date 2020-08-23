@@ -632,8 +632,12 @@
                                     <outlet property="delegate" destination="AEg-vC-tvX" id="MYv-PP-aSj"/>
                                 </connections>
                             </mapView>
-                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ibA-9y-tEc">
-                                <rect key="frame" x="312" y="10" width="21" height="22"/>
+                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ibA-9y-tEc">
+                                <rect key="frame" x="302" y="0.0" width="41" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="An7-o4-AOn"/>
+                                    <constraint firstAttribute="width" constant="41" id="uWd-BZ-jMC"/>
+                                </constraints>
                                 <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <state key="normal" image="sf_location">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -663,9 +667,9 @@
                             <constraint firstAttribute="trailing" secondItem="xKH-do-tx1" secondAttribute="trailing" id="Unh-p3-Tml"/>
                             <constraint firstItem="xKH-do-tx1" firstAttribute="top" secondItem="uIC-Hb-XKG" secondAttribute="top" id="W0o-Zc-swp"/>
                             <constraint firstAttribute="trailing" secondItem="dca-Wh-v9g" secondAttribute="trailing" id="YIx-4w-odv"/>
-                            <constraint firstAttribute="trailing" secondItem="ibA-9y-tEc" secondAttribute="trailing" constant="10" id="YrQ-1D-rxy"/>
+                            <constraint firstAttribute="trailing" secondItem="ibA-9y-tEc" secondAttribute="trailing" id="YrQ-1D-rxy"/>
                             <constraint firstItem="dca-Wh-v9g" firstAttribute="top" secondItem="uIC-Hb-XKG" secondAttribute="top" id="Z8c-Ls-O9C"/>
-                            <constraint firstItem="ibA-9y-tEc" firstAttribute="top" secondItem="dca-Wh-v9g" secondAttribute="bottom" constant="10" id="rUq-V9-Cg0"/>
+                            <constraint firstItem="ibA-9y-tEc" firstAttribute="top" secondItem="dca-Wh-v9g" secondAttribute="bottom" id="rUq-V9-Cg0"/>
                             <constraint firstItem="dca-Wh-v9g" firstAttribute="leading" secondItem="uIC-Hb-XKG" secondAttribute="leading" id="xPJ-2e-wrx"/>
                         </constraints>
                     </view>
