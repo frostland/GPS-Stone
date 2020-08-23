@@ -45,9 +45,11 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		/* Set later in view will appear and did disappear */
+		mapView.showsUserLocation = false
+		
 		if let r = recording {
 			buttonCenterMapOnCurLoc.isHidden = true
-			mapView.showsUserLocation = false
 			currentRecording = recording
 			
 			/* Let’s compute the region to show for the recording */
@@ -88,7 +90,6 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 				restoredMapRegion = true
 			}
 			
-			mapView.showsUserLocation = true
 			_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_recStatus), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
 				guard let self = self else {return}
 				self.currentRecording = self.locationRecorder.recStatus.recordingRef.flatMap{ self.recordingsManager.unsafeRecording(from: $0) }
@@ -106,12 +107,14 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
+		mapView.showsUserLocation = (recording == nil)
 		locationRecorder.retainLocationTracking()
 	}
 	
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 		
+		mapView.showsUserLocation = false
 		locationRecorder.releaseLocationTracking()
 	}
 	
