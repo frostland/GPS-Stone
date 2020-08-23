@@ -89,8 +89,8 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 				mapRegionSetByAppDate = Date()
 				mapView.setRegion(region, animated: false)
 				mapRegionSetByAppDate = nil /* The delegate method should be called synchronously because we do not animate (tested on simulator on iOS 10.3.1). */
-				restoredMapRegion = true
 			}
+			restoredMapRegion = true
 			
 			_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_recStatus), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
 				guard let self = self else {return}
