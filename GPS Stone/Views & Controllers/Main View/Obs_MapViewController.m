@@ -6,17 +6,8 @@
  * Copyright 2009 VSO-Software. All rights reserved.
  */
 
-#import "VSOMapViewController.h"
-
-#import "VSOUtils.h"
-#import "Constants.h"
-#import "MainViewController.h"
-
-
 #define DEFAULT_SPAN 3000.
 #define PERCENT_FOR_MAP_BORDER 15
-#define N_POINTS_BUFFER_INCREMENT 500
-
 
 
 //@interface VSOMapViewController (Private)
@@ -119,7 +110,7 @@
 //{
 ////	[pathAnnotationView setNeedsDisplay];
 //}
-
+//
 - (void)setCurrentLocation:(CLLocation *)cl
 {
 	[super setCurrentLocation:cl];
@@ -142,7 +133,7 @@ end:
 		[buttonCenterMapOnCurLoc setHighlighted:YES];
 	}
 }
-
+//
 //- (void)setCurrentLocation:(CLLocation *)nl pointWasRecorded:(BOOL)pointWasRecorded
 //{
 //	[super setCurrentLocation:nl pointWasRecorded:pointWasRecorded];
@@ -175,7 +166,7 @@ end:
 //	}
 //	return nil;
 //}
-
+//
 - (void)mapView:(MKMapView *)mpV regionWillChangeAnimated:(BOOL)animated
 {
 	previousRegionSpan = [mpV region].span;
@@ -199,7 +190,7 @@ end:
 	[timerToForceFollowUL invalidate];
 	timerToForceFollowUL = [NSTimer scheduledTimerWithTimeInterval:10. target:self selector:@selector(centerMapOnCurLoc:) userInfo:NULL repeats:NO];
 }
-
+//
 //- (NSData *)state
 //{
 //	NSMutableData *dta = [NSMutableData data];
@@ -265,7 +256,7 @@ end:
 //
 //	[self redrawLastSegmentOnMap];
 //}
-
+//
 - (IBAction)centerMapOnCurLoc:(id)sender
 {
 	[timerToForceFollowUL invalidate]; timerToForceFollowUL = nil;
@@ -275,13 +266,13 @@ end:
 	if (followULCentersOnTrip) [mapView setRegion:bounds animated:YES];
 	else                       [mapView setCenterCoordinate:currentLocation.coordinate animated:YES];
 }
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-	if (buttonIndex != [alertView cancelButtonIndex])
-		[[NSUserDefaults standardUserDefaults] setBool:NO forKey:VSO_UDK_SHOW_MEMORY_CLEAR_WARNING];
-}
-
+//
+//- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+//{
+//	if (buttonIndex != [alertView cancelButtonIndex])
+//		[[NSUserDefaults standardUserDefaults] setBool:NO forKey:VSO_UDK_SHOW_MEMORY_CLEAR_WARNING];
+//}
+//
 //- (void)didReceiveMemoryWarning
 //{
 //	[super didReceiveMemoryWarning];
@@ -308,13 +299,13 @@ end:
 //	mapView.delegate = nil;
 //	[mapView removeOverlays:mapView.overlays];
 //}
-
-@end
-
-
-
-@implementation VSOMapViewController (Private)
-
+//
+//@end
+//
+//
+//
+//@implementation VSOMapViewController (Private)
+//
 - (BOOL)isCurLocOnBordersOfMap
 {
 	CGPoint p = [mapView convertCoordinate:currentLocation.coordinate toPointToView:mapView];
@@ -406,5 +397,5 @@ end:
 //	free2DTable((void **)paths, nTrackSeg); paths = NULL;
 //	free(pointsDescrInTrack); pointsDescrInTrack = NULL;
 //}
-
-@end
+//
+//@end
