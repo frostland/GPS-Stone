@@ -79,14 +79,16 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 					}
 				}
 				let borderInset = CGFloat(50)
-				mapRegionBeingSetByApp = true
+				mapRegionSetByAppDate = Date()
 				mapView.setRegion(region, animated: false)
 				mapView.setVisibleMapRect(mapView.visibleMapRect, edgePadding: UIEdgeInsets(top: borderInset, left: borderInset, bottom: borderInset, right: borderInset), animated: false)
+				mapRegionSetByAppDate = nil /* The delegate method should be called synchronously because we do not animate (tested on simulator on iOS 10.3.1). */
 			}
 		} else {
 			if let region = appSettings.latestMapRegion {
-				mapRegionBeingSetByApp = true
+				mapRegionSetByAppDate = Date()
 				mapView.setRegion(region, animated: false)
+				mapRegionSetByAppDate = nil /* The delegate method should be called synchronously because we do not animate (tested on simulator on iOS 10.3.1). */
 				restoredMapRegion = true
 			}
 			
@@ -137,7 +139,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		if recording == nil && restoredMapRegion {
 			appSettings.latestMapRegion = MKCoordinateRegion(mapView.visibleMapRect)
 		}
-		mapRegionBeingSetByApp = false
+		mapRegionSetByAppDate = nil
 	}
 	
 	func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
@@ -198,7 +200,23 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	private var polylinesCache = PolylinesCache()
 	
 	private var restoredMapRegion = false
-	private var mapRegionBeingSetByApp = false
+	private var mapRegionSetByAppDate: Date?
+	private var mapRegionBeingSetByApp: Bool {
+		if let date = mapRegionSetByAppDate {
+			/* Sometimes the map view region did change delegate method might not
+			 * be called after setting the map’s region (if, I think, the region we
+			 * set is the same as the current region). We consider setting the
+			 * region of the map will not take more 3 seconds, and thus, whatever
+			 * happens, after 3 seconds we consider the map region is not set by
+			 * the app anymore. */
+			if date.timeIntervalSinceNow < -3.0 {
+				NSLog("%@", "Got a map region set by app date older than 3 seconds. The region did change delegate method was probably skipped; considering the region is not being set anymore by the app.")
+				return false
+			}
+			return true
+		}
+		return false
+	}
 	
 	private var currentRecording: Recording? {
 		willSet {
@@ -259,7 +277,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 					guard let loc = self.locationRecorder.currentLocation else {return}
 					
 					if !self.mapRegionBeingSetByApp {
-						self.mapRegionBeingSetByApp = true
+						self.mapRegionSetByAppDate = Date()
 						self.mapView.setRegion(MKCoordinateRegion(center: loc.coordinate, latitudinalMeters: Self.defaultMapSpan, longitudinalMeters: Self.defaultMapSpan), animated: true)
 					}
 				})
