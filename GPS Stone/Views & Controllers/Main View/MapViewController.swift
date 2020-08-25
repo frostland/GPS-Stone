@@ -25,9 +25,6 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	@IBOutlet var buttonCenterMapOnCurLoc: UIButton!
 	@IBOutlet var mapView: MKMapView!
 	
-	var boundingMapRect: MKMapRect = .null
-	var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
-	
 	var recording: Recording?
 	
 	override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -133,9 +130,6 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	   MARK: - Map View Delegate
 	   ************************* */
 	
-	func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-	}
-	
 	func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
 		if recording == nil && restoredMapRegion {
 			appSettings.latestMapRegion = MKCoordinateRegion(mapView.visibleMapRect)
@@ -201,6 +195,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	private var polylinesCache = PolylinesCache()
 	
 	private var restoredMapRegion = false
+	private var mapZoomSetDate: Date?
 	private var mapRegionSetByAppDate: Date?
 	private var mapRegionBeingSetByApp: Bool {
 		if let date = mapRegionSetByAppDate {
@@ -270,6 +265,22 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		}
 	}
 	
+	/** We zoom only if the current zoom is too far out from the expected zoom,
+	or if the latest time we zoomed was more than 1 minute ago. */
+	private func shouldZoom(expectedRegion: MKCoordinateRegion) -> Bool {
+		/* First we check the last zoom set date. If it’s more than 1 minute ago
+		 * or is nil, we should zoom. */
+		if let date = mapZoomSetDate, date.timeIntervalSinceNow < -(1*60) {
+			return true
+		} else if mapZoomSetDate == nil {
+			return true
+		}
+		/* Next we check the current zoom level and compare it to the zoom level
+		 * we want. If the diff is of a magnitude, we zoom. */
+		#warning("TODO")
+		return false
+	}
+	
 	private func processUserDefaultsChange() {
 		assert(Thread.isMainThread)
 		
@@ -283,15 +294,17 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 			}
 			
 			if appSettings.followLocationOnMap && locationObserver == nil {
-				locationObserver = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.currentLocation), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
+				locationObserver = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.currentLocation), kvoOptions: [.initial, .old], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] changes in
 					guard let self = self else {return}
 					guard self.appSettings.followLocationOnMap else {return}
 					guard let loc = self.locationRecorder.currentLocation else {return}
-					guard !self.locationRecorder.recStatus.isRecording || self.isCurLocOnBordersOfMap else {return}
+					guard !self.locationRecorder.recStatus.isRecording || self.isCurLocOnBordersOfMap || (changes?[.oldKey] == nil /* Is initial KVO call */) else {return}
 					
 					if !self.mapRegionBeingSetByApp {
+						let expectedRegion = MKCoordinateRegion(center: loc.coordinate, latitudinalMeters: Self.defaultMapSpan, longitudinalMeters: Self.defaultMapSpan)
 						self.mapRegionSetByAppDate = Date()
-						self.mapView.setRegion(MKCoordinateRegion(center: loc.coordinate, latitudinalMeters: Self.defaultMapSpan, longitudinalMeters: Self.defaultMapSpan), animated: true)
+						if self.shouldZoom(expectedRegion: expectedRegion) {self.mapView.setRegion(expectedRegion, animated: true); self.mapZoomSetDate = Date()}
+						else                                               {self.mapView.setCenter(loc.coordinate, animated: true)}
 					}
 				})
 			} else if !appSettings.followLocationOnMap, let o = locationObserver {

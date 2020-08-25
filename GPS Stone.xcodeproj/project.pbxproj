@@ -52,7 +52,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0F34802910089A9700E88124 /* Obs_MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Obs_MapViewController.m; sourceTree = "<group>"; };
 		0F48CE5D1029AD88008C524D /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		0F48CE7C1029AF9D008C524D /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		0FA3D1DC10302ED80098760F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -161,7 +160,6 @@
 		289233A00DB2D0730083E9F9 /* Main View */ = {
 			isa = PBXGroup;
 			children = (
-				0F34802910089A9700E88124 /* Obs_MapViewController.m */,
 				7BEED1BE22B6C0F700A055B9 /* MainViewController.swift */,
 				7B23D9B922B90BB20007BA61 /* InfoViewController.swift */,
 				7B5C896A24CCB4EC006E6319 /* DetailsView */,
