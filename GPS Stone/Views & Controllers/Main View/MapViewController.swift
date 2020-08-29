@@ -297,14 +297,25 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 				locationObserver = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.currentLocation), kvoOptions: [.initial, .old], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] changes in
 					guard let self = self else {return}
 					guard self.appSettings.followLocationOnMap else {return}
+					
+					let isInitialNotif = (changes?[.oldKey] == nil)
 					guard let loc = self.locationRecorder.currentLocation else {return}
-					guard !self.locationRecorder.recStatus.isRecording || self.isCurLocOnBordersOfMap || (changes?[.oldKey] == nil /* Is initial KVO call */) else {return}
+					guard !self.locationRecorder.recStatus.isRecording || self.isCurLocOnBordersOfMap || isInitialNotif else {return}
 					
 					if !self.mapRegionBeingSetByApp {
 						let expectedRegion = MKCoordinateRegion(center: loc.coordinate, latitudinalMeters: Self.defaultMapSpan, longitudinalMeters: Self.defaultMapSpan)
+						let shouldZoom = self.shouldZoom(expectedRegion: expectedRegion)
+						
 						self.mapRegionSetByAppDate = Date()
-						if self.shouldZoom(expectedRegion: expectedRegion) {self.mapView.setRegion(expectedRegion, animated: true); self.mapZoomSetDate = Date()}
-						else                                               {self.mapView.setCenter(loc.coordinate, animated: true)}
+						/* We reset the zoom date if we will zoom, but also in the
+						 * case of an initial region set. In the case of the initial
+						 * region set, the user will probably see a big change in the
+						 * map’s region, and thus unconsiously register the map’s zoom
+						 * level at that time (source: none, idk if true). */
+						if shouldZoom || isInitialNotif {self.mapZoomSetDate = Date()}
+						
+						if shouldZoom {self.mapView.setRegion(expectedRegion, animated: true)}
+						else          {self.mapView.setCenter(loc.coordinate, animated: true)}
 					}
 				})
 			} else if !appSettings.followLocationOnMap, let o = locationObserver {
