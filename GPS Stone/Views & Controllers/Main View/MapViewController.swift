@@ -20,6 +20,7 @@ import RetryingOperation
 class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsControllerDelegate {
 	
 	static let percentForMapBorders = CGFloat(15)
+	static let dynamicPolylinesMaxPointCount = 100
 	static let defaultMapSpan = CLLocationDistance(500)
 	
 	@IBOutlet var buttonCenterMapOnCurLoc: UIButton!
@@ -178,7 +179,10 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	private let locationRecorder = S.sp.locationRecorder
 	private let recordingsManager = S.sp.recordingsManager
 	
-	private let polylinesMaxPointCount = 100
+	private lazy var polylinesMaxPointCount: Int = {
+		if recording == nil {return Self.dynamicPolylinesMaxPointCount}
+		else                {return Int.max}
+	}()
 	
 	private let pointsProcessingQueue: OperationQueue = {
 		let ret = OperationQueue()
