@@ -149,7 +149,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	
 	func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
 		if recording == nil && restoredMapRegion {
-			appSettings.latestMapRegion = MKCoordinateRegion(mapView.visibleMapRect)
+			appSettings.latestMapRegion = mapView.region
 		}
 		mapRegionSetByAppDate = nil
 	}
