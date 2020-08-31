@@ -154,6 +154,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		mapRegionSetByAppDate = nil
 	}
 	
+	#warning("TODO: This method is only available in iOS 11!")
 	func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
 		if !mapRegionBeingSetByApp {
 			appSettings.followLocationOnMap = false

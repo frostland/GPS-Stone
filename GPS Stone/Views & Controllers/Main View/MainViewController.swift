@@ -23,6 +23,7 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	@IBOutlet var buttonStop: UIButton!
 
 	@IBOutlet var viewMiniInfos: UIView!
+	#warning("TODO")
 	@IBOutlet var labelMiniInfosDistance: UILabel!
 	@IBOutlet var labelMiniInfosRecordTime: UILabel!
 	@IBOutlet var labelMiniInfosRecordingState: UILabel!
