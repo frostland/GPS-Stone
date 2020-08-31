@@ -318,7 +318,14 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		}
 		/* Next we check the current zoom level and compare it to the zoom level
 		 * we want. If the diff is of a magnitude, we zoom. */
-		#warning("TODO")
+		let newSpan = expectedRegion.span
+		let oldSpan = mapView.region.span
+		if oldSpan.latitudeDelta > 0 && oldSpan.longitudeDelta > 0 {
+			let spanRatio = max(newSpan.latitudeDelta / oldSpan.latitudeDelta, newSpan.longitudeDelta / oldSpan.longitudeDelta)
+			if spanRatio < 0.1 || spanRatio > 10 {
+				return true
+			}
+		}
 		return false
 	}
 	
