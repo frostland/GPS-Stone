@@ -293,15 +293,26 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 			let expectedRegion = MKCoordinateRegion(center: mapUserLocationCoords, latitudinalMeters: Self.defaultMapSpan, longitudinalMeters: Self.defaultMapSpan)
 			let zoom = shouldZoom(expectedRegion: expectedRegion)
 			
-			let ε = 10e-5
+			let ε = CGFloat(1/(view.window?.screen.nativeScale ?? 1) + 10e-3)
 			func areCoordsEqual(_ c1: CLLocationCoordinate2D, _ c2: CLLocationCoordinate2D) -> Bool {
-				return abs(c1.latitude - c2.latitude) < ε && abs(c1.longitude - c2.longitude) < ε
-			}
-			func areSpansEqual(_ s1: MKCoordinateSpan, _ s2: MKCoordinateSpan) -> Bool {
-				return abs(s1.latitudeDelta - s2.latitudeDelta) < ε && abs(s1.longitudeDelta - s2.longitudeDelta) < ε
+				let p1 = mapView.convert(c1, toPointTo: mapView)
+				let p2 = mapView.convert(c2, toPointTo: mapView)
+				return abs(p1.x - p2.x) < ε && abs(p1.y - p2.y) < ε
 			}
 			func areRegionsEqual(_ r1: MKCoordinateRegion, _ r2: MKCoordinateRegion) -> Bool {
-				return areCoordsEqual(r1.center, r2.center) && areSpansEqual(r1.span, r2.span)
+				let tl1 = CLLocationCoordinate2D(latitude: r1.center.latitude - r1.span.latitudeDelta/2, longitude: r1.center.longitude - r1.span.longitudeDelta/2)
+				let tl2 = CLLocationCoordinate2D(latitude: r2.center.latitude - r2.span.latitudeDelta/2, longitude: r2.center.longitude - r2.span.longitudeDelta/2)
+				
+				let bl1 = CLLocationCoordinate2D(latitude: r1.center.latitude - r1.span.latitudeDelta/2, longitude: r1.center.longitude + r1.span.longitudeDelta/2)
+				let bl2 = CLLocationCoordinate2D(latitude: r2.center.latitude - r2.span.latitudeDelta/2, longitude: r2.center.longitude + r2.span.longitudeDelta/2)
+				
+				let br1 = CLLocationCoordinate2D(latitude: r1.center.latitude + r1.span.latitudeDelta/2, longitude: r1.center.longitude + r1.span.longitudeDelta/2)
+				let br2 = CLLocationCoordinate2D(latitude: r2.center.latitude + r2.span.latitudeDelta/2, longitude: r2.center.longitude + r2.span.longitudeDelta/2)
+				
+				let tr1 = CLLocationCoordinate2D(latitude: r1.center.latitude + r1.span.latitudeDelta/2, longitude: r1.center.longitude - r1.span.longitudeDelta/2)
+				let tr2 = CLLocationCoordinate2D(latitude: r2.center.latitude + r2.span.latitudeDelta/2, longitude: r2.center.longitude - r2.span.longitudeDelta/2)
+				
+				return areCoordsEqual(tl1, tl2) && areCoordsEqual(bl1, bl2) && areCoordsEqual(br1, br2) && areCoordsEqual(tr1, tr2)
 			}
 			
 			/* We do not move the map if the new region is too close to the old
