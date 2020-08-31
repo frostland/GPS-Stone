@@ -23,6 +23,7 @@ enum GPSStoneLocationError : Error {
 		if let error = error as NSError? {
 			switch (error.domain, error.code, CLLocationManager.locationServicesEnabled()) {
 			case (LocationRecorder.errorDomain, LocationRecorder.errorCodeLocationManagerPausedUpdates, _): self = .locationManagerPausedUpdates
+			case (kCLErrorDomain, CLError.Code.locationUnknown.rawValue, _):                                self = .locationNotFoundYet
 			case (kCLErrorDomain, CLError.Code.denied.rawValue, true):                                      self = .permissionDenied
 			case (kCLErrorDomain, CLError.Code.denied.rawValue, false):                                     self = .locationServicesDisabled
 			default:                                                                                        self = .unknown(underlyingError: error)

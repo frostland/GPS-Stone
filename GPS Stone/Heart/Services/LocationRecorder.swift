@@ -292,17 +292,11 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 		NSLog("%@", "Location manager error \(error)")
 		
-		let nserror = error as NSError
-		guard nserror.domain != kCLErrorDomain || nserror.code != CLError.Code.locationUnknown.rawValue else {
-			/* Doc says this error can be ignored. I do not fully agree; if the
-			 * location is out of date, we’ll show a “Getting Location…” message to
-			 * the user instead of showing an out of date location. But we won’t
-			 * show an error. */
-			currentLocation = nil
-			return
-		}
+		/* Doc says we can ignore CLError.Code.locationUnknown errors, but we will
+		 * still keep them to be able to show the “Getting Location…” message to
+		 * the user instead of showing an out of date location. */
 		
-		currentLocationManagerError = nserror
+		currentLocationManagerError = error as NSError
 		currentLocation = nil
 		
 		/* Doc says we should stop the location service in case we get a denied.
