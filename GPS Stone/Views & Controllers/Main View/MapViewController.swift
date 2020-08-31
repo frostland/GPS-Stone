@@ -293,16 +293,31 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 			let expectedRegion = MKCoordinateRegion(center: mapUserLocationCoords, latitudinalMeters: Self.defaultMapSpan, longitudinalMeters: Self.defaultMapSpan)
 			let zoom = shouldZoom(expectedRegion: expectedRegion)
 			
-			mapRegionSetByAppDate = Date()
-			/* We reset the zoom date if we will zoom, but also in the
-			  * case of an initial region set. In the case of the initial
-			  * region set, the user will probably see a big change in the
-			  * map’s region, and thus unconsiously register the map’s zoom
-			  * level at that time (source: none, idk if true). */
-			if zoom || initialCenter {mapZoomSetDate = Date()}
+			let ε = 10e-5
+			func areCoordsEqual(_ c1: CLLocationCoordinate2D, _ c2: CLLocationCoordinate2D) -> Bool {
+				return abs(c1.latitude - c2.latitude) < ε && abs(c1.longitude - c2.longitude) < ε
+			}
+			func areSpansEqual(_ s1: MKCoordinateSpan, _ s2: MKCoordinateSpan) -> Bool {
+				return abs(s1.latitudeDelta - s2.latitudeDelta) < ε && abs(s1.longitudeDelta - s2.longitudeDelta) < ε
+			}
+			func areRegionsEqual(_ r1: MKCoordinateRegion, _ r2: MKCoordinateRegion) -> Bool {
+				return areCoordsEqual(r1.center, r2.center) && areSpansEqual(r1.span, r2.span)
+			}
 			
-			if zoom {mapView.setRegion(expectedRegion, animated: true)}
-			else    {mapView.setCenter(mapUserLocationCoords, animated: true)}
+			/* We do not move the map if the new region is too close to the old
+			 * one. See comment in mapRegionBeingSetByApp accessor for more info. */
+			if (zoom && !areRegionsEqual(mapView.region, expectedRegion)) || (!zoom && !areCoordsEqual(mapView.centerCoordinate, mapUserLocationCoords)) {
+				mapRegionSetByAppDate = Date()
+				/* We reset the zoom date if we will zoom, but also in the case of
+				 * an initial region set. In the case of the initial region set, the
+				 * user will probably see a big change in the map’s region, and thus
+				 * unconsiously register the map’s zoom level at that time (source:
+				 * none, idk if true). */
+				if zoom || initialCenter {mapZoomSetDate = Date()}
+				
+				if zoom {mapView.setRegion(expectedRegion, animated: true)}
+				else    {mapView.setCenter(mapUserLocationCoords, animated: true)}
+			}
 		}
 	}
 	
