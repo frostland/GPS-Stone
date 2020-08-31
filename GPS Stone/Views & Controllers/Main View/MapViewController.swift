@@ -161,6 +161,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	}
 	
 	func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+		/* Changing this property triggers the centring of the map if needed. */
 		mapUserLocationCoords = userLocation.coordinate
 	}
 	
@@ -201,14 +202,17 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	
 	private let kvObserver = KVObserver()
 	private var settingsObserver: NSObjectProtocol?
-	private var locationObserver: KVObserver.ObservingId?
 	private var pointsFetchResultsController: NSFetchedResultsController<RecordingPoint>?
 	
 	private var polylinesCache = PolylinesCache()
 	
-	@objc dynamic
-	private var mapUserLocationCoords: CLLocationCoordinate2D = kCLLocationCoordinate2DInvalid
 	private var restoredMapRegion = false
+	
+	private var followingUserLocation = false
+	private var mapUserLocationCoords: CLLocationCoordinate2D = kCLLocationCoordinate2DInvalid {
+		didSet {centerMapIfNeeded(initialCenter: false)}
+	}
+	
 	private var mapZoomSetDate: Date?
 	private var mapRegionSetByAppDate: Date?
 	private var mapRegionBeingSetByApp: Bool {
@@ -228,7 +232,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		return false
 	}
 	
-	private var isCurLocOnBordersOfMap: Bool {
+	private var isCurMapLocOnBordersOfMap: Bool {
 		guard CLLocationCoordinate2DIsValid(mapUserLocationCoords) else {return false}
 		
 		let p = mapView.convert(mapUserLocationCoords, toPointTo: mapView)
@@ -279,6 +283,29 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		}
 	}
 	
+	private func centerMapIfNeeded(initialCenter: Bool) {
+		guard followingUserLocation else {return}
+		
+		guard CLLocationCoordinate2DIsValid(mapUserLocationCoords) else {return}
+		guard !locationRecorder.recStatus.isRecording || isCurMapLocOnBordersOfMap || initialCenter else {return}
+		
+		if !mapRegionBeingSetByApp {
+			let expectedRegion = MKCoordinateRegion(center: mapUserLocationCoords, latitudinalMeters: Self.defaultMapSpan, longitudinalMeters: Self.defaultMapSpan)
+			let zoom = shouldZoom(expectedRegion: expectedRegion)
+			
+			mapRegionSetByAppDate = Date()
+			/* We reset the zoom date if we will zoom, but also in the
+			  * case of an initial region set. In the case of the initial
+			  * region set, the user will probably see a big change in the
+			  * map’s region, and thus unconsiously register the map’s zoom
+			  * level at that time (source: none, idk if true). */
+			if zoom || initialCenter {mapZoomSetDate = Date()}
+			
+			if zoom {mapView.setRegion(expectedRegion, animated: true)}
+			else    {mapView.setCenter(mapUserLocationCoords, animated: true)}
+		}
+	}
+	
 	/** We zoom only if the current zoom is too far out from the expected zoom,
 	or if the latest time we zoomed was more than 1 minute ago. */
 	private func shouldZoom(expectedRegion: MKCoordinateRegion) -> Bool {
@@ -307,34 +334,11 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 				buttonCenterMapOnCurLoc.setImage(appSettings.followLocationOnMap ? #imageLiteral(resourceName: "sf_location·fill"): #imageLiteral(resourceName: "sf_location"), for: .normal)
 			}
 			
-			if appSettings.followLocationOnMap && locationObserver == nil {
-				locationObserver = kvObserver.observe(object: self, keyPath: #keyPath(MapViewController.mapUserLocationCoords), kvoOptions: [.initial, .old], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] changes in
-					guard let self = self else {return}
-					guard self.appSettings.followLocationOnMap else {return}
-					
-					let isInitialNotif = (changes?[.oldKey] == nil)
-					guard CLLocationCoordinate2DIsValid(self.mapUserLocationCoords) else {return}
-					guard !self.locationRecorder.recStatus.isRecording || self.isCurLocOnBordersOfMap || isInitialNotif else {return}
-					
-					if !self.mapRegionBeingSetByApp {
-						let expectedRegion = MKCoordinateRegion(center: self.mapUserLocationCoords, latitudinalMeters: Self.defaultMapSpan, longitudinalMeters: Self.defaultMapSpan)
-						let shouldZoom = self.shouldZoom(expectedRegion: expectedRegion)
-						
-						self.mapRegionSetByAppDate = Date()
-						/* We reset the zoom date if we will zoom, but also in the
-						 * case of an initial region set. In the case of the initial
-						 * region set, the user will probably see a big change in the
-						 * map’s region, and thus unconsiously register the map’s zoom
-						 * level at that time (source: none, idk if true). */
-						if shouldZoom || isInitialNotif {self.mapZoomSetDate = Date()}
-						
-						if shouldZoom {self.mapView.setRegion(expectedRegion, animated: true)}
-						else          {self.mapView.setCenter(self.mapUserLocationCoords, animated: true)}
-					}
-				})
-			} else if !appSettings.followLocationOnMap, let o = locationObserver {
-				kvObserver.stopObserving(id: o)
-				locationObserver = nil
+			if appSettings.followLocationOnMap && !followingUserLocation {
+				followingUserLocation = true
+				centerMapIfNeeded(initialCenter: true)
+			} else if !appSettings.followLocationOnMap, followingUserLocation {
+				followingUserLocation = false
 			}
 		}
 	}
