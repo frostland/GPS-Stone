@@ -110,6 +110,10 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		
 		if recording == nil {
 			mapView.showsUserLocation = true
+			/* Note that we do not actually need location tracking on this view
+			 * because we use the map user location view, however the map does not
+			 * ask for user location permission. Retaining location tracking will
+			 * do it if needed. */
 			locationRecorder.retainLocationTracking()
 		}
 	}
@@ -131,6 +135,18 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	   MARK: - Map View Delegate
 	   ************************* */
 	
+	func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+		assert(overlay is MKPolyline)
+		let r = MKPolylineRenderer(overlay: overlay)
+		r.strokeColor = UIColor(red: 92/255, green: 43/255, blue: 153/255, alpha: 0.75)
+		r.lineWidth = 5
+		if polylinesCache.interSectionPolylines.contains(where: { $0 === overlay }) {
+			r.strokeColor = UIColor(red: 92/255, green: 43/255, blue: 153/255, alpha: 0.5)
+			r.lineDashPattern = [12, 16]
+		}
+		return r
+	}
+	
 	func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
 		if recording == nil && restoredMapRegion {
 			appSettings.latestMapRegion = MKCoordinateRegion(mapView.visibleMapRect)
@@ -144,16 +160,8 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		}
 	}
 	
-	func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-		assert(overlay is MKPolyline)
-		let r = MKPolylineRenderer(overlay: overlay)
-		r.strokeColor = UIColor(red: 92/255, green: 43/255, blue: 153/255, alpha: 0.75)
-		r.lineWidth = 5
-		if polylinesCache.interSectionPolylines.contains(where: { $0 === overlay }) {
-			r.strokeColor = UIColor(red: 92/255, green: 43/255, blue: 153/255, alpha: 0.5)
-			r.lineDashPattern = [12, 16]
-		}
-		return r
+	func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+		mapUserLocationCoords = userLocation.coordinate
 	}
 	
 	/* *******************************************
@@ -198,6 +206,8 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	
 	private var polylinesCache = PolylinesCache()
 	
+	@objc dynamic
+	private var mapUserLocationCoords: CLLocationCoordinate2D = kCLLocationCoordinate2DInvalid
 	private var restoredMapRegion = false
 	private var mapZoomSetDate: Date?
 	private var mapRegionSetByAppDate: Date?
@@ -219,9 +229,9 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	}
 	
 	private var isCurLocOnBordersOfMap: Bool {
-		guard let currentLocationCoords = locationRecorder.currentLocation?.coordinate else {return false}
+		guard CLLocationCoordinate2DIsValid(mapUserLocationCoords) else {return false}
 		
-		let p = mapView.convert(currentLocationCoords, toPointTo: mapView)
+		let p = mapView.convert(mapUserLocationCoords, toPointTo: mapView)
 		if p.x < mapView.frame.width  * Self.percentForMapBorders/100 {return true}
 		if p.y < mapView.frame.height * Self.percentForMapBorders/100 {return true}
 		if p.x > mapView.frame.width  - mapView.frame.width  * Self.percentForMapBorders/100 {return true}
@@ -298,16 +308,16 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 			}
 			
 			if appSettings.followLocationOnMap && locationObserver == nil {
-				locationObserver = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.currentLocation), kvoOptions: [.initial, .old], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] changes in
+				locationObserver = kvObserver.observe(object: self, keyPath: #keyPath(MapViewController.mapUserLocationCoords), kvoOptions: [.initial, .old], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] changes in
 					guard let self = self else {return}
 					guard self.appSettings.followLocationOnMap else {return}
 					
 					let isInitialNotif = (changes?[.oldKey] == nil)
-					guard let loc = self.locationRecorder.currentLocation else {return}
+					guard CLLocationCoordinate2DIsValid(self.mapUserLocationCoords) else {return}
 					guard !self.locationRecorder.recStatus.isRecording || self.isCurLocOnBordersOfMap || isInitialNotif else {return}
 					
 					if !self.mapRegionBeingSetByApp {
-						let expectedRegion = MKCoordinateRegion(center: loc.coordinate, latitudinalMeters: Self.defaultMapSpan, longitudinalMeters: Self.defaultMapSpan)
+						let expectedRegion = MKCoordinateRegion(center: self.mapUserLocationCoords, latitudinalMeters: Self.defaultMapSpan, longitudinalMeters: Self.defaultMapSpan)
 						let shouldZoom = self.shouldZoom(expectedRegion: expectedRegion)
 						
 						self.mapRegionSetByAppDate = Date()
@@ -319,7 +329,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 						if shouldZoom || isInitialNotif {self.mapZoomSetDate = Date()}
 						
 						if shouldZoom {self.mapView.setRegion(expectedRegion, animated: true)}
-						else          {self.mapView.setCenter(loc.coordinate, animated: true)}
+						else          {self.mapView.setCenter(self.mapUserLocationCoords, animated: true)}
 					}
 				})
 			} else if !appSettings.followLocationOnMap, let o = locationObserver {
