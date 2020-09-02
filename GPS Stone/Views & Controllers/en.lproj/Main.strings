@@ -1,12 +1,12 @@
 /* ••••••••••••••••••••••••••••••••••••• DO NOT TOUCH THIS BLOCK ••••••••••••••••••••••••••••••••••••• */
 
-"8OL-lM-L62.text" = ""; "8dJ-My-syJ.text" = ""; "ATJ-qY-cjq.text" = "";
-"Quy-J2-vBR.text" = ""; "dge-6h-kMQ.text" = ""; "pbi-3A-Uy1.text" = "";
+"8dJ-My-syJ.text" = ""; "ATJ-qY-cjq.text" = ""; "dge-6h-kMQ.text" = "";
 "4y0-lb-b42.text" = ""; "0vV-xc-wQG.text" = ""; "89N-Ki-FV7.text" = "";
 "8Qn-sa-lzg.text" = ""; "LYW-nS-3hb.text" = ""; "RUV-5a-erO.text" = "";
 "hqD-kd-G95.text" = ""; "ySd-3R-I8n.text" = ""; "TmC-3c-Ktl.text" = "";
 "biR-0I-rf9.text" = ""; "lrD-hq-dEM.text" = ""; "sQ4-xB-dbK.text" = "";
-"Eyh-Si-z3k.text" = ""; "tVa-d3-1ix.text" = "";
+"Eyh-Si-z3k.text" = ""; "tVa-d3-1ix.text" = ""; "pbi-3A-Uy1.text" = "";
+"1bI-ZV-mm0.text" = ""; "Cmr-fo-1ZG.text" = "";
 
 /* ••••••••••••••••••••••••••••••••••••• END OF THE BLOCK ••••••••••••••••••••••••••••••••••••• */
 
@@ -37,7 +37,7 @@
 /* •••••••••••••••••••••••••••••••••••••••••••••• */
 
 /* Text displayed in the mini recording info view when no points are recorded yet */
-"jfU-Oc-jun.text" = "…";
+"tTR-xK-5Bc.text" = "…";
 
 
 /* •••••••••••••••••••••••••••••••••• */

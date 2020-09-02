@@ -55,11 +55,11 @@ class DetailsViewController : UIViewController {
 		assert(settingsObserver == nil)
 		settingsObserver = NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main, using: { [weak self] _ in
 			guard let self = self else {return}
+			self.recordingInfoViewController?.useMetricSystem = self.appSettings.useMetricSystem
 			self.gpsInfoViewController?.useMetricSystem = self.appSettings.useMetricSystem
-			self.updateRecordingUI()
-			self.updateLocationUI()
 		})
-		self.gpsInfoViewController?.useMetricSystem = self.appSettings.useMetricSystem
+		recordingInfoViewController?.useMetricSystem = appSettings.useMetricSystem
+		gpsInfoViewController?.useMetricSystem = appSettings.useMetricSystem
 		
 		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_recStatus), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
 			guard let self = self else {return}
@@ -72,6 +72,9 @@ class DetailsViewController : UIViewController {
 		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.currentHeading), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
 			self?.updateHeadingUI()
 		})
+		updateRecordingUI()
+		updateLocationUI()
+		updateHeadingUI()
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -79,16 +82,22 @@ class DetailsViewController : UIViewController {
 		case "GPSInfoEmbed"?:
 			gpsInfoViewController = (segue.destination as! GPSInfoViewController)
 			gpsInfoViewController?.useMetricSystem = appSettings.useMetricSystem
+			updateRecordingUI()
 			updateLocationUI() /* Calls updateHeadingUI() */
 			
 		case "GPSErrorEmbed"?:
 			gpsErrorViewController = (segue.destination as! GPSErrorViewController)
+			updateLocationUI()
 			
 		case "RecordingInfoEmbed"?:
 			recordingInfoViewController = (segue.destination as! RecordingInfoViewController)
+			recordingInfoViewController?.useMetricSystem = appSettings.useMetricSystem
+			updateRecordingUI()
 			
 		default: (/*nop*/)
 		}
+		
+		super.prepare(for: segue, sender: sender)
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -142,6 +151,9 @@ class DetailsViewController : UIViewController {
 	}
 	
 	private func updateLocationUI() {
+		assert(Thread.isMainThread)
+		guard isViewLoaded else {return}
+		
 		gpsInfoViewController?.locationModel = locationRecorder.currentLocation
 		if locationRecorder.currentLocation != nil {
 			/* We show the GPS Info controller and hide the GPS troubleshoot view. */
@@ -170,11 +182,15 @@ class DetailsViewController : UIViewController {
 	}
 	
 	private func updateHeadingUI() {
+		assert(Thread.isMainThread)
+		guard isViewLoaded else {return}
+		
 		gpsInfoViewController?.headingModel = locationRecorder.currentHeading?.trueHeading ?? locationRecorder.currentLocation?.course
 	}
 	
 	private func updateRecordingUI() {
 		assert(Thread.isMainThread)
+		guard isViewLoaded else {return}
 		
 		recordingInfoViewController?.model = currentRecording.flatMap(RecordingInfoViewController.Model.init)
 		if let r = currentRecording {

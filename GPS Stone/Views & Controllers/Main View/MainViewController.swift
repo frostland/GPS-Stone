@@ -6,6 +6,7 @@
  * Copyright © 2019 Frost Land. All rights reserved.
  */
 
+import CoreData
 import Foundation
 import UIKit
 
@@ -13,6 +14,7 @@ import KVObserver
 
 
 
+#warning("TODO: Manage pauses!")
 class MainViewController : UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 	
 	@IBOutlet var pageControl: UIPageControl!
@@ -21,12 +23,8 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	@IBOutlet var buttonPause: UIButton!
 	@IBOutlet var buttonListRecords: UIButton!
 	@IBOutlet var buttonStop: UIButton!
-
+	
 	@IBOutlet var viewMiniInfos: UIView!
-	#warning("TODO")
-	@IBOutlet var labelMiniInfosDistance: UILabel!
-	@IBOutlet var labelMiniInfosRecordTime: UILabel!
-	@IBOutlet var labelMiniInfosRecordingState: UILabel!
 	
 	var pageViewController: UIPageViewController!
 	
@@ -38,6 +36,20 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 		viewControllers = [UIViewController?](repeating: nil, count: pageViewControllerIdentifiers.count)
 		
 		super.init(coder: coder)
+	}
+	
+	deinit {
+		/* This removes the timer to refresh the duration shown of the recording,
+		 * which needed before iOS 10 because the timer keeps a strong ref to the
+		 * target until the timer is deallocated. */
+		miniInfoViewController?.model = nil
+		
+		if let o = settingsObserver {
+			NotificationCenter.default.removeObserver(o)
+			settingsObserver = nil
+		}
+		
+		kvObserver.stopObservingEverything()
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -61,31 +73,20 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 		pageViewController.setViewControllers([viewControllerForPage(atIndex: pageControl.currentPage)], direction: .forward, animated: false, completion: nil)
 		setNeedsStatusBarAppearanceUpdate()
 		
+		assert(settingsObserver == nil)
+		settingsObserver = NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main, using: { [weak self] _ in
+			guard let self = self else {return}
+			self.miniInfoViewController?.useMetricSystem = self.appSettings.useMetricSystem
+		})
+		miniInfoViewController?.useMetricSystem = appSettings.useMetricSystem
+		
 		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.objc_recStatus), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
 			guard let self = self else {return}
 			
-			self.viewMiniInfos.isHidden = self.locationRecorder.recStatus.isStopped
-			
-			switch self.locationRecorder.recStatus {
-				case .stopped:
-					self.buttonRecord.isHidden = false
-					self.buttonStop.isHidden = true
-					self.buttonPause.isHidden = true
-					self.buttonListRecords.isHidden = false
-					
-				case .recording:
-					self.buttonRecord.isHidden = true
-					self.buttonStop.isHidden = false
-					self.buttonPause.isHidden = false
-					self.buttonListRecords.isHidden = true
-					
-				case .paused:
-					self.buttonRecord.isHidden = false
-					self.buttonStop.isHidden = false
-					self.buttonPause.isHidden = true
-					self.buttonListRecords.isHidden = true
-			}
+			self.currentRecording = self.locationRecorder.recStatus.recordingRef.flatMap{ self.recordingsManager.unsafeRecording(from: $0) }
+			self.updateRecordingUI()
 		})
+		updateRecordingUI()
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -98,9 +99,14 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 				let viewController = viewControllerForPage(atIndex: 0)
 				pageViewController.setViewControllers([viewController], direction: .forward, animated: false, completion: nil)
 				setNeedsStatusBarAppearanceUpdate()
+			
+			case "MiniInfoViewControllerSegue"?:
+				miniInfoViewController = (segue.destination as! MiniInfoViewController)
 				
 			default: (/*nop*/)
 		}
+		
+		super.prepare(for: segue, sender: sender)
 	}
 	
 	/* ***************
@@ -166,16 +172,78 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	   MARK: - Private
 	   *************** */
 	
+	private let c = S.sp.constants
 	private let appSettings = S.sp.appSettings
-	
 	private let locationRecorder = S.sp.locationRecorder
+	private let recordingsManager = S.sp.recordingsManager
 	
 	private let kvObserver = KVObserver()
+	private var settingsObserver: NSObjectProtocol?
 	
 	private let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
 	private let pageViewControllerIdentifiers = ["VSOInfoViewController", "VSODetailsViewController", "VSOMapViewController"]
 	
 	private var viewControllers: [UIViewController?]
+	
+	private var miniInfoViewController: MiniInfoViewController?
+	
+	private var currentRecordingObservationId: NSObjectProtocol?
+	private var currentRecording: Recording? {
+		willSet {
+			currentRecordingObservationId.flatMap{ NotificationCenter.default.removeObserver($0) }
+			currentRecordingObservationId = nil
+		}
+		didSet  {
+			guard let r = currentRecording, let c = r.managedObjectContext else {return}
+			currentRecordingObservationId = NotificationCenter.default.addObserver(forName: .NSManagedObjectContextObjectsDidChange, object: c, queue: .main, using: { [weak self] notif in
+				guard let updatedObjects = notif.userInfo?[NSUpdatedObjectsKey] as? Set<NSManagedObject> else {return}
+				guard updatedObjects.contains(r) else {return}
+				self?.updateRecordingUI()
+			})
+		}
+	}
+	
+	private func updateRecordingUI() {
+		assert(Thread.isMainThread)
+		guard isViewLoaded else {return}
+		
+		switch self.locationRecorder.recStatus {
+			case .stopped:
+				self.buttonRecord.isHidden = false
+				self.buttonStop.isHidden = true
+				self.buttonPause.isHidden = true
+				self.buttonListRecords.isHidden = false
+			
+			case .recording:
+				self.buttonRecord.isHidden = true
+				self.buttonStop.isHidden = false
+				self.buttonPause.isHidden = false
+				self.buttonListRecords.isHidden = true
+			
+			case .paused:
+				self.buttonRecord.isHidden = false
+				self.buttonStop.isHidden = false
+				self.buttonPause.isHidden = true
+				self.buttonListRecords.isHidden = true
+		}
+		
+		miniInfoViewController?.model = currentRecording.flatMap(MiniInfoViewController.Model.init)
+		if currentRecording != nil {
+			/* We show the recording controller and hide the recording button. */
+			if viewMiniInfos.alpha < 0.5 {
+				UIView.animate(withDuration: c.animTime, animations: {
+					self.viewMiniInfos.alpha = 1
+				})
+			}
+		} else {
+			/* We hide the recording controller and show the recording button. */
+			if viewMiniInfos.alpha > 0.5 {
+				UIView.animate(withDuration: c.animTime, animations: {
+					self.viewMiniInfos.alpha = 0
+				})
+			}
+		}
+	}
 	
 	private func viewControllerForPage(atIndex index: Int) -> UIViewController {
 		let ret = viewControllers[index] ?? mainStoryboard.instantiateViewController(withIdentifier: pageViewControllerIdentifiers[index])

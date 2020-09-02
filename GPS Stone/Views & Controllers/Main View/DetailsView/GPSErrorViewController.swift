@@ -51,6 +51,9 @@ class GPSErrorViewController : UIViewController {
 	private let locationRecorder = S.sp.locationRecorder
 	
 	private func updateUI() {
+		assert(Thread.isMainThread)
+		guard isViewLoaded else {return}
+		
 		labelReason.text = error.localizedDescription
 		
 		labelWarning.isHidden = error.isLocationNotFoundYet

@@ -55,6 +55,8 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 				
 			default: (/*nop*/)
 		}
+		
+		super.prepare(for: segue, sender: sender)
 	}
 	
 	override func setEditing(_ editing: Bool, animated: Bool) {

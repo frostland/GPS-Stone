@@ -28,6 +28,8 @@ class RecordingDetailsViewController : UIViewController {
 				
 			default: (/*nop*/)
 		}
+		
+		super.prepare(for: segue, sender: sender)
 	}
 	
 }
