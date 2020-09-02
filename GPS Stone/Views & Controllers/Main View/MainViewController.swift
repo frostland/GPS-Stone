@@ -14,7 +14,6 @@ import KVObserver
 
 
 
-#warning("TODO: Manage pauses!")
 class MainViewController : UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 	
 	@IBOutlet var pageControl: UIPageControl!

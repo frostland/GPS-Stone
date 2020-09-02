@@ -18,17 +18,21 @@ class MiniInfoViewController : UIViewController {
 	
 	@IBOutlet var labelTotalDistance: UILabel!
 	@IBOutlet var labelElapsedTime: UILabel!
+	#warning("TODO?")
 	@IBOutlet var labelGPSStatus: UILabel!
 
 	struct Model {
 		
-		var startSate: Date
+		var duration: TimeInterval
+		var dateStartDurationDelta: Date?
+		
 		var totalDistance: CLLocationDistance
 		
 		init(recording: Recording) {
-			/* If the recording is invalid (does not have a start date), let’s not
-			 * crash but we show an incorrect duration for the recording… */
-			startSate = recording.totalTimeSegment?.startDate ?? Date()
+			duration = recording.activeRecordingDuration
+			if let p = recording.latestPauseInTime(), p.isOpen {dateStartDurationDelta = nil}
+			else                                               {dateStartDurationDelta = Date()}
+			
 			totalDistance = CLLocationDistance(recording.totalDistance)
 		}
 		
@@ -76,7 +80,7 @@ class MiniInfoViewController : UIViewController {
 		assert(Thread.isMainThread)
 		guard isViewLoaded else {return}
 		
-		let duration = -(model?.startSate.timeIntervalSinceNow ?? 0)
+		let duration = (model?.duration ?? 0) - (model?.dateStartDurationDelta?.timeIntervalSinceNow ?? 0)
 		labelElapsedTime.text = Utils.stringFrom(timeInterval: duration)
 	}
 	

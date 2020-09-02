@@ -117,7 +117,7 @@ final class RecordingsManager : NSObject {
 	func unsafeFinishLatestPauseAndSaveContext(in recording: Recording) throws -> TimeSegment? {
 		assert(Thread.isMainThread)
 		
-		guard let pause = recording.pauses?.sortedArray(using: [NSSortDescriptor(keyPath: \TimeSegment.startDate, ascending: true)]).last as! TimeSegment? else {
+		guard let pause = recording.latestPauseInTime() else {
 			NSLog("%@", "*** WARNING: Recording does not have a pause; cannot finish pausing the recording")
 			return nil
 		}

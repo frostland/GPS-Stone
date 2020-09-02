@@ -25,7 +25,8 @@ class RecordingInfoViewController : UIViewController {
 		
 		var name: String
 		
-		var startSate: Date
+		var duration: TimeInterval
+		var dateStartDurationDelta: Date?
 		
 		var numberOfRecordedPoints: Int
 		var totalDistance: CLLocationDistance
@@ -33,9 +34,9 @@ class RecordingInfoViewController : UIViewController {
 		init(recording: Recording) {
 			name = recording.name ?? ""
 			
-			/* If the recording is invalid (does not have a start date), let’s not
-			 * crash but we show an incorrect duration for the recording… */
-			startSate = recording.totalTimeSegment?.startDate ?? Date()
+			duration = recording.activeRecordingDuration
+			if let p = recording.latestPauseInTime(), p.isOpen {dateStartDurationDelta = nil}
+			else                                               {dateStartDurationDelta = Date()}
 			
 			numberOfRecordedPoints = recording.numberOfRecordedPoints
 			totalDistance = CLLocationDistance(recording.totalDistance)
@@ -87,7 +88,7 @@ class RecordingInfoViewController : UIViewController {
 		assert(Thread.isMainThread)
 		guard isViewLoaded else {return}
 		
-		let duration = -(model?.startSate.timeIntervalSinceNow ?? 0)
+		let duration = (model?.duration ?? 0) - (model?.dateStartDurationDelta?.timeIntervalSinceNow ?? 0)
 		labelElapsedTime.text = Utils.stringFrom(timeInterval: duration)
 	}
 	

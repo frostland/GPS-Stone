@@ -105,4 +105,10 @@ extension Recording {
 		return try context.fetch(fetchRequest).first
 	}
 	
+	func latestPauseInTime() -> TimeSegment? {
+		/* Maybe todo: use a fetch request and predicate to get the latest pause.
+		 * Keep in mind this would make the function throwing though… */
+		return pauses?.sortedArray(using: [NSSortDescriptor(keyPath: \TimeSegment.startDate, ascending: true)]).last as! TimeSegment?
+	}
+	
 }
