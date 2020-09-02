@@ -1106,19 +1106,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1" horizontalCompressionResistancePriority="1" text="⚠️" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="tTR-xK-5Bc">
-                                <rect key="frame" x="79" y="5" width="76" height="21"/>
+                                <rect key="frame" x="74" y="5" width="76" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="00:00:00" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="1bI-ZV-mm0">
-                                <rect key="frame" x="15" y="6.5" width="64" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="1500 km" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="1bI-ZV-mm0">
+                                <rect key="frame" x="15" y="6.5" width="59" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="1500 km" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Cmr-fo-1ZG">
-                                <rect key="frame" x="155" y="6.5" width="59" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="00:00:00" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Cmr-fo-1ZG">
+                                <rect key="frame" x="150" y="6.5" width="64" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1141,9 +1141,9 @@
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="labelElapsedTime" destination="1bI-ZV-mm0" id="aOU-iV-8bg"/>
+                        <outlet property="labelElapsedTime" destination="Cmr-fo-1ZG" id="P2V-9G-kBD"/>
                         <outlet property="labelGPSWarning" destination="tTR-xK-5Bc" id="0SF-Z8-30D"/>
-                        <outlet property="labelTotalDistance" destination="Cmr-fo-1ZG" id="hwr-6p-VNf"/>
+                        <outlet property="labelTotalDistance" destination="1bI-ZV-mm0" id="4Fu-Wp-z9D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oKz-aq-Bco" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
