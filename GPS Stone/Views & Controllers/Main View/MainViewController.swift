@@ -85,6 +85,12 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 			self.currentRecording = self.locationRecorder.recStatus.recordingRef.flatMap{ self.recordingsManager.unsafeRecording(from: $0) }
 			self.updateRecordingUI()
 		})
+		_ = kvObserver.observe(object: locationRecorder, keyPath: #keyPath(LocationRecorder.currentLocation), kvoOptions: [.initial], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] _ in
+			guard let self = self else {return}
+			
+			self.miniInfoViewController?.currentLocationError = (self.locationRecorder.currentLocation == nil ? GPSStoneLocationError(error: self.locationRecorder.currentLocationManagerError) : nil)
+		})
+		miniInfoViewController?.currentLocationError = (locationRecorder.currentLocation == nil ? GPSStoneLocationError(error: locationRecorder.currentLocationManagerError) : nil)
 		updateRecordingUI()
 	}
 	
@@ -101,6 +107,8 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 			
 			case "MiniInfoViewControllerSegue"?:
 				miniInfoViewController = (segue.destination as! MiniInfoViewController)
+				miniInfoViewController?.delegate = self
+				updateRecordingUI()
 				
 			default: (/*nop*/)
 		}
@@ -259,7 +267,7 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 }
 
 
-extension MainViewController : InfoViewControllerDelegate {
+extension MainViewController : InfoViewControllerDelegate, MiniInfoViewControllerDelegate {
 	
 	func showDetailedInfo() {
 		pageControl.currentPage = 1

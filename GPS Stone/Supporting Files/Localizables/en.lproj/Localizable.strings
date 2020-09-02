@@ -80,6 +80,12 @@
 /* The message shown to the user when no GPS info because of an unknown error. */
 "unknown error getting location" = "Your location could not be retrieved because of an unknown error.\n\n|err msg|";
 
+/* The “location not found” error message in the mini info view. Should be “…”. */
+"location not found error msg in mini info view" = "…";
+
+/* The “location error” error message in the mini info view. Should be “⚠️”. */
+"location error msg in mini info view" = "⚠️";
+
 
 
 /* ••••••••••••••••••••••••••••••••••••• */

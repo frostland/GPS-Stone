@@ -1105,44 +1105,53 @@
                         <rect key="frame" x="0.0" y="0.0" width="229" height="31"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="…" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="tTR-xK-5Bc">
-                                <rect key="frame" x="0.0" y="5" width="229" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1" horizontalCompressionResistancePriority="1" text="⚠️" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="tTR-xK-5Bc">
+                                <rect key="frame" x="79" y="5" width="76" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="00:00:00" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="1bI-ZV-mm0">
                                 <rect key="frame" x="15" y="6.5" width="64" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="1500 km" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Cmr-fo-1ZG">
                                 <rect key="frame" x="155" y="6.5" width="59" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="0.25" alpha="0.25" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Cmr-fo-1ZG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1bI-ZV-mm0" secondAttribute="trailing" constant="8" id="Bds-5O-Xl4"/>
                             <constraint firstItem="1bI-ZV-mm0" firstAttribute="leading" secondItem="w1V-d5-q05" secondAttribute="leading" constant="15" id="DLa-sM-tgs"/>
                             <constraint firstItem="tTR-xK-5Bc" firstAttribute="centerY" secondItem="w1V-d5-q05" secondAttribute="centerY" id="DZp-g7-X6y"/>
-                            <constraint firstItem="tTR-xK-5Bc" firstAttribute="leading" secondItem="w1V-d5-q05" secondAttribute="leading" id="Dyd-5X-vqK"/>
                             <constraint firstItem="1bI-ZV-mm0" firstAttribute="centerY" secondItem="w1V-d5-q05" secondAttribute="centerY" id="IdJ-N7-qzd"/>
+                            <constraint firstItem="Cmr-fo-1ZG" firstAttribute="leading" secondItem="tTR-xK-5Bc" secondAttribute="trailing" id="Oj4-T3-PmV"/>
                             <constraint firstAttribute="trailing" secondItem="Cmr-fo-1ZG" secondAttribute="trailing" constant="15" id="a1F-Zg-DlU"/>
-                            <constraint firstAttribute="trailing" secondItem="tTR-xK-5Bc" secondAttribute="trailing" id="g8f-bA-I0x"/>
+                            <constraint firstItem="tTR-xK-5Bc" firstAttribute="leading" secondItem="1bI-ZV-mm0" secondAttribute="trailing" id="pfb-5V-eeV"/>
                             <constraint firstItem="Cmr-fo-1ZG" firstAttribute="centerY" secondItem="w1V-d5-q05" secondAttribute="centerY" id="uNS-CR-DjV"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="5r1-2g-o2k" appends="YES" id="ROo-Pq-nnA"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="labelElapsedTime" destination="1bI-ZV-mm0" id="aOU-iV-8bg"/>
-                        <outlet property="labelGPSStatus" destination="tTR-xK-5Bc" id="Gz4-HB-7Q9"/>
+                        <outlet property="labelGPSWarning" destination="tTR-xK-5Bc" id="0SF-Z8-30D"/>
                         <outlet property="labelTotalDistance" destination="Cmr-fo-1ZG" id="hwr-6p-VNf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oKz-aq-Bco" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="5r1-2g-o2k">
+                    <connections>
+                        <action selector="viewTapped:" destination="Wsu-BQ-vGq" id="5Qg-zC-oZ0"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1103" y="258"/>
         </scene>

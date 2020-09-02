@@ -57,9 +57,9 @@ class RecordingInfoViewController : UIViewController {
 			if model != nil {
 				if timerUpdateDuration == nil {
 					if #available(iOS 10.0, *) {
-						timerUpdateDuration = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true, block: { [weak self] _ in self?.updateDurationLabel() })
+						timerUpdateDuration = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in self?.updateDurationLabel() })
 					} else {
-						timerUpdateDuration = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(RecordingInfoViewController.objc_updateDurationLabel(_:)), userInfo: nil, repeats: true)
+						timerUpdateDuration = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(RecordingInfoViewController.objc_updateDurationLabel(_:)), userInfo: nil, repeats: true)
 					}
 				}
 			} else {

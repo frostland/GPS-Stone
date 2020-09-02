@@ -6,7 +6,7 @@
 "hqD-kd-G95.text" = ""; "ySd-3R-I8n.text" = ""; "TmC-3c-Ktl.text" = "";
 "biR-0I-rf9.text" = ""; "lrD-hq-dEM.text" = ""; "sQ4-xB-dbK.text" = "";
 "Eyh-Si-z3k.text" = ""; "tVa-d3-1ix.text" = ""; "pbi-3A-Uy1.text" = "";
-"1bI-ZV-mm0.text" = ""; "Cmr-fo-1ZG.text" = "";
+"1bI-ZV-mm0.text" = ""; "Cmr-fo-1ZG.text" = ""; "tTR-xK-5Bc.text" = "";
 
 /* ••••••••••••••••••••••••••••••••••••• END OF THE BLOCK ••••••••••••••••••••••••••••••••••••• */
 
@@ -30,14 +30,6 @@
 
 /* Title of the “Start a New Recording” button in the welcome view */
 "hJ1-H4-4Tu.normalTitle" = "Start a New Recording";
-
-
-/* •••••••••••••••••••••••••••••••••••••••••••••• */
-/*            Mini Recording Info View            */
-/* •••••••••••••••••••••••••••••••••••••••••••••• */
-
-/* Text displayed in the mini recording info view when no points are recorded yet */
-"tTR-xK-5Bc.text" = "…";
 
 
 /* •••••••••••••••••••••••••••••••••• */
