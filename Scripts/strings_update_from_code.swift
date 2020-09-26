@@ -2,7 +2,7 @@
 
 import Foundation
 
-import SwiftShell // @kareman ~> 5.0.1
+import SwiftShell // @kareman ~> 5.1.0
 
 
 /* swift-sh creates a binary whose path is not one we expect, so we cannot use
