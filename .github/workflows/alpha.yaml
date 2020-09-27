@@ -29,8 +29,8 @@ jobs:
                  -configuration Release -sdk macosx \
                  -disableAutomaticPackageResolution \
                  -derivedDataPath ../buildData
-              cp ../buildData/Build/Products/Release/hagvtool /usr/local/bin/hagvtool
-              rm -fr ../buildData
+              #cp ../buildData/Build/Products/Release/hagvtool /usr/local/bin/hagvtool
+              #rm -fr ../buildData
          
          - name: Select Xcode 11.7 for Next Steps
            run: sudo xcode-select -s "/Applications/Xcode_11.7.app"
@@ -62,7 +62,7 @@ jobs:
               TAG_NAME="GPS_Stone-${NEW_VERSION}a"
               rm -f ../new_build_version
               
-              hagvtool set-build-version "$NEW_VERSION"
+              ../buildData/Build/Products/Release/hagvtool set-build-version "$NEW_VERSION"
               
               git commit -am "Bump build version to $NEW_VERSION with hagvtool"
               git tag "$TAG_NAME"
