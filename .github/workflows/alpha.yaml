@@ -8,11 +8,35 @@ on:
 env: {}
 
 jobs:
-   build:
-      name: Build
+   bump-version-and-tag:
+      name: Bump Build Version and Tag
       runs-on: [macos-10.15]
-
+      
       steps:
-         # First we setup the Xcode we want
-         - name: Select Xcode 11.7 to build
+         - name: Checkout hagvtool
+           uses: actions/checkout@v2
+           with:
+              repository: "happn-tech/XcodeTools"
+              ref: "0.2.1"
+         
+         - name: Build and Install hagvtool
+           run: |
+              set -euo pipefail
+              
+              sudo xcode-select -s "/Applications/Xcode_12.app"
+              xcodebuild build \
+                 -workspace XcodeTools.xcworkspace -scheme hagvtool \
+                 -configuration Release -sdk macosx \
+                 -disableAutomaticPackageResolution \
+                 -derivedDataPath ../buildData
+              cp ../buildData/Build/Products/Release/hagvtool /usr/local/bin/hagvtool
+              rm -fr ../buildData
+         
+         - name: Select Xcode 11.7 for Next Steps
            run: sudo xcode-select -s "/Applications/Xcode_11.7.app"
+         
+         - name: Checkout GPS Stone
+           uses: actions/checkout@v2
+         
+         - name: Debug
+           run: echo "here:"; ls; echo "..:"; ls ..
