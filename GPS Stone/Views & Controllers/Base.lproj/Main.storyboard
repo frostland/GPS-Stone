@@ -408,7 +408,7 @@
                                     <action selector="exportGPX:" destination="rUu-rh-9Rg" eventType="touchUpInside" id="PPR-oQ-DP4"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="00:00:00 / 150000 km / 1000 km/h" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="8dJ-My-syJ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="|00:00:00| / #150000 km# / $1000 km/h$" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="8dJ-My-syJ">
                                 <rect key="frame" x="16" y="564" width="343" height="21"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -420,7 +420,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
-                                    <action selector="doneButtonOfNameEditingHit:" destination="rUu-rh-9Rg" eventType="editingDidEndOnExit" id="BGs-ym-NpJ"/>
+                                    <action selector="finishedEditingRecordingName:" destination="rUu-rh-9Rg" eventType="editingDidEndOnExit" id="U7W-3L-ql3"/>
                                     <outlet property="delegate" destination="rUu-rh-9Rg" id="mP2-kB-GXk"/>
                                 </connections>
                             </textField>
@@ -475,7 +475,7 @@
                     <connections>
                         <outlet property="constraintNameKeyboard" destination="zqh-By-vku" id="g2t-zs-iih"/>
                         <outlet property="labelDate" destination="nx0-6U-mxA" id="BOh-DM-wt7"/>
-                        <outlet property="labelInfos" destination="8dJ-My-syJ" id="zLz-fs-3zt"/>
+                        <outlet property="labelInfo" destination="8dJ-My-syJ" id="4qu-Jl-phi"/>
                         <outlet property="textFieldName" destination="Q94-mH-hfd" id="IwS-zg-VU3"/>
                     </connections>
                 </viewController>

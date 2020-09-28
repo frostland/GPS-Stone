@@ -76,6 +76,20 @@ extension Utils {
 	}
 	
 	/* We could (should?) create a formatter for this, actually */
+	static func stringFrom(speed: CLLocationSpeed, useMetricSystem: Bool) -> String {
+		if #available(iOS 10.0, *) {
+			let formatter = MeasurementFormatter()
+			formatter.unitOptions = [.providedUnit]
+			
+			let measurement = Measurement(value: speed, unit: UnitSpeed.metersPerSecond)
+			if useMetricSystem {return formatter.string(from: measurement.converted(to: .kilometersPerHour))}
+			else               {return formatter.string(from: measurement.converted(to: .milesPerHour))}
+		} else {
+			return stringFrom(speedValue: speed, useMetricSystem: useMetricSystem) + speedSymbol(usingMetricSystem: useMetricSystem)
+		}
+	}
+	
+	/* We could (should?) create a formatter for this, actually */
 	static func stringFrom(latitudeDegrees degrees: CLLocationDegrees) -> String {
 		let isPositive = (degrees.sign == .plus)
 		

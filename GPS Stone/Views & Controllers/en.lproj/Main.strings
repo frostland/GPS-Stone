@@ -1,6 +1,6 @@
 /* ••••••••••••••••••••••••••••••••••••• DO NOT TOUCH THIS BLOCK ••••••••••••••••••••••••••••••••••••• */
 
-"8dJ-My-syJ.text" = ""; "ATJ-qY-cjq.text" = ""; "dge-6h-kMQ.text" = "";
+"nx0-6U-mxA.text" = ""; "ATJ-qY-cjq.text" = ""; "dge-6h-kMQ.text" = "";
 "4y0-lb-b42.text" = ""; "0vV-xc-wQG.text" = ""; "89N-Ki-FV7.text" = "";
 "8Qn-sa-lzg.text" = ""; "LYW-nS-3hb.text" = ""; "RUV-5a-erO.text" = "";
 "hqD-kd-G95.text" = ""; "ySd-3R-I8n.text" = ""; "TmC-3c-Ktl.text" = "";
@@ -94,8 +94,8 @@
 /* Title of the name info in the recording info view */
 "hNz-be-lW8.text" = "Name:";
 
-/* Title of the date info in the recording info view */
-"nx0-6U-mxA.text" = "Date";
+/* Recording info line. Must respect format: “|time_info| / #distance_info# / $speed_info$” */
+"8dJ-My-syJ.text" = "|00:00:00| / #150000 km# / $1000 km/h$";
 
 /* Title of the export GPX button in the recordings list view */
 "flL-9s-beR.normalTitle" = "Export GPX…";
