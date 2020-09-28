@@ -112,10 +112,10 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 			case .delete:
 				/* We must perform and wait in order to be synchronous, in order to
 				 * have a better animation! */
-				self.dataHandler.viewContext.performAndWait{
-					let recording = self.fetchedResultsController.object(at: indexPath)
-					self.dataHandler.viewContext.delete(recording)
-					_ = try? self.dataHandler.saveContextOrRollback()
+				dataHandler.viewContext.performAndWait{
+					let recording = fetchedResultsController.object(at: indexPath)
+					dataHandler.viewContext.delete(recording)
+					_ = try? dataHandler.saveContextOrRollback()
 				}
 			
 			default:
