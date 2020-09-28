@@ -45,6 +45,12 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 		}
 	}
 	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		tableView.reloadData()
+	}
+	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		switch segue.identifier {
 			case "ShowDetails"?:
@@ -88,18 +94,22 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 	   ****************************************** */
 	
 	func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+		guard tableView.superview != nil else {return}
 		tableView.fetchedResultsControllerWillChangeContent()
 	}
 	
 	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+		guard tableView.superview != nil else {return}
 		tableView.fetchedResultsControllerDidChange(section: sectionInfo, atIndex: sectionIndex, forChangeType: type)
 	}
 	
 	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+		guard tableView.superview != nil else {return}
 		tableView.fetchedResultsControllerDidChange(object: anObject, atIndexPath: indexPath, forChangeType: type, newIndexPath: newIndexPath)
 	}
 	
 	func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+		guard tableView.superview != nil else {return}
 		tableView.fetchedResultsControllerDidChangeContent()
 	}
 	
