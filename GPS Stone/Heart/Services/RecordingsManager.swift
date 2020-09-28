@@ -98,6 +98,9 @@ final class RecordingsManager : NSObject {
 			ts.duration = NSNumber(value: 1)
 			recording.totalTimeSegment = ts
 		}
+		if recording.activeRecordingDuration > 0 {
+			recording.averageSpeed = recording.totalDistance/Float(recording.activeRecordingDuration)
+		}
 		try dh.saveContextOrRollback()
 	}
 	
