@@ -103,6 +103,26 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 		tableView.fetchedResultsControllerDidChangeContent()
 	}
 	
+	override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+		return .delete
+	}
+	
+	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+		switch editingStyle {
+			case .delete:
+				/* We must perform and wait in order to be synchronous, in order to
+				 * have a better animation! */
+				self.dataHandler.viewContext.performAndWait{
+					let recording = self.fetchedResultsController.object(at: indexPath)
+					self.dataHandler.viewContext.delete(recording)
+					_ = try? self.dataHandler.saveContextOrRollback()
+				}
+			
+			default:
+				super.tableView(tableView, commit: editingStyle, forRowAt: indexPath)
+		}
+	}
+	
 	/* ***************
 	   MARK: - Private
 	   *************** */
