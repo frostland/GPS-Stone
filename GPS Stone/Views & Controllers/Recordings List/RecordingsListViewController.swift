@@ -49,7 +49,7 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 		switch segue.identifier {
 			case "ShowDetails"?:
 				guard let detailsViewController = segue.destination as? RecordingDetailsViewController else {return}
-				guard let indexPath = tableView.indexPathForSelectedRow else {return}
+				guard let indexPath = tableView.indexPathForSelectedRow ?? (sender as? UITableViewCell).flatMap({ tableView.indexPath(for: $0) }) else {return}
 				
 				detailsViewController.recording = fetchedResultsController.object(at: indexPath)
 				
