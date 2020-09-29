@@ -5,7 +5,9 @@ on:
       branches:
          - alpha
 
-env: {}
+env:
+   FRL_GITHUB_RUNNER_USERNAME: GitHub Runner
+   FRL_GITHUB_RUNNER_USEREMAIL: github@frostland.fr
 
 jobs:
    bump-version-and-tag:
@@ -20,6 +22,11 @@ jobs:
          
          - name: Select Xcode 11.7 for Next Steps
            run: sudo xcode-select -s "/Applications/Xcode_11.7.app"
+         
+         - name: Setup Runner’s git Username and Email
+           run: |
+              git config --global user.name  "$FRL_GITHUB_RUNNER_USERNAME"
+              git config --global user.email "$FRL_GITHUB_RUNNER_USEREMAIL"
          
          - name: Checkout GPS Stone versioning
            uses: actions/checkout@v2
