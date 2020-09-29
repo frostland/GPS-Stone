@@ -13,8 +13,10 @@ jobs:
       runs-on: [macos-10.15]
       
       steps:
+         # Note: We use brew cask install because GitHub’s runner is
+         #       a bit late on homebrew’s version
          - name: Install hagvtool
-           run: brew install happn-tech/public/hagvtool
+           run: brew cask install happn-tech/public/hagvtool
          
          - name: Select Xcode 11.7 for Next Steps
            run: sudo xcode-select -s "/Applications/Xcode_11.7.app"
