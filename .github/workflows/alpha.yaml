@@ -30,8 +30,11 @@ jobs:
               
               BUILD_VERSION_FILE=build_number_gpsstone.txt
               echo $(($(cat "$BUILD_VERSION_FILE") + 1)) >"$BUILD_VERSION_FILE"
-              git commit -a --amend --no-edit
-              git push -f
+              git commit "$BUILD_VERSION_FILE" -m "Bump build version"
+              # Note: This might fail if someone pushed a version from another
+              # branch. We do not auto-retry for now because this won’t happen
+              # for this repository.
+              git push
               
               cp "$BUILD_VERSION_FILE" ../new_build_version
          
