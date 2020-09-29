@@ -400,7 +400,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="flL-9s-beR">
+                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="flL-9s-beR">
                                 <rect key="frame" x="16" y="601" width="343" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                 <state key="normal" title="Export GPX…"/>
@@ -408,7 +408,7 @@
                                     <action selector="exportGPX:" destination="rUu-rh-9Rg" eventType="touchUpInside" id="PPR-oQ-DP4"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="|00:00:00| / #150000 km# / $1000 km/h$" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="8dJ-My-syJ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="750" text="|00:00:00| / #150000 km# / $1000 km/h$" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="8dJ-My-syJ">
                                 <rect key="frame" x="16" y="564" width="343" height="21"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -430,7 +430,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="Date" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="nx0-6U-mxA">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="750" text="Date" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="nx0-6U-mxA">
                                 <rect key="frame" x="16" y="535" width="343" height="21"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -452,7 +452,8 @@
                             <constraint firstAttribute="trailingMargin" secondItem="T0F-2Q-WCy" secondAttribute="trailing" id="Oqo-E9-IfD"/>
                             <constraint firstItem="8dJ-My-syJ" firstAttribute="leading" secondItem="29W-LT-8nV" secondAttribute="leadingMargin" id="TIP-6x-92n"/>
                             <constraint firstItem="Q94-mH-hfd" firstAttribute="top" secondItem="T0F-2Q-WCy" secondAttribute="bottom" constant="8" id="U5x-PS-cR0"/>
-                            <constraint firstItem="nx0-6U-mxA" firstAttribute="top" secondItem="Q94-mH-hfd" secondAttribute="bottom" constant="8" id="ZVF-fm-d0e"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Q94-mH-hfd" secondAttribute="bottom" id="YrM-o6-Tek"/>
+                            <constraint firstItem="nx0-6U-mxA" firstAttribute="top" secondItem="Q94-mH-hfd" secondAttribute="bottom" priority="250" constant="8" id="ZVF-fm-d0e"/>
                             <constraint firstItem="nx0-6U-mxA" firstAttribute="leading" secondItem="29W-LT-8nV" secondAttribute="leadingMargin" id="crE-Pl-K2R"/>
                             <constraint firstItem="8dJ-My-syJ" firstAttribute="top" secondItem="nx0-6U-mxA" secondAttribute="bottom" constant="8" id="g9w-PK-w3y"/>
                             <constraint firstItem="Q94-mH-hfd" firstAttribute="baseline" secondItem="hNz-be-lW8" secondAttribute="baseline" id="h6N-LZ-V2L"/>
@@ -464,16 +465,10 @@
                             <constraint firstItem="T0F-2Q-WCy" firstAttribute="leading" secondItem="29W-LT-8nV" secondAttribute="leadingMargin" id="pL5-1A-6n4"/>
                             <constraint firstItem="Q94-mH-hfd" firstAttribute="leading" secondItem="hNz-be-lW8" secondAttribute="trailing" constant="8" id="t6l-lI-xtN"/>
                             <constraint firstItem="flL-9s-beR" firstAttribute="top" secondItem="8dJ-My-syJ" secondAttribute="bottom" constant="16" id="tkQ-rW-ZbH"/>
-                            <constraint firstItem="Q94-mH-hfd" firstAttribute="top" secondItem="hd0-8y-uSg" secondAttribute="bottom" constant="30" id="zqh-By-vku"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="zqh-By-vku"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
-                        <outlet property="constraintNameKeyboard" destination="zqh-By-vku" id="g2t-zs-iih"/>
+                        <outlet property="constraintTextFieldSpaceToBottom" destination="YrM-o6-Tek" id="494-ZE-Cuk"/>
                         <outlet property="labelDate" destination="nx0-6U-mxA" id="BOh-DM-wt7"/>
                         <outlet property="labelInfo" destination="8dJ-My-syJ" id="4qu-Jl-phi"/>
                         <outlet property="textFieldName" destination="Q94-mH-hfd" id="IwS-zg-VU3"/>
