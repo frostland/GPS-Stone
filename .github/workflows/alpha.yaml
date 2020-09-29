@@ -51,7 +51,7 @@ jobs:
               TAG_NAME="GPS_Stone-${NEW_VERSION}a"
               rm -f ../new_build_version
               
-              ../buildData/Build/Products/Release/hagvtool set-build-version "$NEW_VERSION"
+              hagvtool set-build-version "$NEW_VERSION"
               
               git commit -am "Bump build version to $NEW_VERSION with hagvtool"
               git tag "$TAG_NAME"
