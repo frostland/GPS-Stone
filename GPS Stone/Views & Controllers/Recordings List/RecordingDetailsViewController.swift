@@ -87,6 +87,12 @@ class RecordingDetailsViewController : UIViewController {
 		}
 	}
 	
+	@IBAction func exportGPX(_ sender: Any) {
+		let progress = recordingExporter.prepareExport(of: recording.objectID, handler: { result in
+			print(result)
+		})
+	}
+	
 	/* ***************
 	   MARK: - Private
 	   *************** */
@@ -94,6 +100,7 @@ class RecordingDetailsViewController : UIViewController {
 	private let constants = S.sp.constants
 	private let appSettings = S.sp.appSettings
 	private let dataHandler = S.sp.dataHandler
+	private let recordingExporter = S.sp.recordingExporter
 	
 	private let kvObserver = KVObserver()
 	private var nameObservingID: KVObserver.ObservingId?

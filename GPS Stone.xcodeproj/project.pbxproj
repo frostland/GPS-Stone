@@ -31,6 +31,9 @@
 		7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */; };
 		7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE81DCA975F007B5ABC /* Main.storyboard */; };
 		7B5108F722BA57E60038CEAC /* RecordingsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5108F622BA57E60038CEAC /* RecordingsListViewController.swift */; };
+		7B575EC8252907D500B3131B /* RecordingExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B575EC7252907D500B3131B /* RecordingExporter.swift */; };
+		7B575ECA25290A4600B3131B /* NSManagedObject+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B575EC925290A4600B3131B /* NSManagedObject+Utils.swift */; };
+		7B575ECC2529CE3800B3131B /* NSManagedObjectContext+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B575ECB2529CE3800B3131B /* NSManagedObjectContext+Utils.swift */; };
 		7B596E1624D2082E00E98260 /* GPSInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B596E1524D2082E00E98260 /* GPSInfoViewController.swift */; };
 		7B596E1824D20D9800E98260 /* RecordingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B596E1724D20D9700E98260 /* RecordingInfoViewController.swift */; };
 		7B596E1A24D536D600E98260 /* GPSErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B596E1924D536D600E98260 /* GPSErrorViewController.swift */; };
@@ -78,6 +81,9 @@
 		7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B482CE91DCA976E007B5ABC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7B5108F622BA57E60038CEAC /* RecordingsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsListViewController.swift; sourceTree = "<group>"; };
+		7B575EC7252907D500B3131B /* RecordingExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingExporter.swift; sourceTree = "<group>"; };
+		7B575EC925290A4600B3131B /* NSManagedObject+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Utils.swift"; sourceTree = "<group>"; };
+		7B575ECB2529CE3800B3131B /* NSManagedObjectContext+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Utils.swift"; sourceTree = "<group>"; };
 		7B596E1524D2082E00E98260 /* GPSInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSInfoViewController.swift; sourceTree = "<group>"; };
 		7B596E1724D20D9700E98260 /* RecordingInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingInfoViewController.swift; sourceTree = "<group>"; };
 		7B596E1924D536D600E98260 /* GPSErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSErrorViewController.swift; sourceTree = "<group>"; };
@@ -96,7 +102,6 @@
 		7BA2A5EA1F2E013A0014603B /* Test Recording.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Test Recording.gpx"; sourceTree = "<group>"; };
 		7BAD114B24FF63EE00D6D9A2 /* MiniInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniInfoViewController.swift; sourceTree = "<group>"; };
 		7BAE22DD22DB75C000AB6C33 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		7BB90DC8248BECFD001ED9E7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Obs_Localizable.strings; sourceTree = "<group>"; };
 		7BB90DCA248BFF4E001ED9E7 /* Scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Scripts; sourceTree = "<group>"; };
 		7BD0A05822B9576500934656 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsManager.swift; sourceTree = "<group>"; };
@@ -227,6 +232,8 @@
 				7B44879F247199CC00B6DB7B /* Utils.swift */,
 				7B4487A224719ADF00B6DB7B /* Utils+UI.swift */,
 				7B4487A424719C5000B6DB7B /* Utils+Language.swift */,
+				7B575EC925290A4600B3131B /* NSManagedObject+Utils.swift */,
+				7B575ECB2529CE3800B3131B /* NSManagedObjectContext+Utils.swift */,
 				7B4487A62471CA1100B6DB7B /* GPSStoneLocTokens.swift */,
 				7B9F689524E063AD009A0BDB /* GPSStoneLocationError.swift */,
 				7B68688324B254C400C77DC1 /* DebugUtils */,
@@ -268,7 +275,6 @@
 		7B27B9361DCF3E3D006F44B7 /* Localizables */ = {
 			isa = PBXGroup;
 			children = (
-				7BB90DC9248BECFD001ED9E7 /* Obs_Localizable.strings */,
 				7B482CDF1DCA8ADD007B5ABC /* Localizable.strings */,
 				7B28FFDA2476E9590063E26A /* InfoPlist.strings */,
 			);
@@ -313,6 +319,7 @@
 				7B93E38122A184ED00709971 /* LocationRecorder.swift */,
 				7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */,
 				7B40B09924DF3768008FADB1 /* NotificationsManager.swift */,
+				7B575EC7252907D500B3131B /* RecordingExporter.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -422,6 +429,8 @@
 				7B08CFC622BA96AF00BE6E3F /* RecordingDetailsViewController.swift in Sources */,
 				7B93E38222A184ED00709971 /* LocationRecorder.swift in Sources */,
 				7B5108F722BA57E60038CEAC /* RecordingsListViewController.swift in Sources */,
+				7B575ECA25290A4600B3131B /* NSManagedObject+Utils.swift in Sources */,
+				7B575ECC2529CE3800B3131B /* NSManagedObjectContext+Utils.swift in Sources */,
 				7BEED1BF22B6C0F700A055B9 /* MainViewController.swift in Sources */,
 				7B9F689624E063AD009A0BDB /* GPSStoneLocationError.swift in Sources */,
 				7B23D9BA22B90BB20007BA61 /* InfoViewController.swift in Sources */,
@@ -433,6 +442,7 @@
 				7B596E1824D20D9800E98260 /* RecordingInfoViewController.swift in Sources */,
 				7B40B09A24DF3768008FADB1 /* NotificationsManager.swift in Sources */,
 				7B4487A524719C5000B6DB7B /* Utils+Language.swift in Sources */,
+				7B575EC8252907D500B3131B /* RecordingExporter.swift in Sources */,
 				7B4487A72471CA1100B6DB7B /* GPSStoneLocTokens.swift in Sources */,
 				7B94D1EA22A0197900848832 /* AppSettings.swift in Sources */,
 				7B596E1624D2082E00E98260 /* GPSInfoViewController.swift in Sources */,
@@ -466,14 +476,6 @@
 				7B9CD98F2481296200CF4E14 /* en */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		7BB90DC9248BECFD001ED9E7 /* Obs_Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7BB90DC8248BECFD001ED9E7 /* en */,
-			);
-			name = Obs_Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

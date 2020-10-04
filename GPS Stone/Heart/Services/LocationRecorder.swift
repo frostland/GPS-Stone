@@ -630,7 +630,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 					distance = 0
 				}
 				
-				rm.unsafeAddPoint(location: newLocation, addedDistance: distance, segmentID: segmentID, to: writeObjects.recording)
+				rm.unsafeAddPoint(location: newLocation, addedDistance: distance, heading: currentHeading, segmentID: segmentID, to: writeObjects.recording)
 				changedContext = true
 			} catch {
 				/* Adding the location to the list of locations that couldn’t be

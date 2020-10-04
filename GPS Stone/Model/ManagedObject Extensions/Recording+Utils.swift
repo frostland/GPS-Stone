@@ -66,6 +66,17 @@ extension Recording {
 		return duration
 	}
 	
+	func pointsSortedByDateAscending() throws -> [RecordingPoint] {
+		guard let context = managedObjectContext else {
+			return []
+		}
+		
+		let fetchRequest: NSFetchRequest<RecordingPoint> = RecordingPoint.fetchRequest()
+		fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(RecordingPoint.recording), self)
+		fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \RecordingPoint.date, ascending: true)]
+		return try context.fetch(fetchRequest)
+	}
+	
 	func latestPointInTime() throws -> RecordingPoint? {
 		guard let context = managedObjectContext else {
 			return nil

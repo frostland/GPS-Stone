@@ -31,4 +31,6 @@ class ServicesProvider {
 	
 	private(set) lazy var notificationsManager = NotificationsManager(locationRecorder: locationRecorder)
 	
+	private(set) lazy var recordingExporter = RecordingExporter(dataHandler: dataHandler)
+	
 }

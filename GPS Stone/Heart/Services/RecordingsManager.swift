@@ -50,7 +50,7 @@ final class RecordingsManager : NSObject {
 	
 	Must be called on the dataHandler’s viewContext’s queue (the main thread). */
 	@discardableResult
-	func unsafeAddPoint(location: CLLocation, addedDistance: CLLocationDistance, segmentID: Int16, to recording: Recording) -> RecordingPoint {
+	func unsafeAddPoint(location: CLLocation, addedDistance: CLLocationDistance, heading: CLHeading?, segmentID: Int16, to recording: Recording) -> RecordingPoint {
 		assert(Thread.isMainThread)
 		
 		NSLog("Adding new location in recording %@: %@", recording.name ?? "<no name>", location)
@@ -59,6 +59,7 @@ final class RecordingsManager : NSObject {
 		recordingPoint.date = location.timestamp
 		recordingPoint.location = location
 		recordingPoint.segmentID = segmentID
+		recordingPoint.heading = heading
 		
 //		recording.addToPoints(recordingPoint) /* Does not work on iOS 9, so we have to do the line below! */
 		recording.mutableSetValue(forKey: #keyPath(Recording.points)).add(recordingPoint)

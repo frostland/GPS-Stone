@@ -21,6 +21,7 @@ final class DataHandler {
 		return NSManagedObjectModel(contentsOf: Bundle(for: Recording.self).url(forResource: "Model", withExtension: "momd")!)!
 	}()
 	
+	@available(iOS, deprecated: 10, message: "Migrate to persistent container! And use said container in recording exporter to create the bg context (or use performBackgroundTask?).")
 	lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
 		let coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
 		
@@ -59,6 +60,16 @@ final class DataHandler {
 	lazy var viewContext: NSManagedObjectContext = {
 		let ret = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
 		ret.persistentStoreCoordinator = persistentStoreCoordinator
+		return ret
+	}()
+	
+	lazy var bgContext: NSManagedObjectContext = {
+		let ret = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+		ret.persistentStoreCoordinator = persistentStoreCoordinator
+		if #available(iOS 10.0, *) {
+			/* I think this is the default, but still… */
+			ret.automaticallyMergesChangesFromParent = false
+		}
 		return ret
 	}()
 	
