@@ -405,7 +405,7 @@
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                 <state key="normal" title="Export GPX…"/>
                                 <connections>
-                                    <action selector="exportGPX:" destination="rUu-rh-9Rg" eventType="touchUpInside" id="PPR-oQ-DP4"/>
+                                    <action selector="exportGPXButtonTapped:" destination="rUu-rh-9Rg" eventType="touchUpInside" id="XS9-tZ-NWX"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="750" text="|00:00:00| / #150000 km# / $1000 km/h$" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="8dJ-My-syJ">

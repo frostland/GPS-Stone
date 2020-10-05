@@ -90,13 +90,25 @@ class RecordingDetailsViewController : UIViewController {
 		}
 	}
 	
-	@IBAction func exportGPX(_ sender: Any) {
+	@IBAction func exportGPXButtonTapped(_ sender: Any) {
 		guard gpxExportPreparationProgress == nil else {return}
 		
-		gpxExportPreparationProgress = recordingExporter.prepareExport(of: recording.objectID, handler: { [weak self] result in
-			self?.gpxExportPreparationProgress = nil
-			self?.updateExportGPXButton()
-		})
+		if let gpxURL = (try? recordingExporter.preparedExport(of: recording.objectID)) {
+			/* We’re ready to export the GPX. */
+			
+		} else {
+			/* The GPX is neither ready nor being prepared. */
+			gpxExportPreparationProgress = recordingExporter.prepareExport(of: recording.objectID, handler: { [weak self] result in
+				self?.progressObserver.flatMap{ self?.kvObserver.stopObserving(id: $0) }
+				self?.gpxExportPreparationProgress = nil
+				self?.progressObserver = nil
+				
+				self?.updateExportGPXButton()
+			})
+			progressObserver = gpxExportPreparationProgress.flatMap{ kvObserver.observe(object: $0, keyPath: #keyPath(Progress.fractionCompleted), kvoOptions: [.initial], dispatchType: .asyncOnMainQueue, handler: { [weak self] _ in
+				self?.updateExportGPXButton()
+			}) }
+		}
 	}
 	
 	/* ***************
@@ -116,6 +128,7 @@ class RecordingDetailsViewController : UIViewController {
 	private var infoLineFormat: String?
 	
 	private var gpxExportPreparationProgress: Progress?
+	private var progressObserver: KVObserver.ObservingId?
 	
 	private func updateExportGPXButton() {
 		assert(Thread.isMainThread)
@@ -142,8 +155,11 @@ class RecordingDetailsViewController : UIViewController {
 			buttonTitle = NSLocalizedString("prepare gpx export button title", comment: "Title of the export GPX button in the recordings list view when the GPX file does not exist yet.")
 		}
 		
-		buttonExportGPX.isEnabled = buttonEnabled
-		buttonExportGPX.setTitle(buttonTitle, for: .normal)
+		UIView.performWithoutAnimation{
+			buttonExportGPX.isEnabled = buttonEnabled
+			buttonExportGPX.setTitle(buttonTitle, for: .normal)
+			buttonExportGPX.layoutIfNeeded()
+		}
 	}
 	
 	private func updateInfoLines() {
