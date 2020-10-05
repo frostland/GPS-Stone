@@ -21,31 +21,27 @@ final class RecordingExporter {
 		dh = dataHandler
 	}
 	
+	func preparedExport(of recordingID: NSManagedObjectID) throws -> URL? {
+		let url = try urlForRecordingID(recordingID)
+		
+		var isDir = ObjCBool(true)
+		let exists = FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir)
+		
+		return (exists && !isDir.boolValue ? url : nil)
+	}
+	
 	/* Note: We assume here recordings do not change ever, and once a recording
 	 *       has been converted to GPX, if we have the converted version in the
 	 *       cache, we use it and return it directly. */
 	func prepareExport(of recordingID: NSManagedObjectID, handler: @escaping (_ result: Result<URL, Error>) -> Void) -> Progress {
-		/* The hash will be the base id we’ll use to store the GPX file. */
-		let hash: String
-		if #available(iOS 13.0, *) {
-			hash = Insecure.MD5.hash(data: Data(recordingID.uriRepresentation().absoluteString.utf8)).reduce("", { $0 + String(format: "%02x", $1) })
-		} else {
-			let checksumPointer = malloc(Int(CC_MD5_DIGEST_LENGTH))!.assumingMemoryBound(to: UInt8.self)
-			let data = Data(recordingID.uriRepresentation().absoluteString.utf8)
-			data.withUnsafeBytes{ dataBytes in
-				_ = CC_MD5(dataBytes.baseAddress!, CC_LONG(dataBytes.count), checksumPointer)
-			}
-			hash = (0..<Int(CC_MD5_DIGEST_LENGTH)).reduce("", { $0 + String(format: "%02x", checksumPointer[$1]) })
-		}
-		
 		let progress = Progress()
 		let context = dh.bgContext
 		context.perform{
 			do {
+				let fileManager = FileManager.default
 				let recording = try Recording.existingFrom(id: recordingID, in: context)
 				
-				let fileManager = FileManager.default
-				let outputURL = try fileManager.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent(hash).appendingPathExtension("gpx")
+				let outputURL = try self.urlForRecordingID(recordingID)
 				let inprogressOutputURL = outputURL.appendingPathExtension("inprogress")
 				
 				/* First let’s check if the file has not already been created. Note:
@@ -163,6 +159,22 @@ final class RecordingExporter {
 	private let dh: DataHandler
 	
 //	private let workQueue = DispatchQueue(label: Constants.appDomain + ".RecordingExporter.work-queue", qos: .background)
+	
+	private func urlForRecordingID(_ recordingID: NSManagedObjectID) throws -> URL {
+		/* The hash will be the base id we’ll use to store the GPX file. */
+		let hash: String
+		if #available(iOS 13.0, *) {
+			hash = Insecure.MD5.hash(data: Data(recordingID.uriRepresentation().absoluteString.utf8)).reduce("", { $0 + String(format: "%02x", $1) })
+		} else {
+			let checksumPointer = malloc(Int(CC_MD5_DIGEST_LENGTH))!.assumingMemoryBound(to: UInt8.self)
+			let data = Data(recordingID.uriRepresentation().absoluteString.utf8)
+			data.withUnsafeBytes{ dataBytes in
+				_ = CC_MD5(dataBytes.baseAddress!, CC_LONG(dataBytes.count), checksumPointer)
+			}
+			hash = (0..<Int(CC_MD5_DIGEST_LENGTH)).reduce("", { $0 + String(format: "%02x", checksumPointer[$1]) })
+		}
+		return try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent(hash).appendingPathExtension("gpx")
+	}
 	
 	private func xmlString(_ string: String) -> String {
 		return string

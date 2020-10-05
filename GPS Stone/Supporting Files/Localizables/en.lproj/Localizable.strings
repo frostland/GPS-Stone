@@ -112,6 +112,22 @@
 
 
 
+/* ••••••••••••••••••••••••••••••••••••• */
+/*       Pre-iOS 10 Format Strings       */
+/* ••••••••••••••••••••••••••••••••••••• */
+
+
+/* Title of the export GPX button in the recordings list view when the GPX file does not exist yet. */
+"prepare gpx export button title" = "Prepare GPX for Export…";
+
+/* Title of the export GPX button while preparation is in progress. */
+"gpx export in progress button title" = "GPX Export In Progress (|n|)…";
+
+/* Title of the export GPX button in the recordings list view. */
+"export gpx button title" = "Export GPX…";
+
+
+
 /* •••••••••••••••••••••••••••••••••• */
 /*       Other App Translations       */
 /* •••••••••••••••••••••••••••••••••• */

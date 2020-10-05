@@ -21,6 +21,7 @@ class RecordingDetailsViewController : UIViewController {
 	@IBOutlet var labelInfo: UILabel!
 	@IBOutlet var labelDate: UILabel!
 	@IBOutlet var constraintTextFieldSpaceToBottom: NSLayoutConstraint!
+	@IBOutlet var buttonExportGPX: UIButton!
 	
 	var recording: Recording! {
 		didSet {
@@ -52,6 +53,8 @@ class RecordingDetailsViewController : UIViewController {
 		
 		infoLineFormat = labelInfo.text!
 		updateInfoLines()
+		
+		updateExportGPXButton()
 		
 		keyboardFrameObserver = NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillChangeFrameNotification, object: nil, queue: nil, using: { [weak self] n in
 			guard let self = self else {return}
@@ -88,8 +91,11 @@ class RecordingDetailsViewController : UIViewController {
 	}
 	
 	@IBAction func exportGPX(_ sender: Any) {
-		let progress = recordingExporter.prepareExport(of: recording.objectID, handler: { result in
-			print(result)
+		guard gpxExportPreparationProgress == nil else {return}
+		
+		gpxExportPreparationProgress = recordingExporter.prepareExport(of: recording.objectID, handler: { [weak self] result in
+			self?.gpxExportPreparationProgress = nil
+			self?.updateExportGPXButton()
 		})
 	}
 	
@@ -108,6 +114,37 @@ class RecordingDetailsViewController : UIViewController {
 	private var keyboardFrameObserver: NSObjectProtocol?
 	
 	private var infoLineFormat: String?
+	
+	private var gpxExportPreparationProgress: Progress?
+	
+	private func updateExportGPXButton() {
+		assert(Thread.isMainThread)
+		guard let buttonExportGPX = buttonExportGPX else {return}
+		
+		let buttonTitle: String
+		let buttonEnabled: Bool
+		if let progress = gpxExportPreparationProgress {
+			/* The GPX is being prepared. */
+			let formatter = NumberFormatter()
+			formatter.numberStyle = .percent
+			let progressPercentageString = formatter.xl_string(from: NSNumber(value: progress.fractionCompleted))
+			
+			buttonEnabled = false
+			buttonTitle = NSLocalizedString("gpx export in progress button title", comment: "Title of the export GPX button while preparation is in progress.")
+				.applyingCommonTokens(simpleReplacement1: progressPercentageString)
+		} else if (try? recordingExporter.preparedExport(of: recording.objectID)) != nil {
+			/* We’re ready to export the GPX. */
+			buttonEnabled = true
+			buttonTitle = NSLocalizedString("export gpx button title", comment: "Title of the export GPX button in the recordings list view.")
+		} else {
+			/* The GPX is neither ready nor being prepared. */
+			buttonEnabled = true
+			buttonTitle = NSLocalizedString("prepare gpx export button title", comment: "Title of the export GPX button in the recordings list view when the GPX file does not exist yet.")
+		}
+		
+		buttonExportGPX.isEnabled = buttonEnabled
+		buttonExportGPX.setTitle(buttonTitle, for: .normal)
+	}
 	
 	private func updateInfoLines() {
 		assert(Thread.isMainThread)

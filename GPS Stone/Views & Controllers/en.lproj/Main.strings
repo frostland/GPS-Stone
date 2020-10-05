@@ -7,6 +7,7 @@
 "biR-0I-rf9.text" = ""; "lrD-hq-dEM.text" = ""; "sQ4-xB-dbK.text" = "";
 "Eyh-Si-z3k.text" = ""; "tVa-d3-1ix.text" = ""; "pbi-3A-Uy1.text" = "";
 "1bI-ZV-mm0.text" = ""; "Cmr-fo-1ZG.text" = ""; "tTR-xK-5Bc.text" = "";
+"flL-9s-beR.normalTitle" = "";
 
 /* ••••••••••••••••••••••••••••••••••••• END OF THE BLOCK ••••••••••••••••••••••••••••••••••••• */
 
@@ -96,9 +97,6 @@
 
 /* Recording info line. Must respect format: “|time_info| / #distance_info# / $speed_info$” */
 "8dJ-My-syJ.text" = "|00:00:00| / #150000 km# / $1000 km/h$";
-
-/* Title of the export GPX button in the recordings list view */
-"flL-9s-beR.normalTitle" = "Export GPX…";
 
 
 /* ••••••••••••••••••••••••••••••••••• */

@@ -468,6 +468,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="buttonExportGPX" destination="flL-9s-beR" id="4dk-0Q-GaG"/>
                         <outlet property="constraintTextFieldSpaceToBottom" destination="YrM-o6-Tek" id="494-ZE-Cuk"/>
                         <outlet property="labelDate" destination="nx0-6U-mxA" id="BOh-DM-wt7"/>
                         <outlet property="labelInfo" destination="8dJ-My-syJ" id="4qu-Jl-phi"/>
