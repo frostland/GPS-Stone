@@ -12,8 +12,8 @@
 
 /* Undefined symbol (in English: “N/D”) */
 "nd" = "N/D";
-/* More or less #n# percent (e.g. “± #n#%”) */
-"more or less #n# percent" = "± #n#%";
+/* More or less #n percent# (e.g. “± #n%#”) */
+"more or less #n percent#" = "± #n%#";
 
 /* The generic alert view title for an error running an action. */
 "error executing action" = "Failure";

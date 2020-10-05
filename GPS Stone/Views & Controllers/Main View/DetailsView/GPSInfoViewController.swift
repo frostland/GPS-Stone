@@ -109,8 +109,11 @@ class GPSInfoViewController : UIViewController {
 		labelHorizontalAccuracy.textColor = (location.horizontalAccuracy > c.accuracyWarningThreshold ? .red : labelColor)
 		
 		if location.verticalAccuracy.sign == .plus {
+			let numberFormatter = NumberFormatter()
+			numberFormatter.numberStyle = .percent
 			labelAltitude.text = Utils.stringFrom(altitude: location.altitude, useMetricSystem: useMetricSystem)
-			labelVerticalAccuracy.text = abs(location.altitude) < 0.001 ? "" : NSLocalizedString("more or less #n# percent", comment: "").applyingCommonTokens(number: XibLocNumber(Int((location.verticalAccuracy/abs(location.altitude)) * 100)))
+			labelVerticalAccuracy.text = abs(location.altitude) < 0.001 ? "" : NSLocalizedString("more or less #n percent#", comment: "")
+				.applyingCommonTokens(number: XibLocNumber(location.verticalAccuracy/abs(location.altitude), formatter: numberFormatter))
 		} else {
 			labelAltitude.text = NSLocalizedString("nd", comment: "")
 			labelVerticalAccuracy.text = ""
