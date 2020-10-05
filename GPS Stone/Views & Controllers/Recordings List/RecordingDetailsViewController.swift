@@ -93,9 +93,10 @@ class RecordingDetailsViewController : UIViewController {
 	@IBAction func exportGPXButtonTapped(_ sender: Any) {
 		guard gpxExportPreparationProgress == nil else {return}
 		
-		if let gpxURL = (try? recordingExporter.preparedExport(of: recording.objectID)) {
+		if let gpxURL = (try? recordingExporter.preparedExport(of: recording.objectID, context: dataHandler.viewContext)) {
 			/* We’re ready to export the GPX. */
-			
+			let activityVC = UIActivityViewController(activityItems: [gpxURL], applicationActivities: nil)
+			present(activityVC, animated: true, completion: nil)
 		} else {
 			/* The GPX is neither ready nor being prepared. */
 			gpxExportPreparationProgress = recordingExporter.prepareExport(of: recording.objectID, handler: { [weak self] result in
@@ -145,7 +146,7 @@ class RecordingDetailsViewController : UIViewController {
 			buttonEnabled = false
 			buttonTitle = NSLocalizedString("gpx export in progress button title", comment: "Title of the export GPX button while preparation is in progress.")
 				.applyingCommonTokens(simpleReplacement1: progressPercentageString)
-		} else if (try? recordingExporter.preparedExport(of: recording.objectID)) != nil {
+		} else if (try? recordingExporter.preparedExport(of: recording.objectID, context: dataHandler.viewContext)) != nil {
 			/* We’re ready to export the GPX. */
 			buttonEnabled = true
 			buttonTitle = NSLocalizedString("export gpx button title", comment: "Title of the export GPX button in the recordings list view.")

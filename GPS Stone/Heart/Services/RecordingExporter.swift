@@ -21,8 +21,9 @@ final class RecordingExporter {
 		dh = dataHandler
 	}
 	
-	func preparedExport(of recordingID: NSManagedObjectID) throws -> URL? {
-		let url = try urlForRecordingID(recordingID)
+	func preparedExport(of recordingID: NSManagedObjectID, context: NSManagedObjectContext) throws -> URL? {
+		let recordingName = try context.performAndWait{ try Recording.existingFrom(id: recordingID, in: context).name }
+		let url = try urlForRecordingID(recordingID, recordingName: recordingName)
 		
 		var isDir = ObjCBool(true)
 		let exists = FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir)
@@ -41,7 +42,7 @@ final class RecordingExporter {
 				let fileManager = FileManager.default
 				let recording = try Recording.existingFrom(id: recordingID, in: context)
 				
-				let outputURL = try self.urlForRecordingID(recordingID)
+				let outputURL = try self.urlForRecordingID(recordingID, recordingName: recording.name)
 				let inprogressOutputURL = outputURL.appendingPathExtension("inprogress")
 				
 				/* First let’s check if the file has not already been created. Note:
@@ -156,12 +157,14 @@ final class RecordingExporter {
 		return progress
 	}
 	
+	private static let defaultRecordingName = NSLocalizedString("default recording name", comment: "The name of a recording when no name is given.")
+	
 	private let dh: DataHandler
 	
 //	private let workQueue = DispatchQueue(label: Constants.appDomain + ".RecordingExporter.work-queue", qos: .background)
 	
-	private func urlForRecordingID(_ recordingID: NSManagedObjectID) throws -> URL {
-		/* The hash will be the base id we’ll use to store the GPX file. */
+	private func urlForRecordingID(_ recordingID: NSManagedObjectID, recordingName: String?) throws -> URL {
+		/* The hash will be the name of the folder we’ll use to store the GPX file */
 		let hash: String
 		if #available(iOS 13.0, *) {
 			hash = Insecure.MD5.hash(data: Data(recordingID.uriRepresentation().absoluteString.utf8)).reduce("", { $0 + String(format: "%02x", $1) })
@@ -173,7 +176,12 @@ final class RecordingExporter {
 			}
 			hash = (0..<Int(CC_MD5_DIGEST_LENGTH)).reduce("", { $0 + String(format: "%02x", checksumPointer[$1]) })
 		}
-		return try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent(hash).appendingPathExtension("gpx")
+		
+		let parent = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent(hash)
+		try FileManager.default.createDirectory(at: parent, withIntermediateDirectories: true, attributes: nil)
+		
+		let safeRecordingName = (recordingName ?? RecordingExporter.defaultRecordingName).replacingOccurrences(of: "/", with: ":").replacingOccurrences(of: ".", with: "_", options: .anchored)
+		return parent.appendingPathComponent(safeRecordingName).appendingPathExtension("gpx")
 	}
 	
 	private func xmlString(_ string: String) -> String {
