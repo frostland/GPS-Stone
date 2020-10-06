@@ -28,6 +28,10 @@ final class MigrationToCoreData {
 		urlToOldGPXListFile = urlToOldGPXFolder?.appendingPathComponent("GPX Files List Description.data")
 	}
 	
+	deinit {
+		NSLog("Deinit of the MigrationToCoreData object")
+	}
+	
 	func startMigrationToCoreData() {
 		/* Do we need to migrate anything? */
 		let migratedKey = "Migrated v1 to CoreData"
@@ -80,16 +84,11 @@ final class MigrationToCoreData {
 				strongSelf = nil
 			}
 			
-			#warning("TODO: Remove this sleep")
-			Thread.sleep(forTimeInterval: 5)
 			for (index, var oldRecordingDescription) in oldRecordingListToMigrate {
-				#warning("and this one")
-				Thread.sleep(forTimeInterval: 1)
-				
 				/* We only process the recording if we have its path. If we don’t,
 				 * or if we cannot create the XML parser for the given path there is
 				 * probably nothing we can do, we’ll mark the recording as migrated… */
-				NSLog("%@", "\(oldRecordingDescription)")
+//				NSLog("%@", "\(oldRecordingDescription)")
 				if
 					let recordingGPXPath = oldRecordingDescription["Rec Path"] as? String,
 					let recordingParser = XMLParser(contentsOf: urlToOldGPXFolder.appendingPathComponent(recordingGPXPath))
@@ -101,7 +100,8 @@ final class MigrationToCoreData {
 					let recording = NSEntityDescription.insertNewObject(forEntityName: "Recording", into: context) as! Recording
 					recording.totalTimeSegment = totalTimeSegment
 					
-					recording.name = recordingName ?? NSLocalizedString("new recording", comment: "Default name for a recording")
+					recording.name = NSLocalizedString("|name| (migrated)", comment: "Template name for a migrated recording.")
+						.applyingCommonTokens(simpleReplacement1: recordingName ?? NSLocalizedString("new recording", comment: "Default name for a recording"))
 					recording.maxSpeed = recordingMaxSpeed ?? 0
 					
 					var curSegmentID: Int16 = -1
@@ -167,7 +167,6 @@ final class MigrationToCoreData {
 						((recordingParser.parserError as NSError?)?.domain == XMLParser.errorDomain &&
 						 (recordingParser.parserError as NSError?)?.code == 111 /* Error code on early EOF; we don’t fail on early EOF */)
 					{
-						NSLog("%@", "parse done")
 						do {
 							if let latestPoint = latestPoint {
 								if latestPointInSegment == nil {
@@ -206,7 +205,7 @@ final class MigrationToCoreData {
 					oldRecordingDescription[migrationErrorKey] = "No Rec Path or Parser Creation Failed"
 				}
 				
-				oldRecordingDescription["test key"] = true
+				oldRecordingDescription[migratedKey] = true
 				oldRecordingList[index] = oldRecordingDescription
 				guard NSKeyedArchiver.archiveRootObject(NSMutableArray(array: oldRecordingList), toFile: urlToOldGPXListFile.path) else {
 					return
@@ -257,7 +256,6 @@ private final class GPXParserDelegate : NSObject, XMLParserDelegate {
 	}
 	
 	func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-		NSLog("open %@", elementName)
 		switch elementName {
 			case "trkseg":
 				guard newSegmentHandler() else {
@@ -286,7 +284,6 @@ private final class GPXParserDelegate : NSObject, XMLParserDelegate {
 	}
 	
 	func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-		NSLog("close %@ - %@", elementName, textBuffer)
 		switch elementName {
 			case "trkpt":
 				guard

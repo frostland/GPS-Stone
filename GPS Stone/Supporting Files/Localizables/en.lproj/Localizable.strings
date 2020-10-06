@@ -144,3 +144,6 @@
 
 /* The name of a recording when no name is given. */
 "default recording name" = "GPS Stone Recording";
+
+/* Template name for a migrated recording. */
+"|name| (migrated)" = "|name| (migrated)";
