@@ -212,16 +212,6 @@ final class MigrationToCoreData {
 					return
 				}
 			}
-//			let s = NSEntityDescription.insertNewObject(forEntityName: "TimeSegment", into: context) as! TimeSegment
-//			s.startDate = Date()
-//
-//			let r = NSEntityDescription.insertNewObject(forEntityName: "Recording", into: context) as! Recording
-//			r.name = NSLocalizedString("new recording", comment: "Default name for a recording")
-//			r.totalTimeSegment = s
-//
-//			s.closeTimeSegment()
-//
-//			try? context.save()
 		}
 	}
 	
