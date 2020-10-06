@@ -110,7 +110,7 @@ final class MigrationToCoreData {
 					var latestPause: TimeSegment?
 					
 					let newSegmentHandler = { () -> Bool in
-						guard curSegmentID > 0 else {
+						guard curSegmentID >= 0 else {
 							curSegmentID = 0
 							return true
 						}
@@ -131,6 +131,7 @@ final class MigrationToCoreData {
 						return true
 					}
 					let newPointHandler = { (_ location: CLLocation, _ heading: Double?) -> Bool in
+//						NSLog("%@", "\(curSegmentID)")
 						guard curSegmentID >= 0 else {
 							return false
 						}
