@@ -15,6 +15,11 @@
     <entity name="RecordingPoint" representedClassName="RecordingPoint" syncable="YES" codeGenerationType="class">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="heading" optional="YES" attributeType="Transformable" customClassName="CoreLocation.CLHeading"/>
+        <attribute name="importedMagvar" optional="YES" attributeType="Float" usesScalarValueType="NO">
+            <userInfo>
+                <entry key="comment" value="This key holds the magvar imported from a GPX file. This is used when migrating the recordings from old (pre-CoreData) versions of the app. We do this because it is not possible to create a CLHeading with the heading we want."/>
+            </userInfo>
+        </attribute>
         <attribute name="location" attributeType="Transformable" customClassName="CoreLocation.CLLocation"/>
         <attribute name="segmentID" attributeType="Integer 16" usesScalarValueType="YES"/>
         <relationship name="recording" maxCount="1" deletionRule="Nullify" destinationEntity="Recording" inverseName="points" inverseEntity="Recording"/>
@@ -34,7 +39,7 @@
     </entity>
     <elements>
         <element name="Recording" positionX="-62.0703125" positionY="11.2578125" width="128" height="148"/>
-        <element name="RecordingPoint" positionX="110.109375" positionY="90.20703125" width="128" height="118"/>
+        <element name="RecordingPoint" positionX="110.109375" positionY="90.20703125" width="128" height="133"/>
         <element name="TimeSegment" positionX="-283.2109375" positionY="50.54296875" width="160.51953125" height="103"/>
     </elements>
 </model>

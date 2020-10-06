@@ -105,7 +105,7 @@ final class RecordingExporter {
 			
 			guard let pointLocation = point.location, pointLocation.horizontalAccuracy.sign == .plus else {continue}
 			
-			let rawMagvar = point.heading?.trueHeading ?? pointLocation.course
+			let rawMagvar = point.heading?.trueHeading ?? point.importedMagvar?.doubleValue ?? pointLocation.course
 			let magvar = (rawMagvar.sign == .plus ? rawMagvar : nil)
 			let altitude = (pointLocation.verticalAccuracy.sign == .plus ? pointLocation.altitude : nil)
 			
