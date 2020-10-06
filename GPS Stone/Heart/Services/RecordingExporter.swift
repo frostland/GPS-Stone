@@ -8,7 +8,9 @@
 
 import CommonCrypto /* md5, before iOS 13. */
 import CoreData
+#if canImport(CryptoKit)
 import CryptoKit /* md5 */
+#endif
 import Foundation
 
 import XibLoc
@@ -172,16 +174,25 @@ final class RecordingExporter {
 	
 	private func urlForRecordingID(_ recordingID: NSManagedObjectID, recordingName: String?) throws -> URL {
 		/* The hash will be the name of the folder we’ll use to store the GPX file */
-		let hash: String
-		if #available(iOS 13.0, *) {
-			hash = Insecure.MD5.hash(data: Data(recordingID.uriRepresentation().absoluteString.utf8)).reduce("", { $0 + String(format: "%02x", $1) })
-		} else {
+		func commonCryptoHash(_ data: Data) -> String {
 			let checksumPointer = malloc(Int(CC_MD5_DIGEST_LENGTH))!.assumingMemoryBound(to: UInt8.self)
 			let data = Data(recordingID.uriRepresentation().absoluteString.utf8)
 			data.withUnsafeBytes{ dataBytes in
 				_ = CC_MD5(dataBytes.baseAddress!, CC_LONG(dataBytes.count), checksumPointer)
 			}
-			hash = (0..<Int(CC_MD5_DIGEST_LENGTH)).reduce("", { $0 + String(format: "%02x", checksumPointer[$1]) })
+			return (0..<Int(CC_MD5_DIGEST_LENGTH)).reduce("", { $0 + String(format: "%02x", checksumPointer[$1]) })
+		}
+		
+		let hash: String
+		let hashedData = Data(recordingID.uriRepresentation().absoluteString.utf8)
+		if #available(iOS 13.0, *) {
+			#if canImport(CryptoKit)
+			hash = Insecure.MD5.hash(data: hashedData).reduce("", { $0 + String(format: "%02x", $1) })
+			#else
+			hash = commonCryptoHash(hashedData)
+			#endif
+		} else {
+			hash = commonCryptoHash(hashedData)
 		}
 		
 		let parent = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent(hash)
