@@ -80,6 +80,15 @@ final class RecordingExporter {
 		let preamble = """
 			<?xml version="1.0" encoding="UTF-8"?>
 			<gpx creator="\(xmlString(creator))" version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+				<metadata>
+					<name>\(xmlString(recording.name ?? RecordingExporter.defaultRecordingName))</name>
+					<link href="https://frostland.fr/products/gpsstone/">
+						<text>\(xmlString(NSLocalizedString("gps stone link text in gpx", comment: "The text for the GPS Stone link in a GPX export.")))</text>
+						<type>text/html</type>
+					</link>
+					<time>\(xmlString(isoStringFromDate(recording.startDate ?? Date())))</time>
+					<keywords>gpsstone,gps stone,gps,stone</keywords>
+				</metadata>
 				<trk>
 			
 			"""

@@ -147,7 +147,7 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 		dateFormatter.timeStyle = .short
 		
 		cell.textLabel?.text = object.name
-		cell.detailTextLabel?.text = object.totalTimeSegment?.startDate.flatMap{ dateFormatter.string(from: $0) }
+		cell.detailTextLabel?.text = object.startDate.flatMap{ dateFormatter.string(from: $0) }
 	}
 	
 }

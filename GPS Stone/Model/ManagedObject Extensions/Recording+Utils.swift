@@ -17,6 +17,10 @@ extension Recording {
 		return points?.count ?? 0
 	}
 	
+	var startDate: Date? {
+		return totalTimeSegment?.startDate
+	}
+	
 	/**
 	The total time of the recording (including the pauses). */
 	var recordingDuration: TimeInterval {

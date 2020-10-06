@@ -139,5 +139,8 @@
 /* The text in the “creator” field of the GPX exports. */
 "gpx creator tag" = "GPS Stone|version| for iPhone by Frost Land";
 
+/* The text for the GPS Stone link in a GPX export. */
+"gps stone link text in gpx" = "GPS Stone";
+
 /* The name of a recording when no name is given. */
 "default recording name" = "GPS Stone Recording";

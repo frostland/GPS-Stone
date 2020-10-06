@@ -176,7 +176,7 @@ class RecordingDetailsViewController : UIViewController {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .medium
 		dateFormatter.timeStyle = .short
-		labelDate.text = recording.totalTimeSegment?.startDate.flatMap{ dateFormatter.string(from: $0) }
+		labelDate.text = recording.startDate.flatMap{ dateFormatter.string(from: $0) }
 	}
 	
 }
