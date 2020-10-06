@@ -99,7 +99,6 @@ final class RecordingExporter {
 		let points = try recording.pointsSortedByDateAscending()
 		progress?.totalUnitCount = Int64(points.count)
 		for point in points {
-			Thread.sleep(forTimeInterval: 1)
 			defer {progress?.completedUnitCount += 1}
 			
 			guard let pointLocation = point.location, pointLocation.horizontalAccuracy.sign == .plus else {continue}
