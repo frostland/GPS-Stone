@@ -1,0 +1,7 @@
+# GPS Stone
+Register your trips and export them as GPX files.
+
+## Notes
+We currently have included a `UIRequiredDeviceCapabilities` with a `location-services`
+value (`gps` is too much I think, we don’t need GPS accuracy to be able to record something).
+Later (when we offer trip sync w/ iCloud) we should probably get rid of this required capability!

@@ -1,0 +1,149 @@
+/* This file contains the generic strings for the application */
+
+
+
+/* ••••••••••••••••••••••••••• */
+/*       Generic Strings       */
+/* ••••••••••••••••••••••••••• */
+
+
+/* OK, in the context of a button. */
+"ok button title" = "OK";
+
+/* Undefined symbol (in English: “N/D”) */
+"nd" = "N/D";
+/* More or less #n percent# (e.g. “± #n%#”) */
+"more or less #n percent#" = "± #n%#";
+
+/* The generic alert view title for an error running an action. */
+"error executing action" = "Failure";
+
+
+
+/* •••••••••••••••••••••••••• */
+/*       Format Strings       */
+/* •••••••••••••••••••••••••• */
+
+
+/* The format for a degrees minute seconds positive latitude */
+"|degrees| /minutes/ -seconds- N" = "|degrees| /minutes/ -seconds- N";
+/* The format for a degrees minute seconds negative latitude */
+"|degrees| /minutes/ -seconds- S" = "|degrees| /minutes/ -seconds- S";
+/* The format for a degrees minute seconds positive longitude */
+"|degrees| /minutes/ -seconds- E" = "|degrees| /minutes/ -seconds- E";
+/* The format for a degrees minute seconds negative longitude */
+"|degrees| /minutes/ -seconds- W" = "|degrees| /minutes/ -seconds- W";
+
+/* The kilometers per hour symbol in a speed (usually km/h). Will only be
+ * displayed next to the speed in the details view of the app. The system symbol
+ * (which we cannot easily retrieve) will be used anywhere else, so this value
+ * should be the same as the system symbol. */
+"km/h" = "km/h";
+/* The miles per hour symbol in a speed (mph in English). Will only be displayed
+ * next to the speed in the details view of the app. The system symbol (which we
+ * cannot easily retrieve) will be used anywhere else, so this value should be
+ * the same as the system symbol. */
+"mph" = "mph";
+
+
+
+/* ••••••••••••••••••••••••• */
+/*       Notifications       */
+/* ••••••••••••••••••••••••• */
+
+
+/* The title of the notification when location updates are paused by the system. */
+"notif title: location updates paused" = "Location Updates Paused";
+
+/* The body of the notification when location updates are paused by the system. */
+"notif body: location updates paused" = "It seems you haven’t moved for a while. To preserve battery life, the system paused location update. Re-open the app to resume the recording.";
+
+
+
+/* ••••••••••••••••••••••••••••••••••• */
+/*       Location Error Messages       */
+/* ••••••••••••••••••••••••••••••••••• */
+
+
+/* The message shown to the user when no GPS info are available yet, but there are no errors getting the user’s position. */
+"getting loc" = "Getting Your Location…";
+
+/* The message shown to the user when no GPS info because the permission was denied. */
+"error getting location: denied" = "Please allow GPS Stone to access your location for the app to work 😉";
+
+/* The message shown to the user when no GPS info because the location services are disabled. */
+"location services disabled" = "This app cannot work when location services are disabled. Please go to your phone settings, in Privacy, and enable location services.";
+
+/* The message shown to the user when no GPS info because the system paused location updates for battery reasons. */
+"location updates are paused" = "It seems you haven’t moved for a while. To preserve battery life, the system paused location update.";
+
+/* The message shown to the user when no GPS info because of an unknown error. */
+"unknown error getting location" = "Your location could not be retrieved because of an unknown error.\n\n|err msg|";
+
+/* The “location not found” error message in the mini info view. Should be “…”. */
+"location not found error msg in mini info view" = "…";
+
+/* The “location error” error message in the mini info view. Should be “⚠️”. */
+"location error msg in mini info view" = "⚠️";
+
+
+
+/* ••••••••••••••••••••••••••••••••••••• */
+/*       Pre-iOS 10 Format Strings       */
+/* ••••••••••••••••••••••••••••••••••••• */
+
+
+/* Abbreviated meters format where #n# is the number of meters. For instance “#n#m”. */
+"#n#m" = "#n#m";
+/* Abbreviated kilometers format where #n# is the number of kilometers. For instance “#n#km”. */
+"#n#km" = "#n#km";
+
+/* Abbreviated feet format where #n# is the number of feet. For instance “#n#ft”. */
+"#n#ft" = "#n#ft";
+/* Abbreviated miles format where #n# is the number of miles. For instance “#n#mi”. */
+"#n#mi" = "#n#mi";
+
+/* The symbol for degrees (usually “º”). */
+"degree symbol" = "º";
+/* The symbol for arcminute (usually “’”). */
+"arcminute symbol" = "’";
+/* The symbol for arcsecond (usually ‘”’). */
+"arcsecond symbol" = "”";
+
+
+
+/* ••••••••••••••••••••••••••••••••••••• */
+/*       Pre-iOS 10 Format Strings       */
+/* ••••••••••••••••••••••••••••••••••••• */
+
+
+/* Title of the export GPX button in the recordings list view when the GPX file does not exist yet. */
+"prepare gpx export button title" = "Prepare GPX for Export…";
+
+/* Title of the export GPX button while preparation is in progress. */
+"gpx export in progress button title" = "GPX Export In Progress (|n|)…";
+
+/* Title of the export GPX button in the recordings list view. */
+"export gpx button title" = "Export GPX…";
+
+
+
+/* •••••••••••••••••••••••••••••••••• */
+/*       Other App Translations       */
+/* •••••••••••••••••••••••••••••••••• */
+
+
+/* Default name for a recording */
+"new recording" = "New Recording";
+
+/* The text in the “creator” field of the GPX exports. */
+"gpx creator tag" = "GPS Stone|version| for iPhone by Frost Land";
+
+/* The text for the GPS Stone link in a GPX export. */
+"gps stone link text in gpx" = "GPS Stone";
+
+/* The name of a recording when no name is given. */
+"default recording name" = "GPS Stone Recording";
+
+/* Template name for a migrated recording. */
+"|name| (migrated)" = "|name| (migrated)";
