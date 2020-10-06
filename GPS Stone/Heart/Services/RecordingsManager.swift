@@ -36,12 +36,14 @@ final class RecordingsManager : NSObject {
 		s.startDate = Date()
 		
 		let r: Recording
+		/* Don’t forget to find all insertNewObject to migrate to easier init when
+		 * dropping iOS 9. */
 		if #available(iOS 10.0, *) {r = Recording(context: dh.viewContext)}
 		else                       {r = NSEntityDescription.insertNewObject(forEntityName: "Recording", into: dh.viewContext) as! Recording}
 		r.name = NSLocalizedString("new recording", comment: "Default name for a recording")
 		r.totalTimeSegment = s
 		
-		try dh.saveContextOrRollback()
+		try dh.saveViewContextOrRollback()
 		return r
 	}
 	
@@ -102,7 +104,7 @@ final class RecordingsManager : NSObject {
 		if recording.activeRecordingDuration > 0 {
 			recording.averageSpeed = recording.totalDistance/Float(recording.activeRecordingDuration)
 		}
-		try dh.saveContextOrRollback()
+		try dh.saveViewContextOrRollback()
 	}
 	
 	@discardableResult
@@ -113,7 +115,7 @@ final class RecordingsManager : NSObject {
 		pause.startDate = Date()
 		pause.pauseSegmentRecording = recording
 		
-		try dh.saveContextOrRollback()
+		try dh.saveViewContextOrRollback()
 		return pause
 	}
 	
@@ -132,7 +134,7 @@ final class RecordingsManager : NSObject {
 		
 		pause.closeTimeSegment()
 		
-		try dh.saveContextOrRollback()
+		try dh.saveViewContextOrRollback()
 		return pause
 	}
 	

@@ -644,7 +644,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		 * anything at all if saving no modifications IMHO). */
 		if changedContext {
 			do {
-				try dh.saveContextOrRollback()
+				try dh.saveViewContextOrRollback()
 			} catch {
 				/* Adding ALL the locations to the list of locations that couldn’t
 				 * be saved… */

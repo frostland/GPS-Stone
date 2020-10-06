@@ -60,6 +60,10 @@ final class DataHandler {
 	lazy var viewContext: NSManagedObjectContext = {
 		let ret = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
 		ret.persistentStoreCoordinator = persistentStoreCoordinator
+		if #available(iOS 10.0, *) {
+			/* I think this is the default, but still… */
+			ret.automaticallyMergesChangesFromParent = false
+		}
 		return ret
 	}()
 	
@@ -73,7 +77,7 @@ final class DataHandler {
 		return ret
 	}()
 	
-	func saveContextOrRollback() throws {
+	func saveViewContextOrRollback() throws {
 		do {try viewContext.save()}
 		catch {
 			viewContext.rollback()

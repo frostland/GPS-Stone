@@ -43,6 +43,8 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 		tableView.fetchedResultsControllerReloadMode = .handler{ [weak self] cell, object, tableViewIndexPath, dataSourceIndexPath in
 			self?.setup(cell: cell, with: object as! Recording)
 		}
+		
+		updateMigrationView()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -125,7 +127,7 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 				dataHandler.viewContext.performAndWait{
 					let recording = fetchedResultsController.object(at: indexPath)
 					dataHandler.viewContext.delete(recording)
-					_ = try? dataHandler.saveContextOrRollback()
+					_ = try? dataHandler.saveViewContextOrRollback()
 				}
 			
 			default:
@@ -148,6 +150,23 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 		
 		cell.textLabel?.text = object.name
 		cell.detailTextLabel?.text = object.startDate.flatMap{ dateFormatter.string(from: $0) }
+	}
+	
+	private func updateMigrationView() {
+		if S.sp.migrationToCoreData == nil {
+			/* Migration is over. */
+			tableView.tableFooterView = nil
+		} else {
+			/* Migration is in progress. No need to set the table footer view, it
+			 * is set in the storyboard. We monitor however for migration end. */
+			var observer: NSObjectProtocol?
+			observer = NotificationCenter.default.addObserver(forName: .MigrationToCoreDataHasEnded, object: nil, queue: .main, using: { [weak self] _ in
+				observer.flatMap{ NotificationCenter.default.removeObserver($0, name: .MigrationToCoreDataHasEnded, object: nil) }
+				observer = nil
+				
+				self?.tableView.tableFooterView = nil
+			})
+		}
 	}
 	
 }

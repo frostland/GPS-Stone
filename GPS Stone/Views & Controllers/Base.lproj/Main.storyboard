@@ -335,6 +335,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="Ji4-bQ-If4">
+                            <rect key="frame" x="0.0" y="100" width="375" height="61"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Migration from older GPS Stone version is in progress…" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2E-ao-Swv">
+                                    <rect key="frame" x="8" y="8" width="359" height="45"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstItem="b2E-ao-Swv" firstAttribute="leading" secondItem="Ji4-bQ-If4" secondAttribute="leadingMargin" id="DrT-h6-Bqp"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="b2E-ao-Swv" secondAttribute="trailing" id="QTn-Xp-hX9"/>
+                                <constraint firstItem="b2E-ao-Swv" firstAttribute="top" secondItem="Ji4-bQ-If4" secondAttribute="topMargin" id="mKG-4M-FlP"/>
+                                <constraint firstAttribute="bottomMargin" secondItem="b2E-ao-Swv" secondAttribute="bottom" id="oCi-eE-IBB"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" textLabel="pbi-3A-Uy1" detailTextLabel="ATJ-qY-cjq" style="IBUITableViewCellStyleSubtitle" id="PHF-N3-u29">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>

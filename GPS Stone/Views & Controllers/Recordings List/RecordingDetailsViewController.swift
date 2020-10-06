@@ -86,7 +86,7 @@ class RecordingDetailsViewController : UIViewController {
 	@IBAction func finishedEditingRecordingName(_ sender: Any) {
 		dataHandler.viewContext.performAndWait{
 			recording.name = textFieldName.text
-			_ = try? dataHandler.saveContextOrRollback()
+			_ = try? dataHandler.saveViewContextOrRollback()
 		}
 	}
 	

@@ -34,6 +34,7 @@
 		7B575EC8252907D500B3131B /* RecordingExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B575EC7252907D500B3131B /* RecordingExporter.swift */; };
 		7B575ECA25290A4600B3131B /* NSManagedObject+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B575EC925290A4600B3131B /* NSManagedObject+Utils.swift */; };
 		7B575ECC2529CE3800B3131B /* NSManagedObjectContext+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B575ECB2529CE3800B3131B /* NSManagedObjectContext+Utils.swift */; };
+		7B575ED1252CBE5000B3131B /* MigrationToCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B575ED0252CBE4F00B3131B /* MigrationToCoreData.swift */; };
 		7B596E1624D2082E00E98260 /* GPSInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B596E1524D2082E00E98260 /* GPSInfoViewController.swift */; };
 		7B596E1824D20D9800E98260 /* RecordingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B596E1724D20D9700E98260 /* RecordingInfoViewController.swift */; };
 		7B596E1A24D536D600E98260 /* GPSErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B596E1924D536D600E98260 /* GPSErrorViewController.swift */; };
@@ -84,6 +85,7 @@
 		7B575EC7252907D500B3131B /* RecordingExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingExporter.swift; sourceTree = "<group>"; };
 		7B575EC925290A4600B3131B /* NSManagedObject+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Utils.swift"; sourceTree = "<group>"; };
 		7B575ECB2529CE3800B3131B /* NSManagedObjectContext+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Utils.swift"; sourceTree = "<group>"; };
+		7B575ED0252CBE4F00B3131B /* MigrationToCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationToCoreData.swift; sourceTree = "<group>"; };
 		7B596E1524D2082E00E98260 /* GPSInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSInfoViewController.swift; sourceTree = "<group>"; };
 		7B596E1724D20D9700E98260 /* RecordingInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingInfoViewController.swift; sourceTree = "<group>"; };
 		7B596E1924D536D600E98260 /* GPSErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSErrorViewController.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */,
 				7B40B09924DF3768008FADB1 /* NotificationsManager.swift */,
 				7B575EC7252907D500B3131B /* RecordingExporter.swift */,
+				7B575ED0252CBE4F00B3131B /* MigrationToCoreData.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				7BAD114C24FF63EE00D6D9A2 /* MiniInfoViewController.swift in Sources */,
 				7B06D3A922EC8D27000D31B9 /* DataHandler.swift in Sources */,
 				7B94D1E822A0194100848832 /* Constants.swift in Sources */,
+				7B575ED1252CBE5000B3131B /* MigrationToCoreData.swift in Sources */,
 				7B596E1A24D536D600E98260 /* GPSErrorViewController.swift in Sources */,
 				7B08CFC622BA96AF00BE6E3F /* RecordingDetailsViewController.swift in Sources */,
 				7B93E38222A184ED00709971 /* LocationRecorder.swift in Sources */,

@@ -34,6 +34,9 @@ class AppDelegate : NSObject, UIApplicationDelegate {
 		 * early. */
 		_ = notifsManager
 		
+		/* We start the migration to CoreData. */
+		S.sp.startMigrationToCoreData()
+		
 		return true
 	}
 	

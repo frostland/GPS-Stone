@@ -33,4 +33,16 @@ class ServicesProvider {
 	
 	private(set) lazy var recordingExporter = RecordingExporter(dataHandler: dataHandler)
 	
+	/** When not nil, there is a migration of old data to CoreData. */
+	private(set) weak var migrationToCoreData: MigrationToCoreData?
+	
+	func startMigrationToCoreData() {
+		assert(Thread.isMainThread)
+		guard migrationToCoreData == nil else {return}
+		
+		let m = MigrationToCoreData(dataHandler: dataHandler)
+		m.startMigrationToCoreData()
+		migrationToCoreData = m
+	}
+	
 }

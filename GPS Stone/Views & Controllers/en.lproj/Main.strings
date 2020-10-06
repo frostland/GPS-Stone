@@ -87,6 +87,9 @@
 /* Title of the recordings list view */
 "PbE-Zs-ECC.title" = "Recordings";
 
+/* Text shown while recordings from previous GPS Stone versions are being migrated to Core Data. */
+"b2E-ao-Swv.text" = "Migration from older GPS Stone versions is in progress…";
+
 
 /* ••••••••••••••••••••••••••••••••••••••••• */
 /*            Recording Info View            */
