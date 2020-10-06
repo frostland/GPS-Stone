@@ -94,14 +94,72 @@ final class MigrationToCoreData {
 					let recordingGPXPath = oldRecordingDescription["Rec Path"] as? String,
 					let recordingParser = XMLParser(contentsOf: urlToOldGPXFolder.appendingPathComponent(recordingGPXPath))
 				{
-					let recordingName = oldRecordingDescription["Recording Name"] as? String ?? NSLocalizedString("new recording", comment: "Default name for a recording")
-					let recordingMaxSpeed = oldRecordingDescription["Max Reached Speed"] as? Double
+					let recordingName = oldRecordingDescription["Recording Name"] as? String
+					let recordingMaxSpeed = oldRecordingDescription["Max Reached Speed"] as? Float
 					
-					let newSegmentHandler = {
-						NSLog("%@", "new segment start")
+					let totalTimeSegment = NSEntityDescription.insertNewObject(forEntityName: "TimeSegment", into: context) as! TimeSegment
+					let recording = NSEntityDescription.insertNewObject(forEntityName: "Recording", into: context) as! Recording
+					recording.totalTimeSegment = totalTimeSegment
+					
+					recording.name = recordingName ?? NSLocalizedString("new recording", comment: "Default name for a recording")
+					recording.maxSpeed = recordingMaxSpeed ?? 0
+					
+					var curSegmentID: Int16 = -1
+					var latestPoint: RecordingPoint?
+					var latestPointInSegment: RecordingPoint?
+					var latestPause: TimeSegment?
+					
+					let newSegmentHandler = { () -> Bool in
+						guard curSegmentID > 0 else {
+							curSegmentID = 0
+							return true
+						}
+						
+						guard let previousLatestPoint = latestPointInSegment else {
+							/* We ignore empty segments. */
+							return true
+						}
+						
+						curSegmentID += 1
+						latestPointInSegment = nil
+						if curSegmentID > 0 {
+							let timeSegment = NSEntityDescription.insertNewObject(forEntityName: "TimeSegment", into: context) as! TimeSegment
+							timeSegment.startDate = previousLatestPoint.date
+							timeSegment.pauseSegmentRecording = recording
+							latestPause = timeSegment
+						}
+						return true
 					}
-					let newPointHandler = { (_ location: CLLocation, _ heading: Double?) in
-						NSLog("%@", "new point: \(location), \(heading)")
+					let newPointHandler = { (_ location: CLLocation, _ heading: Double?) -> Bool in
+						guard curSegmentID >= 0 else {
+							return false
+						}
+						if latestPoint == nil {
+							assert(curSegmentID == 0)
+							/* We’re in the first segment, we must set the start date
+							 * of the total time segment!
+							 * We assume order of points in GPX is correct. */
+							totalTimeSegment.startDate = location.timestamp
+						}
+						
+						/* Add the point in the recording. */
+						let recordingPoint = NSEntityDescription.insertNewObject(forEntityName: "RecordingPoint", into: context) as! RecordingPoint
+						recordingPoint.date = location.timestamp
+						recordingPoint.location = location
+						recordingPoint.segmentID = curSegmentID
+						recordingPoint.importedMagvar = heading.flatMap{ NSNumber(value: $0) }
+						
+//						recording.addToPoints(recordingPoint) /* Does not work on iOS 9, so we have to do the line below! */
+						recording.mutableSetValue(forKey: #keyPath(Recording.points)).add(recordingPoint)
+						recording.totalDistance += latestPointInSegment?.location.flatMap{ Float($0.distance(from: location)) } ?? 0
+						
+						latestPause?.duration = latestPause?.startDate.flatMap{ startDate in location.timestamp.timeIntervalSince(startDate) }.flatMap{ NSNumber(value: $0) }
+						latestPause = nil
+						
+						latestPoint = recordingPoint
+						latestPointInSegment = recordingPoint
+						
+						return true
 					}
 					let parserDelegate = GPXParserDelegate(newSegmentHandler: newSegmentHandler, newPointHandler: newPointHandler)
 					recordingParser.delegate = parserDelegate
@@ -110,10 +168,39 @@ final class MigrationToCoreData {
 						 (recordingParser.parserError as NSError?)?.code == 111 /* Error code on early EOF; we don’t fail on early EOF */)
 					{
 						NSLog("%@", "parse done")
+						do {
+							if let latestPoint = latestPoint {
+								if latestPointInSegment == nil {
+									/* The latest segment is empty. We remove it. */
+									latestPause.flatMap{ context.delete($0) }
+								}
+								/* Compute the average speed & close total time segment. */
+								let duration = latestPoint.location!.timestamp.timeIntervalSince(totalTimeSegment.startDate!)
+								totalTimeSegment.duration = NSNumber(value: duration)
+								let activeDuration = recording.activeRecordingDuration
+								if activeDuration > 0 {
+									recording.averageSpeed = recording.totalDistance/Float(activeDuration)
+								}
+								try context.save()
+							} else {
+								/* If condition above fails, that means no points have
+								 * been added to the recording. We do not save it and
+								 * mark it as migrated. */
+								context.rollback()
+							}
+						} catch {
+							/* If we cannot save the context we assume the error is a
+							 * CoreData validation error and we continue to next
+							 * recording, marking current one as migrated, w/ a
+							 * migration error. */
+							oldRecordingDescription[migrationErrorKey] = "Cannot Save Context: \(error)"
+							context.rollback()
+						}
 					} else {
 						/* If parsing the GPX failed, we still mark the GPX as
-						 * imported because there is nothing we can do. */
+						 * imported because there is nothing we can do AFAICT. */
 						oldRecordingDescription[migrationErrorKey] = "GPX Parse Fail"
+						context.rollback()
 					}
 				} else {
 					oldRecordingDescription[migrationErrorKey] = "No Rec Path or Parser Creation Failed"
@@ -121,7 +208,7 @@ final class MigrationToCoreData {
 				
 				oldRecordingDescription["test key"] = true
 				oldRecordingList[index] = oldRecordingDescription
-				guard NSKeyedArchiver.archiveRootObject(oldRecordingList, toFile: urlToOldGPXListFile.path) else {
+				guard NSKeyedArchiver.archiveRootObject(NSMutableArray(array: oldRecordingList), toFile: urlToOldGPXListFile.path) else {
 					return
 				}
 			}
@@ -148,8 +235,8 @@ final class MigrationToCoreData {
 
 private final class GPXParserDelegate : NSObject, XMLParserDelegate {
 	
-	typealias SegmentHandler = () -> Void
-	typealias PointHandler = (_ location: CLLocation, _ magvar: Double?) -> Void
+	typealias SegmentHandler = () -> Bool
+	typealias PointHandler = (_ location: CLLocation, _ magvar: Double?) -> Bool
 	
 	let newSegmentHandler: SegmentHandler
 	let newPointHandler: PointHandler
@@ -173,7 +260,9 @@ private final class GPXParserDelegate : NSObject, XMLParserDelegate {
 		NSLog("open %@", elementName)
 		switch elementName {
 			case "trkseg":
-				newSegmentHandler()
+				guard newSegmentHandler() else {
+					return parser.abortParsing()
+				}
 			
 			case "trkpt":
 				guard
@@ -209,7 +298,9 @@ private final class GPXParserDelegate : NSObject, XMLParserDelegate {
 					return parser.abortParsing()
 				}
 				let location = CLLocation(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon), altitude: curAltitude ?? -1, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: curVerticalAccuracy ?? -1, timestamp: date)
-				newPointHandler(location, curMagVar)
+				guard newPointHandler(location, curMagVar) else {
+					return parser.abortParsing()
+				}
 				
 				curLat = nil
 				curLon = nil
