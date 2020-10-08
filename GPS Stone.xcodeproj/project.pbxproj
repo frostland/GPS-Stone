@@ -510,7 +510,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 4.6.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "fr.vso-software.GPSStoneTripRecorder";
+				PRODUCT_BUNDLE_IDENTIFIER = com.obviousidea.gpsstone;
 				PRODUCT_NAME = "GPS Stone";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -538,7 +538,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 4.6.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "fr.vso-software.GPSStoneTripRecorder";
+				PRODUCT_BUNDLE_IDENTIFIER = com.obviousidea.gpsstone;
 				PRODUCT_NAME = "GPS Stone";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
