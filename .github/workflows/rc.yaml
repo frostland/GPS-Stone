@@ -53,7 +53,8 @@ jobs:
            run: |
               set -euo pipefail
               
-              NEW_MARKETING_VERSION="$(basename ${{ env.GITHUB_REF }})"
+              NEW_MARKETING_VERSION="$(basename "$GITHUB_REF")"
+              test -n "$NEW_MARKETING_VERSION"
               
               NEW_BUILD_VERSION="$(cat ../new_build_version)"
               TAG_NAME="GPS_Stone/rc/$NEW_BUILD_VERSION"
