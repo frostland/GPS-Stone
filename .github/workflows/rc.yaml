@@ -63,6 +63,6 @@ jobs:
               hagvtool set-build-version "$NEW_BUILD_VERSION"
               hagvtool set-marketing-version "$NEW_MARKETING_VERSION"
               
-              git commit --allow-empty -am "Bump build version to $NEW_BUILD_VERSION with hagvtool"
+              git commit --allow-empty -am "Bump build version to $NEW_BUILD_VERSION and set marketing version to $NEW_MARKETING_VERSION with hagvtool"
               git tag -sm "GPS Stone $NEW_BUILD_VERSION (RC for $NEW_MARKETING_VERSION)" "$TAG_NAME"
               git push origin "$TAG_NAME"
