@@ -31,6 +31,7 @@ class RecordingDetailsViewController : UIViewController {
 			nameObservingID = kvObserver.observe(object: r, keyPath: #keyPath(Recording.name), kvoOptions: .initial, dispatchType: .coreDataInferredSync, handler: { [weak self] _ in
 				assert(Thread.isMainThread)
 				self?.textFieldName?.text = r.name
+				self?.updateExportGPXButton()
 			})
 			/* We do not observe the distance, time and speed because they do not
 			 * change for a finished recording. */
