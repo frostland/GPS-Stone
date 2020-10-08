@@ -144,6 +144,9 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		super.init()
 		
+		if #available(iOS 11.0, *) {
+			lm.showsBackgroundLocationIndicator = true
+		}
 		lm.pausesLocationUpdatesAutomatically = true
 		lm.desiredAccuracy = status.desiredAccuracy
 		lm.distanceFilter = kCLDistanceFilterNone
