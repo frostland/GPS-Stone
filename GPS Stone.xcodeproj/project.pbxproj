@@ -90,6 +90,7 @@
 		7B596E1724D20D9700E98260 /* RecordingInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingInfoViewController.swift; sourceTree = "<group>"; };
 		7B596E1924D536D600E98260 /* GPSErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSErrorViewController.swift; sourceTree = "<group>"; };
 		7B68688124A8F0B800C77DC1 /* MemoryEater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryEater.swift; sourceTree = "<group>"; };
+		7B695D332530EBBA00FEC9D0 /* License.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = License.txt; sourceTree = "<group>"; };
 		7B75989B246EF7BA00BC7EB1 /* TimeSegment+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeSegment+Utils.swift"; sourceTree = "<group>"; };
 		7B93E38122A184ED00709971 /* LocationRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRecorder.swift; sourceTree = "<group>"; };
 		7B94D1E122A0169600848832 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -182,6 +183,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				7B695D332530EBBA00FEC9D0 /* License.txt */,
 				7B94D1EB22A0389400848832 /* Readme.adoc */,
 				7BA2A5EA1F2E013A0014603B /* Test Recording.gpx */,
 				7B27B9311DCF3D81006F44B7 /* GPS Stone */,
