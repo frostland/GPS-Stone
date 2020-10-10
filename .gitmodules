@@ -1,0 +1,3 @@
+[submodule "Dependencies/XibLoc"]
+	path = Dependencies/XibLoc
+	url = git@github.com:frostland/XibLoc.git
