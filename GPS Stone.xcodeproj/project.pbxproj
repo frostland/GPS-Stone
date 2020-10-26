@@ -509,7 +509,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.6;
+				MARKETING_VERSION = 4.6.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.vso-software.GPSStoneTripRecorder";
 				PRODUCT_NAME = "GPS Stone";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -537,7 +537,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.6;
+				MARKETING_VERSION = 4.6.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.vso-software.GPSStoneTripRecorder";
 				PRODUCT_NAME = "GPS Stone";
 				PROVISIONING_PROFILE_SPECIFIER = "";
