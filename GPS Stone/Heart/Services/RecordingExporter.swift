@@ -128,7 +128,7 @@ final class RecordingExporter {
 			
 			/* Write the segment point. */
 			let latStr = String(format: "%.10f", pointLocation.coordinate.latitude)
-			let lonStr = String(format: "%.10f", pointLocation.coordinate.latitude)
+			let lonStr = String(format: "%.10f", pointLocation.coordinate.longitude)
 			let hdopStr = String(format: "%f", pointLocation.horizontalAccuracy)
 			let magvarStr = magvar.flatMap{ String(format: "%f", $0) }
 			let altitudeStr = altitude.flatMap{ String(format: "%f", $0) }
@@ -184,7 +184,7 @@ final class RecordingExporter {
 		}
 		
 		let hash: String
-		let hashedData = Data(recordingID.uriRepresentation().absoluteString.utf8)
+		let hashedData = Data((recordingID.uriRepresentation().absoluteString + "_v2").utf8)
 		if #available(iOS 13.0, *) {
 			#if canImport(CryptoKit)
 			hash = Insecure.MD5.hash(data: hashedData).reduce("", { $0 + String(format: "%02x", $1) })
