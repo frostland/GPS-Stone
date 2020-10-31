@@ -504,7 +504,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder.pch";
 				INFOPLIST_FILE = "GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "fr.vso-software.GPSStoneTripRecorder";
+				PRODUCT_BUNDLE_IDENTIFIER = com.obviousidea.gpsstone;
 				PRODUCT_NAME = "GPS Stone Trip Recorder";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -522,7 +522,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder.pch";
 				INFOPLIST_FILE = "GPS Stone Trip Recorder/Supporting Files/GPS_Stone_Trip_Recorder-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "fr.vso-software.GPSStoneTripRecorder";
+				PRODUCT_BUNDLE_IDENTIFIER = com.obviousidea.gpsstone;
 				PRODUCT_NAME = "GPS Stone Trip Recorder";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
