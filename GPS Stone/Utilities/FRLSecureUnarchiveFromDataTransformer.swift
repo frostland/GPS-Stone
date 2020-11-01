@@ -26,11 +26,6 @@ final class FRLSecureUnarchiveFromDataTransformer : ValueTransformer {
 	
 	static let name = NSValueTransformerName(rawValue: String(describing: FRLSecureUnarchiveFromDataTransformer.self))
 	
-	public static func register() {
-		let transformer = FRLSecureUnarchiveFromDataTransformer()
-		ValueTransformer.setValueTransformer(transformer, forName: name)
-	}
-	
 	override class func transformedValueClass() -> AnyClass {
 		return NSData.self
 	}
