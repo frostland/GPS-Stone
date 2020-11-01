@@ -660,7 +660,7 @@
 			repositoryURL = "git@github.com:happn-tech/KVObserver.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.4;
+				minimumVersion = 0.9.5;
 			};
 		};
 		7B1AC2642335AAD600B6F06A /* XCRemoteSwiftPackageReference "RetryingOperation" */ = {
@@ -668,7 +668,7 @@
 			repositoryURL = "git@github.com:happn-tech/RetryingOperation.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.4;
+				minimumVersion = 1.1.6;
 			};
 		};
 		7B1AC2672335AB2000B6F06A /* XCRemoteSwiftPackageReference "XibLoc" */ = {
@@ -676,7 +676,7 @@
 			repositoryURL = "git@github.com:happn-tech/XibLoc.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.0;
+				minimumVersion = 1.1.1;
 			};
 		};
 		7BC43305233624DD00C59752 /* XCRemoteSwiftPackageReference "CollectionAndTableViewUpdateConveniences" */ = {
@@ -684,7 +684,7 @@
 			repositoryURL = "git@github.com:happn-tech/CollectionAndTableViewUpdateConveniences.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.2;
+				minimumVersion = 1.0.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
