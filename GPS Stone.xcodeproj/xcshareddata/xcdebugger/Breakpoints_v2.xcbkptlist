@@ -40,16 +40,6 @@
             symbolName = "UITableViewAlertForLayoutOutsideViewHierarchy"
             moduleName = "">
             <Locations>
-               <Location
-                  uuid = "AF253B59-0516-46F7-9B66-87BF440978AF - 620169ab4c7c265a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "UITableViewAlertForLayoutOutsideViewHierarchy"
-                  moduleName = "UIKitCore"
-                  usesParentBreakpointCondition = "Yes"
-                  offsetFromSymbolStart = "0">
-               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>

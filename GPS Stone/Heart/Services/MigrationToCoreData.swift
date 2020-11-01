@@ -75,13 +75,13 @@ final class MigrationToCoreData {
 		
 		/* Let’s keep a strong reference to ourselves while the migration is in
 		 * progress. */
-		var strongSelf: MigrationToCoreData? = self
+		strongSelf = self
 		context.perform{
 			defer {
 				NotificationCenter.default.post(name: .MigrationToCoreDataHasEnded, object: nil)
 				
 				NotificationCenter.default.removeObserver(observer, name: .NSManagedObjectContextDidSave, object: context)
-				strongSelf = nil
+				self.strongSelf = nil
 			}
 			
 			for (index, var oldRecordingDescription) in oldRecordingListToMigrate {
@@ -214,6 +214,8 @@ final class MigrationToCoreData {
 			}
 		}
 	}
+	
+	private var strongSelf: MigrationToCoreData?
 	
 	private let dh: DataHandler
 	
