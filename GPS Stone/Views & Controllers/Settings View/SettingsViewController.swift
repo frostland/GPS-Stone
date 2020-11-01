@@ -78,7 +78,7 @@ class SettingsViewController : UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-		return indexPath == IndexPath(row: 1, section: 1) || indexPath.section == 2
+		return indexPath == IndexPath(row: 1, section: 1) || indexPath.section == 2 || indexPath.section == 3
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -106,7 +106,15 @@ class SettingsViewController : UITableViewController {
 					default: fatalError()
 				}
 				
-			default: (/*nop*/)
+			case 3:
+				/* Rate on the AppStore */
+				let appID = Bundle.main.infoDictionary?["FRL_APPLE_APP_ID"] as! String
+				let escapedAppID = appID.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
+				/* This URL works from iOS 8 apparently, all the way up to the current iOS version at the time of writing. */
+				UIApplication.shared.openURL(URL(string: "itms-apps://itunes.apple.com/app/id\(escapedAppID)?action=write-review")!)
+				
+			default:
+				(/*nop*/)
 		}
 	}
 	
