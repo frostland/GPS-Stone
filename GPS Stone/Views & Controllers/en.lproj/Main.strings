@@ -144,3 +144,8 @@
 "w9q-0E-GLN.text" = "Metric";
 /* The “Imperial” entry for selecting the Distance Unit */
 "5xq-UZ-Gkp.text" = "Imperial";
+
+/* Title of the Rate the App section of the settings */
+"vFE-8Y-hvQ.headerTitle" = "Show Some Love";
+/* The “Rate the App” setting (not really a setting, but it’s there…) */
+"u05-KK-0DF.text" = "Rate GPS Stone on the App Store";
