@@ -23,8 +23,8 @@ do {
 		"locmapper", "update_xcode_strings_from_code",
 		"--colored-output",
 		"--encoding=utf8", "--delete-missing-keys",
-		"--unlocalized-xibs-files-list=.locmapper__unlocalized_xibs",
-		"--unused-stringsfiles-files-list=.locmapper__unused_stringfiles",
+		"--unlocalized-xibs-files-list=.locmapper/unlocalized_xibs",
+		"--unused-stringsfiles-files-list=.locmapper/unused_stringfiles",
 		"--localizables-path=GPS Stone/Supporting Files/Localizables",
 		"--exclude-list=.git/,gfx building/,App Store/,Scripts/",
 		"."
