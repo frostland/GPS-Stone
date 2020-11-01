@@ -6,8 +6,8 @@ on:
          - "rc/*"
 
 env:
-   FRL_GITHUB_RUNNER_USERNAME: GitHub Runner (GPS Stone)
-   FRL_GITHUB_RUNNER_USEREMAIL: github@frostland.fr
+   GIT_COMMITTER_EMAIL: github@frostland.fr
+   GIT_COMMITTER_NAME: GitHub Runner (GPS Stone)
 
 jobs:
    bump-version-and-tag:
@@ -16,13 +16,8 @@ jobs:
       
       steps:
          - name: Install hagvtool
-           # If brew is not up-to-date, brew cask install is not used automatically
-           run: brew install happn-tech/public/hagvtool || brew cask install happn-tech/public/hagvtool
-         
-         - name: Setup Runner’s git Username and Email
-           run: |
-              git config --global user.name  "$FRL_GITHUB_RUNNER_USERNAME"
-              git config --global user.email "$FRL_GITHUB_RUNNER_USEREMAIL"
+           # If brew is not up-to-date, `brew install --cask` might not exist
+           run: brew install --cask happn-tech/public/hagvtool || brew cask install happn-tech/public/hagvtool
          
          - name: Import GPG Signing Key
            run: gpg --import --pinentry-mode=loopback --passphrase '' <<<'${{ secrets.GPG_PRIVATE_KEY }}'
@@ -44,12 +39,12 @@ jobs:
               # for this repository.
               git push
               
-              cp "$BUILD_VERSION_FILE" ../new_build_version
+              cp -f "$BUILD_VERSION_FILE" ../new_build_version
          
          - name: Checkout GPS Stone
            uses: actions/checkout@v2
          
-         - name: Bump Build Version
+         - name: Set Build Versions and Push Tag
            run: |
               set -euo pipefail
               
@@ -57,12 +52,12 @@ jobs:
               test -n "$NEW_MARKETING_VERSION"
               
               NEW_BUILD_VERSION="$(cat ../new_build_version)"
-              TAG_NAME="GPS_Stone/rc/$NEW_BUILD_VERSION"
+              TAG_NAME="GPS_Stone/rc/$NEW_MARKETING_VERSION-$NEW_BUILD_VERSION"
               rm -f ../new_build_version
               
               hagvtool set-build-version "$NEW_BUILD_VERSION"
               hagvtool set-marketing-version "$NEW_MARKETING_VERSION"
               
-              git commit --allow-empty -am "Bump build version to $NEW_BUILD_VERSION and set marketing version to $NEW_MARKETING_VERSION with hagvtool"
+              git commit --allow-empty -am "Set build version to $NEW_BUILD_VERSION and marketing version to $NEW_MARKETING_VERSION with hagvtool"
               git tag -sm "GPS Stone $NEW_BUILD_VERSION (RC for $NEW_MARKETING_VERSION)" "$TAG_NAME"
               git push origin "$TAG_NAME"
