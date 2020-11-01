@@ -51,6 +51,8 @@
 		7BAE22DE22DB75C000AB6C33 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7BAE22DC22DB75C000AB6C33 /* Model.xcdatamodeld */; };
 		7BC43307233624DD00C59752 /* CollectionAndTableViewUpdateConveniences in Frameworks */ = {isa = PBXBuildFile; productRef = 7BC43306233624DD00C59752 /* CollectionAndTableViewUpdateConveniences */; };
 		7BD0A05922B9576500934656 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD0A05822B9576500934656 /* DetailsViewController.swift */; };
+		7BD558AE254EA11800DEF329 /* CLLocationValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD558AD254EA11800DEF329 /* CLLocationValueTransformer.swift */; };
+		7BD558B4254EA2A200DEF329 /* CLHeadingValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD558B3254EA2A200DEF329 /* CLHeadingValueTransformer.swift */; };
 		7BE9FF9D22AC1BC6006DED15 /* RecordingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */; };
 		7BEED1BF22B6C0F700A055B9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEED1BE22B6C0F700A055B9 /* MainViewController.swift */; };
 		7BEF77FC22EFA23B001B79DB /* Recording+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEF77FB22EFA23B001B79DB /* Recording+Utils.swift */; };
@@ -108,6 +110,8 @@
 		7BB90DCA248BFF4E001ED9E7 /* Scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Scripts; sourceTree = "<group>"; };
 		7BD0A05822B9576500934656 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		7BD395B3252E605000DA363B /* workflows */ = {isa = PBXFileReference; lastKnownFileType = folder; name = workflows; path = .github/workflows; sourceTree = "<group>"; };
+		7BD558AD254EA11800DEF329 /* CLLocationValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationValueTransformer.swift; sourceTree = "<group>"; };
+		7BD558B3254EA2A200DEF329 /* CLHeadingValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLHeadingValueTransformer.swift; sourceTree = "<group>"; };
 		7BE9FF9C22AC1BC6006DED15 /* RecordingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsManager.swift; sourceTree = "<group>"; };
 		7BEED1BE22B6C0F700A055B9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7BEF77FB22EFA23B001B79DB /* Recording+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recording+Utils.swift"; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				7BAE22DC22DB75C000AB6C33 /* Model.xcdatamodeld */,
+				7BD558AC254EA09B00DEF329 /* Secure Transformers */,
 				7B259ED622EFA14800011A3D /* ManagedObject Extensions */,
 			);
 			path = Model;
@@ -331,6 +336,15 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		7BD558AC254EA09B00DEF329 /* Secure Transformers */ = {
+			isa = PBXGroup;
+			children = (
+				7BD558AD254EA11800DEF329 /* CLLocationValueTransformer.swift */,
+				7BD558B3254EA2A200DEF329 /* CLHeadingValueTransformer.swift */,
+			);
+			path = "Secure Transformers";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -442,6 +456,7 @@
 				7BEED1BF22B6C0F700A055B9 /* MainViewController.swift in Sources */,
 				7B9F689624E063AD009A0BDB /* GPSStoneLocationError.swift in Sources */,
 				7B23D9BA22B90BB20007BA61 /* InfoViewController.swift in Sources */,
+				7BD558AE254EA11800DEF329 /* CLLocationValueTransformer.swift in Sources */,
 				7B68688224A8F0B800C77DC1 /* MemoryEater.swift in Sources */,
 				7B75989C246EF7BA00BC7EB1 /* TimeSegment+Utils.swift in Sources */,
 				7BAE22DE22DB75C000AB6C33 /* Model.xcdatamodeld in Sources */,
@@ -453,6 +468,7 @@
 				7B575EC8252907D500B3131B /* RecordingExporter.swift in Sources */,
 				7B4487A72471CA1100B6DB7B /* GPSStoneLocTokens.swift in Sources */,
 				7B94D1EA22A0197900848832 /* AppSettings.swift in Sources */,
+				7BD558B4254EA2A200DEF329 /* CLHeadingValueTransformer.swift in Sources */,
 				7B596E1624D2082E00E98260 /* GPSInfoViewController.swift in Sources */,
 				7BD0A05922B9576500934656 /* DetailsViewController.swift in Sources */,
 			);
