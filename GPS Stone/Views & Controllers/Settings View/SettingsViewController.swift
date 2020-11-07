@@ -107,24 +107,14 @@ class SettingsViewController : UITableViewController {
 				}
 				
 			case 3:
-				/* Rate and share the App */
-				let appID = Bundle.main.infoDictionary?["FRL_APPLE_APP_ID"] as! String
-				let escapedAppID = appID.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
-				let appStoreBaseURL = URL(string: "itms-apps://itunes.apple.com/app/id\(escapedAppID)")!
-				
 				switch indexPath.row {
 					case 0:
-						/* Rate the app.
-						 * This URL apparently works for directly rating the app from
-						 * iOS 8, all the way up to the current iOS version at the
-						 * time of writing. */
-						var urlComponents = URLComponents(url: appStoreBaseURL, resolvingAgainstBaseURL: true)!
-						urlComponents.queryItems = (urlComponents.queryItems ?? []) + [URLQueryItem(name: "action", value: "write-review")]
-						UIApplication.shared.openURL(urlComponents.url!)
+						/* Rate the app. */
+						UIApplication.shared.openURL(appRateAndShareManager.rateAppURL)
 						
 					case 1:
 						/* Share the app */
-						let activityViewController = UIActivityViewController(activityItems: [appStoreBaseURL], applicationActivities: nil)
+						let activityViewController = UIActivityViewController(activityItems: [appRateAndShareManager.shareAppURL], applicationActivities: nil)
 						present(activityViewController, animated: true, completion: nil)
 					
 					default:
@@ -141,5 +131,6 @@ class SettingsViewController : UITableViewController {
 	   *************** */
 	
 	private let appSettings = S.sp.appSettings
+	private let appRateAndShareManager = S.sp.appRateAndShareManager
 	
 }

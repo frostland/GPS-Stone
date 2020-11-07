@@ -20,7 +20,7 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>FRL_APPLE_APP_ID</key>
+	<key>FRLAppleAppID</key>
 	<string>441456344</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

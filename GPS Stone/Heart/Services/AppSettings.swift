@@ -49,7 +49,10 @@ final class AppSettings {
 			
 			.useBestGPSAccuracy: false,
 			.distanceFilter: CLLocationDistance(5),
-			.distanceUnit: DistanceUnit.automatic.rawValue
+			.distanceUnit: DistanceUnit.automatic.rawValue,
+			
+			.lastVersionRateAsked: nil,
+			.numberOfRecordingsSinceLastAskedToRate: 0
 		]
 		
 		/* Let’s make sure all the cases have been registered in the defaults. */
@@ -181,6 +184,16 @@ final class AppSettings {
 		}
 	}
 	
+	var lastVersionRateAsked: String? {
+		get {ud.string(forKey: SettingsKey.lastVersionRateAsked.rawValue)}
+		set {ud.set(newValue, forKey: SettingsKey.lastVersionRateAsked.rawValue)}
+	}
+	
+	var numberOfRecordingsSinceLastAskedToRate: Int {
+		get {ud.integer(forKey: SettingsKey.numberOfRecordingsSinceLastAskedToRate.rawValue)}
+		set {ud.set(newValue, forKey: SettingsKey.numberOfRecordingsSinceLastAskedToRate.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
+	}
+	
 	/* ***************
 	   MARK: - Private
 	   *************** */
@@ -198,6 +211,9 @@ final class AppSettings {
 		case useBestGPSAccuracy = "VSO Use Best GPS Accuracy"
 		case distanceFilter = "VSO Distance Filter"
 		case distanceUnit = "VSO Distance Unit"
+		
+		case lastVersionRateAsked = "FRL Last Version Rate Asked"
+		case numberOfRecordingsSinceLastAskedToRate = "FRL Number of Recordings Since Last Asked to Rate"
 		
 	}
 	

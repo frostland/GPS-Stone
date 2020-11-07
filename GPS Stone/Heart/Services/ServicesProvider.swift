@@ -27,11 +27,13 @@ class ServicesProvider {
 	
 	private(set) lazy var dataHandler = DataHandler(constants: constants)
 	private(set) lazy var recordingsManager = RecordingsManager(dataHandler: dataHandler)
-	private(set) lazy var locationRecorder = LocationRecorder(locationManager: CLLocationManager(), recordingsManager: recordingsManager, dataHandler: dataHandler, appSettings: appSettings, constants: constants)
+	private(set) lazy var locationRecorder = LocationRecorder(locationManager: CLLocationManager(), recordingsManager: recordingsManager, dataHandler: dataHandler, appSettings: appSettings, constants: constants, appRateAndShareManager: appRateAndShareManager)
 	
 	private(set) lazy var notificationsManager = NotificationsManager(locationRecorder: locationRecorder)
 	
 	private(set) lazy var recordingExporter = RecordingExporter(dataHandler: dataHandler)
+	
+	private(set) lazy var appRateAndShareManager = AppRateAndShareManager(constants: constants, appSettings: appSettings)
 	
 	/** When not nil, there is a migration of old data to CoreData. */
 	private(set) weak var migrationToCoreData: MigrationToCoreData?

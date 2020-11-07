@@ -19,6 +19,8 @@ final class Constants {
 	Software. */
 	static let appDomain = "fr.frostland.GPSStone"
 	
+	let appID = Bundle.main.infoDictionary!["FRLAppleAppID"] as! String
+	
 	let mainDataDir: URL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
 	private(set) lazy var urlToCoreDataStore:        URL = { return mainDataDir.appendingPathComponent("db.sqlite", isDirectory: false) }()
 	private(set) lazy var urlToCurrentRecordingInfo: URL = { return mainDataDir.appendingPathComponent("Current Recording Info.plist", isDirectory: false) }()

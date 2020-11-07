@@ -39,6 +39,7 @@
 		7B596E1824D20D9800E98260 /* RecordingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B596E1724D20D9700E98260 /* RecordingInfoViewController.swift */; };
 		7B596E1A24D536D600E98260 /* GPSErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B596E1924D536D600E98260 /* GPSErrorViewController.swift */; };
 		7B68688224A8F0B800C77DC1 /* MemoryEater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B68688124A8F0B800C77DC1 /* MemoryEater.swift */; };
+		7B6E7B732556F5E600A45BBD /* AppRateAndShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6E7B722556F5E600A45BBD /* AppRateAndShareManager.swift */; };
 		7B75989C246EF7BA00BC7EB1 /* TimeSegment+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B75989B246EF7BA00BC7EB1 /* TimeSegment+Utils.swift */; };
 		7B93E38222A184ED00709971 /* LocationRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B93E38122A184ED00709971 /* LocationRecorder.swift */; };
 		7B94D1E222A0169600848832 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B94D1E122A0169600848832 /* AppDelegate.swift */; };
@@ -92,6 +93,7 @@
 		7B596E1924D536D600E98260 /* GPSErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSErrorViewController.swift; sourceTree = "<group>"; };
 		7B68688124A8F0B800C77DC1 /* MemoryEater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryEater.swift; sourceTree = "<group>"; };
 		7B695D332530EBBA00FEC9D0 /* License.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = License.txt; sourceTree = "<group>"; };
+		7B6E7B722556F5E600A45BBD /* AppRateAndShareManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRateAndShareManager.swift; sourceTree = "<group>"; };
 		7B75989B246EF7BA00BC7EB1 /* TimeSegment+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeSegment+Utils.swift"; sourceTree = "<group>"; };
 		7B93E38122A184ED00709971 /* LocationRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRecorder.swift; sourceTree = "<group>"; };
 		7B94D1E122A0169600848832 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				7B40B09924DF3768008FADB1 /* NotificationsManager.swift */,
 				7B575EC7252907D500B3131B /* RecordingExporter.swift */,
 				7B575ED0252CBE4F00B3131B /* MigrationToCoreData.swift */,
+				7B6E7B722556F5E600A45BBD /* AppRateAndShareManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				7B94D1E222A0169600848832 /* AppDelegate.swift in Sources */,
 				7B9C5D32249AA02800996C4D /* Utils+Debug.swift in Sources */,
 				7B4487A0247199CC00B6DB7B /* Utils.swift in Sources */,
+				7B6E7B732556F5E600A45BBD /* AppRateAndShareManager.swift in Sources */,
 				7BAD114C24FF63EE00D6D9A2 /* MiniInfoViewController.swift in Sources */,
 				7B06D3A922EC8D27000D31B9 /* DataHandler.swift in Sources */,
 				7B94D1E822A0194100848832 /* Constants.swift in Sources */,
