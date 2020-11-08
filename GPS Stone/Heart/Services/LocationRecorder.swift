@@ -130,7 +130,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	@objc dynamic private(set) var currentLocation: CLLocation?
 	@objc dynamic private(set) var currentLocationManagerError: NSError?
 	
-	init(locationManager: CLLocationManager, recordingsManager: RecordingsManager, dataHandler: DataHandler, appSettings: AppSettings, constants: Constants, notificationCenter: NotificationCenter = .default) {
+	init(locationManager: CLLocationManager, recordingsManager: RecordingsManager, dataHandler: DataHandler, appSettings: AppSettings, constants: Constants, appRateAndShareManager: AppRateAndShareManager? = nil, notificationCenter: NotificationCenter = .default) {
 		assert(Thread.isMainThread)
 		
 		c = constants
@@ -139,6 +139,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		lm = locationManager
 		rm = recordingsManager
 		nc = notificationCenter
+		arasm = appRateAndShareManager
 		recStatusesHistory = (try? PropertyListDecoder().decode([RecordingStatusHistoryEntry].self, from: Data(contentsOf: constants.urlToCurrentRecordingInfo))) ?? []
 		status = Status(recordingStatus: recStatusesHistory.last?.status ?? .stopped, appSettingBestAccuracy: appSettings.useBestGPSAccuracy)
 		
@@ -273,6 +274,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			try rm.unsafeFinishLatestPauseAndSaveContext(in: r.recording)
 		}
 		try rm.unsafeFinishRecordingAndSaveContext(r.recording)
+		
+		defer {arasm?.recordingDidStop()}
 		
 		status.recordingStatus = .stopped
 		return r.recording
@@ -527,6 +530,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	private let lm: CLLocationManager
 	private let rm: RecordingsManager
 	private let nc: NotificationCenter
+	private let arasm: AppRateAndShareManager?
 	
 	/**
 	Returns the recording status at the given date.

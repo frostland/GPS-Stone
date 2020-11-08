@@ -1,0 +1,62 @@
+name: Create Feature Release
+
+on:
+   pull_request:
+      types: [opened, synchronize, reopened, ready_for_review]
+
+env:
+   GIT_COMMITTER_EMAIL: github@frostland.fr
+   GIT_COMMITTER_NAME: GitHub Runner (GPS Stone)
+
+jobs:
+   bump-version-and-tag:
+      if: github.event.pull_request.draft == false
+      name: Bump Build Version and Tag
+      runs-on: [macos-10.15]
+      
+      steps:
+         - name: Install hagvtool
+           # If brew is not up-to-date, `brew install --cask` might not exist
+           run: brew install --cask happn-tech/public/hagvtool || brew cask install happn-tech/public/hagvtool
+         
+         - name: Import GPG Signing Key
+           run: gpg --import --pinentry-mode=loopback --passphrase '' <<<'${{ secrets.GPG_PRIVATE_KEY }}'
+         
+         - name: Checkout GPS Stone versioning
+           uses: actions/checkout@v2
+           with:
+              ref: "versioning"
+         
+         - name: Bump Build Version in versioning Branch
+           run: |
+              set -euo pipefail
+              
+              BUILD_VERSION_FILE=build_number_gpsstone.txt
+              echo $(($(cat "$BUILD_VERSION_FILE") + 1)) >"$BUILD_VERSION_FILE"
+              git commit "$BUILD_VERSION_FILE" -m "Bump build version"
+              # Note: This might fail if someone pushed a version from another
+              # branch. We do not auto-retry for now because this won’t happen
+              # for this repository.
+              git push
+              
+              cp -f "$BUILD_VERSION_FILE" ../new_build_version
+         
+         - name: Checkout GPS Stone
+           uses: actions/checkout@v2
+         
+         - name: Set Build Versions and Push Tag
+           env:
+             HEAD_REF: ${{ github.head_ref }}
+           run: |
+              set -euo pipefail
+              
+              BRANCH_NAME="${HEAD_REF#*/*/}"
+              NEW_BUILD_VERSION="$(cat ../new_build_version)"
+              TAG_NAME="GPS_Stone/feature/$NEW_BUILD_VERSION-$BRANCH_NAME"
+              rm -f ../new_build_version
+              
+              hagvtool set-build-version "$NEW_BUILD_VERSION"
+              
+              git commit --allow-empty -am "Set build version to $NEW_BUILD_VERSION with hagvtool"
+              git tag -sm "GPS Stone $NEW_BUILD_VERSION (from feature branch $BRANCH_NAME)" "$TAG_NAME"
+              git push origin "$TAG_NAME"
