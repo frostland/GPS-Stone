@@ -51,6 +51,11 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 		super.viewWillAppear(animated)
 		
 		tableView.reloadData()
+		
+		if let d = datePushedToSingleRecording {
+			arasm.wentFromRecordingBackToList(after: -d.timeIntervalSinceNow)
+			datePushedToSingleRecording = nil
+		}
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -89,6 +94,14 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 		setup(cell: cell, with: fetchedResultsController.object(at: indexPath))
 		return cell
+	}
+	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		/* NO call to super (not implemented in superclass) */
+		if datePushedToSingleRecording != nil {
+			NSLog("datePushedToSingleRecording is not nil, but it should be")
+		}
+		datePushedToSingleRecording = Date()
 	}
 	
 	/* ******************************************
@@ -140,8 +153,12 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 	   *************** */
 	
 	private let dataHandler = S.sp.dataHandler
+	private let arasm = S.sp.appRateAndShareManager
 	
 	private let fetchedResultsController: NSFetchedResultsController<Recording>
+	
+	/* For app rate manager */
+	private var datePushedToSingleRecording: Date?
 	
 	private func setup(cell: UITableViewCell, with object: Recording) {
 		let dateFormatter = DateFormatter()

@@ -78,7 +78,7 @@ class SettingsViewController : UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-		return indexPath == IndexPath(row: 1, section: 1) || indexPath.section == 2
+		return indexPath == IndexPath(row: 1, section: 1) || indexPath.section == 2 || indexPath.section == 3
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -106,7 +106,23 @@ class SettingsViewController : UITableViewController {
 					default: fatalError()
 				}
 				
-			default: (/*nop*/)
+			case 3:
+				switch indexPath.row {
+					case 0:
+						/* Rate the app. */
+						UIApplication.shared.openURL(appRateAndShareManager.rateAppURL)
+						
+					case 1:
+						/* Share the app */
+						let activityViewController = UIActivityViewController(activityItems: [appRateAndShareManager.shareAppURL], applicationActivities: nil)
+						present(activityViewController, animated: true, completion: nil)
+					
+					default:
+						(/*nop*/)
+				}
+				
+			default:
+				(/*nop*/)
 		}
 	}
 	
@@ -115,5 +131,6 @@ class SettingsViewController : UITableViewController {
 	   *************** */
 	
 	private let appSettings = S.sp.appSettings
+	private let appRateAndShareManager = S.sp.appRateAndShareManager
 	
 }
