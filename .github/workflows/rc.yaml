@@ -1,4 +1,4 @@
-name: Prepare RC
+name: Create RC Tag
 
 on:
    push:

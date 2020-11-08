@@ -1,4 +1,4 @@
-name: Create Feature Release
+name: Create Feature Release Tag
 
 on:
    pull_request:

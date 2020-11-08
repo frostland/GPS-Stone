@@ -1,4 +1,4 @@
-name: Create Preview Release
+name: Create Preview Release Tag
 
 on:
    push:
