@@ -24,7 +24,7 @@ final class AppRateAndShareManager {
 		s.numberOfRecordingsSinceLastAskedToRate += 1
 		if s.numberOfRecordingsSinceLastAskedToRate >= 3 {
 			s.numberOfRecordingsSinceLastAskedToRate = 0
-			askForReview()
+			askForReviewIfNotDoneAlreadyForThisRelease()
 		}
 	}
 	
@@ -32,7 +32,7 @@ final class AppRateAndShareManager {
 		/* We estimate if the user stayed on the recording for more than 5 secs he
 		 * found something he liked, so we ask for review now. */
 		if duration > 5 {
-			askForReview()
+			askForReviewIfNotDoneAlreadyForThisRelease()
 		}
 	}
 	
@@ -60,7 +60,7 @@ final class AppRateAndShareManager {
 		return URL(string: "itms-apps://itunes.apple.com/app/id\(escapedAppID)")!
 	}
 	
-	private func askForReview() {
+	private func askForReviewIfNotDoneAlreadyForThisRelease() {
 		guard s.lastVersionRateAsked != appVersion else {return}
 		if #available(iOS 10.3, *) {
 			SKStoreReviewController.requestReview()
