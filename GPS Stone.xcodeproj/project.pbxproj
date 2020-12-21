@@ -504,7 +504,7 @@
 				CODE_SIGN_ENTITLEMENTS = "GPS Stone/GPS Stone.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = DVL8GW97S8;
 				INFOPLIST_FILE = "GPS Stone/Supporting Files/GPSStone-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -527,7 +527,7 @@
 				CODE_SIGN_ENTITLEMENTS = "GPS Stone/GPS Stone.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = DVL8GW97S8;
 				INFOPLIST_FILE = "GPS Stone/Supporting Files/GPSStone-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
