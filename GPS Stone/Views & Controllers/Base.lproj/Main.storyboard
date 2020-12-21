@@ -132,7 +132,7 @@
                         <view key="tableFooterView" contentMode="scaleToFill" id="Lri-qL-taa">
                             <rect key="frame" x="0.0" y="548.00000138716257" width="375" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" systemColor="separatorColor"/>
                         </view>
                         <sections>
                             <tableViewSection headerTitle="Map Style" id="Rzv-9A-gBV">
@@ -348,7 +348,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mL4-4a-SDL" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="IuA-gu-P2I" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="484" y="846"/>
+            <point key="canvasLocation" x="484" y="845.1274362818591"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EqF-hk-jpR">
@@ -1223,6 +1223,9 @@
         <image name="stop_button" width="45" height="45"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="separatorColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
