@@ -42,7 +42,6 @@ final class AppSettings {
 			.selectedPage: 0,
 			.latestMapRegion: nil,
 			.followLocationOnMap: true,
-			.mapSwipeWarningShown: false,
 			
 			.mapType: MKMapType.standard.rawValue,
 			.mapRegion: nil,
@@ -134,11 +133,6 @@ final class AppSettings {
 		set {ud.set(newValue, forKey: SettingsKey.followLocationOnMap.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
 	}
 	
-	var mapSwipeWarningShown: Bool {
-		get {ud.bool(forKey: SettingsKey.mapSwipeWarningShown.rawValue)}
-		set {ud.set(newValue, forKey: SettingsKey.mapSwipeWarningShown.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
-	}
-	
 	var mapType: MKMapType {
 		get {MKMapType(rawValue: UInt(ud.integer(forKey: SettingsKey.mapType.rawValue))) ?? .standard}
 		set {ud.set(newValue.rawValue, forKey: SettingsKey.mapType.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
@@ -203,7 +197,6 @@ final class AppSettings {
 		case selectedPage = "VSO Selected Page"
 		case latestMapRegion = "VSO Latest Map Region"
 		case followLocationOnMap = "VSO Follow Location On Map"
-		case mapSwipeWarningShown = "VSO Map Swipe Warning Was Shown"
 		
 		case mapType = "VSO Map Type"
 		case mapRegion = "VSO Map Region"
