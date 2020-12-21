@@ -50,6 +50,8 @@ final class AppSettings {
 			.distanceFilter: CLLocationDistance(5),
 			.distanceUnit: DistanceUnit.automatic.rawValue,
 			
+			.askBeforePausingOrStopping: true,
+			
 			.lastVersionRateAsked: nil,
 			.numberOfRecordingsSinceLastAskedToRate: 0
 		]
@@ -160,6 +162,11 @@ final class AppSettings {
 		set {ud.set(newValue, forKey: SettingsKey.useBestGPSAccuracy.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
 	}
 	
+	var askBeforePausingOrStopping: Bool {
+		get {ud.bool(forKey: SettingsKey.askBeforePausingOrStopping.rawValue)}
+		set {ud.set(newValue, forKey: SettingsKey.askBeforePausingOrStopping.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
+	}
+	
 	var distanceFilter: CLLocationDistance {
 		get {ud.double(forKey: SettingsKey.distanceFilter.rawValue)}
 		set {ud.set(newValue, forKey: SettingsKey.distanceFilter.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
@@ -204,6 +211,8 @@ final class AppSettings {
 		case useBestGPSAccuracy = "VSO Use Best GPS Accuracy"
 		case distanceFilter = "VSO Distance Filter"
 		case distanceUnit = "VSO Distance Unit"
+		
+		case askBeforePausingOrStopping = "VSO Ask Before Pausing or Stopping"
 		
 		case lastVersionRateAsked = "FRL Last Version Rate Asked"
 		case numberOfRecordingsSinceLastAskedToRate = "FRL Number of Recordings Since Last Asked to Rate"
