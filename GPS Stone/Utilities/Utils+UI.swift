@@ -26,7 +26,7 @@ extension Utils {
 				message: error.localizedDescription,
 				preferredStyle: .alert
 			)
-			alertVC.addAction(UIAlertAction(title: NSLocalizedString("ok button title", comment: ""), style: .default, handler: { _ in alertVC.dismiss(animated: true, completion: nil) }))
+			alertVC.addAction(UIAlertAction(title: NSLocalizedString("ok button title", comment: ""), style: .default, handler: { _ in }))
 			viewController.present(alertVC, animated: true, completion: nil)
 		}
 	}
