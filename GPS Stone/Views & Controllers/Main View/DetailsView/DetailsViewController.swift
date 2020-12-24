@@ -115,7 +115,7 @@ class DetailsViewController : UIViewController {
 	}
 	
 	@IBAction func startRecording(_ sender: Any) {
-		Utils.executeOrShowAlertIn(self, { try locationRecorder.startNewRecording() })
+		Utils.startOrResumeRecording(in: self, using: locationRecorder)
 	}
 	
 	/* ***************

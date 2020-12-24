@@ -135,20 +135,15 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	}
 	
 	@IBAction func startRecording(_ sender: Any) {
-		Utils.executeOrShowAlertIn(self){
-			switch self.locationRecorder.recStatus {
-			case .stopped: try locationRecorder.startNewRecording()
-			default:       try locationRecorder.resumeCurrentRecording()
-			}
-		}
+		Utils.startOrResumeRecording(in: self, using: locationRecorder)
 	}
 	
 	@IBAction func pauseRecording(_ sender: Any) {
-		Utils.executeOrShowAlertIn(self, { try locationRecorder.pauseCurrentRecording() })
+		Utils.pauseRecording(in: self, using: locationRecorder, appSettings: appSettings)
 	}
 	
 	@IBAction func stopRecording(_ sender: Any) {
-		Utils.executeOrShowAlertIn(self, { _ = try locationRecorder.stopCurrentRecording() })
+		Utils.stopRecording(in: self, using: locationRecorder, appSettings: appSettings)
 	}
 	
 	/* ***************************************************

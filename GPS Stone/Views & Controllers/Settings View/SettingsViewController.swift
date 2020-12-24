@@ -60,7 +60,8 @@ class SettingsViewController : UITableViewController {
 		switch indexPath.section {
 			case 1:
 				switch indexPath.row {
-					case 1: cell.accessoryType = (appSettings.useBestGPSAccuracy ? .checkmark : .none)
+					case 1: cell.accessoryType = (appSettings.useBestGPSAccuracy         ? .checkmark : .none)
+					case 2: cell.accessoryType = (appSettings.askBeforePausingOrStopping ? .checkmark : .none)
 					default: (/*nop*/)
 				}
 				
@@ -78,7 +79,12 @@ class SettingsViewController : UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-		return indexPath == IndexPath(row: 1, section: 1) || indexPath.section == 2 || indexPath.section == 3
+		return (
+			indexPath == IndexPath(row: 1, section: 1) ||
+			indexPath == IndexPath(row: 2, section: 1) ||
+			indexPath.section == 2 ||
+			indexPath.section == 3
+		)
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -91,6 +97,9 @@ class SettingsViewController : UITableViewController {
 					case 1:
 						appSettings.useBestGPSAccuracy = !appSettings.useBestGPSAccuracy
 						tableView.cellForRow(at: indexPath)?.accessoryType = (appSettings.useBestGPSAccuracy ? .checkmark : .none)
+					case 2:
+						appSettings.askBeforePausingOrStopping = !appSettings.askBeforePausingOrStopping
+						tableView.cellForRow(at: indexPath)?.accessoryType = (appSettings.askBeforePausingOrStopping ? .checkmark : .none)
 					default: (/*nop*/)
 				}
 				

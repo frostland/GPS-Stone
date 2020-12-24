@@ -62,7 +62,7 @@ class InfoViewController : UIViewController {
 	
 	@IBAction func startRecording(_ sender: Any) {
 		delegate?.showDetailedInfo()
-		Utils.executeOrShowAlertIn(self, { try locationRecorder.startNewRecording() })
+		Utils.startOrResumeRecording(in: self, using: locationRecorder)
 	}
 	
 	/* ***************
