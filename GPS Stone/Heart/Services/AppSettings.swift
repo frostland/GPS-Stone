@@ -42,7 +42,6 @@ final class AppSettings {
 			.selectedPage: 0,
 			.latestMapRegion: nil,
 			.followLocationOnMap: true,
-			.mapSwipeWarningShown: false,
 			
 			.mapType: MKMapType.standard.rawValue,
 			.mapRegion: nil,
@@ -50,6 +49,8 @@ final class AppSettings {
 			.useBestGPSAccuracy: false,
 			.distanceFilter: CLLocationDistance(5),
 			.distanceUnit: DistanceUnit.automatic.rawValue,
+			
+			.askBeforePausingOrStopping: true,
 			
 			.lastVersionRateAsked: nil,
 			.numberOfRecordingsSinceLastAskedToRate: 0
@@ -134,11 +135,6 @@ final class AppSettings {
 		set {ud.set(newValue, forKey: SettingsKey.followLocationOnMap.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
 	}
 	
-	var mapSwipeWarningShown: Bool {
-		get {ud.bool(forKey: SettingsKey.mapSwipeWarningShown.rawValue)}
-		set {ud.set(newValue, forKey: SettingsKey.mapSwipeWarningShown.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
-	}
-	
 	var mapType: MKMapType {
 		get {MKMapType(rawValue: UInt(ud.integer(forKey: SettingsKey.mapType.rawValue))) ?? .standard}
 		set {ud.set(newValue.rawValue, forKey: SettingsKey.mapType.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
@@ -164,6 +160,11 @@ final class AppSettings {
 	var useBestGPSAccuracy: Bool {
 		get {ud.bool(forKey: SettingsKey.useBestGPSAccuracy.rawValue)}
 		set {ud.set(newValue, forKey: SettingsKey.useBestGPSAccuracy.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
+	}
+	
+	var askBeforePausingOrStopping: Bool {
+		get {ud.bool(forKey: SettingsKey.askBeforePausingOrStopping.rawValue)}
+		set {ud.set(newValue, forKey: SettingsKey.askBeforePausingOrStopping.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
 	}
 	
 	var distanceFilter: CLLocationDistance {
@@ -203,7 +204,6 @@ final class AppSettings {
 		case selectedPage = "VSO Selected Page"
 		case latestMapRegion = "VSO Latest Map Region"
 		case followLocationOnMap = "VSO Follow Location On Map"
-		case mapSwipeWarningShown = "VSO Map Swipe Warning Was Shown"
 		
 		case mapType = "VSO Map Type"
 		case mapRegion = "VSO Map Region"
@@ -211,6 +211,8 @@ final class AppSettings {
 		case useBestGPSAccuracy = "VSO Use Best GPS Accuracy"
 		case distanceFilter = "VSO Distance Filter"
 		case distanceUnit = "VSO Distance Unit"
+		
+		case askBeforePausingOrStopping = "VSO Ask Before Pausing or Stopping"
 		
 		case lastVersionRateAsked = "FRL Last Version Rate Asked"
 		case numberOfRecordingsSinceLastAskedToRate = "FRL Number of Recordings Since Last Asked to Rate"

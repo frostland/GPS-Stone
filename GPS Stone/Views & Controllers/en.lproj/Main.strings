@@ -135,6 +135,9 @@
 /* Subtitle for the “best GPS accuracy” setting in the settings view */
 "xA6-DX-yki.text" = "⚠️ May drain your battery fast!";
 
+/* The “Ask Before Pausing or Stopping” setting in the settings view */
+"OyZ-Y9-WHV.text" = "Ask Before Pausing or Stopping";
+
 /* The title of the distance unit section of the settings view */
 "eaI-xq-KGu.headerTitle" = "Distance Unit";
 
