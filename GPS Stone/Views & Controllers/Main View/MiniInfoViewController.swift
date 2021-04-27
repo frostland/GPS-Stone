@@ -14,7 +14,7 @@ import XibLoc
 
 
 
-protocol MiniInfoViewControllerDelegate : class {
+protocol MiniInfoViewControllerDelegate : AnyObject {
 	
 	func showDetailedInfo()
 	

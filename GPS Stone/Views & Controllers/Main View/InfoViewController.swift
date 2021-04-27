@@ -13,7 +13,7 @@ import KVObserver
 
 
 
-protocol InfoViewControllerDelegate : class {
+protocol InfoViewControllerDelegate : AnyObject {
 	
 	func showDetailedInfo()
 	func showMap()
