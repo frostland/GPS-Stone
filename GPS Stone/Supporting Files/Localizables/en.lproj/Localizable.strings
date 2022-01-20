@@ -10,6 +10,10 @@
 /* OK, in the context of a button. */
 "ok button title" = "OK";
 
+/* Cancel button (use alternate form when locmapper supports it) */
+//"Cancel"; or Cancel;
+"Cancel" = "Cancel";
+
 /* Undefined symbol (in English: “N/D”) */
 "nd" = "N/D";
 /* More or less #n percent# (e.g. “± #n%#”) */
@@ -57,6 +61,27 @@
 
 /* The body of the notification when location updates are paused by the system. */
 "notif body: location updates paused" = "It seems you haven’t moved for a while. To preserve battery life, the system paused location update. Re-open the app to resume the recording.";
+
+
+
+/* ••••••••••••••••••••••• */
+/*       Alert Views       */
+/* ••••••••••••••••••••••• */
+
+
+/* Title of the alert view before pausing a recording. */
+"avt: pause the recording" = "Pause the Recording";
+/* Message of the alert view before pausing a recording. */
+"avm: pause the recording" = "Do you want to pause the current recording? You will be able to resume it at any time.";
+/* Text of the button to confirm pausing the recording in the alert view before pausing a recording. */
+"avb: confirm pause the recording" = "Pause";
+
+/* Title of the alert view before stopping a recording. */
+"avt: stop the recording" = "Stop the Recording";
+/* Message of the alert view before stopping a recording. */
+"avm: stop the recording" = "Do you want to stop the current recording? It will be saved in the list of recordings.";
+/* Text of the button to confirm stopping the recording in the alert view before stopping a recording. */
+"avb: confirm stop the recording" = "Stop";
 
 
 

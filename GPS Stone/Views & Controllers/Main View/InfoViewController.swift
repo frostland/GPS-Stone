@@ -13,7 +13,7 @@ import KVObserver
 
 
 
-protocol InfoViewControllerDelegate : class {
+protocol InfoViewControllerDelegate : AnyObject {
 	
 	func showDetailedInfo()
 	func showMap()
@@ -62,7 +62,7 @@ class InfoViewController : UIViewController {
 	
 	@IBAction func startRecording(_ sender: Any) {
 		delegate?.showDetailedInfo()
-		Utils.executeOrShowAlertIn(self, { try locationRecorder.startNewRecording() })
+		Utils.startOrResumeRecording(in: self, using: locationRecorder)
 	}
 	
 	/* ***************
