@@ -39,8 +39,8 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	
 	deinit {
 		/* This removes the timer to refresh the duration shown of the recording,
-		 * which needed before iOS 10 because the timer keeps a strong ref to the
-		 * target until the timer is deallocated. */
+		 *  which is needed before iOS 10
+		 *  because the timer keeps a strong ref to the target until the timer is deallocated. */
 		miniInfoViewController?.model = nil
 		
 		if let o = settingsObserver {
@@ -67,7 +67,7 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		/* Select the previously selected page */
+		/* Select the previously selected page. */
 		pageControl.currentPage = min(pageControl.numberOfPages, max(0, appSettings.selectedPage))
 		pageViewController.setViewControllers([viewControllerForPage(atIndex: pageControl.currentPage)], direction: .forward, animated: false, completion: nil)
 		setNeedsStatusBarAppearanceUpdate()
@@ -161,7 +161,7 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	}
 	
 	func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-		/* Update the page control selected index */
+		/* Update the page control selected index. */
 		if let id = pageViewController.viewControllers?.first?.restorationIdentifier, let idx = pageViewControllerIdentifiers.firstIndex(of: id) {
 			pageControl.currentPage = idx
 			appSettings.selectedPage = idx

@@ -33,8 +33,7 @@ class RecordingDetailsViewController : UIViewController {
 				self?.textFieldName?.text = r.name
 				self?.updateExportGPXButton()
 			})
-			/* We do not observe the distance, time and speed because they do not
-			 * change for a finished recording. */
+			/* We do not observe the distance, time and speed because they do not change for a finished recording. */
 			updateInfoLines()
 		}
 	}
@@ -48,8 +47,7 @@ class RecordingDetailsViewController : UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		/* The recording is on a view context, we can access it directly on the
-		 * main thread. */
+		/* The recording is on a view context, we can access it directly on the main thread. */
 		textFieldName.text = recording.name
 		
 		infoLineFormat = labelInfo.text!
@@ -62,7 +60,7 @@ class RecordingDetailsViewController : UIViewController {
 			guard let keyboardFrameInWindow = (n.userInfo?[UIWindow.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {return}
 			let keyboardFrameInView = self.view.convert(keyboardFrameInWindow, from: nil)
 			
-			let overlap = self.view.bounds.maxY - keyboardFrameInView.minY + 8 /* Arbitrary margin */
+			let overlap = self.view.bounds.maxY - keyboardFrameInView.minY + 8/*Arbitrary margin*/
 			guard abs(self.constraintTextFieldSpaceToBottom.constant - overlap) > 0.5 else {return}
 			
 			UIView.animate(withDuration: self.constants.animTime, animations: {

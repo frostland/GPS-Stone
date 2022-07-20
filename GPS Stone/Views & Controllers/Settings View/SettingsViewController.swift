@@ -88,7 +88,7 @@ class SettingsViewController : UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		/* NO call to super (not implemented in superclass) */
+		/* NO call to super (not implemented in superclass). */
 		tableView.deselectRow(at: indexPath, animated: true)
 		
 		switch indexPath.section {
@@ -122,7 +122,7 @@ class SettingsViewController : UITableViewController {
 						UIApplication.shared.openURL(appRateAndShareManager.rateAppURL)
 						
 					case 1:
-						/* Share the app */
+						/* Share the app. */
 						let activityViewController = UIActivityViewController(activityItems: [appRateAndShareManager.shareAppURL], applicationActivities: nil)
 						present(activityViewController, animated: true, completion: nil)
 					

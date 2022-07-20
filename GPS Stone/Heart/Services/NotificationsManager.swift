@@ -27,32 +27,25 @@ final class NotificationsManager {
 			
 			if #available(iOS 10.0, *) {
 				let notifCenter = UNUserNotificationCenter.current()
-				/* We do not want provisional notifications; either the user accepts
-				 * or he doesn’t. No in-between. */
+				/* We do not want provisional notifications; either the user accepts or he doesn’t.
+				 * No in-between. */
 				notifCenter.requestAuthorization(options: [.alert/*, .provisional*/], completionHandler: { granted, error in
-					/* We do nothing, whether the permissions were granted or not, or
-					 * even in case of an error (to be fair I also have no idea what
-					 * kind of error we could get).
+					/* We do nothing, whether the permissions were granted or not, or even in case of an error (to be fair I also have no idea what kind of error we could get).
 					 *
-					 * Note that we could _not_ observe the current location (disable
-					 * observation block after this one) when the notification
-					 * permission is not granted because we won’t be able to post a
-					 * notification anyway when location updates are paused.
-					 * However, this would also require finding a way to re-enable
-					 * the observation when the notifications are enabled again, and
-					 * I’m too lazy to do that now… */
+					 * Note that we could _not_ observe the current location (disable observation block after this one) when the notification permission is not granted
+					 *  because we won’t be able to post a notification anyway when location updates are paused.
+					 * However, this would also require finding a way to re-enable the observation when the notifications are enabled again,
+					 *  and I’m too lazy to do that now… */
 				})
 			} else {
 				UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert], categories: nil))
 			}
 			
-			/* We have asked for push permission, we do not need to observe the
-			 * location recorder recording status anymore. */
+			/* We have asked for push permission, we do not need to observe the location recorder recording status anymore. */
 			self.kvObserver.stopObserving(id: isRecordingObservingId)
 		})
 		
-		/* This observer will trigger a notification when the system pauses
-		 * location updates to keep the user up-to-date. */
+		/* This observer will trigger a notification when the system pauses location updates to keep the user up-to-date. */
 		_ = kvObserver.observe(object: lr, keyPath: #keyPath(LocationRecorder.currentLocation), kvoOptions: [.initial, .old], dispatchType: .asyncOnMainQueueDirectInitial, handler: { [weak self] observationInfo in
 			guard let self = self else {return}
 			guard !self.lr.recStatus.isStopped else {return}
@@ -87,8 +80,7 @@ final class NotificationsManager {
 	}
 	
 	func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
-		/* Nothing to do here (see post-iOS 10 notif registration discussion for
-		 * more information). */
+		/* Nothing to do here (see post-iOS 10 notif registration discussion for more information). */
 	}
 	
 	/* ***************

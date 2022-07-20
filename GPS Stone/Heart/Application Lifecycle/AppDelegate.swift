@@ -30,8 +30,7 @@ class AppDelegate : NSObject, UIApplicationDelegate {
 	func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
 //		Utils.debugLog("APP WILL FINISH LAUNCHING \(launchOptions)", to: "logs")
 		
-		/* We force init this manager because it monitors stuff and needs to be up
-		 * early. */
+		/* We force init this manager because it monitors stuff and needs to be up early. */
 		_ = notifsManager
 		
 		/* We start the migration to CoreData. */
@@ -57,7 +56,7 @@ class AppDelegate : NSObject, UIApplicationDelegate {
 	   MARK: - Private
 	   *************** */
 	
-	/* Dependencies */
+	/* Dependencies. */
 	private let settings = S.sp.appSettings
 	private lazy var notifsManager = S.sp.notificationsManager
 	

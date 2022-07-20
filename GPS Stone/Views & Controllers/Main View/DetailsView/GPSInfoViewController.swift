@@ -17,8 +17,9 @@ import XibLoc
 /* Not sure this needs to be a view controller; a view might’ve been enough. */
 class GPSInfoViewController : UIViewController {
 	
-	/** Technically should not be a part of the GPS info view controller, but our
-	UI is made like so, and I don’t have a better name for the controller. */
+	/**
+	 Technically should not be a part of the GPS info view controller, but our UI is made like so,
+	  and I don’t have a better name for the controller. */
 	struct RecordingModel {
 		
 		var maxSpeed: CLLocationSpeed
@@ -46,8 +47,9 @@ class GPSInfoViewController : UIViewController {
 		}
 	}
 	
-	/** We didn’t go as far as wrapping the location property in a LocationModel
-	struct… but maybe, for the beauty of the model, we shoud have? */
+	/**
+	 We didn’t go as far as wrapping the location property in a LocationModel struct…
+	 but maybe, for the beauty of the model, we shoud have? */
 	var locationModel: CLLocation? {
 		didSet {
 			updateLocationUI()

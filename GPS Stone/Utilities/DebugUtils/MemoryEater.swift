@@ -27,7 +27,7 @@ class MemoryEater {
 	
 	private var eatQueue = OperationQueue()
 	
-	private var setEatingQueue = DispatchQueue(label: "me.frizlab.Memory-Eater.MemoryEater.setEatingQueue", qos: .userInteractive, attributes: [/* .serial */])
+	private var setEatingQueue = DispatchQueue(label: "me.frizlab.Memory-Eater.MemoryEater.setEatingQueue", qos: .userInteractive, attributes: [/*.serial*/])
 	private var _eatingMemory = false
 	
 	private func setEatingMemory(_ newValue: Bool) -> Bool {

@@ -26,9 +26,9 @@ final class RecordingsManager : NSObject {
 	}
 	
 	/**
-	Creates the next recording.
-	
-	Must be called on the dataHandler’s viewContext’s queue (the main thread). */
+	 Creates the next recording.
+	 
+	 Must be called on the dataHandler’s viewContext’s queue (the main thread). */
 	func unsafeCreateNextRecordingAndSaveContext() throws -> Recording {
 		assert(Thread.isMainThread)
 		
@@ -40,7 +40,7 @@ final class RecordingsManager : NSObject {
 		 * dropping iOS 9. */
 		if #available(iOS 10.0, *) {r = Recording(context: dh.viewContext)}
 		else                       {r = NSEntityDescription.insertNewObject(forEntityName: "Recording", into: dh.viewContext) as! Recording}
-		r.name = NSLocalizedString("new recording", comment: "Default name for a recording")
+		r.name = NSLocalizedString("new recording", comment: "Default name for a recording.")
 		r.totalTimeSegment = s
 		
 		try dh.saveViewContextOrRollback()
@@ -48,9 +48,9 @@ final class RecordingsManager : NSObject {
 	}
 	
 	/**
-	Adds a point to the given recording. Does **NOT** save the context.
-	
-	Must be called on the dataHandler’s viewContext’s queue (the main thread). */
+	 Adds a point to the given recording. Does **NOT** save the context.
+	 
+	 Must be called on the dataHandler’s viewContext’s queue (the main thread). */
 	@discardableResult
 	func unsafeAddPoint(location: CLLocation, addedDistance: CLLocationDistance, heading: CLHeading?, segmentID: Int16, to recording: Recording) -> RecordingPoint {
 		assert(Thread.isMainThread)
@@ -63,7 +63,7 @@ final class RecordingsManager : NSObject {
 		recordingPoint.segmentID = segmentID
 		recordingPoint.heading = heading
 		
-//		recording.addToPoints(recordingPoint) /* Does not work on iOS 9, so we have to do the line below! */
+//		recording.addToPoints(recordingPoint) /* Does not work on iOS 9, so we have to do the line below. */
 		recording.mutableSetValue(forKey: #keyPath(Recording.points)).add(recordingPoint)
 		recording.totalDistance += Float(addedDistance)
 		recording.maxSpeed = max(Float(location.speed), recording.maxSpeed)
@@ -72,13 +72,12 @@ final class RecordingsManager : NSObject {
 	}
 	
 	/**
-	Removes the given point from the given recording. Does **NOT** save the
-	context.
-	
-	Will not revert the max speed to the previous max speed (we can’t really know
-	it w/ our current model, but we don’t really care).
-	
-	Must be called on the dataHandler’s viewContext’s queue (the main thread). */
+	 Removes the given point from the given recording.
+	 Does **NOT** save the context.
+	 
+	 Will not revert the max speed to the previous max speed (we can’t really know it w/ our current model, but we don’t really care).
+	 
+	 Must be called on the dataHandler’s viewContext’s queue (the main thread). */
 	func unsafeRemovePoint(point: RecordingPoint, removedDistance: CLLocationDistance, from recording: Recording) {
 		assert(Thread.isMainThread)
 		
@@ -143,9 +142,9 @@ final class RecordingsManager : NSObject {
 	}
 	
 	/**
-	Fetches the recording corresponding to the given ref.
-	
-	Must be called on the dataHandler’s viewContext’s queue (the main thread). */
+	 Fetches the recording corresponding to the given ref.
+	 
+	 Must be called on the dataHandler’s viewContext’s queue (the main thread). */
 	func unsafeRecording(from recordingRef: URL) -> Recording? {
 		assert(Thread.isMainThread)
 		
@@ -156,22 +155,17 @@ final class RecordingsManager : NSObject {
 	}
 	
 	/**
-	Checks for inconsistencies in the model.
-	
-	The model can have some inconsistencies, due to crashes or code errors. This
-	method will search for such inconsistencies and report them back.
-	
-	In details, the following will be checked:
-	- All the recordings have a total time segment, and at most one of these time
-	  segments is open;
-	- All the recordings have valid pause segments (fit within the total time
-	  segment, are closed (except for the recording that have an open time
-	  segment if any), do not overlap);
-	- All the points in a recording are within the total time segment, and not in
-	  any pause time segment;
-	- No points nor time segments are orphans;
-	- All points have a valid date (same as the location’s timestamp) and a
-	location. */
+	 Checks for inconsistencies in the model.
+	 
+	 The model can have some inconsistencies, due to crashes or code errors.
+	 This method will search for such inconsistencies and report them back.
+	 
+	 In details, the following will be checked:
+	 - All the recordings have a total time segment, and at most one of these time segments is open;
+	 - All the recordings have valid pause segments (fit within the total time segment, are closed (except for the recording that have an open time segment if any), do not overlap);
+	 - All the points in a recording are within the total time segment, and not in any pause time segment;
+	 - No points nor time segments are orphans;
+	 - All points have a valid date (same as the location’s timestamp) and a location. */
 	func checkForModelInconsistencies() throws {
 		var recordingWithOpenTimeSegment: Recording?
 		for recording: Recording in try dh.viewContext.fetch(Recording.fetchRequest()) {

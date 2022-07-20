@@ -1,4 +1,4 @@
-/* This file contains the generic strings for the application */
+/* This file contains the generic strings for the application. */
 
 
 
@@ -10,13 +10,13 @@
 /* OK, in the context of a button. */
 "ok button title" = "OK";
 
-/* Cancel button (use alternate form when locmapper supports it) */
+/* Cancel button (use alternate form when locmapper supports it). */
 //"Cancel"; or Cancel;
 "Cancel" = "Cancel";
 
-/* Undefined symbol (in English: “N/D”) */
+/* Undefined symbol (in English: “N/D”). */
 "nd" = "N/D";
-/* More or less #n percent# (e.g. “± #n%#”) */
+/* More or less #n percent# (e.g. “± #n%#”). */
 "more or less #n percent#" = "± #n%#";
 
 /* The generic alert view title for an error running an action. */
@@ -29,24 +29,24 @@
 /* •••••••••••••••••••••••••• */
 
 
-/* The format for a degrees minute seconds positive latitude */
+/* The format for a degrees minute seconds positive latitude. */
 "|degrees| /minutes/ -seconds- N" = "|degrees| /minutes/ -seconds- N";
-/* The format for a degrees minute seconds negative latitude */
+/* The format for a degrees minute seconds negative latitude. */
 "|degrees| /minutes/ -seconds- S" = "|degrees| /minutes/ -seconds- S";
-/* The format for a degrees minute seconds positive longitude */
+/* The format for a degrees minute seconds positive longitude. */
 "|degrees| /minutes/ -seconds- E" = "|degrees| /minutes/ -seconds- E";
-/* The format for a degrees minute seconds negative longitude */
+/* The format for a degrees minute seconds negative longitude. */
 "|degrees| /minutes/ -seconds- W" = "|degrees| /minutes/ -seconds- W";
 
-/* The kilometers per hour symbol in a speed (usually km/h). Will only be
- * displayed next to the speed in the details view of the app. The system symbol
- * (which we cannot easily retrieve) will be used anywhere else, so this value
- * should be the same as the system symbol. */
+/* The kilometers per hour symbol in a speed (usually km/h).
+ * Will only be displayed next to the speed in the details view of the app.
+ * The system symbol (which we cannot easily retrieve) will be used anywhere else,
+ *  so this value should be the same as the system symbol. */
 "km/h" = "km/h";
-/* The miles per hour symbol in a speed (mph in English). Will only be displayed
- * next to the speed in the details view of the app. The system symbol (which we
- * cannot easily retrieve) will be used anywhere else, so this value should be
- * the same as the system symbol. */
+/* The miles per hour symbol in a speed (mph in English).
+ * Will only be displayed next to the speed in the details view of the app.
+ * The system symbol (which we cannot easily retrieve) will be used anywhere else,
+ *  so this value should be the same as the system symbol. */
 "mph" = "mph";
 
 
@@ -158,7 +158,7 @@
 /* •••••••••••••••••••••••••••••••••• */
 
 
-/* Default name for a recording */
+/* Default name for a recording. */
 "new recording" = "New Recording";
 
 /* The text in the “creator” field of the GPX exports. */

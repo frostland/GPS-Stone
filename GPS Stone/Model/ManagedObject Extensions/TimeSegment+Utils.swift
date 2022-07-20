@@ -28,18 +28,15 @@ extension TimeSegment {
 	}
 	
 	/**
-	The duration of a time segment, even if the time segment is unfinished.
-	
-	A time segment can have a `nil` duration, in which case it is considered
-	“unfinished,” and its effective duration is the time interval between the
-	start date and now, unless the time segment starts in the future, in which
-	case its effective duration is 0.
-	
-	- Note: If the time segment does not have a start date (which is invalid),
-	its effective duration will be 0 (and a message will be logged).
-	
-	- Note: No validation is done on the duration: if the time segment has an
-	invalid duration (negative), the effectiveDuration _will_ be negative too. */
+	 The duration of a time segment, even if the time segment is unfinished.
+	 
+	 A time segment can have a `nil` duration, in which case it is considered “unfinished,”
+	  and its effective duration is the time interval between the start date and now,
+	  unless the time segment starts in the future, in which case its effective duration is 0.
+	 
+	 - Note: If the time segment does not have a start date (which is invalid), its effective duration will be 0 (and a message will be logged).
+	 
+	 - Note: No validation is done on the duration: if the time segment has an invalid duration (negative), the effectiveDuration _will_ be negative too. */
 	var effectiveDuration: TimeInterval {
 		if let effectiveDuration = duration?.doubleValue {
 			return TimeInterval(effectiveDuration)
@@ -63,10 +60,9 @@ extension TimeSegment {
 	}
 	
 	/**
-	Check whether the given date is contained in the receiver.
-	
-	- Returns: `true` if yes, `false` if no, `nil` if the receiver is invalid
-	(does not have a start date). */
+	 Check whether the given date is contained in the receiver.
+	 
+	 - Returns: `true` if yes, `false` if no, `nil` if the receiver is invalid (does not have a start date). */
 	func contains(_ date: Date) -> Bool? {
 		guard let startDate = startDate else {
 			return nil
@@ -77,10 +73,9 @@ extension TimeSegment {
 	}
 	
 	/**
-	Check whether the given time segment is contained in the receiver.
-	
-	- Returns: `true` if yes, `false` if no, `nil` if either time segment is
-	invalid (does not have a start date). */
+	 Check whether the given time segment is contained in the receiver.
+	 
+	 - Returns: `true` if yes, `false` if no, `nil` if either time segment is invalid (does not have a start date). */
 	func contains(_ otherTimeSegment: TimeSegment) -> Bool? {
 		guard let myStartDate = startDate, let otherStartDate = otherTimeSegment.startDate else {
 			return nil
@@ -98,10 +93,9 @@ extension TimeSegment {
 	}
 	
 	/**
-	Check whether the given time segment intersects the receiver.
-	
-	- Returns: `true` if yes, `false` if no, `nil` if either time segment is
-	invalid (does not have a start date). */
+	 Check whether the given time segment intersects the receiver.
+	 
+	 - Returns: `true` if yes, `false` if no, `nil` if either time segment is invalid (does not have a start date). */
 	func intersects(_ otherTimeSegment: TimeSegment) -> Bool? {
 		guard let myStartDate = startDate, let otherStartDate = otherTimeSegment.startDate else {
 			return nil

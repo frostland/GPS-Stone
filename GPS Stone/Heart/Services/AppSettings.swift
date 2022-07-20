@@ -12,12 +12,12 @@ import MapKit
 
 
 
-/** A wrapper around UserDefaults for our App Settings.
-
-Will post a notification when the settings are changed through this object. The
-notification is posted whether the setting was actually changed or not. But will
-**not** post a notification if the user defaults are modified without using this
-object. */
+/**
+ A wrapper around UserDefaults for our App Settings.
+ 
+ Will post a notification when the settings are changed through this object.
+ The notification is posted whether the setting was actually changed or not.
+ But will **not** post a notification if the user defaults are modified without using this object. */
 final class AppSettings {
 	
 	static let changedNotification = Notification.Name(Constants.appDomain + ".AppSettings.ChangedNotif")
@@ -37,7 +37,7 @@ final class AppSettings {
 	}
 	
 	func registerDefaultSettings() {
-		/* Registering default user defaults */
+		/* Registering default user defaults. */
 		let defaultValues: [SettingsKey: Any?] = [
 			.selectedPage: 0,
 			.latestMapRegion: nil,

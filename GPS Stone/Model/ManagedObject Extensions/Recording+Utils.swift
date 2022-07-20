@@ -44,8 +44,8 @@ extension Recording {
 				NSLog("***** ERROR - Got an invalid pause (not a TimeSegment): %@", self)
 				return current
 			}
-			/* We do not validate the pause is indeed in the total time segment. We
-			 * could but what would we do in case of invaid pause? */
+			/* We do not validate the pause is indeed in the total time segment.
+			 * We could but what would we do in case of invaid pause? */
 			return current - pauseTimeSegment.effectiveDuration
 		})
 		/* Let’s still verify we have a positive duration! */
@@ -102,13 +102,11 @@ extension Recording {
 			return nil
 		}
 		
-		/* First we check the latest point in time. Currently the “latest point”
-		 * method does pretty much the same as what we do after this if, but
-		 * someday it might get optimized… */
+		/* First we check the latest point in time.
+		 * Currently the “latest point” method does pretty much the same as what we do after this if, but someday it might get optimized… */
 		if let p = try latestPointInTime() {
 			if let d = p.date, d < date {
-				/* The latest recorded point has a date which is lower than the
-				 * required date: this is the point we want! */
+				/* The latest recorded point has a date which is lower than the required date: this is the point we want! */
 				return p
 			}
 		}
@@ -121,7 +119,7 @@ extension Recording {
 	}
 	
 	func latestPauseInTime() -> TimeSegment? {
-		/* Maybe todo: use a fetch request and predicate to get the latest pause.
+		/* Maybe todo: Use a fetch request and predicate to get the latest pause.
 		 * Keep in mind this would make the function throwing though… */
 		return pauses?.sortedArray(using: [NSSortDescriptor(keyPath: \TimeSegment.startDate, ascending: true)]).last as! TimeSegment?
 	}

@@ -32,8 +32,8 @@ class DetailsViewController : UIViewController {
 	
 	deinit {
 		/* This removes the timer to refresh the duration shown of the recording,
-		 * which needed before iOS 10 because the timer keeps a strong ref to the
-		 * target until the timer is deallocated. */
+		 *  which is needed before iOS 10
+		 *  because the timer keeps a strong ref to the target until the timer is deallocated. */
 		recordingInfoViewController?.model = nil
 		
 		if let o = settingsObserver {
@@ -176,8 +176,7 @@ class DetailsViewController : UIViewController {
 			}
 		}
 		
-		/* If the location has a heading but we do not receive heading updates
-		 * (e.g. simulator), we still want to update the heading UI! */
+		/* If the location has a heading but we do not receive heading updates (e.g. simulator), we still want to update the heading UI! */
 		updateHeadingUI()
 	}
 	
