@@ -1,10 +1,10 @@
 /*
- * MapViewController.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2019/6/19.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * MapViewController.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 2019/6/19.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import CoreData
 import Foundation
@@ -131,8 +131,8 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	}
 	
 	/* *************************
-	   MARK: - Map View Delegate
-	   ************************* */
+	   MARK: - Map View Delegate
+	   ************************* */
 	
 	func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
 		assert(overlay is MKPolyline)
@@ -171,21 +171,21 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	}
 	
 	/* *******************************************
-	   MARK: - Fetched Results Controller Delegate
-	   ******************************************* */
+	   MARK: - Fetched Results Controller Delegate
+	   ******************************************* */
 	
 	func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
 		assert(controller === pointsFetchResultsController)
 		/* Note: We could use the controller did change section/object methods,
-		 *  however, I don’t think we’d gain _anything at all_ in terms of performance,
+		 *  however, I don’t think we’d gain _anything at all_ in terms of performance,
 		 *  so let’s just do this instead
 		 *  (which avoids having to create non-trivial alorithms to reconcile the cache with the change notification we’d get from the controller). */
 		pointsProcessingQueue.addOperation(createProcessPointsOperation())
 	}
 	
 	/* ***************
-	   MARK: - Private
-	   *************** */
+	   MARK: - Private
+	   *************** */
 	
 	private let c = S.sp.constants
 	private let appSettings = S.sp.appSettings
@@ -418,14 +418,14 @@ fileprivate struct PolylinesCache {
 	var nPointsBySection = [Int]()
 	/* We break down each section to polylines of 100 points in order to avoid having to redraw the whole path each time a new point is added.
 	 * This is why polylinesBySection is an array of array of polylines instead of a simple array of polylines.
-	 * The count of this array should always be `numberOfSections`. */
+	 * The count of this array should always be `numberOfSections`. */
 	var polylinesBySection = [[MKPolyline]]()
 	/* Between each sections we show a dotted line indicating missing information (the recording was paused).
 	 * This variable contains these polylines.
 	 * They are optional because some section might not have any points in them,
 	 *  in which case there are no dotted line to show,
 	 *  but we must still have an element in the array to have the correct count of objects in the array.
-	 * The count of this array should always be `max(0, numberOfSections-1)`. */
+	 * The count of this array should always be `max(0, numberOfSections-1)`. */
 	var interSectionPolylines = [MKPolyline?]()
 	
 	var polylinesToRemoveFromMap = Set<MKPolyline>()

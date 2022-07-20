@@ -1,10 +1,10 @@
 /*
- * AppDelegate.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2019/5/30.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * AppDelegate.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 2019/5/30.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import Foundation
 import UIKit
@@ -45,16 +45,16 @@ class AppDelegate : NSObject, UIApplicationDelegate {
 	}
 	
 	/* ***********************************
-	   MARK: - Pre-iOS 10 delegate methods
-	   *********************************** */
+	   MARK: - Pre-iOS 10 delegate methods
+	   *********************************** */
 	
 	func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
 		notifsManager.application(application, didRegister: notificationSettings)
 	}
 	
 	/* ***************
-	   MARK: - Private
-	   *************** */
+	   MARK: - Private
+	   *************** */
 	
 	/* Dependencies. */
 	private let settings = S.sp.appSettings

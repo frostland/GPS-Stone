@@ -1,10 +1,10 @@
 /*
- * AppSettings.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2019/5/30.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * AppSettings.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 2019/5/30.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import CoreLocation
 import Foundation
@@ -77,8 +77,8 @@ final class AppSettings {
 	}
 	
 	/* **************************
-	   MARK: - Settings Accessors
-	   ************************** */
+	   MARK: - Settings Accessors
+	   ************************** */
 	
 	var selectedPage: Int {
 		get {ud.integer(forKey: SettingsKey.selectedPage.rawValue)}
@@ -196,8 +196,8 @@ final class AppSettings {
 	}
 	
 	/* ***************
-	   MARK: - Private
-	   *************** */
+	   MARK: - Private
+	   *************** */
 	
 	private enum SettingsKey : String, CaseIterable {
 		

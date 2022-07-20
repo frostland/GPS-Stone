@@ -1,10 +1,10 @@
 /*
- * Recording+Utils.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2019/7/29.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * Recording+Utils.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 2019/7/29.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import CoreData
 import Foundation
@@ -21,8 +21,7 @@ extension Recording {
 		return totalTimeSegment?.startDate
 	}
 	
-	/**
-	The total time of the recording (including the pauses). */
+	/** The total time of the recording (including the pauses). */
 	var recordingDuration: TimeInterval {
 		guard let totalTimeSegment = totalTimeSegment else {
 			NSLog("***** ERROR - Got an invalid recording (nil totalTimeSegment): %@", self)
@@ -31,8 +30,7 @@ extension Recording {
 		return totalTimeSegment.effectiveDuration
 	}
 	
-	/**
-	The total time of the recording, but without the pauses. */
+	/** The total time of the recording, but without the pauses. */
 	var activeRecordingDuration: TimeInterval {
 		let totalTime = recordingDuration
 		guard let pauses = pauses else {
@@ -120,7 +118,7 @@ extension Recording {
 	
 	func latestPauseInTime() -> TimeSegment? {
 		/* Maybe todo: Use a fetch request and predicate to get the latest pause.
-		 * Keep in mind this would make the function throwing though… */
+		 * Keep in mind this would make the function throwing though… */
 		return pauses?.sortedArray(using: [NSSortDescriptor(keyPath: \TimeSegment.startDate, ascending: true)]).last as! TimeSegment?
 	}
 	

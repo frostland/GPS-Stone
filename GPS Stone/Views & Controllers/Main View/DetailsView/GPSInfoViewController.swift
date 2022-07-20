@@ -1,10 +1,10 @@
 /*
- * GPSInfoViewController.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2020/7/29.
- * Copyright © 2020 Frost Land. All rights reserved.
- */
+ * GPSInfoViewController.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 2020/7/29.
+ * Copyright © 2020 Frost Land. All rights reserved.
+ */
 
 import CoreLocation
 import Foundation
@@ -81,8 +81,8 @@ class GPSInfoViewController : UIViewController {
 	}
 	
 	/* ***************
-	   MARK: - Private
-	   *************** */
+	   MARK: - Private
+	   *************** */
 	
 	private let c = S.sp.constants
 	

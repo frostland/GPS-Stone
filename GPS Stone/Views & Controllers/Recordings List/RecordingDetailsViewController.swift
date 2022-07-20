@@ -1,10 +1,10 @@
 /*
- * RecordingDetailsViewController.swift
- * GPS Stone
- *
- * Created by François Lamboley on 19/06/2019.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * RecordingDetailsViewController.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 19/06/2019.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import CoreLocation
 import Foundation
@@ -112,8 +112,8 @@ class RecordingDetailsViewController : UIViewController {
 	}
 	
 	/* ***************
-	   MARK: - Private
-	   *************** */
+	   MARK: - Private
+	   *************** */
 	
 	private let constants = S.sp.constants
 	private let appSettings = S.sp.appSettings

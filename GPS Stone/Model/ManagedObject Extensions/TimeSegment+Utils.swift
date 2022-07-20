@@ -1,10 +1,10 @@
 /*
- * TimeSegment+Utils.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2020/5/15.
- * Copyright © 2020 Frost Land. All rights reserved.
- */
+ * TimeSegment+Utils.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 2020/5/15.
+ * Copyright © 2020 Frost Land. All rights reserved.
+ */
 
 import Foundation
 
@@ -86,9 +86,9 @@ extension TimeSegment {
 		}
 		
 		switch (endDate, otherTimeSegment.endDate) {
-		case (nil,            _):                 return true
-		case (.some,          nil):               return false
-		case (let myEndDate?, let otherEndDate?): return myEndDate >= otherEndDate
+			case (nil,            _):                 return true
+			case (.some,          nil):               return false
+			case (let myEndDate?, let otherEndDate?): return myEndDate >= otherEndDate
 		}
 	}
 	
@@ -102,17 +102,17 @@ extension TimeSegment {
 		}
 		
 		switch (endDate, otherTimeSegment.endDate) {
-		case (nil,            nil):               return true
-		case (nil,            let otherEndDate?): return otherEndDate >= myStartDate
-		case (let myEndDate?, nil):               return myEndDate >= otherStartDate
-		case (let myEndDate?, let otherEndDate?):
-			/* This assert is valid thanks to the endDate implementation. */
-			assert(myStartDate <= myEndDate && otherStartDate <= otherEndDate)
-			return (
-				(otherStartDate <= myStartDate && otherEndDate   >= myStartDate) || /* Cases 2 and 5 */
-				(otherStartDate >= myStartDate && otherStartDate <= myEndDate)      /* Cases 3 and 4 */
-				/* (Cases 1 and 6 are non-intersection cases.) */
-			)
+			case (nil,            nil):               return true
+			case (nil,            let otherEndDate?): return otherEndDate >= myStartDate
+			case (let myEndDate?, nil):               return myEndDate >= otherStartDate
+			case (let myEndDate?, let otherEndDate?):
+				/* This assert is valid thanks to the endDate implementation. */
+				assert(myStartDate <= myEndDate && otherStartDate <= otherEndDate)
+				return (
+					(otherStartDate <= myStartDate && otherEndDate   >= myStartDate) || /* Cases 2 and 5 */
+					(otherStartDate >= myStartDate && otherStartDate <= myEndDate)      /* Cases 3 and 4 */
+					/* (Cases 1 and 6 are non-intersection cases.) */
+				)
 		}
 	}
 	

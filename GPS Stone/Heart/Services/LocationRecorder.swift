@@ -1,10 +1,10 @@
 /*
- * LocationRecorder.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2019/5/31.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * LocationRecorder.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 2019/5/31.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import CoreLocation
 import Foundation
@@ -13,7 +13,7 @@ import UIKit /* To get app and register to app fg/bg state. */
 
 
 /* Inherits from NSObject to allow KVO on the instances.
- * TODO: Switch to Combine! */
+ * TODO: Switch to Combine! */
 final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	
 	public static let errorDomain = Constants.appDomain + ".LocationRecorder"
@@ -64,7 +64,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			switch self {
 				case .stopped:
 					return nil
-				
+					
 				case .paused(let rr, let id), .recording(let rr, let id):
 					return (rr, id)
 			}
@@ -282,8 +282,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	}
 	
 	/* *********************************
-	   MARK: - Location Manager Delegate
-	   ********************************* */
+	   MARK: - Location Manager Delegate
+	   ********************************* */
 	
 	func locationManager(_ manager: CLLocationManager, didChangeAuthorization authStatus: CLAuthorizationStatus) {
 		assert(Thread.isMainThread)
@@ -301,9 +301,9 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		currentLocation = nil
 		
 		/* Doc says we should stop the location service in case we get a denied.
-		 * But we don’t because we want the tracking to resume automatically when the location services are enabled again
+		 * But we don’t because we want the tracking to resume automatically when the location services are enabled again
 		 *  and it’s easier this way than using the did change authorization status method.
-		 * Maybe I’m missing something but everything seems to work ok this way. */
+		 * Maybe I’m missing something but everything seems to work ok this way. */
 	}
 	
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -334,7 +334,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		 *  because I want to be certain the status does not changes if it does not have to. */
 		if let e = error, ((e as? CLError)?.code != .deferredCanceled) {
 			/* For now (and probably forever), any error is a fatal error for deferred location updates, except the cancellation error.
-			 * The “accuracy is not big enough” error is handled somewhere else and should not happen,
+			 * The “accuracy is not big enough” error is handled somewhere else and should not happen,
 			 *  we do not have a distance filter on the location manager so we should not get the distance filter error
 			 *  and all other errors are fatal (AFAIK). */
 			status.gotFatalDeferredUpdatesError = true
@@ -359,8 +359,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	}
 	
 	/* ***************
-	   MARK: - Private
-	   *************** */
+	   MARK: - Private
+	   *************** */
 	
 	/**
 	 Contains a reference to the resolved CoreData ``Recording`` object.
@@ -644,7 +644,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			guard cachedRecordingWriteObjects != nil else {
 				/* If we cannot get a RecordingWriteObjects recording won’t work.
 				 * We change our status to stopped.
-				 * We should provide a way to retrieve the error.
+				 * We should provide a way to retrieve the error.
 				 * Maybe move the get of this object in the start method?
 				 * But there is the case of the app launching in a recording state, which will not call the start method… */
 				status.recordingStatus = .stopped
@@ -664,11 +664,11 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		}
 		
 		/* We disable deferred updates (if needed) before changing the desired accuracy because deferred updates depend on desired accuracy.
-		 * Doc recommends enabling deferred updates when receiving a new location, so that’s what we do (and that’s why the deferred location updates are not started in this method). */
+		 * Doc recommends enabling deferred updates when receiving a new location, so that’s what we do (and that’s why the deferred location updates are not started in this method). */
 		if !newStatus.allowDeferredUpdates && isDeferringUpdates {
 			lm.disallowDeferredLocationUpdates()
 			/* In theory (doc says) the delegate method should still be called when manually stopping deferred location updates, so we do not set isDeferringUpdates to false here.
-			 * We maybe should verify this, but how?
+			 * We maybe should verify this, but how?
 			 * I do not have access to a device that supports deferred updates (they were dropped unofficially in iOS 9 IIUC). */
 		}
 		
@@ -683,7 +683,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			let neededSignificantLocationChangesTracking = oldStatus.needsSignificantLocationChangesTracking
 			if needsSignificantLocationChangesTracking && !neededSignificantLocationChangesTracking {
 				/* This should launch the app when it gets a significant location change even if the user has force quit it, if the background app refresh is on.
-				 * After some testing, the app seems to be relaunched even with bg app refresh off. */
+				 * After some testing, the app seems to be relaunched even with bg app refresh off. */
 				lm.startMonitoringSignificantLocationChanges()
 			} else if !needsSignificantLocationChangesTracking && neededSignificantLocationChangesTracking {
 				lm.stopMonitoringSignificantLocationChanges()
@@ -726,10 +726,10 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		/* From https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/LocationAwarenessPG/CoreLocation/CoreLocation.html#//apple_ref/doc/uid/TP40009497-CH2-SW11
 		 *
-		 * - Note: When a user disables the Background App Refresh setting either globally or for your app, the significant-change location service doesn’t relaunch your app.
+		 * - Note: When a user disables the Background App Refresh setting either globally or for your app, the significant-change location service doesn’t relaunch your app.
 		 * Further, while Background App Refresh is off an app doesn’t receive significant-change or region monitoring events even when it's in the foreground.
 		 *
-		 * - Important: A user can explicitly disable background capabilities for any app.
+		 * - Important: A user can explicitly disable background capabilities for any app.
 		 * If a user disables Background App Refresh in the Settings app—either globally for all apps or for your app in particular—your app is prevented from using any location services in the background.
 		 * You can determine whether your app can process location updates in the background by checking the value of the backgroundRefreshStatus property of the UIApplication class. */
 	}

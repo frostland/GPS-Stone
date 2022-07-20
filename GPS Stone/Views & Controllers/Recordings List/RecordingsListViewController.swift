@@ -1,10 +1,10 @@
 /*
- * RecordingsListViewController.swift
- * GPS Stone
- *
- * Created by François Lamboley on 19/06/2019.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * RecordingsListViewController.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 19/06/2019.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import CoreData
 import Foundation
@@ -79,8 +79,8 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 	}
 	
 	/* *******************************************
-	   MARK: - Table View Data Source and Delegate
-	   ******************************************* */
+	   MARK: - Table View Data Source and Delegate
+	   ******************************************* */
 	
 	override func numberOfSections(in tableView: UITableView) -> Int {
 		return fetchedResultsController.sections?.count ?? 0
@@ -105,8 +105,8 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 	}
 	
 	/* ******************************************
-	   MARK: - NSFetchedResultsControllerDelegate
-	   ****************************************** */
+	   MARK: - NSFetchedResultsControllerDelegate
+	   ****************************************** */
 	
 	func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
 		guard tableView.superview != nil else {return}
@@ -141,15 +141,15 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 					dataHandler.viewContext.delete(recording)
 					_ = try? dataHandler.saveViewContextOrRollback()
 				}
-			
+				
 			default:
 				super.tableView(tableView, commit: editingStyle, forRowAt: indexPath)
 		}
 	}
 	
 	/* ***************
-	   MARK: - Private
-	   *************** */
+	   MARK: - Private
+	   *************** */
 	
 	private let dataHandler = S.sp.dataHandler
 	private let arasm = S.sp.appRateAndShareManager

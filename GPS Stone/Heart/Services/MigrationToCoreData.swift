@@ -1,10 +1,10 @@
 /*
- * MigrationToCoreData.swift
- * GPS Stone
- *
- * Created by François Lamboley on 06/10/2020.
- * Copyright © 2020 Frost Land. All rights reserved.
- */
+ * MigrationToCoreData.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 06/10/2020.
+ * Copyright © 2020 Frost Land. All rights reserved.
+ */
 
 import CoreData
 import CoreLocation
@@ -57,15 +57,15 @@ final class MigrationToCoreData {
 		/* After (and including) iOS 10, we can set automaticallyMergesChangesFromParent on the view context,
 		 *  and we would not have to observe this notification,
 		 *  but we’re compatible w/ iOS 8,
-		 *  so we have to do the observing…
-		 * A note though: The property will automatically merge the saves from other contexts,
+		 *  so we have to do the observing…
+		 * A note though: The property will automatically merge the saves from other contexts,
 		 *  but will _not_ save the context after the merge (see comment inside our merge implementation for more details). */
 		let observer = NotificationCenter.default.addObserver(forName: .NSManagedObjectContextDidSave, object: context, queue: .main, using: { [weak self] n in
-//			NSLog("%@", "before: \(String(describing: self?.dh.viewContext.hasChanges))")
+			//			NSLog("%@", "before: \(String(describing: self?.dh.viewContext.hasChanges))")
 			self?.dh.viewContext.mergeChanges(fromContextDidSave: n)
 			/* If some objects were deleted, the merge changes will delete those objects in the destination context, but will not save the context.
-			 * So we save it here.
-			 * Note: For other changes in the context, AFAICT there are no need to save the context.
+			 * So we save it here.
+			 * Note: For other changes in the context, AFAICT there are no need to save the context.
 			 * Which is consistent w/ what the doc says. */
 			try? self?.dh.saveViewContextOrRollback()
 //			NSLog("%@", "after: \(String(describing: self?.dh.viewContext.hasChanges))")
@@ -135,7 +135,7 @@ final class MigrationToCoreData {
 						if latestPoint == nil {
 							assert(curSegmentID == 0)
 							/* We’re in the first segment, we must set the start date of the total time segment!
-							 * We assume order of points in GPX is correct. */
+							 * We assume order of points in GPX is correct. */
 							totalTimeSegment.startDate = location.timestamp
 						}
 						
@@ -161,8 +161,8 @@ final class MigrationToCoreData {
 					let parserDelegate = GPXParserDelegate(newSegmentHandler: newSegmentHandler, newPointHandler: newPointHandler)
 					recordingParser.delegate = parserDelegate
 					if recordingParser.parse() ||
-						((recordingParser.parserError as NSError?)?.domain == XMLParser.errorDomain &&
-						 (recordingParser.parserError as NSError?)?.code == 111 /* Error code on early EOF; we don’t fail on early EOF. */)
+							((recordingParser.parserError as NSError?)?.domain == XMLParser.errorDomain &&
+							 (recordingParser.parserError as NSError?)?.code == 111 /* Error code on early EOF; we don’t fail on early EOF. */)
 					{
 						do {
 							if let latestPoint = latestPoint {
@@ -247,7 +247,7 @@ private final class GPXParserDelegate : NSObject, XMLParserDelegate {
 				guard newSegmentHandler() else {
 					return parser.abortParsing()
 				}
-			
+				
 			case "trkpt":
 				guard
 					curLat == nil, curLon == nil,
@@ -258,7 +258,7 @@ private final class GPXParserDelegate : NSObject, XMLParserDelegate {
 				}
 				curLat = lat
 				curLon = lon
-			
+				
 			default:
 				(/*nop*/)
 		}
@@ -292,7 +292,7 @@ private final class GPXParserDelegate : NSObject, XMLParserDelegate {
 				curMagVar = nil
 				curAltitude = nil
 				curVerticalAccuracy = nil
-			
+				
 			case "time":
 				guard curDate == nil else {
 					return parser.abortParsing()
@@ -313,31 +313,31 @@ private final class GPXParserDelegate : NSObject, XMLParserDelegate {
 					}
 					curDate = date
 				}
-			
+				
 			case "hdop":
 				guard curHorizontalAccuracy == nil, let val = Double(textBuffer) else {
 					return parser.abortParsing()
 				}
 				curHorizontalAccuracy = val
-			
+				
 			case "magvar":
 				guard curMagVar == nil, let val = Double(textBuffer) else {
 					return parser.abortParsing()
 				}
 				curMagVar = val
-			
+				
 			case "ele":
 				guard curAltitude == nil, let val = Double(textBuffer) else {
 					return parser.abortParsing()
 				}
 				curAltitude = val
-			
+				
 			case "vdop":
 				guard curVerticalAccuracy == nil, let val = Double(textBuffer) else {
 					return parser.abortParsing()
 				}
 				curVerticalAccuracy = val
-			
+				
 			default:
 				(/*nop*/)
 		}

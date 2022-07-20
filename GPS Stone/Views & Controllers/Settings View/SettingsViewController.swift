@@ -1,10 +1,10 @@
 /*
- * SettingsViewController.swift
- * GPS Stone
- *
- * Created by François Lamboley on 19/06/2019.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * SettingsViewController.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 19/06/2019.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import CoreLocation
 import Foundation
@@ -52,8 +52,8 @@ class SettingsViewController : UITableViewController {
 	}
 	
 	/* ****************************************************
-	   MARK: - Table View Controller Data Source & Delegate
-	   **************************************************** */
+	   MARK: - Table View Controller Data Source & Delegate
+	   **************************************************** */
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = super.tableView(tableView, cellForRowAt: indexPath)
@@ -125,7 +125,7 @@ class SettingsViewController : UITableViewController {
 						/* Share the app. */
 						let activityViewController = UIActivityViewController(activityItems: [appRateAndShareManager.shareAppURL], applicationActivities: nil)
 						present(activityViewController, animated: true, completion: nil)
-					
+						
 					default:
 						(/*nop*/)
 				}
@@ -136,8 +136,8 @@ class SettingsViewController : UITableViewController {
 	}
 	
 	/* ***************
-	   MARK: - Private
-	   *************** */
+	   MARK: - Private
+	   *************** */
 	
 	private let appSettings = S.sp.appSettings
 	private let appRateAndShareManager = S.sp.appRateAndShareManager

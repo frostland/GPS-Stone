@@ -1,10 +1,10 @@
 /*
- * RecordingsManager.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2019/6/8.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * RecordingsManager.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 2019/6/8.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import CoreData
 import CoreLocation
@@ -13,7 +13,7 @@ import Foundation
 
 
 /* Inherits from NSObject to allow KVO on the instances.
- * TODO: Switch to Combine! */
+ * TODO: Switch to Combine! */
 final class RecordingsManager : NSObject {
 	
 	init(dataHandler: DataHandler) {
@@ -37,7 +37,7 @@ final class RecordingsManager : NSObject {
 		
 		let r: Recording
 		/* Don’t forget to find all insertNewObject to migrate to easier init when
-		 * dropping iOS 9. */
+		 * dropping iOS 9. */
 		if #available(iOS 10.0, *) {r = Recording(context: dh.viewContext)}
 		else                       {r = NSEntityDescription.insertNewObject(forEntityName: "Recording", into: dh.viewContext) as! Recording}
 		r.name = NSLocalizedString("new recording", comment: "Default name for a recording.")
@@ -239,8 +239,8 @@ final class RecordingsManager : NSObject {
 	}
 	
 	/* ***************
-	   MARK: - Private
-	   *************** */
+	   MARK: - Private
+	   *************** */
 	
 	/* *** Dependencies *** */
 	

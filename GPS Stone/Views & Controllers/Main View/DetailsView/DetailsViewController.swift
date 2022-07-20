@@ -1,10 +1,10 @@
 /*
- * DetailsViewController.swift
- * GPS Stone
- *
- * Created by François Lamboley on 18/06/2019.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * DetailsViewController.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 18/06/2019.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import CoreData
 import CoreLocation
@@ -32,7 +32,7 @@ class DetailsViewController : UIViewController {
 	
 	deinit {
 		/* This removes the timer to refresh the duration shown of the recording,
-		 *  which is needed before iOS 10
+		 *  which is needed before iOS 10
 		 *  because the timer keeps a strong ref to the target until the timer is deallocated. */
 		recordingInfoViewController?.model = nil
 		
@@ -79,22 +79,22 @@ class DetailsViewController : UIViewController {
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		switch segue.identifier {
-		case "GPSInfoEmbed"?:
-			gpsInfoViewController = (segue.destination as! GPSInfoViewController)
-			gpsInfoViewController?.useMetricSystem = appSettings.useMetricSystem
-			updateRecordingUI()
-			updateLocationUI() /* Calls updateHeadingUI() */
-			
-		case "GPSErrorEmbed"?:
-			gpsErrorViewController = (segue.destination as! GPSErrorViewController)
-			updateLocationUI()
-			
-		case "RecordingInfoEmbed"?:
-			recordingInfoViewController = (segue.destination as! RecordingInfoViewController)
-			recordingInfoViewController?.useMetricSystem = appSettings.useMetricSystem
-			updateRecordingUI()
-			
-		default: (/*nop*/)
+			case "GPSInfoEmbed"?:
+				gpsInfoViewController = (segue.destination as! GPSInfoViewController)
+				gpsInfoViewController?.useMetricSystem = appSettings.useMetricSystem
+				updateRecordingUI()
+				updateLocationUI() /* Calls updateHeadingUI() */
+				
+			case "GPSErrorEmbed"?:
+				gpsErrorViewController = (segue.destination as! GPSErrorViewController)
+				updateLocationUI()
+				
+			case "RecordingInfoEmbed"?:
+				recordingInfoViewController = (segue.destination as! RecordingInfoViewController)
+				recordingInfoViewController?.useMetricSystem = appSettings.useMetricSystem
+				updateRecordingUI()
+				
+			default: (/*nop*/)
 		}
 		
 		super.prepare(for: segue, sender: sender)
@@ -119,8 +119,8 @@ class DetailsViewController : UIViewController {
 	}
 	
 	/* ***************
-	   MARK: - Private
-	   *************** */
+	   MARK: - Private
+	   *************** */
 	
 	private let c = S.sp.constants
 	private let appSettings = S.sp.appSettings

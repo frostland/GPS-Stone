@@ -1,10 +1,10 @@
 /*
- * MemoryEater.swift
- * Memory Eater
- *
- * Created by François Lamboley on 18/06/2020.
- * Copyright © 2020 Frizlab. All rights reserved.
- */
+ * MemoryEater.swift
+ * Memory Eater
+ *
+ * Created by François Lamboley on 18/06/2020.
+ * Copyright © 2020 Frizlab. All rights reserved.
+ */
 
 import Foundation
 

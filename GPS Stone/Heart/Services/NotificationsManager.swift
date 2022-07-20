@@ -1,10 +1,10 @@
 /*
- * NotificationsManager.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2020/8/8.
- * Copyright © 2020 Frost Land. All rights reserved.
- */
+ * NotificationsManager.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 2020/8/8.
+ * Copyright © 2020 Frost Land. All rights reserved.
+ */
 
 import Foundation
 import UIKit /* For pre-iOS 10 notification registtration. */
@@ -31,10 +31,10 @@ final class NotificationsManager {
 				 * No in-between. */
 				notifCenter.requestAuthorization(options: [.alert/*, .provisional*/], completionHandler: { granted, error in
 					/* We do nothing, whether the permissions were granted or not, or even in case of an error (to be fair I also have no idea what kind of error we could get).
-					 *
-					 * Note that we could _not_ observe the current location (disable observation block after this one) when the notification permission is not granted
+					 *
+					 * Note that we could _not_ observe the current location (disable observation block after this one) when the notification permission is not granted
 					 *  because we won’t be able to post a notification anyway when location updates are paused.
-					 * However, this would also require finding a way to re-enable the observation when the notifications are enabled again,
+					 * However, this would also require finding a way to re-enable the observation when the notifications are enabled again,
 					 *  and I’m too lazy to do that now… */
 				})
 			} else {
@@ -84,8 +84,8 @@ final class NotificationsManager {
 	}
 	
 	/* ***************
-	   MARK: - Private
-	   *************** */
+	   MARK: - Private
+	   *************** */
 	
 	private let kvObserver = KVObserver()
 	

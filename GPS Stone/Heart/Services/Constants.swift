@@ -1,10 +1,10 @@
 /*
- * Constants.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2019/5/30.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * Constants.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 2019/5/30.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import CoreLocation
 import Foundation
@@ -15,7 +15,7 @@ final class Constants {
 	
 	/**
 	 The domain to use for notification names, error domains, etc.
-	 We do not use the bundle ID of the app because the app is now owned by Frost Land, not VSO Software. */
+	 We do not use the bundle ID of the app because the app is now owned by Frost Land, not VSO Software. */
 	static let appDomain = "fr.frostland.GPSStone"
 	
 	let appID = Bundle.main.infoDictionary!["FRLAppleAppID"] as! String

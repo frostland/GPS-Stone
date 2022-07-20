@@ -1,10 +1,10 @@
 /*
- * RecordingExporter.swift
- * GPS Stone
- *
- * Created by François Lamboley on 03/10/2020.
- * Copyright © 2020 Frost Land. All rights reserved.
- */
+ * RecordingExporter.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 03/10/2020.
+ * Copyright © 2020 Frost Land. All rights reserved.
+ */
 
 import CommonCrypto /* md5, before iOS 13. */
 import CoreData
@@ -141,7 +141,7 @@ final class RecordingExporter {
 				verticalAccuracyStr.flatMap{ #"\#t\#t\#t\#t<vdop>\#(xmlString($0))</vdop>"# },
 													  #"\#t\#t\#t</trkpt>"#,
 				""
-				].compactMap{ $0 }
+			].compactMap{ $0 }
 			fileHandle.write(Data(pointLines.joined(separator: "\n").utf8))
 		}
 		
@@ -185,11 +185,11 @@ final class RecordingExporter {
 		let hash: String
 		let hashedData = Data((recordingID.uriRepresentation().absoluteString + "_v2").utf8)
 		if #available(iOS 13.0, *) {
-			#if canImport(CryptoKit)
+#if canImport(CryptoKit)
 			hash = Insecure.MD5.hash(data: hashedData).reduce("", { $0 + String(format: "%02x", $1) })
-			#else
+#else
 			hash = commonCryptoHash(hashedData)
-			#endif
+#endif
 		} else {
 			hash = commonCryptoHash(hashedData)
 		}
