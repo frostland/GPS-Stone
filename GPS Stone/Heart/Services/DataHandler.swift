@@ -1,10 +1,10 @@
 /*
- * DataHandler.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2019/7/27.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * DataHandler.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 2019/7/27.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import CoreData
 import Foundation
@@ -25,12 +25,12 @@ final class DataHandler {
 	lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
 		let coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
 		
-		/* Adding the cached data store to the coordinator */
+		/* Adding the cached data store to the coordinator. */
 		do {
 			var tryCount = 0
 			var error: Error?
 			repeat {
-				/* Uncomment to clear the cache (for debug, etc.) */
+				/* Uncomment to clear the cache (for debug, etc.). */
 //				removeCachedDataModelFilesAndLinkedCachedFiles()
 				
 				error = nil
@@ -43,13 +43,13 @@ final class DataHandler {
 					)
 				} catch let err {
 					error = err
-					/* If the store cannot be created, the model file might be
-					 * invalid. We delete it and try again. */
+					/* If the store cannot be created, the model file might be invalid.
+					 * We delete it and try again. */
 					removeCachedDataModelFilesAndLinkedCachedFiles()
 				}
 			} while error != nil && tryCount <= 1
 			guard error == nil else {
-				/* It might be nice to warn the user before crashing... */
+				/* It might be nice to warn the user before crashing… */
 				fatalError("Cannot create the cached data persistent store. The app cannot work. Got error \(error!).")
 			}
 		}

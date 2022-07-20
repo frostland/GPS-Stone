@@ -1,10 +1,10 @@
 /*
- * RecordingsListViewController.swift
- * GPS Stone
- *
- * Created by François Lamboley on 19/06/2019.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * RecordingsListViewController.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 19/06/2019.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import CoreData
 import Foundation
@@ -79,8 +79,8 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 	}
 	
 	/* *******************************************
-	   MARK: - Table View Data Source and Delegate
-	   ******************************************* */
+	   MARK: - Table View Data Source and Delegate
+	   ******************************************* */
 	
 	override func numberOfSections(in tableView: UITableView) -> Int {
 		return fetchedResultsController.sections?.count ?? 0
@@ -97,7 +97,7 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		/* NO call to super (not implemented in superclass) */
+		/* NO call to super (not implemented in superclass). */
 		if datePushedToSingleRecording != nil {
 			NSLog("datePushedToSingleRecording is not nil, but it should be")
 		}
@@ -105,8 +105,8 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 	}
 	
 	/* ******************************************
-	   MARK: - NSFetchedResultsControllerDelegate
-	   ****************************************** */
+	   MARK: - NSFetchedResultsControllerDelegate
+	   ****************************************** */
 	
 	func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
 		guard tableView.superview != nil else {return}
@@ -135,29 +135,28 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		switch editingStyle {
 			case .delete:
-				/* We must perform and wait in order to be synchronous, in order to
-				 * have a better animation! */
+				/* We must perform and wait in order to be synchronous, in order to have a better animation! */
 				dataHandler.viewContext.performAndWait{
 					let recording = fetchedResultsController.object(at: indexPath)
 					dataHandler.viewContext.delete(recording)
 					_ = try? dataHandler.saveViewContextOrRollback()
 				}
-			
+				
 			default:
 				super.tableView(tableView, commit: editingStyle, forRowAt: indexPath)
 		}
 	}
 	
 	/* ***************
-	   MARK: - Private
-	   *************** */
+	   MARK: - Private
+	   *************** */
 	
 	private let dataHandler = S.sp.dataHandler
 	private let arasm = S.sp.appRateAndShareManager
 	
 	private let fetchedResultsController: NSFetchedResultsController<Recording>
 	
-	/* For app rate manager */
+	/* For app rate manager. */
 	private var datePushedToSingleRecording: Date?
 	
 	private func setup(cell: UITableViewCell, with object: Recording) {
@@ -174,8 +173,9 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 			/* Migration is over. */
 			tableView.tableFooterView = nil
 		} else {
-			/* Migration is in progress. No need to set the table footer view, it
-			 * is set in the storyboard. We monitor however for migration end. */
+			/* Migration is in progress.
+			 * No need to set the table footer view, it is set in the storyboard.
+			 * We monitor however for migration end. */
 			var observer: NSObjectProtocol?
 			observer = NotificationCenter.default.addObserver(forName: .MigrationToCoreDataHasEnded, object: nil, queue: .main, using: { [weak self] _ in
 				observer.flatMap{ NotificationCenter.default.removeObserver($0, name: .MigrationToCoreDataHasEnded, object: nil) }

@@ -1,19 +1,19 @@
 /*
- * LocationRecorder.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2019/5/31.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * LocationRecorder.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 2019/5/31.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import CoreLocation
 import Foundation
-import UIKit /* To get app and register to app fg/bg state */
+import UIKit /* To get app and register to app fg/bg state. */
 
 
 
 /* Inherits from NSObject to allow KVO on the instances.
- * TODO: Switch to Combine! */
+ * TODO: Switch to Combine! */
 final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	
 	public static let errorDomain = Constants.appDomain + ".LocationRecorder"
@@ -64,7 +64,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			switch self {
 				case .stopped:
 					return nil
-				
+					
 				case .paused(let rr, let id), .recording(let rr, let id):
 					return (rr, id)
 			}
@@ -159,11 +159,10 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		notificationObservers.append(nc.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.appStateChanged() }))
 		/* See comment in appStateChanged for explanation of the removal of the observation below. */
 //		notificationObservers.append(nc.addObserver(forName: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in self?.appStateChanged() }))
-		/* No need to call appStateChanged() (at least for now). Only the
-		 * appIsInBg property is modified by the method, and this property is
-		 * correctly initialized. */
+		/* No need to call appStateChanged() (at least for now).
+		 * Only the appIsInBg property is modified by the method, and this property is correctly initialized. */
 		
-		handleStatusChange(from: Status(recordingStatus: .stopped, appSettingBestAccuracy: appSettings.useBestGPSAccuracy), to: status) /* willSet/didSet not called from init */
+		handleStatusChange(from: Status(recordingStatus: .stopped, appSettingBestAccuracy: appSettings.useBestGPSAccuracy), to: status) /* willSet/didSet not called from init. */
 	}
 	
 	deinit {
@@ -173,9 +172,9 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	}
 	
 	/**
-	Tells the location recorder a new client requires the user’s position.
-	
-	When you don’t need the position anymore, call `releaseLocationTracking()` */
+	 Tells the location recorder a new client requires the user’s position.
+	 
+	 When you don’t need the position anymore, call `releaseLocationTracking()`. */
 	func retainLocationTracking() {
 		status.nClientsRequiringLocTracking += 1
 	}
@@ -189,9 +188,9 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	}
 	
 	/**
-	Tells the location recorder a new client requires the user’s heading.
-	
-	When you don’t need the position anymore, call `releaseHeadingTracking()` */
+	 Tells the location recorder a new client requires the user’s heading.
+	 
+	 When you don’t need the position anymore, call `releaseHeadingTracking()`. */
 	func retainHeadingTracking() {
 		status.nClientsRequiringHeadingTracking += 1
 	}
@@ -205,11 +204,10 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	}
 	
 	/**
-	Starts a new recording.
-	
-	This method is only valid to call while the location recorder is **stopped**
-	(it does not have a current recording). Will crash in debug mode (assert
-	active) if called while the recording is recording. */
+	 Starts a new recording.
+	 
+	 This method is only valid to call while the location recorder is **stopped** (it does not have a current recording).
+	 Will crash in debug mode (assert active) if called while the recording is recording. */
 	func startNewRecording() throws {
 		assert(Thread.isMainThread)
 		assert(recStatus.isStopped)
@@ -220,11 +218,10 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	}
 	
 	/**
-	Pauses the current recording.
-	
-	This method is only valid to call while the location recorder is **not**
-	stopped (it has a current recording). Will crash in debug mode (assert
-	active) if called at an invalid time. */
+	 Pauses the current recording.
+	 
+	 This method is only valid to call while the location recorder is **not** stopped (it has a current recording).
+	 Will crash in debug mode (assert active) if called at an invalid time. */
 	func pauseCurrentRecording() throws {
 		assert(Thread.isMainThread)
 		assert(recStatus.recordingRef != nil)
@@ -238,11 +235,10 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	}
 	
 	/**
-	Resumes the current recording.
-	
-	This method is only valid to call while the location recorder is **paused by
-	the user**. Will crash in debug mode (assert active) if called at an invalid
-	time. */
+	 Resumes the current recording.
+	 
+	 This method is only valid to call while the location recorder is **paused by the user**.
+	 Will crash in debug mode (assert active) if called at an invalid time. */
 	func resumeCurrentRecording() throws {
 		assert(Thread.isMainThread)
 		guard case .paused(let rr, let sid) = recStatus else {
@@ -259,11 +255,10 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	}
 	
 	/**
-	Stops the current recording.
-	
-	This method is only valid to call while the location recorder is **not**
-	stopped (it has a current recording). Will crash if called at an invalid
-	time. */
+	 Stops the current recording.
+	 
+	 This method is only valid to call while the location recorder is **not** stopped (it has a current recording).
+	 Will crash if called at an invalid time. */
 	func stopCurrentRecording() throws -> Recording {
 		assert(Thread.isMainThread)
 		
@@ -287,8 +282,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	}
 	
 	/* *********************************
-	   MARK: - Location Manager Delegate
-	   ********************************* */
+	   MARK: - Location Manager Delegate
+	   ********************************* */
 	
 	func locationManager(_ manager: CLLocationManager, didChangeAuthorization authStatus: CLAuthorizationStatus) {
 		assert(Thread.isMainThread)
@@ -298,18 +293,17 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 		NSLog("%@", "Location manager error \(error)")
 		
-		/* Doc says we can ignore CLError.Code.locationUnknown errors, but we will
-		 * still keep them to be able to show the “Getting Location…” message to
-		 * the user instead of showing an out of date location. */
+		/* Doc says we can ignore CLError.Code.locationUnknown errors,
+		 *  but we will still keep them to be able to show the “Getting Location…” message to the user
+		 *  instead of showing an out of date location. */
 		
 		currentLocationManagerError = error as NSError
 		currentLocation = nil
 		
 		/* Doc says we should stop the location service in case we get a denied.
-		 * But we don’t because we want the tracking to resume automatically when
-		 * the location services are enabled again and it’s easier this way than
-		 * using the did change authorization status method.
-		 * Maybe I’m missing something but everything seems to work ok this way. */
+		 * But we don’t because we want the tracking to resume automatically when the location services are enabled again
+		 *  and it’s easier this way than using the did change authorization status method.
+		 * Maybe I’m missing something but everything seems to work ok this way. */
 	}
 	
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -336,20 +330,16 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	func locationManager(_ manager: CLLocationManager, didFinishDeferredUpdatesWithError error: Error?) {
 		assert(Thread.isMainThread)
 		
-		/* Note: We do not set `gotFatalDeferredUpdatesError` directly to the
-		 * value of the test below because I want to be certain the status does
-		 * not changes if it does not have to. */
+		/* Note: We do not set `gotFatalDeferredUpdatesError` directly to the value of the test below
+		 *  because I want to be certain the status does not changes if it does not have to. */
 		if let e = error, ((e as? CLError)?.code != .deferredCanceled) {
-			/* For now (and probably forever), any error is a fatal error for
-			 * deferred location updates, except the cancellation error.
-			 * The “accuracy is not big enough” error is handled somewhere else and
-			 * should not happen, we do not have a distance filter on the location
-			 * manager so we should not get the distance filter error and all other
-			 * errors are fatal (AFAIK). */
+			/* For now (and probably forever), any error is a fatal error for deferred location updates, except the cancellation error.
+			 * The “accuracy is not big enough” error is handled somewhere else and should not happen,
+			 *  we do not have a distance filter on the location manager so we should not get the distance filter error
+			 *  and all other errors are fatal (AFAIK). */
 			status.gotFatalDeferredUpdatesError = true
 		} else {
-			/* Technically this should never be reached because we prevent deferred
-			 * updates once we got a fatal error. */
+			/* Technically this should never be reached because we prevent deferred updates once we got a fatal error. */
 			status.gotFatalDeferredUpdatesError = false
 		}
 		
@@ -369,12 +359,12 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	}
 	
 	/* ***************
-	   MARK: - Private
-	   *************** */
+	   MARK: - Private
+	   *************** */
 	
-	/** Contains a reference to the resolved CoreData Recording object. Currenlty
-	this struct is a bit of an overkill, but used to contain a FileHandle and a
-	GPXgpxType object. */
+	/**
+	 Contains a reference to the resolved CoreData ``Recording`` object.
+	 Currenlty this struct is a bit of an overkill, but used to contain a ``FileHandle`` and a ``GPXgpxType`` object. */
 	private struct RecordingWriteObjects {
 		
 		let recordingRef: URL
@@ -393,14 +383,15 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 	}
 	
-	/** The recorder status. The location manager status is changed depending on
-	the values of the properties of this struct, when this struct changes. */
+	/**
+	 The recorder status.
+	 The location manager status is changed depending on the values of the properties of this struct, when this struct changes. */
 	private struct Status {
 		
 		var recordingStatus: RecordingStatus
 		
-		/* Set to true when location manager pauses location tracking. Must be set
-		 * to false to resume location tracking. */
+		/* Set to true when location manager pauses location tracking.
+		 * Must be set to false to resume location tracking. */
 		var locationTrackingPaused = false
 		
 		var nClientsRequiringLocTracking = 0
@@ -418,11 +409,10 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		}
 		
 		var needsAlwaysAuth: Bool {
-			/* When we need the tracking, we ask for the permissions. If we’re
-			 * recording a trip it might better to have the always permission
-			 * (though apparently not really needed; it seems to only rid of the
-			 * blue bar telling an app is actively using one’s position; we must
-			 * test this fully and maybe drop the always). */
+			/* When we need the tracking, we ask for the permissions.
+			 * If we’re recording a trip it might better to have the always permission
+			 *  (though apparently not really needed; it seems to only rid of the blue bar telling an app is actively using one’s position;
+			 *  we must test this fully and maybe drop the always). */
 			return isRecording
 		}
 		
@@ -448,7 +438,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		}
 		
 		var needsHeadingTracking: Bool {
-			/* Only clients use the heading; we don’t use it while recording a trip */
+			/* Only clients use the heading; we don’t use it while recording a trip. */
 			return requiresHeadingTrackingForClients && !appIsInBg
 		}
 		
@@ -460,10 +450,8 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			guard !gotFatalDeferredUpdatesError else {return false}
 			guard CLLocationManager.deferredLocationUpdatesAvailable() else {return false}
 			
-			/* When the app is in the fg the location updates are not deferred (doc
-			 * says), so we do not check whether the app is in the bg.
-			 * If the desired accuracy is not enough, the system will not allow
-			 * deferred updates, so we check for desired accuracy first. */
+			/* When the app is in the fg the location updates are not deferred (doc says), so we do not check whether the app is in the bg.
+			 * If the desired accuracy is not enough, the system will not allow deferred updates, so we check for desired accuracy first. */
 			let hasSufficientAccuracy = (desiredAccuracy == kCLLocationAccuracyBest || desiredAccuracy == kCLLocationAccuracyBestForNavigation)
 			return isRecording && hasSufficientAccuracy
 		}
@@ -484,17 +472,16 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			}
 		}
 		didSet {
-			/* MUST be done in didSet. Handling the status change can change the
-			 * status! If we do that in willSet, the value set in the handling will
-			 * be overridden. In the didSet block it is not.
-			 * Swift Note: The didSet block is not called when the value is changed
-			 *             from within the didSet block directly, but it is called
-			 *             if the value is changed in a function that is called in
-			 *             the didSet block! (Tested w/ Xcode 11.4.1)
-			 *             Not sure this is the expected behaviour nor if it will
-			 *             stay the same forever though…
-			 *             @jckarter says yes it is the expected behavior:
-			 *             https://twitter.com/jckarter/status/1255509948127215616 */
+			/* MUST be done in didSet.
+			 * Handling the status change can change the status!
+			 * If we do that in willSet, the value set in the handling will be overridden.
+			 * In the didSet block it is not.
+			 *
+			 * Swift Note:
+			 * The didSet block is not called when the value is changed from within the didSet block directly,
+			 *  but it is called if the value is changed in a function that is called in the didSet block! (Tested w/ Xcode 11.4.1)
+			 * Not sure this is the expected behaviour nor if it will stay the same forever though…
+			 * @jckarter says yes it is the expected behavior: https://twitter.com/jckarter/status/1255509948127215616 */
 			handleStatusChange(from: oldValue, to: status)
 			
 			if oldValue.recordingStatus != status.recordingStatus {
@@ -502,22 +489,22 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			}
 		}
 	}
-	/* **NOT** in the status because change. We want to avoid triggering a status
-	 * change handling when we modify this property (among other things, we can
-	 * modify this property from within a status change handling). */
+	/* **NOT** in the status because change.
+	 * We want to avoid triggering a status change handling when we modify this property
+	 *  (among other things, we can modify this property from within a status change handling). */
 	private var isDeferringUpdates = false
 	
 	/**
-	The history of recording statuses w/ the date of change.
-	
-	We need this because we can receive delayed location events, so we need to
-	know what _was_ our recording status at the event date. */
+	 The history of recording statuses w/ the date of change.
+	 
+	 We need this because we can receive delayed location events, so we need to know what _was_ our recording status at the event date. */
 	private var recStatusesHistory: [RecordingStatusHistoryEntry]
 	
 	private var cachedRecordingWriteObjects: RecordingWriteObjects?
 	
-	/** The locations that couldn’t be saved, with the save error.
-	Currently unused; see issue https://github.com/frostland/GPS-Stone/issues/1 */
+	/**
+	 The locations that couldn’t be saved, with the save error.
+	 Currently unused; see issue https://github.com/frostland/GPS-Stone/issues/1 */
 	private var saveFailedLocations = [(location: CLLocation, error: Error)]()
 	
 	private var notificationObservers = [NSObjectProtocol]()
@@ -533,11 +520,10 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	private let arasm: AppRateAndShareManager?
 	
 	/**
-	Returns the recording status at the given date.
-	
-	If there is no recording status for the given date (the date is anterior to
-	the first date we have in the statuses history), the function returns
-	`.stopped`. */
+	 Returns the recording status at the given date.
+	 
+	 If there is no recording status for the given date (the date is anterior to the first date we have in the statuses history),
+	  the function returns `.stopped`. */
 	private func recStatus(at date: Date) -> RecordingStatus {
 		assert(Thread.isMainThread)
 		
@@ -577,61 +563,42 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 					let previousPointLocation = previousPoint.location
 				{
 					distance = newLocation.distance(from: previousPointLocation)
-					/* I’m aware of the distance filter property of the location
-					 * manager, however it’s not really a good fit for us:
-					 *    - If the client requires location tracking (the users is
-					 *      looking at the map or the GPS info), we must not apply a
-					 *      distance filter. In itself, this is not enough to justify
-					 *      dropping the system’s, however,
-					 *    - When we don’t apply a distance filter, we still have to
-					 *      apply the distance filter to the recording of the points,
-					 *      so we have to implement the distance filter ourself
-					 *      anyway, AND check we’re indeed not filtering with the
-					 *      system to apply our own filter (or we could drop points
-					 *      because of a desynchronisation between our latest
-					 *      recorded point and the one the system knows about, or
-					 *      algorithmic differences between our filter and the
-					 *      system’s);
-					 *    - Which also means we should know for points from the past
-					 *      (deferred updates) whether the distance filter was on or
-					 *      not! Which is currently not possible because we save the
-					 *      recording status history but not the location recorder
-					 *      status history. (Although doc says we should only receive
-					 *      deferred location update when the app is in the bg, time
-					 *      during which the distance filter status should not
-					 *      change.)
-					 *    - Finally, I don’t see any gain that would oppose to the
-					 *      arguments above for using the distance filter. We should
-					 *      measure it to be certain, but there is in theory no
-					 *      battery gain when using the distance filter… (Doc does
-					 *      not say there is at least.)
-					 * Another note about the distance filter: We do not save the
-					 * history of the distance filter value, which means if the user
-					 * changes the distance filter, we can potentially receive an
-					 * update from a point in time before the user has changed it,
-					 * and thus have an incorrect distance filter value when we
-					 * process the point.
-					 * In practice we do not really care because:
-					 *    - Deferred location updates should only happen in the bg,
-					 *      in which case the user cannot change the distance filter
-					 *      (at least from the time the deferred location updates API
-					 *      was not deprecated, deferred location udpates could only
-					 *      happen in the bg; now I think we cannot manually opt-in
-					 *      to deferred location updates, but they happen anyway, and
-					 *      I guess they would not do deferred location update when
-					 *      the app in the fg. All of this remains to be proven, if
-					 *      that is even possible…)
-					 *    - A change in the distance filter will probably be a rare
-					 *      event, and some missing or additional points recorded are
-					 *      not, IMHO, such a big deal!
-					 *
-					 * One final distance filter note!
-					 * After some thinking, maybe we could have two location
-					 * managers; one for the UI, and one for the recordings. This way
-					 * we would only configure the distance filter of the location
-					 * manager for the recordings, and leave the other alone, which
-					 * would solve all of the deferred updates problems, as well as
-					 * some other issues. */
+					/* I’m aware of the distance filter property of the location manager, however it’s not really a good fit for us:
+					 *    - If the client requires location tracking (the users is looking at the map or the GPS info), we must not apply a distance filter.
+					 *      In itself, this is not enough to justify dropping the system’s, however,
+					 *    - When we don’t apply a distance filter, we still have to apply the distance filter to the recording of the points,
+					 *       so we have to implement the distance filter ourself anyway,
+					 *       AND check we’re indeed not filtering with the system to apply our own filter
+					 *       (or we could drop points because of a desynchronisation between our latest recorded point and the one the system knows about,
+					 *       or algorithmic differences between our filter and the system’s);
+					 *    - Which also means we should know for points from the past (deferred updates) whether the distance filter was on or not!
+					 *      Which is currently not possible because we save the recording status history but not the location recorder status history.
+					 *      (Although doc says we should only receive deferred location update when the app is in the bg,
+					 *       time during which the distance filter status should not change.)
+					 *    - Finally, I don’t see any gain that would oppose to the arguments above for using the distance filter.
+					 *      We should measure it to be certain, but there is in theory no battery gain when using the distance filter…
+					 *      (Doc does not say there is at least.)
+					 *
+					 * Another note about the distance filter:
+					 * We do not save the history of the distance filter value,
+					 *  which means if the user changes the distance filter,
+					 *  we can potentially receive an update from a point in time before the user has changed it,
+					 *  and thus have an incorrect distance filter value when we process the point.
+					 * In practice we do not really care because:
+					 *    - Deferred location updates should only happen in the bg, in which case the user cannot change the distance filter
+					 *       (at least from the time the deferred location updates API was not deprecated,
+					 *       deferred location udpates could only happen in the bg;
+					 *       now I think we cannot manually opt-in to deferred location updates,
+					 *       but they happen anyway,
+					 *       and I guess they would not do deferred location update when the app in the fg.
+					 *       All of this remains to be proven, if that is even possible…).
+					 *    - A change in the distance filter will probably be a rare event,
+					 *       and some missing or additional points recorded are not, IMHO, such a big deal!
+					 *
+					 * One final distance filter note!
+					 * After some thinking, maybe we could have two location managers; one for the UI, and one for the recordings.
+					 * This way we would only configure the distance filter of the location manager for the recordings and leave the other alone,
+					 *  which would solve all of the deferred updates problems, as well as some other issues. */
 					guard distance >= s.distanceFilter else {continue}
 				} else {
 					distance = 0
@@ -640,21 +607,18 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 				rm.unsafeAddPoint(location: newLocation, addedDistance: distance, heading: currentHeading, segmentID: segmentID, to: writeObjects.recording)
 				changedContext = true
 			} catch {
-				/* Adding the location to the list of locations that couldn’t be
-				 * saved… */
+				/* Adding the location to the list of locations that couldn’t be saved… */
 				numberOfPointsFailed += 1
 				saveFailedLocations.append((location: newLocation, error: error))
 			}
 		}
-		/* Not fully convinced checking whether we changed the context is useful
-		 * before saving it (CoreData should be optimized so that it wouldn’t do
-		 * anything at all if saving no modifications IMHO). */
+		/* Not fully convinced checking whether we changed the context is useful before saving it
+		 *  (CoreData should be optimized so that it wouldn’t do anything at all if saving no modifications IMHO). */
 		if changedContext {
 			do {
 				try dh.saveViewContextOrRollback()
 			} catch {
-				/* Adding ALL the locations to the list of locations that couldn’t
-				 * be saved… */
+				/* Adding ALL the locations to the list of locations that couldn’t be saved… */
 				saveFailedLocations.removeLast(numberOfPointsFailed)
 				saveFailedLocations.append(contentsOf: locations.map{ (location: $0, error: error) })
 			}
@@ -668,22 +632,21 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		assert(Thread.isMainThread)
 		NSLog("%@", "Status change from \(oldStatus) to \(newStatus)")
 		
-		/* *** Let’s save the current status *** */
+		/* *** Let’s save the current status. *** */
 		if oldStatus.recordingStatus != newStatus.recordingStatus {
 			recStatusesHistory.append(RecordingStatusHistoryEntry(date: Date(), status: newStatus.recordingStatus))
 			_ = try? PropertyListEncoder().encode(recStatusesHistory).write(to: c.urlToCurrentRecordingInfo)
 		}
 		
-		/* *** Get or clear the current RecordingWriteObjects *** */
+		/* *** Get or clear the current RecordingWriteObjects. *** */
 		if oldStatus.recordingStatus.recordingRef == nil, let newRecordingRef = newStatus.recordingStatus.recordingRef {
 			cachedRecordingWriteObjects = try? RecordingWriteObjects(recordingRef: newRecordingRef, recordingsManager: rm)
 			guard cachedRecordingWriteObjects != nil else {
-				/* If we cannot get a RecordingWriteObjects recording won’t work. We
-				 * change our status to stopped.
-				 * We should provide a way to retrieve the error… maybe move the get
-				 * of this object in the start method? But there is the case of the
-				 * app launching in a recording state, which will not call the start
-				 * method… */
+				/* If we cannot get a RecordingWriteObjects recording won’t work.
+				 * We change our status to stopped.
+				 * We should provide a way to retrieve the error.
+				 * Maybe move the get of this object in the start method?
+				 * But there is the case of the app launching in a recording state, which will not call the start method… */
 				status.recordingStatus = .stopped
 				return
 			}
@@ -693,26 +656,20 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		let needsLocationTracking = newStatus.needsLocationTracking
 		
-		/* *** Ask for location authorization if needed *** */
+		/* *** Ask for location authorization if needed. *** */
 		if needsLocationTracking {
 			let needsAlwaysAuth = newStatus.needsAlwaysAuth
 			if needsAlwaysAuth {lm.requestAlwaysAuthorization()}
 			else               {lm.requestWhenInUseAuthorization()}
 		}
 		
-		/* We disable deferred updates (if needed) before changing the desired
-		 * accuracy because deferred updates depend on desired accuracy.
-		 * Doc recommends enabling deferred updates when receiving a new location,
-		 * so that’s what we do (and that’s why the deferred location updates are
-		 * not started in this method). */
+		/* We disable deferred updates (if needed) before changing the desired accuracy because deferred updates depend on desired accuracy.
+		 * Doc recommends enabling deferred updates when receiving a new location, so that’s what we do (and that’s why the deferred location updates are not started in this method). */
 		if !newStatus.allowDeferredUpdates && isDeferringUpdates {
 			lm.disallowDeferredLocationUpdates()
-			/* In theory (doc says) the delegate method should still be called when
-			 * manually stopping deferred location updates, so we do not set
-			 * isDeferringUpdates to false here.
-			 * We maybe should verify this, but how? I do not have access to a
-			 * device that supports deferred updates (they were dropped
-			 * unofficially in iOS 9 IIUC). */
+			/* In theory (doc says) the delegate method should still be called when manually stopping deferred location updates, so we do not set isDeferringUpdates to false here.
+			 * We maybe should verify this, but how?
+			 * I do not have access to a device that supports deferred updates (they were dropped unofficially in iOS 9 IIUC). */
 		}
 		
 		/* *** Update location manager desired accuracy *** */
@@ -720,28 +677,25 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		let prevDesiredAccuracy = oldStatus.desiredAccuracy
 		if desiredAccuracy != prevDesiredAccuracy {lm.desiredAccuracy = desiredAccuracy}
 		
-		/* *** Start or stop significant location changes if needed *** */
+		/* *** Start or stop significant location changes if needed. *** */
 		if CLLocationManager.significantLocationChangeMonitoringAvailable() {
 			let needsSignificantLocationChangesTracking = newStatus.needsSignificantLocationChangesTracking
 			let neededSignificantLocationChangesTracking = oldStatus.needsSignificantLocationChangesTracking
 			if needsSignificantLocationChangesTracking && !neededSignificantLocationChangesTracking {
-				/* This should launch the app when it gets a significant location
-				 * changes even if the user has force quit it, if the background app
-				 * refresh is on.
-				 * After some testing, the app seems to be relaunched even with bg
-				 * app refresh off! */
+				/* This should launch the app when it gets a significant location change even if the user has force quit it, if the background app refresh is on.
+				 * After some testing, the app seems to be relaunched even with bg app refresh off. */
 				lm.startMonitoringSignificantLocationChanges()
 			} else if !needsSignificantLocationChangesTracking && neededSignificantLocationChangesTracking {
 				lm.stopMonitoringSignificantLocationChanges()
 			}
 		}
 		
-		/* *** Start or stop location tracking if needed *** */
+		/* *** Start or stop location tracking if needed. *** */
 		let neededLocationTracking = oldStatus.needsLocationTracking
 		if       needsLocationTracking && !neededLocationTracking {lm.startUpdatingLocation()}
 		else if !needsLocationTracking &&  neededLocationTracking {lm.stopUpdatingLocation()}
 		
-		/* *** Start or stop heading tracking if needed *** */
+		/* *** Start or stop heading tracking if needed. *** */
 		if CLLocationManager.headingAvailable() {
 			let needsHeadingTracking = newStatus.needsHeadingTracking
 			let neededHeadingTracking = oldStatus.needsHeadingTracking
@@ -749,7 +703,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			else if !needsHeadingTracking &&  neededHeadingTracking {lm.stopUpdatingHeading()}
 		}
 		
-		/* *** Enable/disable bg location udpates if needed *** */
+		/* *** Enable/disable bg location udpates if needed. *** */
 		if #available(iOS 9.0, *) {
 			let needsBackgroundLocationUpdates = newStatus.needsBackgroundLocationUpdates
 			let neededBackgroundLocationUpdates = oldStatus.needsBackgroundLocationUpdates
@@ -766,26 +720,18 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	private func appStateChanged() {
 		status.appIsInBg = (UIApplication.shared.applicationState == .background)
 		
-		/* The comment below is the doc. It seems to be an outrageous lie (I have
-		 * done some tests and got the app to receive significant location changes
-		 * when bg app refresh was disabled), so we simply ignore modifications of
-		 * the background app refresh status. */
+		/* The comment below is the doc.
+		 * It seems to be an outrageous lie (I have done some tests and got the app to receive significant location changes when bg app refresh was disabled),
+		 *  so we simply ignore modifications of the background app refresh status. */
 		
 		/* From https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/LocationAwarenessPG/CoreLocation/CoreLocation.html#//apple_ref/doc/uid/TP40009497-CH2-SW11
-		 *    Note: When a user disables the Background App Refresh setting either
-		 *          globally or for your app, the significant-change location
-		 *          service doesn’t relaunch your app. Further, while Background
-		 *          App Refresh is off an app doesn’t receive significant-change
-		 *          or region monitoring events even when it's in the foreground.
-		 *    Important: A user can explicitly disable background capabilities for
-		 *               any app. If a user disables Background App Refresh in the
-		 *               Settings app—either globally for all apps or for your app
-		 *               in particular—your app is prevented from using any
-		 *               location services in the background. You can determine
-		 *               whether your app can process location updates in the
-		 *               background by checking the value of the
-		 *               backgroundRefreshStatus property of the UIApplication
-		 *               class. */
+		 *
+		 * - Note: When a user disables the Background App Refresh setting either globally or for your app, the significant-change location service doesn’t relaunch your app.
+		 * Further, while Background App Refresh is off an app doesn’t receive significant-change or region monitoring events even when it's in the foreground.
+		 *
+		 * - Important: A user can explicitly disable background capabilities for any app.
+		 * If a user disables Background App Refresh in the Settings app—either globally for all apps or for your app in particular—your app is prevented from using any location services in the background.
+		 * You can determine whether your app can process location updates in the background by checking the value of the backgroundRefreshStatus property of the UIApplication class. */
 	}
 	
 	private func startDeferredLocationUpdates() {

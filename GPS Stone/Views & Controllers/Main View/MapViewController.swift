@@ -1,10 +1,10 @@
 /*
- * MapViewController.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2019/6/19.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * MapViewController.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 2019/6/19.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import CoreData
 import Foundation
@@ -44,14 +44,14 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		/* Set later in view will appear and did disappear */
+		/* Set later in view will appear and did disappear. */
 		mapView.showsUserLocation = false
 		
 		if let r = recording {
 			buttonCenterMapOnCurLoc.isHidden = true
 			currentRecording = recording
 			
-			/* Let’s compute the region to show for the recording */
+			/* Let’s compute the region to show for the recording. */
 			if let coordinates = (r.points as! Set<RecordingPoint>?)?.compactMap({ $0.location?.coordinate }), let startingPointCoord = coordinates.first {
 				/* We have a recording which has at least one point. */
 				var region = MKCoordinateRegion(center: startingPointCoord, latitudinalMeters: 1, longitudinalMeters: 1)
@@ -110,10 +110,9 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		
 		if recording == nil {
 			mapView.showsUserLocation = true
-			/* Note that we do not actually need location tracking on this view
-			 * because we use the map user location view, however the map does not
-			 * ask for user location permission. Retaining location tracking will
-			 * do it if needed. */
+			/* Note that we do not actually need location tracking on this view because we use the map user location view,
+			 *  however the map does not ask for user location permission.
+			 * Retaining location tracking will do it if needed. */
 			locationRecorder.retainLocationTracking()
 		}
 	}
@@ -132,8 +131,8 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	}
 	
 	/* *************************
-	   MARK: - Map View Delegate
-	   ************************* */
+	   MARK: - Map View Delegate
+	   ************************* */
 	
 	func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
 		assert(overlay is MKPolyline)
@@ -172,22 +171,21 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	}
 	
 	/* *******************************************
-	   MARK: - Fetched Results Controller Delegate
-	   ******************************************* */
+	   MARK: - Fetched Results Controller Delegate
+	   ******************************************* */
 	
 	func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
 		assert(controller === pointsFetchResultsController)
 		/* Note: We could use the controller did change section/object methods,
-		 *       however, I don’t think we’d gain _anything at all_ in terms of
-		 *       performance, so let’s just do this instead (which avoids having
-		 *       to create non-trivial alorithms to reconcile the cache with the
-		 *       change notification we’d get from the controller). */
+		 *  however, I don’t think we’d gain _anything at all_ in terms of performance,
+		 *  so let’s just do this instead
+		 *  (which avoids having to create non-trivial alorithms to reconcile the cache with the change notification we’d get from the controller). */
 		pointsProcessingQueue.addOperation(createProcessPointsOperation())
 	}
 	
 	/* ***************
-	   MARK: - Private
-	   *************** */
+	   MARK: - Private
+	   *************** */
 	
 	private let c = S.sp.constants
 	private let appSettings = S.sp.appSettings
@@ -223,12 +221,10 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	private var mapRegionSetByAppDate: Date?
 	private var mapRegionBeingSetByApp: Bool {
 		if let date = mapRegionSetByAppDate {
-			/* Sometimes the map view region did change delegate method might not
-			 * be called after setting the map’s region (if, I think, the region we
-			 * set is the same as the current region). We consider setting the
-			 * region of the map will not take more 3 seconds, and thus, whatever
-			 * happens, after 3 seconds we consider the map region is not set by
-			 * the app anymore. */
+			/* Sometimes the map view region did change delegate method might not be called after setting the map’s region
+			 *  (if, I think, the region we set is the same as the current region).
+			 * We consider setting the region of the map will not take more 3 seconds, and thus, whatever happens,
+			 *  after 3 seconds we consider the map region is not set by the app anymore. */
 			if date.timeIntervalSinceNow < -3.0 {
 				NSLog("%@", "Got a map region set by app date older than 3 seconds. The region did change delegate method was probably skipped; considering the region is not being set anymore by the app.")
 				return false
@@ -284,7 +280,8 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 				
 				pointsProcessingQueue.addOperation(createProcessPointsOperation())
 			} catch {
-				/* We do nothing in case of an error. The map will simply never be updated… */
+				/* We do nothing in case of an error.
+				 * The map will simply never be updated… */
 			}
 		}
 	}
@@ -321,15 +318,13 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 				return areCoordsEqual(tl1, tl2) && areCoordsEqual(bl1, bl2) && areCoordsEqual(br1, br2) && areCoordsEqual(tr1, tr2)
 			}
 			
-			/* We do not move the map if the new region is too close to the old
-			 * one. See comment in mapRegionBeingSetByApp accessor for more info. */
+			/* We do not move the map if the new region is too close to the old one.
+			 * See comment in mapRegionBeingSetByApp accessor for more info. */
 			if (zoom && !areRegionsEqual(mapView.region, expectedRegion)) || (!zoom && !areCoordsEqual(mapView.centerCoordinate, mapUserLocationCoords)) {
 				mapRegionSetByAppDate = Date()
-				/* We reset the zoom date if we will zoom, but also in the case of
-				 * an initial region set. In the case of the initial region set, the
-				 * user will probably see a big change in the map’s region, and thus
-				 * unconsiously register the map’s zoom level at that time (source:
-				 * none, idk if true). */
+				/* We reset the zoom date if we will zoom, but also in the case of an initial region set.
+				 * In the case of the initial region set, the user will probably see a big change in the map’s region,
+				 *  and thus unconsiously register the map’s zoom level at that time (source: none, idk if true). */
 				if zoom || initialCenter {mapZoomSetDate = Date()}
 				
 				if zoom {mapView.setRegion(expectedRegion, animated: true)}
@@ -338,18 +333,18 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		}
 	}
 	
-	/** We zoom only if the current zoom is too far out from the expected zoom,
-	or if the latest time we zoomed was more than 1 minute ago. */
+	/**
+	 We zoom only if the current zoom is too far out from the expected zoom, or if the latest time we zoomed was more than 1 minute ago. */
 	private func shouldZoom(expectedRegion: MKCoordinateRegion) -> Bool {
-		/* First we check the last zoom set date. If it’s more than 1 minute ago
-		 * or is nil, we should zoom. */
+		/* First we check the last zoom set date.
+		 * If it’s more than 1 minute ago or is nil, we should zoom. */
 		if let date = mapZoomSetDate, date.timeIntervalSinceNow < -(1*60) {
 			return true
 		} else if mapZoomSetDate == nil {
 			return true
 		}
-		/* Next we check the current zoom level and compare it to the zoom level
-		 * we want. If the diff is of a magnitude, we zoom. */
+		/* Next we check the current zoom level and compare it to the zoom level we want.
+		 * If the diff is of a magnitude, we zoom. */
 		let newSpan = expectedRegion.span
 		let oldSpan = mapView.region.span
 		if oldSpan.latitudeDelta > 0 && oldSpan.longitudeDelta > 0 {
@@ -421,18 +416,16 @@ fileprivate struct PolylinesCache {
 	
 	/* The number of points currently added in the cache for a given section. */
 	var nPointsBySection = [Int]()
-	/* We break down each section to polylines of 100 points in order to avoid
-	 * having to redraw the whole path each time a new point is added. This is
-	 * why polylinesBySection is an array of array of polylines instead of a
-	 * simple array of polylines.
-	 * The count of this array should always be `numberOfSections`. */
+	/* We break down each section to polylines of 100 points in order to avoid having to redraw the whole path each time a new point is added.
+	 * This is why polylinesBySection is an array of array of polylines instead of a simple array of polylines.
+	 * The count of this array should always be `numberOfSections`. */
 	var polylinesBySection = [[MKPolyline]]()
-	/* Between each sections we show a dotted line indicating missing information
-	 * (the recording was paused). This variable contains these polylines. They
-	 * are optional because some section might not have any points in them, in
-	 * which case there are no dotted line to show, but we must still have an
-	 * element in the array to have the correct count of objects in the array.
-	 * The count of this array should always be `max(0, numberOfSections-1)`. */
+	/* Between each sections we show a dotted line indicating missing information (the recording was paused).
+	 * This variable contains these polylines.
+	 * They are optional because some section might not have any points in them,
+	 *  in which case there are no dotted line to show,
+	 *  but we must still have an element in the array to have the correct count of objects in the array.
+	 * The count of this array should always be `max(0, numberOfSections-1)`. */
 	var interSectionPolylines = [MKPolyline?]()
 	
 	var polylinesToRemoveFromMap = Set<MKPolyline>()
@@ -441,9 +434,8 @@ fileprivate struct PolylinesCache {
 	
 }
 
-/* Note: We overwrite RetryingOperation instead of Operation mainly because I
- * have taken the habit of doing so, but in this case overwriting `main` in a
- * standard Operation would have been fine… */
+/* Note: We overwrite RetryingOperation instead of Operation mainly because I have taken the habit of doing so,
+ *  but in this case overwriting `main` in a standard Operation would have been fine… */
 fileprivate class ProcessPointsOperation : RetryingOperation {
 	
 	let polylinesMaxPointCount: Int
@@ -482,14 +474,14 @@ fileprivate class ProcessPointsOperation : RetryingOperation {
 			let sectionIndex = startSectionIndex + sectionDelta
 			assert(sectionIndex <= polylinesCache.numberOfSections)
 			
-			/* Add a section in the cache if needed */
+			/* Add a section in the cache if needed. */
 			if sectionIndex == polylinesCache.numberOfSections {
 				polylinesCache.numberOfSections += 1
 				polylinesCache.nPointsBySection.append(0)
 				polylinesCache.polylinesBySection.append([])
 			}
 			
-			/* Add the new points in the current section */
+			/* Add the new points in the current section. */
 			while pointsInSection.count > 0 {
 				guard !isCancelled else {return}
 				
@@ -497,8 +489,7 @@ fileprivate class ProcessPointsOperation : RetryingOperation {
 					assert(latestPolylineOfSection.pointCount > 0, "Got a polyline with no points in it for section \(sectionIndex) in cache \(polylinesCache)")
 					let latestPoint = latestPolylineOfSection.points().advanced(by: latestPolylineOfSection.pointCount-1).pointee
 					if latestPolylineOfSection.pointCount == polylinesMaxPointCount {
-						/* The latest polyline for the section has the maximum number
-						 * points allowed: we must create a new polyline. */
+						/* The latest polyline for the section has the maximum number points allowed: we must create a new polyline. */
 						let nPointsToAdd = min(pointsInSection.count, polylinesMaxPointCount-1)
 						let pointsToAdd = [latestPoint.coordinate] + Array(pointsInSection[0..<nPointsToAdd])
 						let polyline = MKPolyline(coordinates: pointsToAdd, count: pointsToAdd.count)
@@ -507,8 +498,8 @@ fileprivate class ProcessPointsOperation : RetryingOperation {
 						polylinesCache.nPointsBySection[sectionIndex] += nPointsToAdd
 						pointsInSection.removeFirst(nPointsToAdd)
 					} else {
-						/* We can shove more points in the latest polyline of the
-						 * section. Let’s do it! */
+						/* We can shove more points in the latest polyline of the section.
+						 * Let’s do it! */
 						let currentPoints = (latestPolylineOfSection.points()..<latestPolylineOfSection.points().advanced(by: latestPolylineOfSection.pointCount)).map{ $0.pointee.coordinate }
 						let nPointsToAdd = min(pointsInSection.count, polylinesMaxPointCount-latestPolylineOfSection.pointCount)
 						let pointsToAdd = currentPoints + Array(pointsInSection[0..<nPointsToAdd])
@@ -521,8 +512,8 @@ fileprivate class ProcessPointsOperation : RetryingOperation {
 						pointsInSection.removeFirst(nPointsToAdd)
 					}
 				} else {
-					/* There are no polylines at all for the moment in the current
-					 * section. We must add one. */
+					/* There are no polylines at all for the moment in the current section.
+					 * We must add one. */
 					let nPointsToAdd = min(pointsInSection.count, polylinesMaxPointCount)
 					let pointsToAdd = Array(pointsInSection[0..<nPointsToAdd])
 					let polyline = MKPolyline(coordinates: pointsToAdd, count: pointsToAdd.count)
@@ -533,7 +524,7 @@ fileprivate class ProcessPointsOperation : RetryingOperation {
 				}
 			}
 			
-			/* Add an inter-section polyline if needed */
+			/* Add an inter-section polyline if needed. */
 			if polylinesCache.interSectionPolylines.count == sectionIndex-1 {
 				if
 					let firstPolylineOfSection = polylinesCache.polylinesBySection[sectionIndex].first,

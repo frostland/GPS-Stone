@@ -1,10 +1,10 @@
 /*
- * MiniInfoViewController.swift
- * GPS Stone
- *
- * Created by François Lamboley on 02/09/2020.
- * Copyright © 2020 Frost Land. All rights reserved.
- */
+ * MiniInfoViewController.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 02/09/2020.
+ * Copyright © 2020 Frost Land. All rights reserved.
+ */
 
 import CoreLocation
 import Foundation
@@ -14,7 +14,7 @@ import XibLoc
 
 
 
-protocol MiniInfoViewControllerDelegate : class {
+protocol MiniInfoViewControllerDelegate : AnyObject {
 	
 	func showDetailedInfo()
 	
@@ -26,7 +26,7 @@ class MiniInfoViewController : UIViewController {
 	@IBOutlet var labelTotalDistance: UILabel!
 	@IBOutlet var labelElapsedTime: UILabel!
 	@IBOutlet var labelGPSWarning: UILabel!
-
+	
 	weak var delegate: MiniInfoViewControllerDelegate?
 	
 	struct Model {
