@@ -10,10 +10,5 @@ import Foundation
 
 
 
-struct Utils {
-	
-	/* Note: We could’ve used a no-case enum instead of a struct w/ a private
-	 *       init, but in the end I prefered the struct way. */
-	private init() {}
-	
+enum Utils {
 }
