@@ -1,10 +1,10 @@
 /*
- * SettingsViewController.swift
- * GPS Stone
- *
- * Created by François Lamboley on 19/06/2019.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * SettingsViewController.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 19/06/2019.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import CoreLocation
 import Foundation
@@ -52,15 +52,16 @@ class SettingsViewController : UITableViewController {
 	}
 	
 	/* ****************************************************
-	   MARK: - Table View Controller Data Source & Delegate
-	   **************************************************** */
+	   MARK: - Table View Controller Data Source & Delegate
+	   **************************************************** */
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = super.tableView(tableView, cellForRowAt: indexPath)
 		switch indexPath.section {
 			case 1:
 				switch indexPath.row {
-					case 1: cell.accessoryType = (appSettings.useBestGPSAccuracy ? .checkmark : .none)
+					case 1: cell.accessoryType = (appSettings.useBestGPSAccuracy         ? .checkmark : .none)
+					case 2: cell.accessoryType = (appSettings.askBeforePausingOrStopping ? .checkmark : .none)
 					default: (/*nop*/)
 				}
 				
@@ -78,11 +79,16 @@ class SettingsViewController : UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-		return indexPath == IndexPath(row: 1, section: 1) || indexPath.section == 2 || indexPath.section == 3
+		return (
+			indexPath == IndexPath(row: 1, section: 1) ||
+			indexPath == IndexPath(row: 2, section: 1) ||
+			indexPath.section == 2 ||
+			indexPath.section == 3
+		)
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		/* NO call to super (not implemented in superclass) */
+		/* NO call to super (not implemented in superclass). */
 		tableView.deselectRow(at: indexPath, animated: true)
 		
 		switch indexPath.section {
@@ -91,6 +97,9 @@ class SettingsViewController : UITableViewController {
 					case 1:
 						appSettings.useBestGPSAccuracy = !appSettings.useBestGPSAccuracy
 						tableView.cellForRow(at: indexPath)?.accessoryType = (appSettings.useBestGPSAccuracy ? .checkmark : .none)
+					case 2:
+						appSettings.askBeforePausingOrStopping = !appSettings.askBeforePausingOrStopping
+						tableView.cellForRow(at: indexPath)?.accessoryType = (appSettings.askBeforePausingOrStopping ? .checkmark : .none)
 					default: (/*nop*/)
 				}
 				
@@ -113,10 +122,10 @@ class SettingsViewController : UITableViewController {
 						UIApplication.shared.openURL(appRateAndShareManager.rateAppURL)
 						
 					case 1:
-						/* Share the app */
+						/* Share the app. */
 						let activityViewController = UIActivityViewController(activityItems: [appRateAndShareManager.shareAppURL], applicationActivities: nil)
 						present(activityViewController, animated: true, completion: nil)
-					
+						
 					default:
 						(/*nop*/)
 				}
@@ -127,8 +136,8 @@ class SettingsViewController : UITableViewController {
 	}
 	
 	/* ***************
-	   MARK: - Private
-	   *************** */
+	   MARK: - Private
+	   *************** */
 	
 	private let appSettings = S.sp.appSettings
 	private let appRateAndShareManager = S.sp.appRateAndShareManager

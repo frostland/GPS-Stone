@@ -1,10 +1,10 @@
 /*
- * AppDelegate.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2019/5/30.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * AppDelegate.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 2019/5/30.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import Foundation
 import UIKit
@@ -30,8 +30,7 @@ class AppDelegate : NSObject, UIApplicationDelegate {
 	func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
 //		Utils.debugLog("APP WILL FINISH LAUNCHING \(launchOptions)", to: "logs")
 		
-		/* We force init this manager because it monitors stuff and needs to be up
-		 * early. */
+		/* We force init this manager because it monitors stuff and needs to be up early. */
 		_ = notifsManager
 		
 		/* We start the migration to CoreData. */
@@ -46,18 +45,18 @@ class AppDelegate : NSObject, UIApplicationDelegate {
 	}
 	
 	/* ***********************************
-	   MARK: - Pre-iOS 10 delegate methods
-	   *********************************** */
+	   MARK: - Pre-iOS 10 delegate methods
+	   *********************************** */
 	
 	func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
 		notifsManager.application(application, didRegister: notificationSettings)
 	}
 	
 	/* ***************
-	   MARK: - Private
-	   *************** */
+	   MARK: - Private
+	   *************** */
 	
-	/* Dependencies */
+	/* Dependencies. */
 	private let settings = S.sp.appSettings
 	private lazy var notifsManager = S.sp.notificationsManager
 	

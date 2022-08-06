@@ -1,10 +1,10 @@
 /*
- * AppRateAndShareManager.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2020/11/7.
- * Copyright © 2020 Frost Land. All rights reserved.
- */
+ * AppRateAndShareManager.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 2020/11/7.
+ * Copyright © 2020 Frost Land. All rights reserved.
+ */
 
 import Foundation
 import StoreKit
@@ -29,16 +29,14 @@ final class AppRateAndShareManager {
 	}
 	
 	func wentFromRecordingBackToList(after duration: TimeInterval) {
-		/* We estimate if the user stayed on the recording for more than 5 secs he
-		 * found something he liked, so we ask for review now. */
+		/* We estimate if the user stayed on the recording for more than 5 secs he found something he liked, so we ask for review now. */
 		if duration > 5 {
 			askForReviewIfNotDoneAlreadyForThisRelease()
 		}
 	}
 	
 	var rateAppURL: URL {
-		/* This URL apparently works for directly rating the app from iOS 8, all
-		 * the way up to the current iOS version at the time of writing. */
+		/* This URL apparently works for directly rating the app from iOS 8, all the way up to the current iOS version at the time of writing. */
 		var urlComponents = URLComponents(url: baseAppAppStoreURL, resolvingAgainstBaseURL: true)!
 		urlComponents.queryItems = (urlComponents.queryItems ?? []) + [URLQueryItem(name: "action", value: "write-review")]
 		return urlComponents.url!

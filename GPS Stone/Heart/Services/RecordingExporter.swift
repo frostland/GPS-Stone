@@ -1,10 +1,10 @@
 /*
- * RecordingExporter.swift
- * GPS Stone
- *
- * Created by François Lamboley on 03/10/2020.
- * Copyright © 2020 Frost Land. All rights reserved.
- */
+ * RecordingExporter.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 03/10/2020.
+ * Copyright © 2020 Frost Land. All rights reserved.
+ */
 
 import CommonCrypto /* md5, before iOS 13. */
 import CoreData
@@ -37,9 +37,7 @@ final class RecordingExporter {
 		return (exists && !isDir.boolValue ? url : nil)
 	}
 	
-	/* Note: We assume here recordings do not change ever, and once a recording
-	 *       has been converted to GPX, if we have the converted version in the
-	 *       cache, we use it and return it directly. */
+	/* Note: We assume here recordings do not change ever, and once a recording has been converted to GPX, if we have the converted version in the cache, we use it and return it directly. */
 	func prepareExport(of recordingID: NSManagedObjectID, handler: @escaping (_ result: Result<URL, Error>) -> Void) -> Progress {
 		let progress = Progress()
 		let context = dh.bgContext
@@ -57,9 +55,9 @@ final class RecordingExporter {
 		let outputURL = try urlForRecordingID(recordingID, recordingName: recording.name)
 		let inprogressOutputURL = outputURL.appendingPathExtension("inprogress")
 		
-		/* First let’s check if the file has not already been created. Note: We
-		 * also check if the file existing, if it exists, is indeed a file and not
-		 * a directory. If it is a directory, we’ll delete it. */
+		/* First let’s check if the file has not already been created.
+		 * Note: We also check if the file existing, if it exists, is indeed a file and not a directory.
+		 * If it is a directory, we’ll delete it. */
 		var isDir = ObjCBool(true)
 		let outputExists = fileManager.fileExists(atPath: outputURL.path, isDirectory: &isDir)
 		guard !outputExists || isDir.boolValue else {
@@ -68,7 +66,8 @@ final class RecordingExporter {
 		
 		if outputExists {try fileManager.removeItem(at: outputURL)}
 		
-		/* We now have a clean slate. Let’s work. */
+		/* We now have a clean slate.
+		 * Let’s work. */
 		try Data().write(to: inprogressOutputURL)
 		let fileHandle = try FileHandle(forWritingTo: inprogressOutputURL)
 		defer {
@@ -142,7 +141,7 @@ final class RecordingExporter {
 				verticalAccuracyStr.flatMap{ #"\#t\#t\#t\#t<vdop>\#(xmlString($0))</vdop>"# },
 													  #"\#t\#t\#t</trkpt>"#,
 				""
-				].compactMap{ $0 }
+			].compactMap{ $0 }
 			fileHandle.write(Data(pointLines.joined(separator: "\n").utf8))
 		}
 		
@@ -173,7 +172,7 @@ final class RecordingExporter {
 //	private let workQueue = DispatchQueue(label: Constants.appDomain + ".RecordingExporter.work-queue", qos: .background)
 	
 	private func urlForRecordingID(_ recordingID: NSManagedObjectID, recordingName: String?) throws -> URL {
-		/* The hash will be the name of the folder we’ll use to store the GPX file */
+		/* The hash will be the name of the folder we’ll use to store the GPX file. */
 		func commonCryptoHash(_ data: Data) -> String {
 			let checksumPointer = malloc(Int(CC_MD5_DIGEST_LENGTH))!.assumingMemoryBound(to: UInt8.self)
 			let data = Data(recordingID.uriRepresentation().absoluteString.utf8)
@@ -186,11 +185,11 @@ final class RecordingExporter {
 		let hash: String
 		let hashedData = Data((recordingID.uriRepresentation().absoluteString + "_v2").utf8)
 		if #available(iOS 13.0, *) {
-			#if canImport(CryptoKit)
+#if canImport(CryptoKit)
 			hash = Insecure.MD5.hash(data: hashedData).reduce("", { $0 + String(format: "%02x", $1) })
-			#else
+#else
 			hash = commonCryptoHash(hashedData)
-			#endif
+#endif
 		} else {
 			hash = commonCryptoHash(hashedData)
 		}

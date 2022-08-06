@@ -1,10 +1,10 @@
 /*
- * InfoViewController.swift
- * GPS Stone
- *
- * Created by François Lamboley on 18/06/2019.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * InfoViewController.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 18/06/2019.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import Foundation
 import UIKit
@@ -13,7 +13,7 @@ import KVObserver
 
 
 
-protocol InfoViewControllerDelegate : class {
+protocol InfoViewControllerDelegate : AnyObject {
 	
 	func showDetailedInfo()
 	func showMap()
@@ -62,12 +62,12 @@ class InfoViewController : UIViewController {
 	
 	@IBAction func startRecording(_ sender: Any) {
 		delegate?.showDetailedInfo()
-		Utils.executeOrShowAlertIn(self, { try locationRecorder.startNewRecording() })
+		Utils.startOrResumeRecording(in: self, using: locationRecorder)
 	}
 	
 	/* ***************
-	   MARK: - Private
-	   *************** */
+	   MARK: - Private
+	   *************** */
 	
 	@available(iOS, deprecated: 13, message: "In Xcode 11 apparently we can do injection from Storyboard. To be tested. (I put the warning here, it’s true everywhere indeed…)")
 	private let locationRecorder = S.sp.locationRecorder

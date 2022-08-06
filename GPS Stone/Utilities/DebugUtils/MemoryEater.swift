@@ -1,10 +1,10 @@
 /*
- * MemoryEater.swift
- * Memory Eater
- *
- * Created by François Lamboley on 18/06/2020.
- * Copyright © 2020 Frizlab. All rights reserved.
- */
+ * MemoryEater.swift
+ * Memory Eater
+ *
+ * Created by François Lamboley on 18/06/2020.
+ * Copyright © 2020 Frizlab. All rights reserved.
+ */
 
 import Foundation
 
@@ -27,7 +27,7 @@ class MemoryEater {
 	
 	private var eatQueue = OperationQueue()
 	
-	private var setEatingQueue = DispatchQueue(label: "me.frizlab.Memory-Eater.MemoryEater.setEatingQueue", qos: .userInteractive, attributes: [/* .serial */])
+	private var setEatingQueue = DispatchQueue(label: "me.frizlab.Memory-Eater.MemoryEater.setEatingQueue", qos: .userInteractive, attributes: [/*.serial*/])
 	private var _eatingMemory = false
 	
 	private func setEatingMemory(_ newValue: Bool) -> Bool {

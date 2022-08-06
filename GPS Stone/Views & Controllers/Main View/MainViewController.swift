@@ -1,10 +1,10 @@
 /*
- * MainViewController.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2019/6/16.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
+ * MainViewController.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 2019/6/16.
+ * Copyright © 2019 Frost Land. All rights reserved.
+ */
 
 import CoreData
 import Foundation
@@ -39,8 +39,8 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	
 	deinit {
 		/* This removes the timer to refresh the duration shown of the recording,
-		 * which needed before iOS 10 because the timer keeps a strong ref to the
-		 * target until the timer is deallocated. */
+		 *  which is needed before iOS 10
+		 *  because the timer keeps a strong ref to the target until the timer is deallocated. */
 		miniInfoViewController?.model = nil
 		
 		if let o = settingsObserver {
@@ -67,7 +67,7 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		/* Select the previously selected page */
+		/* Select the previously selected page. */
 		pageControl.currentPage = min(pageControl.numberOfPages, max(0, appSettings.selectedPage))
 		pageViewController.setViewControllers([viewControllerForPage(atIndex: pageControl.currentPage)], direction: .forward, animated: false, completion: nil)
 		setNeedsStatusBarAppearanceUpdate()
@@ -104,7 +104,7 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 				let viewController = viewControllerForPage(atIndex: 0)
 				pageViewController.setViewControllers([viewController], direction: .forward, animated: false, completion: nil)
 				setNeedsStatusBarAppearanceUpdate()
-			
+				
 			case "MiniInfoViewControllerSegue"?:
 				miniInfoViewController = (segue.destination as! MiniInfoViewController)
 				miniInfoViewController?.delegate = self
@@ -117,8 +117,8 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	}
 	
 	/* ***************
-	   MARK: - Actions
-	   *************** */
+	   MARK: - Actions
+	   *************** */
 	
 	@IBAction func unwindSegueToMainViewController(_ sender: UIStoryboardSegue) {
 	}
@@ -135,25 +135,20 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	}
 	
 	@IBAction func startRecording(_ sender: Any) {
-		Utils.executeOrShowAlertIn(self){
-			switch self.locationRecorder.recStatus {
-			case .stopped: try locationRecorder.startNewRecording()
-			default:       try locationRecorder.resumeCurrentRecording()
-			}
-		}
+		Utils.startOrResumeRecording(in: self, using: locationRecorder)
 	}
 	
 	@IBAction func pauseRecording(_ sender: Any) {
-		Utils.executeOrShowAlertIn(self, { try locationRecorder.pauseCurrentRecording() })
+		Utils.pauseRecording(in: self, using: locationRecorder, appSettings: appSettings)
 	}
 	
 	@IBAction func stopRecording(_ sender: Any) {
-		Utils.executeOrShowAlertIn(self, { _ = try locationRecorder.stopCurrentRecording() })
+		Utils.stopRecording(in: self, using: locationRecorder, appSettings: appSettings)
 	}
 	
 	/* ***************************************************
-	   MARK: - Page View Controller Data Source & Delegate
-	   *************************************************** */
+	   MARK: - Page View Controller Data Source & Delegate
+	   *************************************************** */
 	
 	func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
 		guard let id = viewController.restorationIdentifier, let idx = pageViewControllerIdentifiers.firstIndex(of: id), idx > 0 else {return nil}
@@ -166,7 +161,7 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	}
 	
 	func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-		/* Update the page control selected index */
+		/* Update the page control selected index. */
 		if let id = pageViewController.viewControllers?.first?.restorationIdentifier, let idx = pageViewControllerIdentifiers.firstIndex(of: id) {
 			pageControl.currentPage = idx
 			appSettings.selectedPage = idx
@@ -176,8 +171,8 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	}
 	
 	/* ***************
-	   MARK: - Private
-	   *************** */
+	   MARK: - Private
+	   *************** */
 	
 	private let c = S.sp.constants
 	private let appSettings = S.sp.appSettings
@@ -220,13 +215,13 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 				self.buttonStop.isHidden = true
 				self.buttonPause.isHidden = true
 				self.buttonListRecords.isHidden = false
-			
+				
 			case .recording:
 				self.buttonRecord.isHidden = true
 				self.buttonStop.isHidden = false
 				self.buttonPause.isHidden = false
 				self.buttonListRecords.isHidden = true
-			
+				
 			case .paused:
 				self.buttonRecord.isHidden = false
 				self.buttonStop.isHidden = false

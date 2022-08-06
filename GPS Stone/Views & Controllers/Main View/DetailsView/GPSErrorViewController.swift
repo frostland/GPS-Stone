@@ -1,10 +1,10 @@
 /*
- * GPSErrorViewController.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2020/8/1.
- * Copyright © 2020 Frost Land. All rights reserved.
- */
+ * GPSErrorViewController.swift
+ * GPS Stone
+ *
+ * Created by François Lamboley on 2020/8/1.
+ * Copyright © 2020 Frost Land. All rights reserved.
+ */
 
 import CoreLocation
 import Foundation
@@ -60,9 +60,8 @@ class GPSErrorViewController : UIViewController {
 		buttonGoToSettings.isHidden = !error.isPermissionDeniedError
 		buttonResumeLocationUpdates.isHidden = !error.isUpdatesPaused
 		
-		/* Layout Note: We use an if instead of directly setting the `isActive`
-		 * property with the boolean value used in the if, because **the order in
-		 * which we (de-)activate the constraints matters**! */
+		/* Layout Note: We use an if instead of directly setting the `isActive` property with the boolean value used in the if,
+		 *  because **the order in which we (de-)activate the constraints matters**! */
 		if error.isPermissionDeniedError || error.isUpdatesPaused {
 			constraintDescrToBottomView.isActive = false
 			constraintButtonToBottomView.isActive = true

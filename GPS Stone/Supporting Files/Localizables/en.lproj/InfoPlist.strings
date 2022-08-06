@@ -1,4 +1,4 @@
-/* Localized versions of Info.plist keys */
+/* Localized versions of Info.plist keys. */
 
 NSLocationWhenInUseUsageDescription = "Showing your speed, altitude and GPS coordinate requires getting your position.";
 NSLocationAlwaysUsageDescription = "Recording your trip requires knowing your position at all times. We will never use your position in background when the App is not recording a trip.";
