@@ -83,6 +83,13 @@
 /* Text of the button to confirm stopping the recording in the alert view before stopping a recording. */
 "avb: confirm stop the recording" = "Stop";
 
+/* The title of the alert view informing the user the app is not updated anymore. */
+"alert no more updates: title" = "End of Life";
+/* The content of the alert view informing the user the app is not updated anymore. */
+"alert no more updates: content" = "This app will stop receiving updates. It has been replaced by a newer version. You can still continue to use it without limitations forever.";
+/* The button to go to the App Store to the new app in the alert view informing the user the app is not updated anymore. */
+"alert no more updates: button go to app store" = "View the New App";
+
 
 
 /* ••••••••••••••••••••••••••••••••••• */

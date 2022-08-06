@@ -53,7 +53,9 @@ final class AppSettings {
 			.askBeforePausingOrStopping: true,
 			
 			.lastVersionRateAsked: nil,
-			.numberOfRecordingsSinceLastAskedToRate: 0
+			.numberOfRecordingsSinceLastAskedToRate: 0,
+			
+			.lastDateShownWarningNoMoreUpdates: nil
 		]
 		
 		/* Let’s make sure all the cases have been registered in the defaults. */
@@ -195,6 +197,11 @@ final class AppSettings {
 		set {ud.set(newValue, forKey: SettingsKey.numberOfRecordingsSinceLastAskedToRate.rawValue); nc.post(name: AppSettings.changedNotification, object: self)}
 	}
 	
+	var lastDateShownWarningNoMoreUpdates: Date? {
+		get {ud.object(forKey: SettingsKey.lastDateShownWarningNoMoreUpdates.rawValue) as? Date}
+		set {ud.set(newValue, forKey: SettingsKey.lastDateShownWarningNoMoreUpdates.rawValue)}
+	}
+	
 	/* ***************
 	   MARK: - Private
 	   *************** */
@@ -216,6 +223,8 @@ final class AppSettings {
 		
 		case lastVersionRateAsked = "FRL Last Version Rate Asked"
 		case numberOfRecordingsSinceLastAskedToRate = "FRL Number of Recordings Since Last Asked to Rate"
+		
+		case lastDateShownWarningNoMoreUpdates = "FRL Last Date Shown Warning No More Updates"
 		
 	}
 	

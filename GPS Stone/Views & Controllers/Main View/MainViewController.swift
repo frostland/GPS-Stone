@@ -94,6 +94,26 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 		updateRecordingUI()
 	}
 	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		/* We show the warning every 3 weeks. */
+		let interval: TimeInterval = 3 * 7 * 24 * 60 * 60
+		if appSettings.lastDateShownWarningNoMoreUpdates.flatMap({ $0.timeIntervalSinceNow < -interval }) ?? true {
+			let alertVC = UIAlertController(
+				title:   NSLocalizedString("alert no more updates: title",   comment: "The title of the alert view informing the user the app is not updated anymore."),
+				message: NSLocalizedString("alert no more updates: content", comment: "The content of the alert view informing the user the app is not updated anymore."),
+				preferredStyle: .alert
+			)
+			alertVC.addAction(UIAlertAction(title: NSLocalizedString("alert no more updates: button go to app store", comment: "The button to go to the App Store to the new app in the alert view informing the user the app is not updated anymore."), style: .default, handler: { _ in
+				UIApplication.shared.openURL(URL(string: "https://apps.apple.com/us/app/id441456344")!)
+			}))
+			alertVC.addAction(UIAlertAction(title: NSLocalizedString("ok button title", comment: ""), style: .cancel))
+			present(alertVC, animated: true, completion: nil)
+			appSettings.lastDateShownWarningNoMoreUpdates = Date()
+		}
+	}
+	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		switch segue.identifier {
 			case "MainPageViewControllerSegue"?:
