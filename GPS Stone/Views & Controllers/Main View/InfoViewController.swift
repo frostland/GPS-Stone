@@ -65,6 +65,10 @@ class InfoViewController : UIViewController {
 		Utils.startOrResumeRecording(in: self, using: locationRecorder)
 	}
 	
+	@IBAction func showEndOfLife(_ sender: Any) {
+		UIApplication.shared.openURL(S.sp.constants.newAppURL)
+	}
+	
 	/* ***************
 	   MARK: - Private
 	   *************** */

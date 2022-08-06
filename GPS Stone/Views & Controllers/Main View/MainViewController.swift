@@ -106,7 +106,7 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 				preferredStyle: .alert
 			)
 			alertVC.addAction(UIAlertAction(title: NSLocalizedString("alert no more updates: button go to app store", comment: "The button to go to the App Store to the new app in the alert view informing the user the app is not updated anymore."), style: .default, handler: { _ in
-				UIApplication.shared.openURL(URL(string: "https://apps.apple.com/us/app/id441456344")!)
+				UIApplication.shared.openURL(S.sp.constants.newAppURL)
 			}))
 			alertVC.addAction(UIAlertAction(title: NSLocalizedString("ok button title", comment: ""), style: .cancel))
 			present(alertVC, animated: true, completion: nil)

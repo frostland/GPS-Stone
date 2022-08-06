@@ -26,6 +26,8 @@ final class Constants {
 	
 	let accuracyWarningThreshold = CLLocationDistance(50)
 	
+	let newAppURL = URL(string: "itms-apps://itunes.apple.com/app/id441456344")!
+	
 	/* Constants for UI. */
 	let pageNumberWithMap = 2
 	let pageNumberWithDetailedInfo = 1
