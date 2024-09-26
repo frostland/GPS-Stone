@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -123,15 +123,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B1AC2692335AB2000B6F06A /* XibLoc in Frameworks */,
-				7B1AC2632335AABB00B6F06A /* KVObserver in Frameworks */,
 				7BC43307233624DD00C59752 /* CollectionAndTableViewUpdateConveniences in Frameworks */,
-				7B1AC2662335AAD600B6F06A /* RetryingOperation in Frameworks */,
 				288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */,
 				0FBBCBA9100A9F67003679A8 /* CoreLocation.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				7B1AC2632335AABB00B6F06A /* KVObserver in Frameworks */,
 				0FB4B0FC10074B20005292C4 /* MapKit.framework in Frameworks */,
+				7B1AC2662335AAD600B6F06A /* RetryingOperation in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				7B1AC2692335AB2000B6F06A /* XibLoc in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,10 +354,10 @@
 			);
 			name = "GPS Stone";
 			packageProductDependencies = (
+				7BC43306233624DD00C59752 /* CollectionAndTableViewUpdateConveniences */,
 				7B1AC2622335AABB00B6F06A /* KVObserver */,
 				7B1AC2652335AAD600B6F06A /* RetryingOperation */,
 				7B1AC2682335AB2000B6F06A /* XibLoc */,
-				7BC43306233624DD00C59752 /* CollectionAndTableViewUpdateConveniences */,
 			);
 			productName = "GPS Recorder";
 			productReference = 1D6058910D05DD3D006BFB54 /* GPS Stone.app */;
@@ -369,7 +369,8 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1340;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
 				ORGANIZATIONNAME = "Frost Land";
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
@@ -395,10 +396,10 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			packageReferences = (
+				7BC43305233624DD00C59752 /* XCRemoteSwiftPackageReference "CollectionAndTableViewUpdateConveniences" */,
 				7B1AC2612335AABB00B6F06A /* XCRemoteSwiftPackageReference "KVObserver" */,
 				7B1AC2642335AAD600B6F06A /* XCRemoteSwiftPackageReference "RetryingOperation" */,
 				7B1AC2672335AB2000B6F06A /* XCRemoteSwiftPackageReference "XibLoc" */,
-				7BC43305233624DD00C59752 /* XCRemoteSwiftPackageReference "CollectionAndTableViewUpdateConveniences" */,
 			);
 			projectDirPath = "";
 			projectRoot = "";
@@ -413,11 +414,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B28FFD82476E9590063E26A /* InfoPlist.strings in Resources */,
-				7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */,
-				7B482CE11DCA8ADD007B5ABC /* Localizable.strings in Resources */,
-				7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */,
 				7B27B9291DCDF6B1006F44B7 /* Assets.xcassets in Resources */,
+				7B28FFD82476E9590063E26A /* InfoPlist.strings in Resources */,
+				7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */,
+				7B482CE11DCA8ADD007B5ABC /* Localizable.strings in Resources */,
+				7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,41 +429,41 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B1024FD22BA19A7008BF119 /* MapViewController.swift in Sources */,
-				7BEF77FC22EFA23B001B79DB /* Recording+Utils.swift in Sources */,
-				7BE9FF9D22AC1BC6006DED15 /* RecordingsManager.swift in Sources */,
-				7B4487A324719ADF00B6DB7B /* Utils+UI.swift in Sources */,
 				7B94D1E222A0169600848832 /* AppDelegate.swift in Sources */,
-				7B9C5D32249AA02800996C4D /* Utils+Debug.swift in Sources */,
-				7B4487A0247199CC00B6DB7B /* Utils.swift in Sources */,
 				7B6E7B732556F5E600A45BBD /* AppRateAndShareManager.swift in Sources */,
-				7BAD114C24FF63EE00D6D9A2 /* MiniInfoViewController.swift in Sources */,
-				7B06D3A922EC8D27000D31B9 /* DataHandler.swift in Sources */,
+				7B94D1EA22A0197900848832 /* AppSettings.swift in Sources */,
 				7B94D1E822A0194100848832 /* Constants.swift in Sources */,
-				7B575ED1252CBE5000B3131B /* MigrationToCoreData.swift in Sources */,
+				7B06D3A922EC8D27000D31B9 /* DataHandler.swift in Sources */,
+				7BD0A05922B9576500934656 /* DetailsViewController.swift in Sources */,
+				7BD558B4254EA2A200DEF329 /* FRLSecureUnarchiveFromDataTransformer.swift in Sources */,
 				7B596E1A24D536D600E98260 /* GPSErrorViewController.swift in Sources */,
-				7B08CFC622BA96AF00BE6E3F /* RecordingDetailsViewController.swift in Sources */,
+				7B596E1624D2082E00E98260 /* GPSInfoViewController.swift in Sources */,
+				7B9F689624E063AD009A0BDB /* GPSStoneLocationError.swift in Sources */,
+				7B4487A72471CA1100B6DB7B /* GPSStoneLocTokens.swift in Sources */,
+				7B23D9BA22B90BB20007BA61 /* InfoViewController.swift in Sources */,
 				7B93E38222A184ED00709971 /* LocationRecorder.swift in Sources */,
-				7B5108F722BA57E60038CEAC /* RecordingsListViewController.swift in Sources */,
+				7BEED1BF22B6C0F700A055B9 /* MainViewController.swift in Sources */,
+				7B1024FD22BA19A7008BF119 /* MapViewController.swift in Sources */,
+				7B68688224A8F0B800C77DC1 /* MemoryEater.swift in Sources */,
+				7B575ED1252CBE5000B3131B /* MigrationToCoreData.swift in Sources */,
+				7BAD114C24FF63EE00D6D9A2 /* MiniInfoViewController.swift in Sources */,
+				7BAE22DE22DB75C000AB6C33 /* Model.xcdatamodeld in Sources */,
+				7B40B09A24DF3768008FADB1 /* NotificationsManager.swift in Sources */,
 				7B575ECA25290A4600B3131B /* NSManagedObject+Utils.swift in Sources */,
 				7B575ECC2529CE3800B3131B /* NSManagedObjectContext+Utils.swift in Sources */,
-				7BEED1BF22B6C0F700A055B9 /* MainViewController.swift in Sources */,
-				7B9F689624E063AD009A0BDB /* GPSStoneLocationError.swift in Sources */,
-				7B23D9BA22B90BB20007BA61 /* InfoViewController.swift in Sources */,
-				7B68688224A8F0B800C77DC1 /* MemoryEater.swift in Sources */,
-				7B75989C246EF7BA00BC7EB1 /* TimeSegment+Utils.swift in Sources */,
-				7BAE22DE22DB75C000AB6C33 /* Model.xcdatamodeld in Sources */,
-				7B0F344C22BA9DFA00F0F9EC /* SettingsViewController.swift in Sources */,
-				7B94D1E622A0191700848832 /* ServicesProvider.swift in Sources */,
-				7B596E1824D20D9800E98260 /* RecordingInfoViewController.swift in Sources */,
-				7B40B09A24DF3768008FADB1 /* NotificationsManager.swift in Sources */,
-				7B4487A524719C5000B6DB7B /* Utils+Language.swift in Sources */,
+				7BEF77FC22EFA23B001B79DB /* Recording+Utils.swift in Sources */,
+				7B08CFC622BA96AF00BE6E3F /* RecordingDetailsViewController.swift in Sources */,
 				7B575EC8252907D500B3131B /* RecordingExporter.swift in Sources */,
-				7B4487A72471CA1100B6DB7B /* GPSStoneLocTokens.swift in Sources */,
-				7B94D1EA22A0197900848832 /* AppSettings.swift in Sources */,
-				7BD558B4254EA2A200DEF329 /* FRLSecureUnarchiveFromDataTransformer.swift in Sources */,
-				7B596E1624D2082E00E98260 /* GPSInfoViewController.swift in Sources */,
-				7BD0A05922B9576500934656 /* DetailsViewController.swift in Sources */,
+				7B596E1824D20D9800E98260 /* RecordingInfoViewController.swift in Sources */,
+				7B5108F722BA57E60038CEAC /* RecordingsListViewController.swift in Sources */,
+				7BE9FF9D22AC1BC6006DED15 /* RecordingsManager.swift in Sources */,
+				7B94D1E622A0191700848832 /* ServicesProvider.swift in Sources */,
+				7B0F344C22BA9DFA00F0F9EC /* SettingsViewController.swift in Sources */,
+				7B75989C246EF7BA00BC7EB1 /* TimeSegment+Utils.swift in Sources */,
+				7B4487A0247199CC00B6DB7B /* Utils.swift in Sources */,
+				7B9C5D32249AA02800996C4D /* Utils+Debug.swift in Sources */,
+				7B4487A524719C5000B6DB7B /* Utils+Language.swift in Sources */,
+				7B4487A324719ADF00B6DB7B /* Utils+UI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,6 +548,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -571,6 +573,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -582,7 +585,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -594,6 +597,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -617,6 +621,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -628,7 +633,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VERSION_INFO_PREFIX = FRL;
