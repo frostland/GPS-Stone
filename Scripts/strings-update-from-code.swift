@@ -1,5 +1,4 @@
-#!/usr/bin/swift sh
-
+#!/usr/bin/env -S swift-sh --
 import Foundation
 
 import SwiftShell // @kareman ~> 5.1.0
@@ -20,7 +19,6 @@ do {
 	
 	try runAndPrint(
 		"locmapper", "update_xcode_strings_from_code",
-		"--colored-output",
 		"--encoding=utf8", "--delete-missing-keys",
 		"--unlocalized-xibs-files-list=.locmapper/unlocalized_xibs",
 		"--unused-stringsfiles-files-list=.locmapper/unused_stringfiles",
