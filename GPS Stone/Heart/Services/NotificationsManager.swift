@@ -66,9 +66,7 @@ final class NotificationsManager {
 				UNUserNotificationCenter.current().add(request, withCompletionHandler: nil /* We don’t really care if the notif cannot be shown… */)
 			} else {
 				let notif = UILocalNotification()
-				if #available(iOS 8.2, *) {
-					notif.alertTitle = NSLocalizedString("notif title: location updates paused", comment: "The title of the notification when location updates are paused by the system.")
-				}
+				notif.alertTitle = NSLocalizedString("notif title: location updates paused", comment: "The title of the notification when location updates are paused by the system.")
 				notif.alertBody = NSLocalizedString("notif body: location updates paused", comment: "The body of the notification when location updates are paused by the system.")
 				UIApplication.shared.scheduleLocalNotification(notif)
 			}
