@@ -1,52 +1,78 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "CollectionAndTableViewUpdateConveniences",
-        "repositoryURL": "git@github.com:happn-tech/CollectionAndTableViewUpdateConveniences.git",
-        "state": {
-          "branch": null,
-          "revision": "1b857d8fb5e260f504f89c02c635ba7ad2f60f50",
-          "version": "1.0.3"
-        }
-      },
-      {
-        "package": "KVObserver",
-        "repositoryURL": "git@github.com:happn-tech/KVObserver.git",
-        "state": {
-          "branch": null,
-          "revision": "6b6252489a2b1cdb67857576962676b6cb6c679a",
-          "version": "0.9.5"
-        }
-      },
-      {
-        "package": "RetryingOperation",
-        "repositoryURL": "git@github.com:happn-tech/RetryingOperation.git",
-        "state": {
-          "branch": null,
-          "revision": "eef4de25941f967bbe6707460c40c60ec808c2ce",
-          "version": "1.1.6"
-        }
-      },
-      {
-        "package": "swift-log",
-        "repositoryURL": "https://github.com/apple/swift-log.git",
-        "state": {
-          "branch": null,
-          "revision": "173f567a2dfec11d74588eea82cecea555bdc0bc",
-          "version": "1.4.0"
-        }
-      },
-      {
-        "package": "XibLoc",
-        "repositoryURL": "git@github.com:happn-tech/XibLoc.git",
-        "state": {
-          "branch": null,
-          "revision": "e3fc0c240c87e9c3549420f16f6e8ee39809cf19",
-          "version": "1.1.1"
-        }
+  "originHash" : "b5e346d4fe2d4ca5f60b19ee6237a5d5c4e9ba7f014cc4d8c9c2a8ac2f076f24",
+  "pins" : [
+    {
+      "identity" : "collectionandtableviewupdateconveniences",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Frizlab/CollectionAndTableViewUpdateConveniences.git",
+      "state" : {
+        "revision" : "1b857d8fb5e260f504f89c02c635ba7ad2f60f50",
+        "version" : "1.0.3"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "globalconfmodule",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Frizlab/GlobalConfModule.git",
+      "state" : {
+        "revision" : "72729262a37078faa9978c2c5accd5adbaedb4ee",
+        "version" : "0.4.3"
+      }
+    },
+    {
+      "identity" : "kvobserver",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Frizlab/KVObserver.git",
+      "state" : {
+        "revision" : "6b6252489a2b1cdb67857576962676b6cb6c679a",
+        "version" : "0.9.5"
+      }
+    },
+    {
+      "identity" : "retryingoperation",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Frizlab/RetryingOperation.git",
+      "state" : {
+        "revision" : "033f46e7c4cf807c8dbfded3d16a1ba15982fc95",
+        "version" : "1.2.0"
+      }
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log.git",
+      "state" : {
+        "revision" : "ce592ae52f982c847a4efc0dd881cc9eb32d29f2",
+        "version" : "1.6.4"
+      }
+    },
+    {
+      "identity" : "swift-service-context",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-service-context.git",
+      "state" : {
+        "revision" : "1983448fefc717a2bc2ebde5490fe99873c5b8a6",
+        "version" : "1.2.1"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swiftlang/swift-syntax.git",
+      "state" : {
+        "revision" : "f99ae8aa18f0cf0d53481901f88a0991dc3bd4a2",
+        "version" : "601.0.1"
+      }
+    },
+    {
+      "identity" : "xibloc",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Frizlab/XibLoc.git",
+      "state" : {
+        "revision" : "e85a5179bdd93e017473182d76b33af1f176e6bd",
+        "version" : "1.5.1-beta.2"
+      }
+    }
+  ],
+  "version" : 3
 }

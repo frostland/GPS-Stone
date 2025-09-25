@@ -8,6 +8,7 @@
 
 import Foundation
 
+import GlobalConfModule
 import XibLoc
 
 
@@ -33,7 +34,7 @@ public struct GPSStoneLocTokens : TokensGroup {
 	
 	public var str2StrXibLocInfo: Str2StrXibLocInfo {
 		return Str2StrXibLocInfo(
-			defaultPluralityDefinition: XibLocConfig.defaultPluralityDefinition,
+			defaultPluralityDefinition: Conf[\.xibLoc.defaultPluralityDefinition],
 			escapeToken: Self.escapeToken,
 			simpleSourceTypeReplacements: [:],
 			orderedReplacements: [:],
@@ -48,8 +49,13 @@ public struct GPSStoneLocTokens : TokensGroup {
 		)! /* We force unwrap because we _know_ these tokens are valid. */
 	}
 	
+	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	public var str2AttrStrXibLocInfo: Str2AttrStrXibLocInfo {
 		return Str2AttrStrXibLocInfo(strResolvingInfo: str2StrXibLocInfo)
+	}
+	
+	public var str2NSAttrStrXibLocInfo: Str2NSAttrStrXibLocInfo {
+		return Str2NSAttrStrXibLocInfo(strResolvingInfo: str2StrXibLocInfo)
 	}
 	
 }
