@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Frizlab/GlobalConfModule.git",
       "state" : {
-        "revision" : "72729262a37078faa9978c2c5accd5adbaedb4ee",
-        "version" : "0.4.3"
+        "revision" : "1ae8f4510c375217a8423864366b68f18b986d20",
+        "version" : "0.4.4"
       }
     },
     {
