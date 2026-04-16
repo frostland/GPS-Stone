@@ -685,7 +685,7 @@
 			repositoryURL = "https://github.com/Frizlab/XibLoc.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = "1.5.1-beta";
+				minimumVersion = "2.0.0-beta";
 			};
 		};
 		7BC43305233624DD00C59752 /* XCRemoteSwiftPackageReference "CollectionAndTableViewUpdateConveniences" */ = {
