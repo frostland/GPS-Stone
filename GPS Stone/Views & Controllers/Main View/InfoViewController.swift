@@ -66,7 +66,7 @@ class InfoViewController : UIViewController {
 	}
 	
 	@IBAction func showEndOfLife(_ sender: Any) {
-		UIApplication.shared.openURL(S.sp.constants.newAppURL)
+		UIApplication.shared.open(S.sp.constants.newAppURL)
 	}
 	
 	/* ***************

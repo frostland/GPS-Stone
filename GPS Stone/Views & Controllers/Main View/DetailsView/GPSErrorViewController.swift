@@ -41,7 +41,7 @@ class GPSErrorViewController : UIViewController {
 			NSLog("%@", "Weird, the open settings URL string cannot be converted to a URL……… \(UIApplication.openSettingsURLString)")
 			return
 		}
-		UIApplication.shared.openURL(url)
+		UIApplication.shared.open(url)
 	}
 	
 	@IBAction func resumeLocationUpdates(_ sender: Any) {
