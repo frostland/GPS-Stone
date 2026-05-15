@@ -37,7 +37,7 @@ extension Utils {
 			 * This shouldn’t be done because we shouldn’t assume the measurement symbol will be on the right or left of the value.
 			 * We have a UI where the km/h (or whatever unit symbol is used for the speed) has a different style than the speed value,
 			 *  so we need this, but we shouldn’t, and Apple’s API won’t help.
-			 * See more info in commented code below and at this link: https://forums.developer.apple.com/thread/54360#165690
+			 * See more info in commented code below and at this link: <https://forums.developer.apple.com/thread/54360#165690>.
 			 *
 			 * Note: Apple probably could have given a way to retrieve the range(s) of the measurement symbol, but they didn’t.
 			 * And we’re sad. */

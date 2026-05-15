@@ -481,7 +481,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			 * The didSet block is not called when the value is changed from within the didSet block directly,
 			 *  but it is called if the value is changed in a function that is called in the didSet block! (Tested w/ Xcode 11.4.1)
 			 * Not sure this is the expected behaviour nor if it will stay the same forever though…
-			 * @jckarter says yes it is the expected behavior: https://twitter.com/jckarter/status/1255509948127215616 */
+			 * @jckarter says yes it is the expected behavior: <https://twitter.com/jckarter/status/1255509948127215616>. */
 			handleStatusChange(from: oldValue, to: status)
 			
 			if oldValue.recordingStatus != status.recordingStatus {
@@ -504,7 +504,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 	
 	/**
 	 The locations that couldn’t be saved, with the save error.
-	 Currently unused; see issue https://github.com/frostland/GPS-Stone/issues/1 */
+	 Currently unused; see issue <https://github.com/frostland/GPS-Stone/issues/1>. */
 	private var saveFailedLocations = [(location: CLLocation, error: Error)]()
 	
 	private var notificationObservers = [NSObjectProtocol]()
@@ -569,7 +569,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 					 *    - When we don’t apply a distance filter, we still have to apply the distance filter to the recording of the points,
 					 *       so we have to implement the distance filter ourself anyway,
 					 *       AND check we’re indeed not filtering with the system to apply our own filter
-					 *       (or we could drop points because of a desynchronisation between our latest recorded point and the one the system knows about,
+					 *       (or we could drop points because of a desynchronization between our latest recorded point and the one the system knows about,
 					 *       or algorithmic differences between our filter and the system’s);
 					 *    - Which also means we should know for points from the past (deferred updates) whether the distance filter was on or not!
 					 *      Which is currently not possible because we save the recording status history but not the location recorder status history.
@@ -587,7 +587,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 					 * In practice we do not really care because:
 					 *    - Deferred location updates should only happen in the bg, in which case the user cannot change the distance filter
 					 *       (at least from the time the deferred location updates API was not deprecated,
-					 *       deferred location udpates could only happen in the bg;
+					 *       deferred location updates could only happen in the bg;
 					 *       now I think we cannot manually opt-in to deferred location updates,
 					 *       but they happen anyway,
 					 *       and I guess they would not do deferred location update when the app in the fg.
@@ -724,7 +724,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		 * It seems to be an outrageous lie (I have done some tests and got the app to receive significant location changes when bg app refresh was disabled),
 		 *  so we simply ignore modifications of the background app refresh status. */
 		
-		/* From https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/LocationAwarenessPG/CoreLocation/CoreLocation.html#//apple_ref/doc/uid/TP40009497-CH2-SW11
+		/* From <https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/LocationAwarenessPG/CoreLocation/CoreLocation.html#//apple_ref/doc/uid/TP40009497-CH2-SW11>.
 		 *
 		 * - Note: When a user disables the Background App Refresh setting either globally or for your app, the significant-change location service doesn’t relaunch your app.
 		 * Further, while Background App Refresh is off an app doesn’t receive significant-change or region monitoring events even when it's in the foreground.
