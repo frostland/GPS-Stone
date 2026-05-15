@@ -663,32 +663,32 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Frizlab/KVObserver.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.5;
+				kind = exactVersion;
+				version = 0.9.5;
 			};
 		};
 		7B1AC2642335AAD600B6F06A /* XCRemoteSwiftPackageReference "RetryingOperation" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Frizlab/RetryingOperation.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.6;
+				kind = exactVersion;
+				version = 1.1.6;
 			};
 		};
 		7B1AC2672335AB2000B6F06A /* XCRemoteSwiftPackageReference "XibLoc" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:happn-app/XibLoc.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.1;
+				kind = exactVersion;
+				version = 1.1.1;
 			};
 		};
 		7BC43305233624DD00C59752 /* XCRemoteSwiftPackageReference "CollectionAndTableViewUpdateConveniences" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Frizlab/CollectionAndTableViewUpdateConveniences.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.3;
+				kind = exactVersion;
+				version = 1.0.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
