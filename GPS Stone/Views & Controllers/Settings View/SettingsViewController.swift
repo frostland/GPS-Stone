@@ -119,7 +119,7 @@ class SettingsViewController : UITableViewController {
 				switch indexPath.row {
 					case 0:
 						/* Rate the app. */
-						UIApplication.shared.openURL(appRateAndShareManager.rateAppURL)
+						UIApplication.shared.open(appRateAndShareManager.rateAppURL)
 						
 					case 1:
 						/* Share the app. */
