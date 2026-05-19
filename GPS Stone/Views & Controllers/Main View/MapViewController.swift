@@ -1,11 +1,3 @@
-/*
- * MapViewController.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2019/6/19.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
-
 import CoreData
 import Foundation
 import MapKit

@@ -1,11 +1,3 @@
-/*
- * GPSStoneLocationError.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2020/8/9.
- * Copyright © 2020 Frost Land. All rights reserved.
- */
-
 import CoreLocation
 import Foundation
 

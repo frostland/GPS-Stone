@@ -1,11 +1,3 @@
-/*
- * MigrationToCoreData.swift
- * GPS Stone
- *
- * Created by François Lamboley on 06/10/2020.
- * Copyright © 2020 Frost Land. All rights reserved.
- */
-
 import CoreData
 import CoreLocation
 import Foundation

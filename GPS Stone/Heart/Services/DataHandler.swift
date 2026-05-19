@@ -1,11 +1,3 @@
-/*
- * DataHandler.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2019/7/27.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
-
 import CoreData
 import Foundation
 

@@ -1,11 +1,3 @@
-/*
- * LocationRecorder.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2019/5/31.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
-
 import CoreLocation
 import Foundation
 import UIKit /* To get app and register to app fg/bg state. */

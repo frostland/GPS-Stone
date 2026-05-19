@@ -1,11 +1,3 @@
-/*
- * NotificationsManager.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2020/8/8.
- * Copyright © 2020 Frost Land. All rights reserved.
- */
-
 import Foundation
 import UIKit /* For pre-iOS 10 notification registtration. */
 import UserNotifications

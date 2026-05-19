@@ -1,11 +1,3 @@
-/*
- * NSManagedObject+Utils.swift
- * GPS Stone
- *
- * Created by François Lamboley on 03/10/2020.
- * Copyright © 2020 Frost Land. All rights reserved.
- */
-
 import CoreData
 import Foundation
 

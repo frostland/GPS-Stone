@@ -1,11 +1,3 @@
-/*
- * MiniInfoViewController.swift
- * GPS Stone
- *
- * Created by François Lamboley on 02/09/2020.
- * Copyright © 2020 Frost Land. All rights reserved.
- */
-
 import CoreLocation
 import Foundation
 import UIKit

@@ -1,11 +1,3 @@
-/*
- * AppSettings.swift
- * GPS Stone
- *
- * Created by François Lamboley on 2019/5/30.
- * Copyright © 2019 Frost Land. All rights reserved.
- */
-
 import CoreLocation
 import Foundation
 import MapKit
