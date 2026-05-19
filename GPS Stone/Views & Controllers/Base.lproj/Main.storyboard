@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="h48-r7-9YD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="h48-r7-9YD">
     <device id="retina4_7" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,7 +30,7 @@
                                 </connections>
                             </containerView>
                             <pageControl opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="vYj-h8-3PW">
-                                <rect key="frame" x="25" y="597" width="325" height="27.5"/>
+                                <rect key="frame" x="25" y="597" width="325" height="26"/>
                                 <connections>
                                     <action selector="changePage:" destination="h48-r7-9YD" eventType="valueChanged" id="XOh-NB-tUv"/>
                                 </connections>
@@ -126,11 +126,11 @@
             <objects>
                 <tableViewController title="Settings" id="SoB-3e-nBh" customClass="SettingsViewController" customModule="GPS_Stone" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="42" sectionFooterHeight="28" id="kwx-m5-LA1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="657"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="rrf-2n-jhu">
-                            <rect key="frame" x="0.0" y="598.00000138716257" width="375" height="0.5"/>
+                            <rect key="frame" x="0.0" y="714" width="375" height="0.5"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="separatorColor"/>
                         </view>
@@ -138,14 +138,14 @@
                             <tableViewSection headerTitle="Map Style" id="Rzv-9A-gBV">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KUm-db-VvZ">
-                                        <rect key="frame" x="0.0" y="24.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="50" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KUm-db-VvZ" id="kIL-lM-KNk">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="II6-S0-e6b">
-                                                    <rect key="frame" x="83" y="6.5" width="209" height="32"/>
+                                                    <rect key="frame" x="84" y="6.5" width="207" height="32"/>
                                                     <segments>
                                                         <segment title="Map"/>
                                                         <segment title="Satellite"/>
@@ -167,7 +167,7 @@
                             <tableViewSection headerTitle="Points Recording" id="EDx-Rx-oei">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="q3Y-U7-fcs">
-                                        <rect key="frame" x="0.0" y="117.50000034679067" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="172" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q3Y-U7-fcs" id="G8I-qr-Df7">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -209,10 +209,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" textLabel="whs-ZC-GYE" detailTextLabel="xA6-DX-yki" rowHeight="50" style="IBUITableViewCellStyleSubtitle" id="nkz-eS-a2p">
-                                        <rect key="frame" x="0.0" y="161.50000034679067" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="216" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nkz-eS-a2p" id="T7O-8L-ihV">
-                                            <rect key="frame" x="0.0" y="0.0" width="338.5" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Use Best GPS Accuracy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="whs-ZC-GYE">
@@ -223,7 +223,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="⚠️ May drain your battery fast!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xA6-DX-yki">
-                                                    <rect key="frame" x="16" y="28.5" width="176.5" height="14.5"/>
+                                                    <rect key="frame" x="16" y="28.5" width="201.5" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
@@ -233,7 +233,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="OyZ-Y9-WHV" style="IBUITableViewCellStyleDefault" id="XKT-LQ-HWL">
-                                        <rect key="frame" x="0.0" y="211.50000034679067" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="266" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XKT-LQ-HWL" id="iEN-90-j34">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -254,14 +254,14 @@
                             <tableViewSection headerTitle="Distance Unit" id="eaI-xq-KGu">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" textLabel="hen-Lf-ENK" style="IBUITableViewCellStyleDefault" id="JZW-xy-4eM">
-                                        <rect key="frame" x="0.0" y="304.50000069358134" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="388" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JZW-xy-4eM" id="YD2-lw-Z3j">
-                                            <rect key="frame" x="0.0" y="0.0" width="338.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="335" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="System Default" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hen-Lf-ENK">
-                                                    <rect key="frame" x="16" y="0.0" width="314.5" height="44"/>
+                                                    <rect key="frame" x="16" y="0.0" width="311" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -271,7 +271,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="w9q-0E-GLN" style="IBUITableViewCellStyleDefault" id="kNg-TG-9id">
-                                        <rect key="frame" x="0.0" y="348.50000069358134" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="432" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kNg-TG-9id" id="5Xh-oN-HRR">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -288,7 +288,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="5xq-UZ-Gkp" style="IBUITableViewCellStyleDefault" id="gKr-xh-9th">
-                                        <rect key="frame" x="0.0" y="392.50000069358134" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="476" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gKr-xh-9th" id="5v6-dg-Npa">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -309,14 +309,14 @@
                             <tableViewSection headerTitle="Show Some Love ⭐️" id="vFE-8Y-hvQ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="u05-KK-0DF" style="IBUITableViewCellStyleDefault" id="8wu-F9-kGZ">
-                                        <rect key="frame" x="0.0" y="485.50000104037201" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="598" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8wu-F9-kGZ" id="nLS-af-tdI">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Rate GPS Stone on the App Store…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="u05-KK-0DF">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="44"/>
+                                                    <rect key="frame" x="8" y="0.0" width="359" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -326,14 +326,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="IkI-Ri-8T9" style="IBUITableViewCellStyleDefault" id="VJK-iR-4jT">
-                                        <rect key="frame" x="0.0" y="529.50000104037201" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="642" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VJK-iR-4jT" id="dCV-Yv-al4">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Share the App…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IkI-Ri-8T9">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="44"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" text="Share the App…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IkI-Ri-8T9">
+                                                    <rect key="frame" x="8" y="0.0" width="359" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -372,7 +372,7 @@
             <objects>
                 <navigationController storyboardIdentifier="SettingsNavController" id="tyR-UD-mNL" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="usy-Ft-35e">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <rect key="frame" x="0.0" y="16" width="375" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -388,11 +388,11 @@
             <objects>
                 <tableViewController id="M1W-OD-qbR" customClass="RecordingsListViewController" customModule="GPS_Stone" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="0lp-e5-lPf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="657"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Ji4-bQ-If4">
-                            <rect key="frame" x="0.0" y="93.000000346790671" width="375" height="61"/>
+                            <rect key="frame" x="0.0" y="122" width="375" height="61"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Migration from older GPS Stone version is in progress…" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2E-ao-Swv">
@@ -412,10 +412,10 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" textLabel="pbi-3A-Uy1" detailTextLabel="ATJ-qY-cjq" style="IBUITableViewCellStyleSubtitle" id="PHF-N3-u29">
-                                <rect key="frame" x="0.0" y="24.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PHF-N3-u29" id="auI-eh-wIV">
-                                    <rect key="frame" x="0.0" y="0.0" width="349.5" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="348.5" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pbi-3A-Uy1">
@@ -472,11 +472,11 @@
                         <viewControllerLayoutGuide type="bottom" id="2Il-xQ-JRj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="29W-LT-8nV">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="657"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="flL-9s-beR">
-                                <rect key="frame" x="16" y="601" width="343" height="30"/>
+                                <rect key="frame" x="16" y="611" width="343" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                 <state key="normal" title="Export GPX…"/>
                                 <connections>
@@ -484,14 +484,14 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="750" text="|00:00:00| / #150000 km# / $1000 km/h$" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="8dJ-My-syJ">
-                                <rect key="frame" x="16" y="564" width="343" height="21"/>
+                                <rect key="frame" x="16" y="574" width="343" height="21"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Q94-mH-hfd">
-                                <rect key="frame" x="74" y="493" width="285" height="34"/>
+                                <rect key="frame" x="74" y="503" width="285" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
@@ -500,20 +500,20 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" text="Name:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="hNz-be-lW8">
-                                <rect key="frame" x="16" y="498" width="50" height="21"/>
+                                <rect key="frame" x="16" y="512.5" width="50" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="750" text="Date" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="nx0-6U-mxA">
-                                <rect key="frame" x="16" y="535" width="343" height="21"/>
+                                <rect key="frame" x="16" y="545" width="343" height="21"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T0F-2Q-WCy">
-                                <rect key="frame" x="16" y="72" width="343" height="413"/>
+                                <rect key="frame" x="16" y="86" width="343" height="409"/>
                                 <connections>
                                     <segue destination="AEg-vC-tvX" kind="embed" identifier="MapEmbed" id="neU-fw-srV"/>
                                 </connections>
@@ -559,7 +559,7 @@
             <objects>
                 <navigationController storyboardIdentifier="VSORecordingsListNavController" id="qgW-nw-uvs" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zdg-Wn-1bY">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <rect key="frame" x="0.0" y="16" width="375" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -583,7 +583,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cd1-Vl-oPX">
-                                <rect key="frame" x="0.0" y="41" width="375" height="250"/>
+                                <rect key="frame" x="0.0" y="64.5" width="375" height="250"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="750" constant="250" id="4N2-2w-GeV"/>
                                 </constraints>
@@ -592,7 +592,7 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xzg-rq-1pa">
-                                <rect key="frame" x="0.0" y="41" width="375" height="275"/>
+                                <rect key="frame" x="0.0" y="64.5" width="375" height="275"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="275" id="Bo7-LX-bDx"/>
                                 </constraints>
@@ -601,7 +601,7 @@
                                 </connections>
                             </containerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="GPS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hJn-HR-FhD">
-                                <rect key="frame" x="163.5" y="8" width="48" height="30"/>
+                                <rect key="frame" x="160.5" y="28" width="54" height="33.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -675,7 +675,7 @@
                                 </connections>
                             </mapView>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ibA-9y-tEc">
-                                <rect key="frame" x="302" y="0.0" width="41" height="42"/>
+                                <rect key="frame" x="302" y="20" width="41" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="An7-o4-AOn"/>
                                     <constraint firstAttribute="width" constant="41" id="uWd-BZ-jMC"/>
@@ -693,9 +693,9 @@
                                 </connections>
                             </button>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dca-Wh-v9g">
-                                <rect key="frame" x="0.0" y="0.0" width="343" height="0.0"/>
+                                <rect key="frame" x="0.0" y="0.0" width="343" height="20"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="tmA-CB-lyI">
-                                    <rect key="frame" x="0.0" y="0.0" width="343" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="343" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <blurEffect style="regular"/>
@@ -748,13 +748,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="798"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="Welcome to GPS Stone" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qcP-b5-dt1">
-                                <rect key="frame" x="63" y="33" width="249.5" height="30"/>
+                                <rect key="frame" x="48" y="53" width="279.5" height="33.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJ1-H4-4Tu">
-                                <rect key="frame" x="16" y="196" width="343" height="35"/>
+                                <rect key="frame" x="16" y="227.5" width="343" height="39"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                 <state key="normal" title="Start a New Recording">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -768,7 +768,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9c-1j-3iO">
-                                <rect key="frame" x="191.5" y="108" width="167.5" height="29"/>
+                                <rect key="frame" x="191.5" y="131.5" width="167.5" height="33"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <state key="normal" title="Go to the Map">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -782,7 +782,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ihm-A0-PIq">
-                                <rect key="frame" x="16" y="108" width="167.5" height="29"/>
+                                <rect key="frame" x="16" y="131.5" width="167.5" height="33"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <state key="normal" title="Go to GPS Info">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -796,7 +796,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rt2-Cp-J6Z">
-                                <rect key="frame" x="16" y="144" width="343" height="29"/>
+                                <rect key="frame" x="16" y="171.5" width="343" height="33"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <state key="normal" title="Preferences">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -851,82 +851,82 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="5.00" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="TmC-3c-Ktl">
-                                <rect key="frame" x="16" y="0.0" width="177" height="98"/>
+                                <rect key="frame" x="16" y="20" width="177" height="98"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="82"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="mph" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="biR-0I-rf9">
-                                <rect key="frame" x="198" y="57.5" width="44" height="26"/>
+                                <rect key="frame" x="198" y="77.5" width="44" height="26"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="750" text="Altitude:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="QXo-OB-4fC">
-                                <rect key="frame" x="16" y="106" width="58" height="18"/>
+                                <rect key="frame" x="16" y="126" width="58" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="243° 36’ 13.66940” N" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="hqD-kd-G95">
-                                <rect key="frame" x="16" y="137" width="162" height="18"/>
+                                <rect key="frame" x="16" y="157" width="162" height="18"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="243° 36’ 13.66940” W" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="ySd-3R-I8n">
-                                <rect key="frame" x="16" y="158" width="166" height="18"/>
+                                <rect key="frame" x="16" y="178" width="166" height="18"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="+230 m" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="8Qn-sa-lzg">
-                                <rect key="frame" x="82" y="106" width="57" height="18"/>
+                                <rect key="frame" x="82" y="126" width="57" height="18"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="h acc" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="RUV-5a-erO">
-                                <rect key="frame" x="93" y="179" width="39" height="18"/>
+                                <rect key="frame" x="93" y="199" width="39" height="18"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="± 100%" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="0vV-xc-wQG">
-                                <rect key="frame" x="147" y="108" width="48.5" height="16"/>
+                                <rect key="frame" x="147" y="128" width="48.5" height="16"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="center" image="north" translatesAutoresizingMaskIntoConstraints="NO" id="or1-Jh-ZgT">
-                                <rect key="frame" x="274" y="106" width="85" height="91"/>
+                                <rect key="frame" x="274" y="126" width="85" height="91"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="Accuracy:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="gxv-S2-4Eo">
-                                <rect key="frame" x="16" y="179" width="69" height="18"/>
+                                <rect key="frame" x="16" y="199" width="69" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="Max:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="9rS-oh-4od">
-                                <rect key="frame" x="293" y="13" width="33" height="18"/>
+                                <rect key="frame" x="293" y="33" width="33" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="500" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="lrD-hq-dEM">
-                                <rect key="frame" x="329" y="13" width="30" height="18"/>
+                                <rect key="frame" x="329" y="33" width="30" height="18"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="Avg:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="yyT-bv-XPe">
-                                <rect key="frame" x="296" y="29" width="30" height="18"/>
+                                <rect key="frame" x="296" y="49" width="30" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="500" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="LYW-nS-3hb">
-                                <rect key="frame" x="329" y="29" width="30" height="18"/>
+                                <rect key="frame" x="329" y="49" width="30" height="18"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1099,7 +1099,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⚠️" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDY-Fu-lOB">
-                                        <rect key="frame" x="150.5" y="0.0" width="74" height="82.5"/>
+                                        <rect key="frame" x="90.5" y="0.0" width="194" height="82.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="69"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1242,7 +1242,7 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="separatorColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
