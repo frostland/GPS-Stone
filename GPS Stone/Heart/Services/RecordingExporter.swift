@@ -181,17 +181,9 @@ final class RecordingExporter {
 	}
 	
 	private func isoStringFromDate(_ date: Date) -> String {
-		if #available(iOS 10.0, *) {
-			let dateFormatter = ISO8601DateFormatter()
-			dateFormatter.formatOptions = [.withFullDate, .withFullTime]
-			return dateFormatter.string(from: date)
-		} else {
-			let dateFormatter = DateFormatter()
-			dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-			dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-			dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-			return dateFormatter.string(from: date)
-		}
+		let dateFormatter = ISO8601DateFormatter()
+		dateFormatter.formatOptions = [.withFullDate, .withFullTime]
+		return dateFormatter.string(from: date)
 	}
 	
 }
