@@ -113,33 +113,9 @@
 
 
 
-/* ••••••••••••••••••••••••••••••••••••• */
-/*       Pre-iOS 10 Format Strings       */
-/* ••••••••••••••••••••••••••••••••••••• */
-
-
-/* Abbreviated meters format where #n# is the number of meters. For instance “#n#m”. */
-"#n#m" = "#n#m";
-/* Abbreviated kilometers format where #n# is the number of kilometers. For instance “#n#km”. */
-"#n#km" = "#n#km";
-
-/* Abbreviated feet format where #n# is the number of feet. For instance “#n#ft”. */
-"#n#ft" = "#n#ft";
-/* Abbreviated miles format where #n# is the number of miles. For instance “#n#mi”. */
-"#n#mi" = "#n#mi";
-
-/* The symbol for degrees (usually “º”). */
-"degree symbol" = "º";
-/* The symbol for arcminute (usually “’”). */
-"arcminute symbol" = "’";
-/* The symbol for arcsecond (usually ‘”’). */
-"arcsecond symbol" = "”";
-
-
-
-/* ••••••••••••••••••••••••••••••••••••• */
-/*       Pre-iOS 10 Format Strings       */
-/* ••••••••••••••••••••••••••••••••••••• */
+/* •••••••••••••••••••••• */
+/*       GPX Export       */
+/* •••••••••••••••••••••• */
 
 
 /* Title of the export GPX button in the recordings list view when the GPX file does not exist yet. */
