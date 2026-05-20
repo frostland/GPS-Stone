@@ -24,13 +24,10 @@ final class RecordingsManager : NSObject {
 	func unsafeCreateNextRecordingAndSaveContext() throws -> Recording {
 		assert(Thread.isMainThread)
 		
-		let s = NSEntityDescription.insertNewObject(forEntityName: "TimeSegment", into: dh.viewContext) as! TimeSegment
+		let s = TimeSegment(context: dh.viewContext)
 		s.startDate = Date()
 		
-		let r: Recording
-		/* Don’t forget to find all insertNewObject to migrate to easier init when dropping iOS 9. */
-		if #available(iOS 10.0, *) {r = Recording(context: dh.viewContext)}
-		else                       {r = NSEntityDescription.insertNewObject(forEntityName: "Recording", into: dh.viewContext) as! Recording}
+		let r = Recording(context: dh.viewContext)
 		r.name = NSLocalizedString("new recording", comment: "Default name for a recording.")
 		r.totalTimeSegment = s
 		
@@ -48,7 +45,7 @@ final class RecordingsManager : NSObject {
 		
 		NSLog("Adding new location in recording %@: %@", recording.name ?? "<no name>", location)
 		
-		let recordingPoint = NSEntityDescription.insertNewObject(forEntityName: "RecordingPoint", into: dh.viewContext) as! RecordingPoint
+		let recordingPoint = RecordingPoint(context: dh.viewContext)
 		recordingPoint.date = location.timestamp
 		recordingPoint.location = location
 		recordingPoint.segmentID = segmentID
@@ -86,7 +83,7 @@ final class RecordingsManager : NSObject {
 		} else {
 			NSLog("***** ERROR: Current recording does not have a totalTimeSegment; this should not be possible. We will add a total time segment with an arbitrary duration of 1s.")
 			NSLog("*****        Recording: \(recording)")
-			let ts = NSEntityDescription.insertNewObject(forEntityName: "TimeSegment", into: dh.viewContext) as! TimeSegment
+			let ts = TimeSegment(context: dh.viewContext)
 			ts.startDate = Date(timeIntervalSinceNow: -1)
 			ts.duration = NSNumber(value: 1)
 			recording.totalTimeSegment = ts
@@ -101,7 +98,7 @@ final class RecordingsManager : NSObject {
 	func unsafeAddPauseAndSaveContext(to recording: Recording) throws -> TimeSegment {
 		assert(Thread.isMainThread)
 		
-		let pause = NSEntityDescription.insertNewObject(forEntityName: "TimeSegment", into: dh.viewContext) as! TimeSegment
+		let pause = TimeSegment(context: dh.viewContext)
 		pause.startDate = Date()
 		pause.pauseSegmentRecording = recording
 		

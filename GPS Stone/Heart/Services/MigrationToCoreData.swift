@@ -83,8 +83,8 @@ final class MigrationToCoreData {
 					let recordingName = oldRecordingDescription["Recording Name"] as? String
 					let recordingMaxSpeed = oldRecordingDescription["Max Reached Speed"] as? Float
 					
-					let totalTimeSegment = NSEntityDescription.insertNewObject(forEntityName: "TimeSegment", into: context) as! TimeSegment
-					let recording = NSEntityDescription.insertNewObject(forEntityName: "Recording", into: context) as! Recording
+					let totalTimeSegment = TimeSegment(context: context)
+					let recording = Recording(context: context)
 					recording.totalTimeSegment = totalTimeSegment
 					
 					recording.name = NSLocalizedString("|name| (migrated)", comment: "Template name for a migrated recording.")
@@ -110,7 +110,7 @@ final class MigrationToCoreData {
 						curSegmentID += 1
 						latestPointInSegment = nil
 						if curSegmentID > 0 {
-							let timeSegment = NSEntityDescription.insertNewObject(forEntityName: "TimeSegment", into: context) as! TimeSegment
+							let timeSegment = TimeSegment(context: context)
 							timeSegment.startDate = previousLatestPoint.date
 							timeSegment.pauseSegmentRecording = recording
 							latestPause = timeSegment
@@ -130,7 +130,7 @@ final class MigrationToCoreData {
 						}
 						
 						/* Add the point in the recording. */
-						let recordingPoint = NSEntityDescription.insertNewObject(forEntityName: "RecordingPoint", into: context) as! RecordingPoint
+						let recordingPoint = RecordingPoint(context: context)
 						recordingPoint.date = location.timestamp
 						recordingPoint.location = location
 						recordingPoint.segmentID = curSegmentID
