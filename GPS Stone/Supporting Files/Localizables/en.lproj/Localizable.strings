@@ -10,9 +10,13 @@
 /* OK, in the context of a button. */
 "ok button title" = "OK";
 
-/* Cancel button (use alternate form when locmapper supports it). */
-//"Cancel"; or Cancel;
-"Cancel" = "Cancel";
+/* Cancel button title.
+ * Note:
+ * The weird syntax without equal sign (nor quotes, but would work with too)
+ *  is just a flex to demonstrate the ability of locmapper to parse these weird edge-cases.
+ * The proper form should obviously be:
+ *    "Cancel" = "Cancel"; */
+Cancel;
 
 /* Undefined symbol (in English: “N/D”). */
 "nd" = "N/D";
