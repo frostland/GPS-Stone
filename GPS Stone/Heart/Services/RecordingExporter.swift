@@ -59,10 +59,7 @@ final class RecordingExporter {
 		 * Let’s work. */
 		try Data().write(to: inprogressOutputURL)
 		let fileHandle = try FileHandle(forWritingTo: inprogressOutputURL)
-		defer {
-			if #available(iOS 13.0, *) {_ = try? fileHandle.close()}
-			else                       {fileHandle.closeFile()}
-		}
+		defer {_ = try? fileHandle.close()}
 		
 		/* Write the preamble. */
 		let creator = NSLocalizedString("gpx creator tag", comment: "The text in the “creator” field of the GPX exports.")

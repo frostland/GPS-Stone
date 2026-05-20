@@ -28,8 +28,7 @@ final class RecordingsManager : NSObject {
 		s.startDate = Date()
 		
 		let r: Recording
-		/* Don’t forget to find all insertNewObject to migrate to easier init when
-		 * dropping iOS 9. */
+		/* Don’t forget to find all insertNewObject to migrate to easier init when dropping iOS 9. */
 		if #available(iOS 10.0, *) {r = Recording(context: dh.viewContext)}
 		else                       {r = NSEntityDescription.insertNewObject(forEntityName: "Recording", into: dh.viewContext) as! Recording}
 		r.name = NSLocalizedString("new recording", comment: "Default name for a recording.")

@@ -52,10 +52,8 @@ final class AppRateAndShareManager {
 	
 	private func askForReviewIfNotDoneAlreadyForThisRelease() {
 		guard s.lastVersionRateAsked != appVersion else {return}
-		if #available(iOS 10.3, *) {
-			SKStoreReviewController.requestReview()
-			s.lastVersionRateAsked = appVersion
-		}
+		SKStoreReviewController.requestReview()
+		s.lastVersionRateAsked = appVersion
 	}
 	
 }

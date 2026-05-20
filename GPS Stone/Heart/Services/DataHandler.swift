@@ -52,20 +52,16 @@ final class DataHandler {
 	lazy var viewContext: NSManagedObjectContext = {
 		let ret = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
 		ret.persistentStoreCoordinator = persistentStoreCoordinator
-		if #available(iOS 10.0, *) {
-			/* I think this is the default, but still… */
-			ret.automaticallyMergesChangesFromParent = false
-		}
+		/* I think this is the default, but still… */
+		ret.automaticallyMergesChangesFromParent = false
 		return ret
 	}()
 	
 	lazy var bgContext: NSManagedObjectContext = {
 		let ret = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
 		ret.persistentStoreCoordinator = persistentStoreCoordinator
-		if #available(iOS 10.0, *) {
-			/* I think this is the default, but still… */
-			ret.automaticallyMergesChangesFromParent = false
-		}
+		/* I think this is the default, but still… */
+		ret.automaticallyMergesChangesFromParent = false
 		return ret
 	}()
 	

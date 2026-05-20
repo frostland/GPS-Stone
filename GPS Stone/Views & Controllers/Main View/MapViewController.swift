@@ -142,12 +142,6 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		if recording == nil && restoredMapRegion {
 			appSettings.latestMapRegion = mapView.region
 		}
-		if #available(iOS 11, *) {} else {
-			/* Before iOS 11, the mapViewDidChangeVisibleRegion did not exist! */
-			if !mapRegionBeingSetByApp {
-				appSettings.followLocationOnMap = false
-			}
-		}
 		mapRegionSetByAppDate = nil
 	}
 	
@@ -354,11 +348,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		mapView.mapType = appSettings.mapType
 		
 		if recording == nil {
-			if #available(iOS 13.0, *) {
-				buttonCenterMapOnCurLoc.setImage(UIImage(systemName: appSettings.followLocationOnMap ? "location.fill" : "location"), for: .normal)
-			} else {
-				buttonCenterMapOnCurLoc.setImage(appSettings.followLocationOnMap ? #imageLiteral(resourceName: "sf_location·fill"): #imageLiteral(resourceName: "sf_location"), for: .normal)
-			}
+			buttonCenterMapOnCurLoc.setImage(UIImage(systemName: appSettings.followLocationOnMap ? "location.fill" : "location"), for: .normal)
 			
 			if appSettings.followLocationOnMap && !followingUserLocation {
 				followingUserLocation = true

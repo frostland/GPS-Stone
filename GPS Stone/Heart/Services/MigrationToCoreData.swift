@@ -41,10 +41,8 @@ final class MigrationToCoreData {
 		
 		let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
 		context.persistentStoreCoordinator = dh.persistentStoreCoordinator
-		if #available(iOS 10.0, *) {
-			/* I think this is the default, but still… */
-			context.automaticallyMergesChangesFromParent = false
-		}
+		/* I think this is the default, but still… */
+		context.automaticallyMergesChangesFromParent = false
 		
 		/* After (and including) iOS 10, we can set automaticallyMergesChangesFromParent on the view context,
 		 *  and we would not have to observe this notification,
@@ -289,22 +287,11 @@ private final class GPXParserDelegate : NSObject, XMLParserDelegate {
 				guard curDate == nil else {
 					return parser.abortParsing()
 				}
-				if #available(iOS 10.0, *) {
-					let formatter = ISO8601DateFormatter()
-					guard let date = formatter.date(from: textBuffer) else {
-						return parser.abortParsing()
-					}
-					curDate = date
-				} else {
-					let dateFormatter = DateFormatter()
-					dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-					dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-					dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-					guard let date = dateFormatter.date(from: textBuffer) else {
-						return parser.abortParsing()
-					}
-					curDate = date
+				let formatter = ISO8601DateFormatter()
+				guard let date = formatter.date(from: textBuffer) else {
+					return parser.abortParsing()
 				}
+				curDate = date
 				
 			case "hdop":
 				guard curHorizontalAccuracy == nil, let val = Double(textBuffer) else {

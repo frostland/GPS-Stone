@@ -36,14 +36,6 @@ class AppDelegate : NSObject, UIApplicationDelegate {
 		/* Nothing to do! */
 	}
 	
-	/* ***********************************
-	   MARK: - Pre-iOS 10 delegate methods
-	   *********************************** */
-	
-	func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
-		notifsManager.application(application, didRegister: notificationSettings)
-	}
-	
 	/* ***************
 	   MARK: - Private
 	   *************** */

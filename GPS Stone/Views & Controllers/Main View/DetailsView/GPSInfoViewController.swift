@@ -78,13 +78,6 @@ class GPSInfoViewController : UIViewController {
 	
 	private let c = S.sp.constants
 	
-	private var labelColor: UIColor {
-		guard #available(iOS 13.0, *) else {
-			return .black
-		}
-		return .label
-	}
-	
 	private func updateUnitLabels() {
 		assert(Thread.isMainThread)
 		guard isViewLoaded else {return}
@@ -100,7 +93,7 @@ class GPSInfoViewController : UIViewController {
 		labelLat.text  = Utils.stringFrom(latitudeDegrees:  location.coordinate.latitude)
 		labelLong.text = Utils.stringFrom(longitudeDegrees: location.coordinate.longitude)
 		labelHorizontalAccuracy.text = Utils.stringFrom(distance: location.horizontalAccuracy, useMetricSystem: useMetricSystem)
-		labelHorizontalAccuracy.textColor = (location.horizontalAccuracy > c.accuracyWarningThreshold ? .red : labelColor)
+		labelHorizontalAccuracy.textColor = (location.horizontalAccuracy > c.accuracyWarningThreshold ? .red : .label)
 		
 		if location.verticalAccuracy.sign == .plus {
 			let numberFormatter = NumberFormatter()

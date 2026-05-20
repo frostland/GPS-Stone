@@ -21,20 +21,12 @@ final class FRLSecureUnarchiveFromDataTransformer : ValueTransformer {
 	}
 	
 	override func transformedValue(_ value: Any?) -> Any? {
-		if #available(iOS 11.0, *) {
-			return try? NSKeyedArchiver.archivedData(withRootObject: value as Any, requiringSecureCoding: true)
-		} else {
-			return NSKeyedArchiver.archivedData(withRootObject: value as Any)
-		}
+		return try? NSKeyedArchiver.archivedData(withRootObject: value as Any, requiringSecureCoding: true)
 	}
 	
 	override func reverseTransformedValue(_ value: Any?) -> Any? {
 		guard let value = value as? Data else {return nil}
-		if #available(iOS 11.0, *) {
-			return try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [CLLocation.self, CLHeading.self], from: value)
-		} else {
-			return try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(value)
-		}
+		return try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [CLLocation.self, CLHeading.self], from: value)
 	}
 	
 }

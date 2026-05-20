@@ -137,9 +137,7 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 		
 		super.init()
 		
-		if #available(iOS 11.0, *) {
-			lm.showsBackgroundLocationIndicator = true
-		}
+		lm.showsBackgroundLocationIndicator = true
 		lm.pausesLocationUpdatesAutomatically = true
 		lm.desiredAccuracy = status.desiredAccuracy
 		lm.distanceFilter = kCLDistanceFilterNone
@@ -695,13 +693,11 @@ final class LocationRecorder : NSObject, CLLocationManagerDelegate {
 			else if !needsHeadingTracking &&  neededHeadingTracking {lm.stopUpdatingHeading()}
 		}
 		
-		/* *** Enable/disable bg location udpates if needed. *** */
-		if #available(iOS 9.0, *) {
-			let needsBackgroundLocationUpdates = newStatus.needsBackgroundLocationUpdates
-			let neededBackgroundLocationUpdates = oldStatus.needsBackgroundLocationUpdates
-			if needsBackgroundLocationUpdates != neededBackgroundLocationUpdates {
-				lm.allowsBackgroundLocationUpdates = needsBackgroundLocationUpdates
-			}
+		/* *** Enable/disable bg location updates if needed. *** */
+		let needsBackgroundLocationUpdates = newStatus.needsBackgroundLocationUpdates
+		let neededBackgroundLocationUpdates = oldStatus.needsBackgroundLocationUpdates
+		if needsBackgroundLocationUpdates != neededBackgroundLocationUpdates {
+			lm.allowsBackgroundLocationUpdates = needsBackgroundLocationUpdates
 		}
 	}
 	

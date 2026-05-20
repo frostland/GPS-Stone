@@ -53,11 +53,7 @@ class MiniInfoViewController : UIViewController {
 			updateDurationLabel()
 			if model != nil {
 				if timerUpdateDuration == nil {
-					if #available(iOS 10.0, *) {
-						timerUpdateDuration = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in self?.updateDurationLabel() })
-					} else {
-						timerUpdateDuration = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(MiniInfoViewController.objc_updateDurationLabel(_:)), userInfo: nil, repeats: true)
-					}
+					timerUpdateDuration = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in self?.updateDurationLabel() })
 				}
 			} else {
 				timerUpdateDuration?.invalidate()
@@ -89,12 +85,8 @@ class MiniInfoViewController : UIViewController {
 		labelTotalDistance.text = Utils.stringFrom(distance: model.totalDistance, useMetricSystem: useMetricSystem)
 		
 		let color: UIColor
-		if model.isPaused {
-			if #available(iOS 11.0, *) {color = UIColor(named: "LabelMiniInfoPausedRecording")!}
-			else                       {color = #colorLiteral(red: 0.6899999976, green: 0.6899999976, blue: 0.6899999976, alpha: 1)}
-		} else {
-			color = UIColor.white
-		}
+		if model.isPaused {color = UIColor(resource: .labelMiniInfoPausedRecording)}
+		else              {color = UIColor.white}
 		labelElapsedTime.textColor = color
 		labelTotalDistance.textColor = color
 		
@@ -128,10 +120,5 @@ class MiniInfoViewController : UIViewController {
 	private let c = S.sp.constants
 	
 	private var timerUpdateDuration: Timer?
-	
-	@objc
-	private func objc_updateDurationLabel(_ timer: Timer) {
-		updateDurationLabel()
-	}
 	
 }
