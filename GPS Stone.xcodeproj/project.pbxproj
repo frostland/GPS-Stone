@@ -501,6 +501,7 @@
 				CODE_SIGN_ENTITLEMENTS = "GPS Stone/GPS Stone.entitlements";
 				CURRENT_PROJECT_VERSION = 21;
 				INFOPLIST_FILE = "GPS Stone/Supporting Files/GPSStone-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -520,6 +521,7 @@
 				CODE_SIGN_ENTITLEMENTS = "GPS Stone/GPS Stone.entitlements";
 				CURRENT_PROJECT_VERSION = 21;
 				INFOPLIST_FILE = "GPS Stone/Supporting Files/GPSStone-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
