@@ -28,7 +28,8 @@ class GPSErrorViewController : UIViewController {
 		updateUI()
 	}
 	
-	@IBAction func goToSettings(_ sender: Any) {
+	@IBAction
+	func goToSettings(_ sender: Any) {
 		guard let url = URL(string: UIApplication.openSettingsURLString) else {
 			NSLog("%@", "Weird, the open settings URL string cannot be converted to a URL……… \(UIApplication.openSettingsURLString)")
 			return
@@ -36,7 +37,8 @@ class GPSErrorViewController : UIViewController {
 		UIApplication.shared.open(url)
 	}
 	
-	@IBAction func resumeLocationUpdates(_ sender: Any) {
+	@IBAction
+	func resumeLocationUpdates(_ sender: Any) {
 		locationRecorder.resumeLocationTracking()
 	}
 	

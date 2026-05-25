@@ -7,7 +7,8 @@ import XibLoc
 
 
 
-class RecordingDetailsViewController : UIViewController {
+@MainActor
+final class RecordingDetailsViewController : UIViewController {
 	
 	@IBOutlet var textFieldName: UITextField!
 	@IBOutlet var labelInfo: UILabel!
@@ -30,7 +31,7 @@ class RecordingDetailsViewController : UIViewController {
 		}
 	}
 	
-	deinit {
+	isolated deinit {
 		keyboardFrameObserver.flatMap{ NotificationCenter.default.removeObserver($0, name: UIWindow.keyboardDidChangeFrameNotification, object: nil) }
 		kvObserver.stopObservingEverything()
 		nameObservingID = nil
@@ -74,14 +75,16 @@ class RecordingDetailsViewController : UIViewController {
 		super.prepare(for: segue, sender: sender)
 	}
 	
-	@IBAction func finishedEditingRecordingName(_ sender: Any) {
+	@IBAction
+	func finishedEditingRecordingName(_ sender: Any) {
 		dataHandler.viewContext.performAndWait{
 			recording.name = textFieldName.text
 			_ = try? dataHandler.saveViewContextOrRollback()
 		}
 	}
 	
-	@IBAction func exportGPXButtonTapped(_ sender: Any) {
+	@IBAction
+	func exportGPXButtonTapped(_ sender: Any) {
 		guard gpxExportPreparationProgress == nil else {return}
 		
 		if let gpxURL = (try? recordingExporter.preparedExport(of: recording.objectID, context: dataHandler.viewContext)) {

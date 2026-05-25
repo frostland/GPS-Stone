@@ -6,7 +6,8 @@ import KVObserver
 
 
 
-class MainViewController : UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+@MainActor
+final class MainViewController : UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 	
 	@IBOutlet var pageControl: UIPageControl!
 	
@@ -29,7 +30,7 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 		super.init(coder: coder)
 	}
 	
-	deinit {
+	isolated deinit {
 		/* This removes the timer to refresh the duration shown of the recording,
 		 *  which is needed before iOS 10
 		 *  because the timer keeps a strong ref to the target until the timer is deallocated. */
@@ -112,10 +113,12 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 	   MARK: - Actions
 	   *************** */
 	
-	@IBAction func unwindSegueToMainViewController(_ sender: UIStoryboardSegue) {
+	@IBAction
+	func unwindSegueToMainViewController(_ sender: UIStoryboardSegue) {
 	}
 	
-	@IBAction func changePage(_ sender: UIPageControl) {
+	@IBAction
+	func changePage(_ sender: UIPageControl) {
 		let newIdx = pageControl.currentPage
 		let oldIdx = pageViewController.viewControllers?.first?.restorationIdentifier.flatMap{ pageViewControllerIdentifiers.firstIndex(of: $0) } ?? -1
 		
@@ -126,15 +129,18 @@ class MainViewController : UIViewController, UIPageViewControllerDataSource, UIP
 		setNeedsStatusBarAppearanceUpdate()
 	}
 	
-	@IBAction func startRecording(_ sender: Any) {
+	@IBAction
+	func startRecording(_ sender: Any) {
 		Utils.startOrResumeRecording(in: self, using: locationRecorder)
 	}
 	
-	@IBAction func pauseRecording(_ sender: Any) {
+	@IBAction
+	func pauseRecording(_ sender: Any) {
 		Utils.pauseRecording(in: self, using: locationRecorder, appSettings: appSettings)
 	}
 	
-	@IBAction func stopRecording(_ sender: Any) {
+	@IBAction
+	func stopRecording(_ sender: Any) {
 		Utils.stopRecording(in: self, using: locationRecorder, appSettings: appSettings)
 	}
 	

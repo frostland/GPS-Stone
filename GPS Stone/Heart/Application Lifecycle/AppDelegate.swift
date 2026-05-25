@@ -3,7 +3,7 @@ import UIKit
 
 
 
-@UIApplicationMain
+@main
 class AppDelegate : NSObject, UIApplicationDelegate {
 	
 	static private(set) var sharedAppDelegate: AppDelegate!

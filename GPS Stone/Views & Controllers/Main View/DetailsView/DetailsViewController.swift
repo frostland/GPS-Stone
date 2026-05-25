@@ -8,7 +8,8 @@ import XibLoc
 
 
 
-class DetailsViewController : UIViewController {
+@MainActor
+final class DetailsViewController : UIViewController {
 	
 	@IBOutlet var labelTitle: UILabel!
 	
@@ -101,7 +102,8 @@ class DetailsViewController : UIViewController {
 		locationRecorder.releaseLocationTracking()
 	}
 	
-	@IBAction func startRecording(_ sender: Any) {
+	@IBAction
+	func startRecording(_ sender: Any) {
 		Utils.startOrResumeRecording(in: self, using: locationRecorder)
 	}
 	

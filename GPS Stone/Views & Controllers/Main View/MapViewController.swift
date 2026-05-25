@@ -9,7 +9,8 @@ import RetryingOperation
 
 
 
-class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsControllerDelegate {
+@MainActor
+final class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsControllerDelegate {
 	
 	static let percentForMapBorders = CGFloat(15)
 	static let dynamicPolylinesMaxPointCount = 100
@@ -24,7 +25,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		return .default
 	}
 	
-	deinit {
+	isolated deinit {
 		pointsProcessingQueue.cancelAllOperations()
 		
 		if let o = settingsObserver {
@@ -118,7 +119,8 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 		}
 	}
 	
-	@IBAction func followLocButtonTapped(_ sender: Any) {
+	@IBAction
+	func followLocButtonTapped(_ sender: Any) {
 		appSettings.followLocationOnMap = !appSettings.followLocationOnMap
 	}
 	
@@ -160,13 +162,17 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	   MARK: - Fetched Results Controller Delegate
 	   ******************************************* */
 	
-	func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-		assert(controller === pointsFetchResultsController)
-		/* Note: We could use the controller did change section/object methods,
-		 *  however, I don’t think we’d gain _anything at all_ in terms of performance,
-		 *  so let’s just do this instead
-		 *  (which avoids having to create non-trivial alorithms to reconcile the cache with the change notification we’d get from the controller). */
-		pointsProcessingQueue.addOperation(createProcessPointsOperation())
+	nonisolated func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+		nonisolated(unsafe) let controller = controller
+		/* We assert the recording we get is on a main-thread Core Data context. */
+		MainActor.assumeIsolated{
+			unsafe assert(controller === pointsFetchResultsController)
+			/* Note: We could use the controller did change section/object methods,
+			 *  however, I don’t think we’d gain _anything at all_ in terms of performance,
+			 *  so let’s just do this instead
+			 *  (which avoids having to create non-trivial algorithms to reconcile the cache with the change notification we’d get from the controller). */
+			pointsProcessingQueue.addOperation(createProcessPointsOperation())
+		}
 	}
 	
 	/* ***************
@@ -233,6 +239,7 @@ class MapViewController : UIViewController, MKMapViewDelegate, NSFetchedResultsC
 	
 	private var currentRecording: Recording? {
 		willSet {
+			unsafe assert(newValue?.managedObjectContext == nil || newValue?.managedObjectContext?.concurrencyType == .mainQueueConcurrencyType)
 			guard currentRecording != newValue else {return}
 			
 			pointsFetchResultsController?.delegate = nil

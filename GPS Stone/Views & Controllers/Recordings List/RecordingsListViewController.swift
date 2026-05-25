@@ -6,7 +6,8 @@ import CollectionAndTableViewUpdateConveniences
 
 
 
-class RecordingsListViewController : UITableViewController, NSFetchedResultsControllerDelegate {
+@MainActor
+final class RecordingsListViewController : UITableViewController, NSFetchedResultsControllerDelegate {
 	
 	@IBOutlet var buttonDone: UIBarButtonItem!
 	
@@ -23,7 +24,7 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 		
 		super.init(coder: coder)
 		
-		fetchedResultsController.delegate = self
+		unsafe fetchedResultsController.delegate = self
 	}
 	
 	override func viewDidLoad() {
@@ -100,24 +101,36 @@ class RecordingsListViewController : UITableViewController, NSFetchedResultsCont
 	   MARK: - NSFetchedResultsControllerDelegate
 	   ****************************************** */
 	
-	func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-		guard tableView.superview != nil else {return}
-		tableView.fetchedResultsControllerWillChangeContent()
+	nonisolated func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+		/* The Core Data context is the main thread. */
+		MainActor.assumeIsolated{
+			guard tableView.superview != nil else {return}
+			tableView.fetchedResultsControllerWillChangeContent()
+		}
 	}
 	
-	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-		guard tableView.superview != nil else {return}
-		tableView.fetchedResultsControllerDidChange(section: sectionInfo, atIndex: sectionIndex, forChangeType: type)
+	nonisolated func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+		/* The Core Data context is the main thread. */
+		MainActor.assumeIsolated{
+			guard tableView.superview != nil else {return}
+			tableView.fetchedResultsControllerDidChange(section: sectionInfo, atIndex: sectionIndex, forChangeType: type)
+		}
 	}
 	
-	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-		guard tableView.superview != nil else {return}
-		tableView.fetchedResultsControllerDidChange(object: anObject, atIndexPath: indexPath, forChangeType: type, newIndexPath: newIndexPath)
+	nonisolated func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+		/* The Core Data context is the main thread. */
+		MainActor.assumeIsolated{
+			guard tableView.superview != nil else {return}
+			tableView.fetchedResultsControllerDidChange(object: anObject, atIndexPath: indexPath, forChangeType: type, newIndexPath: newIndexPath)
+		}
 	}
 	
-	func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-		guard tableView.superview != nil else {return}
-		tableView.fetchedResultsControllerDidChangeContent()
+	nonisolated func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+		/* The Core Data context is the main thread. */
+		MainActor.assumeIsolated{
+			guard tableView.superview != nil else {return}
+			tableView.fetchedResultsControllerDidChangeContent()
+		}
 	}
 	
 	override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {

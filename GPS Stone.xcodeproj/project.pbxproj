@@ -30,6 +30,7 @@
 		7B482CE11DCA8ADD007B5ABC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CDF1DCA8ADD007B5ABC /* Localizable.strings */; };
 		7B482CE51DCA95F4007B5ABC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE41DCA95F4007B5ABC /* LaunchScreen.storyboard */; };
 		7B482CE61DCA975F007B5ABC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B482CE81DCA975F007B5ABC /* Main.storyboard */; };
+		7B48FE882FC4ECDB00225D2A /* GlobalConfModule in Frameworks */ = {isa = PBXBuildFile; productRef = 7B48FE872FC4ECDB00225D2A /* GlobalConfModule */; };
 		7B5108F722BA57E60038CEAC /* RecordingsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5108F622BA57E60038CEAC /* RecordingsListViewController.swift */; };
 		7B575EC8252907D500B3131B /* RecordingExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B575EC7252907D500B3131B /* RecordingExporter.swift */; };
 		7B575ECA25290A4600B3131B /* NSManagedObject+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B575EC925290A4600B3131B /* NSManagedObject+Utils.swift */; };
@@ -126,6 +127,7 @@
 				0FBBCBA9100A9F67003679A8 /* CoreLocation.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				7B1AC2632335AABB00B6F06A /* KVObserver in Frameworks */,
+				7B48FE882FC4ECDB00225D2A /* GlobalConfModule in Frameworks */,
 				0FB4B0FC10074B20005292C4 /* MapKit.framework in Frameworks */,
 				7B1AC2662335AAD600B6F06A /* RetryingOperation in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
@@ -355,6 +357,7 @@
 				7B1AC2622335AABB00B6F06A /* KVObserver */,
 				7B1AC2652335AAD600B6F06A /* RetryingOperation */,
 				7B1AC2682335AB2000B6F06A /* XibLoc */,
+				7B48FE872FC4ECDB00225D2A /* GlobalConfModule */,
 			);
 			productName = "GPS Recorder";
 			productReference = 1D6058910D05DD3D006BFB54 /* GPS Stone.app */;
@@ -397,6 +400,7 @@
 				7B1AC2612335AABB00B6F06A /* XCRemoteSwiftPackageReference "KVObserver" */,
 				7B1AC2642335AAD600B6F06A /* XCRemoteSwiftPackageReference "RetryingOperation" */,
 				7B1AC2672335AB2000B6F06A /* XCRemoteSwiftPackageReference "XibLoc" */,
+				7B48FE862FC4ECDB00225D2A /* XCRemoteSwiftPackageReference "GlobalConfModule" */,
 			);
 			projectDirPath = "";
 			projectRoot = "";
@@ -509,7 +513,8 @@
 				MARKETING_VERSION = 4.6.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.obviousidea.gpsstone;
 				PRODUCT_NAME = "GPS Stone";
-				SWIFT_VERSION = 5.0;
+				SWIFT_STRICT_MEMORY_SAFETY = YES;
+				SWIFT_VERSION = 6.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -529,7 +534,8 @@
 				MARKETING_VERSION = 4.6.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.obviousidea.gpsstone;
 				PRODUCT_NAME = "GPS Stone";
-				SWIFT_VERSION = 5.0;
+				SWIFT_STRICT_MEMORY_SAFETY = YES;
+				SWIFT_VERSION = 6.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -682,6 +688,14 @@
 				minimumVersion = "2.0.0-beta";
 			};
 		};
+		7B48FE862FC4ECDB00225D2A /* XCRemoteSwiftPackageReference "GlobalConfModule" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Frizlab/GlobalConfModule.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.4;
+			};
+		};
 		7BC43305233624DD00C59752 /* XCRemoteSwiftPackageReference "CollectionAndTableViewUpdateConveniences" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Frizlab/CollectionAndTableViewUpdateConveniences.git";
@@ -707,6 +721,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7B1AC2672335AB2000B6F06A /* XCRemoteSwiftPackageReference "XibLoc" */;
 			productName = XibLoc;
+		};
+		7B48FE872FC4ECDB00225D2A /* GlobalConfModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7B48FE862FC4ECDB00225D2A /* XCRemoteSwiftPackageReference "GlobalConfModule" */;
+			productName = GlobalConfModule;
 		};
 		7BC43306233624DD00C59752 /* CollectionAndTableViewUpdateConveniences */ = {
 			isa = XCSwiftPackageProductDependency;

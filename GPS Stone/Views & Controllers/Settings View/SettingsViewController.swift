@@ -6,7 +6,8 @@ import XibLoc
 
 
 
-class SettingsViewController : UITableViewController {
+@MainActor
+final class SettingsViewController : UITableViewController {
 	
 	@IBOutlet var segmentedCtrlMapType: UISegmentedControl!
 	@IBOutlet var textFieldMinDist: UITextField!
@@ -25,7 +26,8 @@ class SettingsViewController : UITableViewController {
 		}
 	}
 	
-	@IBAction func mapTypeChanged(_ sender: Any) {
+	@IBAction
+	func mapTypeChanged(_ sender: Any) {
 		switch segmentedCtrlMapType.selectedSegmentIndex {
 			case 1: appSettings.mapType = .satellite
 			case 2: appSettings.mapType = .hybrid
@@ -36,7 +38,8 @@ class SettingsViewController : UITableViewController {
 		}
 	}
 	
-	@IBAction func minDistChanged(_ sender: UITextField) {
+	@IBAction
+	func minDistChanged(_ sender: UITextField) {
 		guard let v = sender.text.flatMap({ Int($0) }) else {
 			return
 		}

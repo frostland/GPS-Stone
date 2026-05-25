@@ -6,6 +6,7 @@ import XibLoc
 
 
 
+@MainActor /* For convenience for conforming objects. */
 protocol MiniInfoViewControllerDelegate : AnyObject {
 	
 	func showDetailedInfo()
@@ -13,7 +14,8 @@ protocol MiniInfoViewControllerDelegate : AnyObject {
 }
 
 
-class MiniInfoViewController : UIViewController {
+@MainActor
+final class MiniInfoViewController : UIViewController {
 	
 	@IBOutlet var labelTotalDistance: UILabel!
 	@IBOutlet var labelElapsedTime: UILabel!
@@ -68,12 +70,13 @@ class MiniInfoViewController : UIViewController {
 		}
 	}
 	
-	deinit {
+	isolated deinit {
 		timerUpdateDuration?.invalidate()
 		timerUpdateDuration = nil
 	}
 	
-	@IBAction func viewTapped(_ sender: Any) {
+	@IBAction
+	func viewTapped(_ sender: Any) {
 		delegate?.showDetailedInfo()
 	}
 	

@@ -5,6 +5,7 @@ import KVObserver
 
 
 
+@MainActor /* For convenience for conforming objects. */
 protocol InfoViewControllerDelegate : AnyObject {
 	
 	func showDetailedInfo()
@@ -38,15 +39,18 @@ class InfoViewController : UIViewController {
 		})
 	}
 	
-	@IBAction func showDetailedInfos(_ sender: Any) {
+	@IBAction
+	func showDetailedInfos(_ sender: Any) {
 		delegate?.showDetailedInfo()
 	}
 	
-	@IBAction func showPositionOnMap(_ sender: Any) {
+	@IBAction
+	func showPositionOnMap(_ sender: Any) {
 		delegate?.showMap()
 	}
 	
-	@IBAction func startRecording(_ sender: Any) {
+	@IBAction
+	func startRecording(_ sender: Any) {
 		delegate?.showDetailedInfo()
 		Utils.startOrResumeRecording(in: self, using: locationRecorder)
 	}

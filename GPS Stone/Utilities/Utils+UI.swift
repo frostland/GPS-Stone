@@ -5,10 +5,12 @@ import UIKit
 
 extension Utils {
 	
+	@MainActor
 	static var isDeviceScreenTallerThanOriginalIPhone: Bool {
 		return UIScreen.main.bounds.height > 480
 	}
 	
+	@MainActor
 	static func executeOrShowAlertIn(_ viewController: UIViewController, _ block: () throws -> Void) {
 		do {
 			try block()
@@ -23,6 +25,7 @@ extension Utils {
 		}
 	}
 	
+	@MainActor
 	static func confirmAndExecuteAction(in viewController: UIViewController, needsConfirmation: Bool, alertTitle: String, alertMessage: String, confirmButtonText: String, action: @escaping () -> Void) {
 		guard needsConfirmation else {
 			return action()
@@ -34,6 +37,7 @@ extension Utils {
 		viewController.present(alertVC, animated: true, completion: nil)
 	}
 	
+	@MainActor
 	static func startOrResumeRecording(in viewController: UIViewController, using locationRecorder: LocationRecorder) {
 		Utils.executeOrShowAlertIn(viewController){
 			switch locationRecorder.recStatus {
@@ -44,6 +48,7 @@ extension Utils {
 		}
 	}
 	
+	@MainActor
 	static func pauseRecording(in viewController: UIViewController, using locationRecorder: LocationRecorder, appSettings: AppSettings) {
 		confirmAndExecuteAction(
 			in: viewController,
@@ -62,6 +67,7 @@ extension Utils {
 		)
 	}
 	
+	@MainActor
 	static func stopRecording(in viewController: UIViewController, using locationRecorder: LocationRecorder, appSettings: AppSettings) {
 		confirmAndExecuteAction(
 			in: viewController,
